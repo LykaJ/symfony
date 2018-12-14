@@ -80,42 +80,50 @@ function addPost()
         throw new Exception('Impossible de créer le post');
       }
       else {
-        header('Location: index.php?action=post&id=' . $postId);
+        require('index.php');
       }
     }
   }
 }
 
-
-function editPost()
+function updatePost()
 {
   if (isset($_GET['id']) && $_GET['id'] > 0) {
-    if (!empty($_POST['content'])) {
+   if (!empty($_POST['content'])) {
 
       $id = $_GET['id'];
       $content = $_POST['content'];
 
       $postManager = new PostManager();
 
-      $newContent = $postManger->editPost($id, $content);
+      $newContent = $postManger->updatePost($id, $content);
 
       if ($newContent == false) {
-        throw new Exception("Impossible d\'editer le commentaire !");
+        throw new Exception("Impossible d\'editer le texte !");
       }
       else {
-        require('view/frontend/addPostView.php');
+        header('Location: index.php?action=editPost&id=' . $id);
       }
-    } else {
-      throw new Exception('Tous les champs ne sont pas remplis !');
-    }
+  }  else {
+     throw new Exception('Tous les champs ne sont pas remplis !');
+   }
   } else {
     throw new Exception('Aucun identifiant de billet envoyé');
   }
 }
 
+function editPost()
+{
+  if(isset($_GET['id']) && $_GET['id'] > 0) {
+    $id = $_GET['id'];
 
+    $postManager = new PostManager();
 
+    $post = $postManager->getPost($id);
 
+    require('view/frontend/addPostView.php');
+  }
+}
 
 function deletePost()
 {
@@ -180,7 +188,7 @@ function updateComment()
       }
       else {
         echo "commentaire :" . $_POST['comment'];
-        header('Location: index.php?action=updateComment&id=' . $id);
+        header('Location: index.php?action=editComment&id=' . $id);
       }
     } else {
       throw new Exception('Tous les champs ne sont pas remplis !');
