@@ -40,6 +40,7 @@ class PostManager extends Manager
     $db = $this->dbConnect();
     $req = $db->prepare('UPDATE posts SET author = :author, title = :title, content = :content, edition_date = NOW() WHERE id = :id');
     $newPost = $req->execute(array($content, $id));
+    $newPost = $req->fetch();
 
     return $newPost;
   }
