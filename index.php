@@ -33,16 +33,16 @@ try{
       updateComment();
     break;
 
-    case 'addPost';
-    addPost();
+    case 'addPost':
+      addPost();
     break;
 
-    case 'editPost';
-    editPost();
+    case 'editPost':
+      editPost();
     break;
 
-    case 'deletePost';
-    deletePost();
+    case 'deletePost':
+      deletePost();
     break;
 
     case 'listPosts':
