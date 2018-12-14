@@ -27,7 +27,7 @@
 </head>
 
 <body>
-  <p><a href="index.php">Accéder à l'accueil du site</a></p>
+  <p><a href="../../index.php">Accéder à l'accueil du site</a></p>
 
   <form action="index.php?action=editPost&amp;id=<?= $post['id'] ?> " method="post"> <!-- revoir liens-->
     <p style="text-align: center">

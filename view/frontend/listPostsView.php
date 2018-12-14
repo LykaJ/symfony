@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
-<p><a href="index.php?action=addPost">Ajouter Post : Admin</a></p>
+<p><a href="view/frontend/addPostView.php">Ajouter Post : Admin</a></p>
 
 <p>Derniers billets du blog :</p>
 

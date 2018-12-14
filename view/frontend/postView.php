@@ -8,7 +8,7 @@
     <h3>
         <?= htmlspecialchars($post['title']) ?>
       <!--  <em>le <?= $post['creation_date'] ?></em>-->
-    <p>  <a href="index.php?action=editPost&amp;id=<?= $post['id'] ?> "> (modifier post)</a></p>
+    <p>  <a href="view/frontend/addPostView.php?action=editPost&amp;id=<?= $post['id'] ?>"> (modifier post)</a></p>
     </h3>
 
     <p>
