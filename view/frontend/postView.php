@@ -7,8 +7,8 @@
 <div class="news">
     <h3>
         <?= htmlspecialchars($post['title']) ?>
-      <!--  <em>le <?= $post['creation_date'] ?></em>-->
-    <p>  <a href="view/frontend/addPostView.php?action=editPost&amp;id=<?= $post['id'] ?>"> (modifier post)</a></p>
+        <em>le <?= $post['creation_date'] ?></em>
+        <p><a href="index.php?action=updatePost&amp;id=<?= $post['id']?>&amp;postId=<?= $post['id'] ?>"> (modifier)</a></p>
     </h3>
 
     <p>
@@ -18,7 +18,7 @@
 
 <h2>Commentaires</h2>
 
-<form action="index.php?action=addComment&amp;postId=<?= $post['id'] ?>" method="post">
+<form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
     <div>
         <label for="author">Auteur</label><br />
         <input type="text" id="author" name="author" />

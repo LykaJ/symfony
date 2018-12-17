@@ -33,8 +33,8 @@ try{
       updateComment();
     break;
 
-    case 'addPost':
-      addPost();
+    case 'createPost':
+      createPost();
     break;
 
     case 'editPost':
