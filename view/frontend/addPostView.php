@@ -13,12 +13,12 @@
 </head>
 
 <body>
-  <p><a href="../../index.php">Accéder à l'accueil du site</a></p>
+  <p><a href="index.php">Accéder à l'accueil du site</a></p>
 
   <div class="news">
     <h2>Ajouter Post</h2>
 
-    <form action="index.php?action=addPost&amp;id=<?= $newPost['id'] ?>" method="post">
+    <form action="index.php?action=createPost" method="post">
         <div>
             <label for="author">Auteur</label><br />
             <input type="text" id="author" name="author" />
@@ -33,18 +33,7 @@
         </div>
         <div>
             <input type="submit" />
-        </div>
     </form>
-
-    <?php
-    while ($newPost = $newPosts->fetch())
-    {
-    ?>
-        <p><strong><?= htmlspecialchars($newPost['author']) ?></strong> titre : <strong><?= htmlspecialchars($newPost['title']) ?></strong><a href="index.php?action=updatePost&amp;id=<?= $post['id']?>"> (modifier)</a></p>
-        <p><?= nl2br(htmlspecialchars($newPost['content'])) ?></p>
-    <?php
-    }
-    ?>
   </div>
 </body>
 </html>

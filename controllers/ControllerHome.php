@@ -63,6 +63,8 @@ function showPost()
 
 function createPost()
 {
+  require_once('view/frontend/addPostView.php');
+
   if (!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['content']))
   {
     $author = $_POST['author'];
@@ -70,20 +72,13 @@ function createPost()
     $content = $_POST['content'];
     $postManager = new PostManager();
 
-    $newPostLines = $postManager->addPost($author, $title, $content);
+    $newPostLines = $postManager->postPost($author, $title, $content);
 
     if ($newPostLines === false) {
       throw new Exception('Impossible d\'ajouter le post !');
     }
-    else {
-      //require('view/frontend/addPostView.php');
-    }
-  } else {
-    throw new Exception('Tous les champs ne sont pas remplis !');
   }
 }
-
-
 
 //COMMENTS
 function addComment()
