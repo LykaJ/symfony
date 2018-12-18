@@ -61,82 +61,31 @@ function showPost()
   }
 }
 
-function addPost()
+function createPost()
 {
-  if(isset($_GET['id']) && $_GET['id'] > 0) {
-    if(!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['content']))
-    {
-      $postId = $_GET['id'];
-      $author = $_POST['author'];
-      $title = $_POST['title'];
-      $content = $_POST['content'];
+  if (!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['content']))
+  {
+    $author = $_POST['author'];
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $postManager = new PostManager();
 
-      $postManager = new PostManger();
+    $newPostLines = $postManager->addPost($author, $title, $content);
 
-      $affectedLines = $postManager->addPost($postId, $author, $title, $content);
-
-      if($affectedLines === false)
-      {
-        throw new Exception('Impossible de créer le post');
-      }
-      else {
-        header('Location: index.php?action=post&id=' . $postId);
-      }
+    if ($newPostLines === false) {
+      throw new Exception('Impossible d\'ajouter le post !');
     }
-  }
-}
-
-
-function editPost()
-{
-  if (isset($_GET['id']) && $_GET['id'] > 0) {
-    if (!empty($_POST['content'])) {
-
-      $id = $_GET['id'];
-      $content = $_POST['content'];
-
-      $postManager = new PostManager();
-
-      $newContent = $postManger->editPost($id, $content);
-
-      if ($newContent == false) {
-        throw new Exception("Impossible d\'editer le commentaire !");
-      }
-      else {
-        require('view/frontend/addPostView.php');
-      }
-    } else {
-      throw new Exception('Tous les champs ne sont pas remplis !');
+    else {
+      //require('view/frontend/addPostView.php');
     }
   } else {
-    throw new Exception('Aucun identifiant de billet envoyé');
+    throw new Exception('Tous les champs ne sont pas remplis !');
   }
 }
-
-
-
-
-
-function deletePost()
-{
-  if (isset($_GET['delete']))
-  {
-    $delete = $_GET['delete'];
-    $newsManager = new PostManager();
-
-    $newsManager->delete((int) $delete);
-    $message = 'La news a bien été supprimée !';
-  }
-}
-
-//MODIFIER AUTEUR
-
-
 
 
 
 //COMMENTS
-
 function addComment()
 {
   if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -180,7 +129,7 @@ function updateComment()
       }
       else {
         echo "commentaire :" . $_POST['comment'];
-        header('Location: index.php?action=updateComment&id=' . $id);
+        header('Location: index.php?action=editComment&id=' . $id);
       }
     } else {
       throw new Exception('Tous les champs ne sont pas remplis !');
@@ -204,6 +153,7 @@ function editComment()
     require('view/frontend/commentView.php');
   }
 }
+
 
 // RECUPERER INFOS POST
 

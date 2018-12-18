@@ -99,7 +99,7 @@ class Post
     $this->_dateCreation = $dateCreation;
   }
 
-  public function setEdidtionDate(DateTime $dateEdition)
+  public function setEditionDate(DateTime $dateEdition)
   {
     $this->_dateEdition = $dateEdition;
   }
