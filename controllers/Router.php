@@ -1,6 +1,6 @@
 <?php
 
-class Rooter
+class Router
 {
   public function rooterReq()
   {
@@ -34,7 +34,7 @@ class Rooter
         $this->_ctrl = new ControllerHome($url);
       } */
 
-      
+
       //GESTION ERREURS
     } catch (\Exception $e) {
       $errorMsg = $e->getMessage();

@@ -37,8 +37,5 @@ class Comment
     }
   }
 
-  public function setAuthor()
-  {
 
-  }
 }

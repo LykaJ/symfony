@@ -8,11 +8,12 @@
     <h3>
         <?= htmlspecialchars($post['title']) ?>
         <em>le <?= $post['creation_date'] ?></em>
-        <p><a href="index.php?action=updatePost&amp;id=<?= $post['id']?>&amp;postId=<?= $post['id'] ?>"> (modifier)</a></p>
+        <p><a href="index.php?action=editPost&amp;id=<?= $post['id']?>"> (modifier)</a> <a href="index.php?action=deletePost&amp;id=<?= $post['id']?>"> (supprimer)</a></p>
     </h3>
 
     <p>
-        <?= nl2br(htmlspecialchars($post['content'])) ?>
+        <?= nl2br(htmlspecialchars($post['content'])) ?><br/>
+        <strong>Auteur :  <?= nl2br(htmlspecialchars($post['author'])) ?></strong>
     </p>
 </div>
 

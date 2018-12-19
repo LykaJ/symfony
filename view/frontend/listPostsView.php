@@ -20,6 +20,8 @@ while ($data = $posts->fetch())
     <p>
       <?= nl2br(htmlspecialchars($data['content'])) ?>
       <br />
+      <strong>Auteur :  <?= nl2br(htmlspecialchars($data['author'])) ?></strong>
+      <br/>
       <em><a href="index.php?action=showPost&amp;id=<?= $data['id'] ?>">Commentaires</a></em>
     </p>
   </div>

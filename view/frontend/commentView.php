@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 <h1>Mon blog !</h1>
-<p><a href="index.php?action=showPost&amp;id=<?= $post['id'] ?>">Retour à la liste des billets</a></p>
+<p><a href="index.php?action=showPost&amp;postId=<?= $postId['id'] ?>">Retour à la liste des billets</a></p>
 
 
 
