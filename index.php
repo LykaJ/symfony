@@ -1,8 +1,8 @@
 <?php
-require_once('controllers/Rooter.php');
+require_once('controllers/Router.php');
 require_once('controllers/ControllerHome.php');
 
-$rooter = new Rooter();
+$rooter = new Router();
 $rooter->rooterReq();
 
 try{

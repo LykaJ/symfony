@@ -1,18 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body
+{
+font-family: 'Roboto', sans-serif;
+}
+
 h1, h3
 {
     text-align:center;
 }
 h3
 {
-    background-color:blue;
+    background-color: #666699;
     color:white;
     font-size:0.9em;
     margin-bottom:0px;
+    border-radius: 10px;
 }
 .news p
 {
     background-color:#CCCCCC;
     margin-top:0px;
+    border-radius: 10px;
+    border: 1px;
+    border-color: #5A5A5A;
+    padding: 10px;
 }
 .news
 {

@@ -26,15 +26,14 @@ class ControllerHome
   private function posts()
   {
     $this->_postManager = new PostManager;
-    $posts = $this->_postManager->getPost();
+    $posts = $this->_postManager->getPosts();
 
     require_once('view/frontend/listPosts.php');
   }
 }
 
-
-
-//POSTS
+//POST
+//AFFICHER LA LISTE DES POSTS
 
 function listPosts()
 {
@@ -43,6 +42,7 @@ function listPosts()
 
   require('view/frontend/listPostsView.php');
 }
+
 
 function showPost()
 {
@@ -61,15 +61,17 @@ function showPost()
   }
 }
 
+// AJOUTER UN POST
+
 function createPost()
 {
   require_once('view/frontend/addPostView.php');
 
   if (!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['content']))
   {
-    $author = $_POST['author'];
-    $title = $_POST['title'];
-    $content = $_POST['content'];
+    $author = htmlspecialchars($_POST['author']);
+    $title = htmlspecialchars($_POST['title']);
+    $content = htmlspecialchars($_POST['content']);
     $postManager = new PostManager();
 
     $newPostLines = $postManager->postPost($author, $title, $content);
@@ -80,14 +82,84 @@ function createPost()
   }
 }
 
+// METTRE A JOUR UN POST
+
+function updatePost()
+{
+  if(isset($_GET['id']) && $_GET['id'] > 0)
+  {
+    if (!empty($_POST['title']) && !empty($_POST['content']))
+    {
+      $id = $_GET['id'];
+
+      $title = htmlspecialchars($_POST['title']);
+      $content = htmlspecialchars($_POST['content']);
+      $postManager = new PostManager();
+
+      $updatedPost = $postManager->updatePost($id, $title, $content);
+
+      if($updatedPost === false)
+      {
+        throw new Exception('Impossible de modifier le post');
+      } else {
+        header('Location: index.php?action=editPost&id=' . $id);
+      }
+    } else {
+      throw new Exception('Tous les champs ne sont pas remplis');
+    }
+  } else {
+    throw new Exception('Aucun post sélectionné');
+  }
+}
+
+
+function editPost()
+{
+  if(isset($_GET['id']) && $_GET['id'] > 0) {
+
+    $id = $_GET['id'];
+
+    $postManager = new PostManager();
+
+    $post = $postManager->getPost($id);
+  }
+  if ($post === false)
+  {
+    throw new Exception('Impossible d\'afficher le post');
+  }
+  else {
+    require('view/frontend/editPostView.php');
+  }
+}
+
+// SUPPRIMER Post
+function deletePost()
+{
+  if(isset($_GET['id']) && $_GET['id'] > 0) {
+    $id = $_GET['id'];
+
+    $postManager = new PostManager();
+
+    $deletePost = $postManager->deletePost($id);
+  }
+  if($deletePost === false)
+  {
+    throw new Exception('Impossible de supprimer le post');
+  } else {
+    header('Location: index.php');
+  }
+}
+
+
 //COMMENTS
+// AJOUTER UN COMMENTAIRE
 function addComment()
 {
   if (isset($_GET['id']) && $_GET['id'] > 0) {
     if (!empty($_POST['author']) && !empty($_POST['comment'])) {
 
       $postId = $_GET['id'];
-      $author = $_POST['author'];
+      $author = htmlspecialchars($_POST['author']);
       $comment = $_POST['comment'];
       $commentManager = new CommentManager();
 
@@ -97,7 +169,7 @@ function addComment()
         throw new Exception('Impossible d\'ajouter le commentaire !');
       }
       else {
-        header('Location: index.php?action=post&id=' . $postId);
+        header('Location: index.php?action=showPost&id=' . $postId);
       }
     } else {
       throw new Exception('Tous les champs ne sont pas remplis !');
@@ -107,13 +179,14 @@ function addComment()
   }
 }
 
+// MODIFIER UN COMMENTAIRE
 function updateComment()
 {
   if (isset($_GET['id']) && $_GET['id'] > 0) {
     if (!empty($_POST['comment'])) {
 
       $id = $_GET['id'];
-      $comment = $_POST['comment'];
+      $comment = htmlspecialchars($_POST['comment']);
 
       $commentManager = new CommentManager();
 
@@ -134,6 +207,9 @@ function updateComment()
   }
 }
 
+
+
+// RECUPERER INFOS COMMENTAIRE ET POST
 function editComment()
 {
   if(isset($_GET['id']) && $_GET['id'] > 0) {
@@ -148,13 +224,3 @@ function editComment()
     require('view/frontend/commentView.php');
   }
 }
-
-
-// RECUPERER INFOS POST
-
-
-
-
-
-
-//MODIFIER POST ET SUPPRIMER POST

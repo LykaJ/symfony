@@ -19,17 +19,18 @@
     <h2>Ajouter Post</h2>
 
     <form action="index.php?action=createPost" method="post">
+
         <div>
-            <label for="author">Auteur</label><br />
-            <input type="text" id="author" name="author" />
-        </div>
-        <div>
-            <label for="title">Titre</label><br />
+            <label for="title">Auteur</label><br />
             <input type="text" id="title" name="title" />
         </div>
         <div>
+            <label for="author">Titre</label><br />
+            <input type="text" id="author" name="author" />
+        </div>
+        <div>
             <label for="content">Contenu</label><br />
-            <textarea id="content" name="content"></textarea>
+            <textarea id="content" name="content" rows="8" cols="80"></textarea>
         </div>
         <div>
             <input type="submit" />
