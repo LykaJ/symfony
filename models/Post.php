@@ -62,11 +62,11 @@ class Post
   {
     if (!is_string($author) || empty($author))
     {
-      $this->erreurs[] = self::AUTEUR_INVALIDE;
+      $this->_errors[] = self::AUTEUR_INVALIDE;
     }
     else
     {
-      $this->author = $author;
+      $this->_author = $author;
     }
   }
 
