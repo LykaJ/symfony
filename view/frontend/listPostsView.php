@@ -5,7 +5,7 @@
 <p><a href="index.php?action=createPost">Ajouter Post : Admin</a></p>
 
 <p> <a href="index.php?action=newUser">Inscription</a></p>
-<p> <a href="index.php?action=login">Connexion</a></p>
+<p> <a href="index.php?action=Login">Connexion</a></p>
 
 <p>Derniers billets du blog :</p>
 

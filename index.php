@@ -49,8 +49,8 @@ try{
         newUser();
         break;
 
-        case 'login':
-        login();
+        case 'Login':
+        Login();
         break;
 
         case 'listPosts':

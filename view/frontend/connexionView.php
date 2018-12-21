@@ -3,38 +3,12 @@
 <?php ob_start(); ?>
 
 <html>
-<h1>Inscription</h1>
+<h1>Connexion</h1>
 
-<?php
-    if(isset($_POST['password']))
-    {
-        $passform = htmlspecialchars($_POST['password']);
-
-        $correctPass = password_verify($passform, $userPassword['password']);
-        var_dump($correctPass);
-
-        if (!$userPassword)
-        {
-            echo 'Wrong credentials';
-        }
-        if ($correctPass){
-            echo 'Welcome ' . htmlspecialchars($_POST['pseudo']);
-        }
-        else {
-            echo "Wrong credentials";
-        }
-    }
-
-    ?>
-    <form class="" action="index.php?action=" method="post">
-        <label for="pseudo">Nom d'utilisateur</label>
-        <input type="text" name="pseudo" value=""> <br/>
-        <label for="password">Mot de passe</label>
-        <input type="text" name="password" value=""> <br/>
-        <label for="email">Email</label>
-        <input type="text" name="email" value=""> <br/>
-
-        <input type="submit" value="Valider">
+    <form method="get" action="index.php">
+        <fieldset><legend>Login : </legend><input type="text" name="login"/></fieldset>
+        <fieldset><legend>Mot de passe : </legend><input type="password" name="password"/></fieldset>
+        <input type="submit" name="submit" value="Se connecter"/>
     </form>
 
 </body>

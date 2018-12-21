@@ -3,6 +3,7 @@
 // Chargement des classes
 require_once('models/PostManager.php');
 require_once('models/CommentManager.php');
+require_once('models/UserManager.php');
 require_once('models/Manager.php');
 
 
@@ -223,76 +224,77 @@ function editComment()
 
         require('view/frontend/commentView.php');
     }
+}
 
 
 //users
 //INSCRIPTION User
-    function newUser()
+function newUser()
+{
+    require_once('view/frontend/signupView.php');
+
+    if(!empty($_POST['pseudo']) || !empty($_POST['password']) || !empty($_POST['password2']) || !empty($_POST['email']))
     {
-        if(!empty($_POST['pseudo']) || !empty($_POST['password']) || !empty($_POST['password2'])) {
-            $pseudo = htmlspecialchars($_POST['pseudo']);
-            $password = htmlspecialchars($_POST['password']);
-            $password2 = htmlspecialchars($_POST['password2']);
+        $pseudo = htmlspecialchars($_POST['pseudo']);
+        $password = htmlspecialchars($_POST['password']);
+        $password2 = htmlspecialchars($_POST['password2']);
+        $email = htmlspecialchars($_POST['email']);
 
-            $password = hash('sha256', $password);
-            $password2 = hash('sha256', $password2);
+        $password = hash('sha256', $password);
+        $password2 = hash('sha256', $password2);
 
-            $userManager = new UserManager();
+        $userManager = new UserManager();
 
-            $user = $userManager->addUser($pseudo, $password);
+        $newUser = $userManager->addUser($pseudo, $password, $email);
 
-            if(!empty($password === $password2))
-            {
-                echo 'Vous êtes connecté(e)';
-            } else {
-                echo 'Les mots de passe ne correspondent pas';
-            }
-
+        if(!empty($password === $password2))
+        {
+            require('index.php'); //créer une vue après inscription
         } else {
-            throw new Exception('Tous les champs ne sont pas remplis');
+            echo 'Les mots de passe ne correspondent pas';
         }
-    }
 
-    function login()
+    } else {
+        throw new Exception('Tous les champs ne sont pas remplis');
+    }
+}
+
+function Login()
+{
+    if(!empty($_POST['pseudo'] || !empty($_POST['password'])))
     {
-        require_once('view/frontend/connexionView.php');
-        
-        if(!empty($_POST['pseudo'] || !empty($_POST['password'])))
-        {
-            $pseudo = htmlspecialchars($_POST['pseudo']);
-            $password = htmlspecialchars($_POST['password']);
+        $pseudo = htmlspecialchars($_POST['pseudo']);
+        $password = htmlspecialchars($_POST['password']);
 
-            $password = hash('sha256', $password);
+        $password = hash('sha256', $password);
 
-            $userManager = new UserManager();
+        $userManager = new UserManager();
 
-            $userLogin = $userManager->getUser($pseudo, $password);
-        }
+        $userLogin = $userManager->getUser($pseudo, $password);
     }
+}
 
-    function deleteUser()
+function deleteUser()
+{
+
+}
+
+function verifyPass()
+{
+    if(!empty($_POST['password']))
     {
+        $passform = htmlspecialchars($_POST['password']);
+        $passform = hash('sha256', $passform);
 
+        $userManager = new UserManager();
+
+        $userManager->getUser($password);
     }
-
-    function verifyPass()
+    if($passform != $password)
     {
-        if(!empty($_POST['password']))
-        {
-            $passform = htmlspecialchars($_POST['password']);
-            $passform = hash('sha256', $passform);
-
-            $userManager = new UserManager();
-
-            $userManager->getUser($password);
-        }
-        if($passform != $password)
-        {
-            throw new Exception('Wrong credentials');
-        }
-        else {
-            echo 'New connexion';
-        }
+        throw new Exception('Wrong credentials');
     }
-
+    else {
+        echo 'New connexion';
+    }
 }

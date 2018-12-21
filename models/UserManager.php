@@ -17,7 +17,7 @@ class UserManager extends Manager
     public function addUser($pseudo, $password, $email)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO users(pseudo, password, email, signup_date) VALUES (?, ?, ?, NOW())');
+        $req = $db->prepare('INSERT INTO users(pseudo, password, email, signup_date, login_date) VALUES (?, ?, ?, NOW(), NOW())');
         $newUser = $req->execute(array($pseudo, $password, $email));
 
         return $newUser;
