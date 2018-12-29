@@ -2,10 +2,15 @@
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
-<p><a href="index.php?action=createPost">Ajouter Post : Admin</a></p>
 
+<?php if ($userRightsManager->can('add post')) { ?>
+<p><a href="index.php?action=createPost">Ajouter un post</a></p>
+<?php } if (isset($_SESSION['current_user'])) { ?>
+<p> <a href="index.php?action=logout">Déconnexion</a></p>
+<?php } else { ?>
 <p> <a href="index.php?action=signupForm">Inscription</a></p>
 <p> <a href="index.php?action=loginForm">Connexion</a></p>
+<?php } ?>
 
 <p>Derniers billets du blog :</p>
 
@@ -16,7 +21,10 @@ while ($data = $posts->fetch())
   <div class="news">
     <h3>
       <?= htmlspecialchars($data['title']) ?>
-      <!--  <em>le <?= $data['creation_date'] ?></em> -->
+     <em>le <?php
+     $date = new DateTime($data['creation_date']);
+     echo $date->format('d/m/Y H:i');
+     ?></em>
 
     </h3>
 

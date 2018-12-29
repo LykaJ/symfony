@@ -36,6 +36,4 @@ class Comment
       $this->_id=$id;
     }
   }
-
-
 }

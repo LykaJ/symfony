@@ -39,6 +39,7 @@ class ControllerHome
 function listPosts()
 {
     $postManager = new PostManager(); // Création d'un objet
+    $userRightsManager = new UserRightManager();
     $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
 
     require('view/frontend/listPostsView.php');
@@ -243,25 +244,31 @@ function newUser()
         $password = htmlspecialchars($_POST['password']);
         $password2 = htmlspecialchars($_POST['password2']);
         $email = htmlspecialchars($_POST['email']);
-
-        $password = hash('sha256', $password);
-        $password2 = hash('sha256', $password2);
+        $hash = hash('sha256', $password);
 
         $userManager = new UserManager();
 
-        if(!empty($password === $password2))
+        if($password !== $password2)
         {
-            $newUser = $userManager->addUser($pseudo, $password, $email);
-            header('Location : index.php?action=signupForm');
+            flash_error('Les mots de passe ne correspondent pas');
+            header('Location: index.php?action=signupForm');
+        }
+        else if(!empty($userManager->getUser($pseudo)))
+        {
+            flash_error('Ce pseudo est déjà utilisé :(');
+            header('Location: index.php?action=signupForm');
         }
         else
         {
-            echo 'Les mots de passe ne correspondent pas';
+            $newUser = $userManager->addUser($pseudo, $hash, $email);
+            flash_sucess('Bienvenue' . $pseudo . ' !');
+            header('Location: index.php');
         }
     }
     else
     {
-        throw new Exception('Tous les champs ne sont pas remplis');
+        flash_error('Tous les champs ne sont pas remplis');
+        header('Location: index.php?action=signupForm');
     }
 }
 
@@ -281,16 +288,18 @@ function login()
 
         $userManager = new UserManager();
 
-        $password = $userManager->getPassword($pseudo);
+        $user = $userManager->getUser($pseudo);
+        $password = $user['password'];
 
         if($passform === $password)
         {
-            echo "Bienvenue " . $pseudo . " !";
+            $_SESSION['current_user'] = $user;
+            header('Location: index.php');
         }
         else
         {
             throw new Exception('Mauvais identifiants');
-            header('Location : index.php?action=loginForm');
+            header('Location: index.php?action=loginForm');
         }
     }
 }
@@ -298,6 +307,12 @@ function login()
 function loginForm()
 {
     require_once('view/frontend/connexionView.php');
+}
+
+function logout()
+{
+    unset($_SESSION['current_user']);
+    header('Location: index.php');
 }
 
 function deleteUser()

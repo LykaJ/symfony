@@ -10,7 +10,7 @@ class PostManager extends Manager
   public function getPosts()
   {
     $db = $this->dbConnect();
-    $req = $db->query('SELECT id, title, author, content FROM posts');
+    $req = $db->query('SELECT id, title, author, content, creation_date FROM posts');
 
     return $req;
   }

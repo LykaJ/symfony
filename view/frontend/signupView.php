@@ -14,6 +14,15 @@
         <input type="submit" name="submit" value="Valider"/>
     </form>
 
+    <?php
+      $error = get_flash('error');
+
+      if (!empty($error)) {
+          ?>
+          <p><?= $error ?></p>
+
+      <?php } ?>
+
 </body>
 </html>
 
