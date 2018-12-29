@@ -2,7 +2,7 @@
 
 class Router
 {
-  public function rooterReq()
+  public function routerReq()
   {
     try {
       spl_autoload_register(function($class)

@@ -11,19 +11,18 @@ h1, h3
 }
 h3
 {
-    background-color: #666699;
-    color:white;
-    font-size:0.9em;
+    color:#666699;
+    font-size:1em;
     margin-bottom:0px;
-    border-radius: 10px;
+    padding: 5px;
 }
 .news p
 {
-    background-color:#CCCCCC;
     margin-top:0px;
-    border-radius: 10px;
     border: 1px;
-    border-color: #5A5A5A;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #BFB5B2;
     padding: 10px;
 }
 .news
