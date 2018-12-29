@@ -5,13 +5,14 @@ require_once('models/Manager.php');
 
 class UserManager extends Manager
 {
-    public function getUser($pseudo, $password)
+    public function getPassword($pseudo)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, pseudo, password FROM users WHERE id = ?');
-        $userCredentials = $req->execute(array($pseudo, $password));
+        $req = $db->prepare('SELECT password FROM users WHERE pseudo = ? LIMIT 1');
+        $userCredentials = $req->execute(array($pseudo));
 
-        return $userCredentials;
+
+        return $req->fetch()['password'];
     }
 
     public function addUser($pseudo, $password, $email)

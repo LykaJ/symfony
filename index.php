@@ -41,6 +41,10 @@ try{
         editPost();
         break;
 
+        case 'updatePost':
+        updatePost();
+        break;
+
         case 'deletePost':
         deletePost();
         break;
@@ -49,8 +53,16 @@ try{
         newUser();
         break;
 
-        case 'Login':
-        Login();
+        case 'signupForm':
+        signupForm();
+        break;
+
+        case 'login':
+        login();
+        break;
+
+        case 'loginForm':
+        loginForm();
         break;
 
         case 'listPosts':

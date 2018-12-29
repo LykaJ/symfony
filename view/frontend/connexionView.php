@@ -1,13 +1,13 @@
 <?php $title = 'Connexion' ?>
-
+<?php session_start(); ?>
 <?php ob_start(); ?>
 
 <html>
 <h1>Connexion</h1>
 
-    <form method="get" action="index.php">
-        <fieldset><legend>Login : </legend><input type="text" name="login"/></fieldset>
-        <fieldset><legend>Mot de passe : </legend><input type="password" name="password"/></fieldset>
+    <form method="post" action="index.php?action=login">
+        <fieldset><legend>Identifiant : </legend><input id="pseudo" type="text" name="pseudo"/></fieldset>
+        <fieldset><legend>Mot de passe : </legend><input id="password" type="password" name="password"/></fieldset>
         <input type="submit" name="submit" value="Se connecter"/>
     </form>
 

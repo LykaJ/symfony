@@ -102,13 +102,19 @@ function updatePost()
             if($updatedPost === false)
             {
                 throw new Exception('Impossible de modifier le post');
-            } else {
-                header('Location: index.php?action=editPost&id=' . $id);
             }
-        } else {
+            else
+            {
+                header('Location: index.php');
+            }
+        }
+        else
+        {
             throw new Exception('Tous les champs ne sont pas remplis');
         }
-    } else {
+    }
+    else
+    {
         throw new Exception('Aucun post sélectionné');
     }
 }
@@ -231,9 +237,7 @@ function editComment()
 //INSCRIPTION User
 function newUser()
 {
-    require_once('view/frontend/signupView.php');
-
-    if(!empty($_POST['pseudo']) || !empty($_POST['password']) || !empty($_POST['password2']) || !empty($_POST['email']))
+    if(!empty($_POST['pseudo']) && !empty($_POST['password']) && !empty($_POST['password2']) && !empty($_POST['email']))
     {
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $password = htmlspecialchars($_POST['password']);
@@ -245,56 +249,58 @@ function newUser()
 
         $userManager = new UserManager();
 
-        $newUser = $userManager->addUser($pseudo, $password, $email);
-
         if(!empty($password === $password2))
         {
-            require('index.php'); //créer une vue après inscription
-        } else {
+            $newUser = $userManager->addUser($pseudo, $password, $email);
+            header('Location : index.php?action=signupForm');
+        }
+        else
+        {
             echo 'Les mots de passe ne correspondent pas';
         }
-
-    } else {
+    }
+    else
+    {
         throw new Exception('Tous les champs ne sont pas remplis');
     }
 }
 
-function Login()
+function signupForm()
 {
-    if(!empty($_POST['pseudo'] || !empty($_POST['password'])))
+    require_once('view/frontend/signupView.php');
+}
+
+function login()
+{
+    if(!empty($_POST['pseudo']) && !empty($_POST['password']))
     {
         $pseudo = htmlspecialchars($_POST['pseudo']);
-        $password = htmlspecialchars($_POST['password']);
+        $passform = htmlspecialchars($_POST['password']);
 
-        $password = hash('sha256', $password);
+        $passform = hash('sha256', $passform);
 
         $userManager = new UserManager();
 
-        $userLogin = $userManager->getUser($pseudo, $password);
+        $password = $userManager->getPassword($pseudo);
+
+        if($passform === $password)
+        {
+            echo "Bienvenue " . $pseudo . " !";
+        }
+        else
+        {
+            throw new Exception('Mauvais identifiants');
+            header('Location : index.php?action=loginForm');
+        }
     }
+}
+
+function loginForm()
+{
+    require_once('view/frontend/connexionView.php');
 }
 
 function deleteUser()
 {
 
-}
-
-function verifyPass()
-{
-    if(!empty($_POST['password']))
-    {
-        $passform = htmlspecialchars($_POST['password']);
-        $passform = hash('sha256', $passform);
-
-        $userManager = new UserManager();
-
-        $userManager->getUser($password);
-    }
-    if($passform != $password)
-    {
-        throw new Exception('Wrong credentials');
-    }
-    else {
-        echo 'New connexion';
-    }
 }

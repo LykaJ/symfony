@@ -4,8 +4,8 @@
 <h1>Mon super blog !</h1>
 <p><a href="index.php?action=createPost">Ajouter Post : Admin</a></p>
 
-<p> <a href="index.php?action=newUser">Inscription</a></p>
-<p> <a href="index.php?action=Login">Connexion</a></p>
+<p> <a href="index.php?action=signupForm">Inscription</a></p>
+<p> <a href="index.php?action=loginForm">Connexion</a></p>
 
 <p>Derniers billets du blog :</p>
 
