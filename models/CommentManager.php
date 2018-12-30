@@ -24,7 +24,7 @@ class CommentManager extends Manager
   public function getComment($id)
   {
     $db = $this->dbConnect();
-    $req = $db->prepare('SELECT id, author, comment, comment_date FROM comments WHERE id = ?');
+    $req = $db->prepare('SELECT id, post_id, author, comment, comment_date FROM comments WHERE id = ?');
     $req->execute(array($id));
     $comment = $req->fetch();
 

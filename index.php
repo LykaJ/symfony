@@ -40,6 +40,10 @@ try{
         createPost();
         break;
 
+        case 'newPost':
+        newPost();
+        break;
+
         case 'editPost':
         editPost();
         break;

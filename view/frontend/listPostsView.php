@@ -3,8 +3,17 @@
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
 
+<?php
+  $error = get_flash('error');
+
+  if (!empty($error)) {
+      ?>
+      <p><?= $error ?></p>
+
+  <?php } ?>
+
 <?php if ($userRightsManager->can('add post')) { ?>
-<p><a href="index.php?action=createPost">Ajouter un post</a></p>
+<p><a href="index.php?action=newPost">Ajouter un post</a></p>
 <?php } if (isset($_SESSION['current_user'])) { ?>
 <p> <a href="index.php?action=logout">Déconnexion</a></p>
 <?php } else { ?>

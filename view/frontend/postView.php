@@ -8,9 +8,11 @@
     <h3>
         <?= htmlspecialchars($post['title']) ?>
         <em>le <?= $post['creation_date'] ?></em>
+        <?php  if($userRightsManager->can('edit post') && $userRightsManager->can('delete post')) { ?>
         <p><a href="index.php?action=editPost&amp;id=<?= $post['id']?>"> (modifier)</a> <a href="index.php?action=deletePost&amp;id=<?= $post['id']?>"> (supprimer)</a></p>
-    </h3>
+    <?php } ?>
 
+    </h3>
     <p>
         <?= nl2br(htmlspecialchars($post['content'])) ?><br/>
         <strong>Auteur :  <?= nl2br(htmlspecialchars($post['author'])) ?></strong>

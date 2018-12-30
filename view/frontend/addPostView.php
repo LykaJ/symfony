@@ -8,8 +8,6 @@
 <head>
   <title>Administration</title>
   <meta charset="utf-8" />
-
-</style>
 </head>
 
 <body>
