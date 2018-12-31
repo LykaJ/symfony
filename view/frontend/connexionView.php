@@ -1,5 +1,6 @@
+
 <?php $title = 'Connexion' ?>
-<?php session_start(); ?>
+
 <?php ob_start(); ?>
 
 <html>

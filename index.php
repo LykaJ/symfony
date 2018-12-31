@@ -1,6 +1,9 @@
 <?php
+session_start();
+
 require_once('controllers/Router.php');
 require_once('controllers/ControllerHome.php');
+require_once('functions/Flash.php');
 
 $rooter = new Router();
 $rooter->routerReq();
@@ -63,6 +66,10 @@ try{
 
         case 'loginForm':
         loginForm();
+        break;
+
+        case 'logout':
+        logout();
         break;
 
         case 'listPosts':
