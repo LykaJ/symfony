@@ -88,6 +88,9 @@ function createPost()
 
         if ($newPostLines === false) {
             throw new Exception('Impossible d\'ajouter le post !');
+        } else {
+        //    flash_sucess('Le post a bien été ajouté');
+            header('Location: index.php');
         }
     }
 }
@@ -285,7 +288,7 @@ function newUser()
         else
         {
             $newUser = $userManager->addUser($pseudo, $hash, $email);
-            flash_sucess('Bienvenue' . $pseudo . ' !');
+            flash_sucess('Bienvenue ' . $pseudo . ' !');
             header('Location: index.php');
         }
     }

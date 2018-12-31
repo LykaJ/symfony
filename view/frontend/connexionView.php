@@ -9,7 +9,7 @@
     <form method="post" action="index.php?action=login">
         <fieldset><legend>Identifiant : </legend><input id="pseudo" type="text" name="pseudo"/></fieldset>
         <fieldset><legend>Mot de passe : </legend><input id="password" type="password" name="password"/></fieldset>
-        <input type="submit" name="submit" value="Se connecter"/>
+        <input class="btn btn-primary" type="submit" value="Se connecter"/>
     </form>
 
 </body>

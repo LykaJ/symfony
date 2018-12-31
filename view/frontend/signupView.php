@@ -5,24 +5,44 @@
 <html>
 <h1>Inscription</h1>
 
-    <form method="post" action="index.php?action=newUser">
-        <fieldset><legend>Identifiant* : </legend><input id="pseudo" type="text" name="pseudo"/></fieldset>
-        <fieldset><legend>Mot de passe* : </legend><input id="password" type="password" name="password"/></fieldset>
-        <fieldset><legend>Confirmer mot de passe* : </legend><input id="password2" type="password" name="password2"/></fieldset>
-        <fieldset><legend>Email* : </legend><input id="email" type="email" name="email"/></fieldset>
+<div class="container">
 
-        <input type="submit" name="submit" value="Valider"/>
+    <form method="post" action="index.php?action=newUser">
+        <div class="form-group">
+            <label for="identifiant">Identifiant*</label>
+            <input id="pseudo" type="text" name="pseudo" class="form-control" placeholder="Identifiant">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mot de passe*</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" name="password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Confirmer mot de passe*</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmer mot de passe" name="password2">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email*</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Saisir email" name="email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+    <!--    <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1"> By submitting this form, I agree that my data will be processed, used and exploited in order to be contacted considering the business relationship established here.
+            </label>
+        </div> -->
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
     <?php
-      $error = get_flash('error');
+    $error = get_flash('error');
 
-      if (!empty($error)) {
-          ?>
-          <p><?= $error ?></p>
+    if (!empty($error)) {
+        ?>
+        <div class="alert alert-danger" role="alert"><?= $error ?></div>
 
-      <?php } ?>
-
+    <?php } ?>
+</div>
+</div>
 </body>
 </html>
 

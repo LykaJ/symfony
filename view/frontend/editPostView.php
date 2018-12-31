@@ -15,7 +15,7 @@
 <body>
   <p><a href="index.php">Accéder à l'accueil du site</a></p>
 
-  <div class="news">
+  <div class="container">
     <h2>Modifier Post</h2>
 
     <form action="index.php?action=updatePost&amp;id=<?= $post['id']?>" method="post">
@@ -31,7 +31,7 @@
             <textarea id="content" name="content" rows="8" cols="80"><?= htmlspecialchars($post['content'])?></textarea>
         </div>
         <div>
-            <input type="submit" />
+            <input class="btn btn-primary" type="submit" />
     </form>
   </div>
 </body>
