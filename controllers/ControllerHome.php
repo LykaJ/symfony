@@ -89,7 +89,7 @@ function createPost()
         if ($newPostLines === false) {
             throw new Exception('Impossible d\'ajouter le post !');
         } else {
-        //    flash_sucess('Le post a bien été ajouté');
+            //    flash_sucess('Le post a bien été ajouté');
             header('Location: index.php');
         }
     }
@@ -186,6 +186,20 @@ function deletePost()
     }
 }
 
+//Pagination
+
+function pagination()
+{
+    $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+    $perPage = isset($_GET['perPage']) && $_GET['perPage'] <= 50 ? (int) $_GET['perPage'] : 5;
+
+    $paginationManager = new PaginationManager;
+
+    $paginationManager->countPosts($posts);
+    $paginationManager->totalPages($total);
+
+    $pages = ceil($total / $perPage);
+}
 
 //COMMENTS
 // AJOUTER UN COMMENTAIRE
@@ -218,6 +232,15 @@ function addComment()
 // MODIFIER UN COMMENTAIRE
 function updateComment()
 {
+    $userRightsManager = new UserRightManager();
+
+    if(!$userRightsManager->can('edit comment'))
+    {
+        flash_error('Vous n\'avez pas les droits');
+        header('Location: index.php');
+        return;
+    }
+
     if (isset($_GET['id']) && $_GET['id'] > 0) {
         if (!empty($_POST['comment'])) {
 
@@ -342,7 +365,15 @@ function logout()
     header('Location: index.php');
 }
 
+/*
 function deleteUser()
 {
+    $userRightsManager = new UserRightManager();
 
-}
+    if(!$userRightsManager->can('delete user'))
+    {
+        flash_error('Vous n\'avez pas les droits');
+        header('Location: index.php');
+        return;
+    }
+} */

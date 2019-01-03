@@ -76,6 +76,14 @@ try{
         logout();
         break;
 
+        case 'countPosts':
+        countPosts();
+        break;
+
+        case 'totalPages':
+        totalPages();
+        break;
+
         case 'listPosts':
         default:
         listPosts();

@@ -1,6 +1,6 @@
 <?php
 
-require_once('Manager.php');
+require_once('models/Manager.php');
 
 class UserRightManager extends Manager
 {
@@ -19,4 +19,12 @@ class UserRightManager extends Manager
         return false;
       }
   }
+
+ /*  public function currentUser() // créer un pont entre la personne connectée et l'auteur d'un commentaire existant
+  {
+     if(isset($_SESSION['current_user'])) {
+          $db = $this->dbConnect();
+          $req = $db->prepare('SELECT id, author FROM comments');
+      }
+  } */
 }

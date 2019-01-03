@@ -23,45 +23,51 @@
         <h2>Derniers billets du blog :</h2>
 
         <?php
+
         while ($data = $posts->fetch())
         {
-            ?>
-            <h3>
-                <?= htmlspecialchars($data['title']) ?>
-                <em>le <?php
-                $date = new DateTime($data['creation_date']);
-                echo $date->format('d/m/Y H:i');
-                ?></em>
-            </h3>
+ ?>
+    <h3>
+        <?= htmlspecialchars($data['title']) ?>
+    </h3>
 
-            <p>
-                <?= nl2br(htmlspecialchars($data['content'])) ?>
-                <br />
-                <strong>Auteur :  <?= nl2br(htmlspecialchars($data['author'])) ?></strong>
-                <br/>
-                <em><a href="index.php?action=showPost&amp;id=<?= $data['id'] ?>">Commentaires</a></em>
+    <p>
+        <?= nl2br(htmlspecialchars($data['content'])) ?>
+        <br />
+        <strong>Auteur :  <?= nl2br(htmlspecialchars($data['author'])) ?></strong>
+        <br/>
+        <p><em>Publié le <?php
+        $date = new DateTime($data['creation_date']);
+        echo $date->format('d/m/Y H:i');
+        ?> modifié le <?php
+        $date_edition = new DateTime($data['edition_date']);
+        echo $date_edition->format('d/m/Y H:i');
+         ?>
+        </em></p>
+        <p><a href="index.php?action=showPost&amp;id=<?= $data['id'] ?>">Commentaires du post</a></p>
 
                 <?php
+
             }
             $posts->closeCursor();
             ?>
         </p>
     </div>
 </div>
-
+<?php
+for($x = 1; $x <= $pages; $x++): ?>
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item disabled">
             <a class="page-link" href="#" tabindex="-1">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="?"><?php echo $x; ?></a></li>
         <li class="page-item">
             <a class="page-link" href="#">Next</a>
         </li>
     </ul>
 </nav>
+<?php endfor; ?>
 
 <?php $content = ob_get_clean(); ?>
 

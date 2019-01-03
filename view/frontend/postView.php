@@ -7,7 +7,6 @@
 <div class="container">
     <h2>
         <?= htmlspecialchars($post['title']) ?>
-        <em>le <?= $post['creation_date'] ?></em>
         <?php  if($userRightsManager->can('edit post') && $userRightsManager->can('delete post')) { ?>
             <div class="container">
                 <a role="button" class="btn btn-outline-primary" href="index.php?action=editPost&amp;id=<?= $post['id']?>"> Modifier</a> <a role="button" class="btn btn-outline-primary" href="index.php?action=deletePost&amp;id=<?= $post['id']?>"> Supprimer</a>
@@ -19,8 +18,16 @@
         <?= nl2br(htmlspecialchars($post['content'])) ?><br/>
         <strong>Auteur :  <?= nl2br(htmlspecialchars($post['author'])) ?></strong>
     </p>
+    <p><em>publié le <?php
+    $date = new DateTime($post['creation_date']);
+    echo $date->format('d/m/Y H:i');
+    ?> modifié le <?php
+    $date_edition = new DateTime($post['edition_date']);
+    echo $date_edition->format('d/m/Y H:i');
+    ?>
+</em></p>
 
-
+<section>
     <h2>Commentaires</h2>
 
     <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
@@ -42,13 +49,16 @@
     {
         ?>
         <div>
-        <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date'] ?></p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
-        <p><a role="button" class="btn btn-outline-primary" href="index.php?action=editComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> Modifier</a></p>
+            <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?php $dateComment = new DateTime($comment['comment_date']); echo $dateComment->format('d/m/Y');?>
+            <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+            <?php if($userRightsManager->can('edit comment')) { ?>
+                <p><a role="button" class="btn btn-outline-primary" href="index.php?action=editComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> Modifier</a></p>
+            <?php } ?>
         </div>
         <?php
     }
     ?>
+</section>
 </div>
 <?php $content = ob_get_clean(); ?>
 
