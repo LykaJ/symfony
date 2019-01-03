@@ -40,6 +40,10 @@ try{
         createPost();
         break;
 
+        case 'newPost':
+        newPost();
+        break;
+
         case 'editPost':
         editPost();
         break;
@@ -70,6 +74,14 @@ try{
 
         case 'logout':
         logout();
+        break;
+
+        case 'countPosts':
+        countPosts();
+        break;
+
+        case 'totalPages':
+        totalPages();
         break;
 
         case 'listPosts':

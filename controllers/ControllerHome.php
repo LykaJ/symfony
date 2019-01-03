@@ -53,6 +53,7 @@ function showPost()
         $id = $_GET['id'];
         $postManager = new PostManager();
         $commentManager = new CommentManager();
+        $userRightsManager = new UserRightManager();
 
         $post = $postManager->getPost($id);
         $comments = $commentManager->getComments($id);
@@ -67,7 +68,14 @@ function showPost()
 
 function createPost()
 {
-    require_once('view/frontend/addPostView.php');
+    $userRightsManager = new UserRightManager();
+
+    if(!$userRightsManager->can('add post'))
+    {
+        flash_error('Vous n\'avez pas les droits');
+        header('Location: index.php');
+        return;
+    }
 
     if (!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['content']))
     {
@@ -80,8 +88,24 @@ function createPost()
 
         if ($newPostLines === false) {
             throw new Exception('Impossible d\'ajouter le post !');
+        } else {
+            //    flash_sucess('Le post a bien été ajouté');
+            header('Location: index.php');
         }
     }
+}
+
+function newPost()
+{
+    $userRightsManager = new UserRightManager();
+
+    if(!$userRightsManager->can('add post'))
+    {
+        flash_error('Vous n\'avez pas les droits');
+        header('Location: index.php');
+        return;
+    }
+    require_once('view/frontend/addPostView.php');
 }
 
 // METTRE A JOUR UN POST
@@ -97,27 +121,30 @@ function updatePost()
             $title = htmlspecialchars($_POST['title']);
             $content = htmlspecialchars($_POST['content']);
             $postManager = new PostManager();
+            $userRightsManager = new UserRightManager();
 
-            $updatedPost = $postManager->updatePost($id, $title, $content);
+            if($userRightsManager->can('edit post'))
+            {
+                $updatedPost = $postManager->updatePost($id, $title, $content);
 
-            if($updatedPost === false)
-            {
-                throw new Exception('Impossible de modifier le post');
-            }
-            else
-            {
-                header('Location: index.php');
+                if($updatedPost === false)
+                {
+                    flash_error('Impossible de modifier le post');
+                }
+            } else {
+                flash_error('Vous n\'avez pas les droits');
             }
         }
         else
         {
-            throw new Exception('Tous les champs ne sont pas remplis');
+            flash_error('Tous les champs ne sont pas remplis');
         }
     }
     else
     {
-        throw new Exception('Aucun post sélectionné');
+        flash_error('Aucun post sélectionné');
     }
+    header('Location: index.php');
 }
 
 
@@ -147,6 +174,7 @@ function deletePost()
         $id = $_GET['id'];
 
         $postManager = new PostManager();
+        $userRightsManager = new UserRightManager();
 
         $deletePost = $postManager->deletePost($id);
     }
@@ -158,6 +186,20 @@ function deletePost()
     }
 }
 
+//Pagination
+
+function pagination()
+{
+    $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+    $perPage = isset($_GET['perPage']) && $_GET['perPage'] <= 50 ? (int) $_GET['perPage'] : 5;
+
+    $paginationManager = new PaginationManager;
+
+    $paginationManager->countPosts($posts);
+    $paginationManager->totalPages($total);
+
+    $pages = ceil($total / $perPage);
+}
 
 //COMMENTS
 // AJOUTER UN COMMENTAIRE
@@ -190,6 +232,15 @@ function addComment()
 // MODIFIER UN COMMENTAIRE
 function updateComment()
 {
+    $userRightsManager = new UserRightManager();
+
+    if(!$userRightsManager->can('edit comment'))
+    {
+        flash_error('Vous n\'avez pas les droits');
+        header('Location: index.php');
+        return;
+    }
+
     if (isset($_GET['id']) && $_GET['id'] > 0) {
         if (!empty($_POST['comment'])) {
 
@@ -226,7 +277,6 @@ function editComment()
         $postManager = new PostManager();
         $commentManager = new CommentManager();
 
-        $post = $postManager->getPost($id);
         $comment = $commentManager->getComment($id);
 
         require('view/frontend/commentView.php');
@@ -261,7 +311,7 @@ function newUser()
         else
         {
             $newUser = $userManager->addUser($pseudo, $hash, $email);
-            flash_sucess('Bienvenue' . $pseudo . ' !');
+            flash_sucess('Bienvenue ' . $pseudo . ' !');
             header('Location: index.php');
         }
     }
@@ -315,7 +365,15 @@ function logout()
     header('Location: index.php');
 }
 
+/*
 function deleteUser()
 {
+    $userRightsManager = new UserRightManager();
 
-}
+    if(!$userRightsManager->can('delete user'))
+    {
+        flash_error('Vous n\'avez pas les droits');
+        header('Location: index.php');
+        return;
+    }
+} */

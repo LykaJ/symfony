@@ -6,11 +6,19 @@
 <html>
 <h1>Connexion</h1>
 
+<div class="container">
     <form method="post" action="index.php?action=login">
-        <fieldset><legend>Identifiant : </legend><input id="pseudo" type="text" name="pseudo"/></fieldset>
-        <fieldset><legend>Mot de passe : </legend><input id="password" type="password" name="password"/></fieldset>
-        <input type="submit" name="submit" value="Se connecter"/>
+        <div class="form-group">
+            <label for="identifiant">Identifiant*</label>
+            <input id="pseudo" type="text" name="pseudo" class="form-control" placeholder="Identifiant">
+        </div>
+        <div class="form-group">
+            <label for="identifiant">Mot de passe*</label>
+            <input id="password" type="password" name="password" class="form-control" placeholder="Mot de passe">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Se connecter"/>
     </form>
+</div>
 
 </body>
 </html>

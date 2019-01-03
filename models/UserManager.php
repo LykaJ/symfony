@@ -22,7 +22,7 @@ class UserManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO users(pseudo, password, email, signup_date, login_date, profile_id) VALUES (?, ?, ?, NOW(), NOW(), ?)');
-        $newUser = $req->execute(array($pseudo, $password, $email, 1));
+        $newUser = $req->execute(array($pseudo, $password, $email, 4));
 
         return $newUser;
     }

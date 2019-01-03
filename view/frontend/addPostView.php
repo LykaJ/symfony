@@ -8,15 +8,20 @@
 <head>
   <title>Administration</title>
   <meta charset="utf-8" />
-
-</style>
 </head>
 
 <body>
   <p><a href="index.php">Accéder à l'accueil du site</a></p>
 
-  <div class="news">
+  <div class="container">
     <h2>Ajouter Post</h2>
+
+<!--    <?php
+    $success = get_flash('success');
+      if (!empty($success)) {
+        ?>
+        <div class="alert alert-success" role="alert"><?= $success ?></div>
+    <?php } ?> -->
 
     <form action="index.php?action=createPost" method="post">
 
@@ -33,7 +38,7 @@
             <textarea id="content" name="content" rows="8" cols="80"></textarea>
         </div>
         <div>
-            <input type="submit" />
+            <input class="btn btn-primary" type="submit" />
     </form>
   </div>
 </body>
