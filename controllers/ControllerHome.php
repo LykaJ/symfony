@@ -188,17 +188,36 @@ function deletePost()
 
 //Pagination
 
-function pagination()
+function pagination($values, $per_page)
 {
-    $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-    $perPage = isset($_GET['perPage']) && $_GET['perPage'] <= 50 ? (int) $_GET['perPage'] : 5;
+    $total = count($values);
 
-    $paginationManager = new PaginationManager;
+    $pagination = new PaginationManager();
 
-    $paginationManager->countPosts($posts);
-    $paginationManager->totalPages($total);
+    if(isset($_GET['page']))
+    {
+        $current_page = $_GET['page'];
+    } else {
+        $current_page = 1;
+    }
 
-    $pages = ceil($total / $perPage);
+    $counts = ceil($total / $per_page);
+    $param1 = ($current_page - 1) * $per_page;
+    $this->data = array_slice($avlues, $param1, $per_page);
+
+    for($x=1; $x<=$counts; $x++)
+    {
+        $numbers[] = $x;
+    }
+    return $numbers;
+}
+
+function paginationResults()
+{
+    $pagination = new PaginationManager();
+
+    $numbers = $pagination->pagination($data, 1);
+    $result = $pagination->fetchResult();
 }
 
 //COMMENTS
@@ -331,6 +350,8 @@ function login()
 {
     if(!empty($_POST['pseudo']) && !empty($_POST['password']))
     {
+        sleep(1);
+        
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $passform = htmlspecialchars($_POST['password']);
 

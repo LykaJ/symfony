@@ -80,9 +80,6 @@ try{
         countPosts();
         break;
 
-        case 'totalPages':
-        totalPages();
-        break;
 
         case 'listPosts':
         default:

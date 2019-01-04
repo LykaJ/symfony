@@ -4,55 +4,44 @@
 
 class Pagination
 {
-    private $_page;
-    private $_perPage;
+    private $_data;
 
-    public function __construct($data)
+    public function __construct(array $data)
     {
-        $this->hydrate($data);
+      $this->hydrate($data);
     }
 
     public function hydrate(array $data)
     {
-        foreach ($data as $key => $value)
-        {
-            $method = 'set'.ucfirst($key);
+      foreach ($data as $key => $value)
+      {
+        $method = 'set'.ucfirst($key);
 
-            if(method_exists($this, $method))
-            {
-                $this->$method($value);
-            }
+        if(method_exists($this, $method))
+        {
+          $this->$method($value);
+        }
+      }
+    }
+
+    function fetchResult()
+    {
+        $resultsValues = $this->_data;
+        return $resultsValues;
+    }
+
+    function setData($data)
+    {
+        $data = (int) $data;
+
+        if($data > 0)
+        {
+            $this->_data = $data;
         }
     }
 
-    public function setPage($page)
+    function getData()
     {
-        $page = (int) $page;
-
-        if($page > 0)
-        {
-          $this->_page = $page;
-        }
+        return $this->_data;
     }
-
-    public function setPerPage($perPage)
-    {
-        $perPage = (int) $perPage;
-
-        if($page > 0)
-        {
-            $this->_perPage = $perPage;
-        }
-    }
-
-    public function page()
-    {
-        return $page;
-    }
-
-    public function perPage()
-    {
-        return $perPage;
-    }
-
 }
