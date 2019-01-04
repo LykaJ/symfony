@@ -76,10 +76,13 @@ try{
         logout();
         break;
 
-        case 'countPosts':
-        countPosts();
+        case 'countArticles':
+        countArticles();
         break;
 
+        case 'pageTotal':
+        pageTotal();
+        break;
 
         case 'listPosts':
         default:

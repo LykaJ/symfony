@@ -6,16 +6,18 @@ require_once('models/Manager.php');
 class PaginationManager extends Manager
 {
 
-
-    public function countPosts($allPosts)
+    public function countArticles()
     {
         $db = $this->dbConnect();
-        $allPosts = $db->prepare('SELECT COUNT(*) FROM posts');
-        $allPosts->execute();
+        $articles = $db->prepare("SELECT SQL_CALC_FOUND_ROWS id, title, content, author FROM posts LIMIT {$start} , {$perPage}");
+        $articles->execute();
 
-        $allPosts = $allPosts->fetchAll(PDO::FETCH_ASSOC);
+        $articles = $articles->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
+    public function pageTotal()
+    {
+        $db = $this->dbConnect();
+        $total = $db->query("SELECT FOUND_ROWS() AS total")->fetch()['total'];
+    }
 }

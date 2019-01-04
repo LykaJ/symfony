@@ -54,23 +54,25 @@
         </p>
     </div>
 </div>
-<?php
-// $numbers = pagination($data,1);
 
-foreach($numbers as $num)
-{?>
+<?php foreach($articles as $article): ?>
+    <div class="article">
+        <p><?php echo $article['title']; ?></p>
+    </div>
+<?php endforeach; ?>
+
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item disabled">
             <a class="page-link" href="#" tabindex="-1">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="index.php?action=pagination&amp;page=<?php $num; ?>"></a></li>
+        <li class="page-item"><a class="page-link" href="?page=<?php echo $x; ?>&amp;perPage=<?php echo $perPage; ?>"<?php if($page === $x) {echo "class:'selected'";} ?>> <?php echo $x; ?></a></li>
         <li class="page-item">
             <a class="page-link" href="#">Next</a>
         </li>
     </ul>
 </nav>
-<?php }; ?>
+
 
 <?php $content = ob_get_clean(); ?>
 
