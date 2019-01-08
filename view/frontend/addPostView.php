@@ -24,14 +24,14 @@
     <?php } ?> -->
 
     <form action="index.php?action=createPost" method="post">
-
+        <?php if(isset($_SESSION['current_user'])) { ?>
         <div>
-            <label for="title">Auteur</label><br />
-            <input type="text" id="title" name="title" />
+            <label for="author">Auteur : <strong><?php echo $_SESSION['current_user']['pseudo']; ?></strong> </label><br />
         </div>
+        <?php } ?>
         <div>
-            <label for="author">Titre</label><br />
-            <input type="text" id="author" name="author" />
+            <label for="title">Titre</label><br />
+            <input type="text" name="title" />
         </div>
         <div>
             <label for="content">Contenu</label><br />
