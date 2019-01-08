@@ -1,10 +1,16 @@
 <?php
 
+//namespace OpenClassrooms\Blog;
 // Chargement des classes
 require_once('models/PostManager.php');
 require_once('models/CommentManager.php');
 require_once('models/UserManager.php');
 require_once('models/Manager.php');
+
+/*use \OpenClassrooms\Blog\Model\PostManager;
+use \OpenClassrooms\Blog\Model\CommentManager;
+use \OpenClassrooms\Blog\Model\UserRightManager;
+use \OpenClassrooms\Blog\Model\PaginationManager;*/
 
 
 //CREATION CLASSE
@@ -40,6 +46,7 @@ function listPosts()
 {
     $postManager = new PostManager(); // Création d'un objet
     $userRightsManager = new UserRightManager();
+    $pagination = new PaginationManager();
     $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
 
     require('view/frontend/listPostsView.php');
@@ -77,14 +84,14 @@ function createPost()
         return;
     }
 
-    if (!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['content']))
+    if (!empty($_SESSION['current_user']) && !empty($_POST['title']) && !empty($_POST['content']))
     {
-        $author = htmlspecialchars($_POST['author']);
+        $author = $_SESSION['current_user']['pseudo'];
         $title = htmlspecialchars($_POST['title']);
         $content = htmlspecialchars($_POST['content']);
         $postManager = new PostManager();
 
-        $newPostLines = $postManager->postPost($author, $title, $content);
+        $newPostLines = $postManager->postPost($title, $author, $content);
 
         if ($newPostLines === false) {
             throw new Exception('Impossible d\'ajouter le post !');
@@ -190,20 +197,22 @@ function deletePost()
 
 function paginate()
 {
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $perPage = isset($_GET['per_page']) && $_GET['per_page'] <= 50 ? (int)$_GET['per_page'] : 5;
-
-    $paginationManager = new PaginationManager();
-
-    if(!empty($page) && !empty($perPage))
+    if(isset($_GET['page']) && isset($_GET['per_page']))
     {
-        $paginationManager->countArticles($start);
+        $page = $_GET['page'] ? (int)$_GET['page'] : 1;
+        $perPage = $_GET['per_page'] <= 50 ? (int)$_GET['per_page'] : 5;
+        $pagination = new PaginationManager();
+
         $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+        $totalPages = $pagination->countArticles($totalPages);
 
-        $pages = ceil($total/$perPage);
+        var_dump($totalPages);
 
-    } else {
-        flash_error('Il n\'y a pas d\'articles');
+        if(!empty($page) && !empty($perPage))
+        {
+            $totalPosts = $pagination->pageTotal();
+            $pages = ceil($totalPosts/$perPage);
+        }
     }
 }
 
@@ -212,14 +221,15 @@ function paginate()
 function addComment()
 {
     if (isset($_GET['id']) && $_GET['id'] > 0) {
-        if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+        if (!empty($_SESSION['current_user']) && !empty($_POST['comment'])) {
 
             $postId = $_GET['id'];
-            $author = htmlspecialchars($_POST['author']);
-            $comment = $_POST['comment'];
+            $author = $_SESSION['current_user']['pseudo'];
+            $userId = $_SESSION['current_user']['id'];
+            $comment = htmlspecialchars($_POST['comment']);
             $commentManager = new CommentManager();
 
-            $affectedLines = $commentManager->postComment($postId, $author, $comment);
+            $affectedLines = $commentManager->postComment($postId, $author, $userId, $comment);
 
             if ($affectedLines === false) {
                 throw new Exception('Impossible d\'ajouter le commentaire !');
@@ -254,7 +264,6 @@ function updateComment()
             $comment = htmlspecialchars($_POST['comment']);
 
             $commentManager = new CommentManager();
-
             $newComment = $commentManager->updateComment($id, $comment);
 
             if ($newComment == false) {
@@ -264,10 +273,12 @@ function updateComment()
                 echo "commentaire :" . $_POST['comment'];
                 header('Location: index.php?action=editComment&id=' . $id);
             }
+
         } else {
-            throw new Exception('Tous les champs ne sont pas remplis !');
+            flash_error('Tous les champs ne sont pas remplis');
         }
-    } else {
+    }
+    else {
         throw new Exception('Aucun identifiant de billet envoyé');
     }
 }
@@ -278,16 +289,23 @@ function updateComment()
 function editComment()
 {
     if(isset($_GET['id']) && $_GET['id'] > 0) {
-        $id = $_GET['id'];
 
+        $id = $_GET['id'];
         $postManager = new PostManager();
         $commentManager = new CommentManager();
 
         $comment = $commentManager->getComment($id);
 
-        require('view/frontend/commentView.php');
+        if(!empty($_SESSION['current_user']) && $comment['user_id'] === $_SESSION['current_user']['id'])
+        {
+            require('view/frontend/commentView.php');
+
+        } else {
+            flash_error('Nope');
+        }
     }
 }
+
 
 
 //users
@@ -376,12 +394,12 @@ function logout()
 /*
 function deleteUser()
 {
-    $userRightsManager = new UserRightManager();
+$userRightsManager = new UserRightManager();
 
-    if(!$userRightsManager->can('delete user'))
-    {
-        flash_error('Vous n\'avez pas les droits');
-        header('Location: index.php');
-        return;
-    }
+if(!$userRightsManager->can('delete user'))
+{
+flash_error('Vous n\'avez pas les droits');
+header('Location: index.php');
+return;
+}
 } */

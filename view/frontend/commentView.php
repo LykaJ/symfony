@@ -13,12 +13,10 @@
             <label for="comment">Commentaire</label><br />
             <textarea id="comment" name="comment"><?= htmlspecialchars($comment['comment']) ?></textarea>
         </div>
-        <div>
             <input class="btn btn-primary" type="submit"/>
-          </div>
-
     </form>
 </div>
+
 
 
 <?php $content = ob_get_clean(); ?>
