@@ -35,7 +35,7 @@ class ControllerHome
         $this->_postManager = new PostManager;
         $posts = $this->_postManager->getPosts();
 
-        require_once('view/frontend/listPosts.php');
+        require_once('view/frontend/listPostsView.php');
     }
 }
 
@@ -112,7 +112,7 @@ function newPost()
         header('Location: index.php');
         return;
     }
-    require_once('view/frontend/addPostView.php');
+    require_once('view/backend/addPostView.php');
 }
 
 // METTRE A JOUR UN POST
@@ -170,7 +170,7 @@ function editPost()
         throw new Exception('Impossible d\'afficher le post');
     }
     else {
-        require('view/frontend/editPostView.php');
+        require('view/backend/editPostView.php');
     }
 }
 
@@ -194,27 +194,27 @@ function deletePost()
 }
 
 //Pagination
-
+/*
 function paginate()
 {
-    if(isset($_GET['page']) && isset($_GET['per_page']))
-    {
-        $page = $_GET['page'] ? (int)$_GET['page'] : 1;
-        $perPage = $_GET['per_page'] <= 50 ? (int)$_GET['per_page'] : 5;
-        $pagination = new PaginationManager();
+if(isset($_GET['page']) && isset($_GET['per_page']))
+{
+$page = $_GET['page'] ? (int)$_GET['page'] : 1;
+$perPage = $_GET['per_page'] <= 50 ? (int)$_GET['per_page'] : 5;
+$pagination = new PaginationManager();
 
-        $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
-        $totalPages = $pagination->countArticles($totalPages);
+$start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+$totalPages = $pagination->countArticles($totalPages);
 
-        var_dump($totalPages);
+var_dump($totalPages);
 
-        if(!empty($page) && !empty($perPage))
-        {
-            $totalPosts = $pagination->pageTotal();
-            $pages = ceil($totalPosts/$perPage);
-        }
-    }
+if(!empty($page) && !empty($perPage))
+{
+$totalPosts = $pagination->pageTotal();
+$pages = ceil($totalPosts/$perPage);
 }
+}
+} */
 
 //COMMENTS
 // AJOUTER UN COMMENTAIRE
@@ -298,7 +298,7 @@ function editComment()
 
         if(!empty($_SESSION['current_user']) && $comment['user_id'] === $_SESSION['current_user']['id'])
         {
-            require('view/frontend/commentView.php');
+            require('view/backend/commentView.php');
 
         } else {
             flash_error('Nope');
@@ -388,7 +388,49 @@ function loginForm()
 function logout()
 {
     unset($_SESSION['current_user']);
+    unset($_SESSION['expires_at']);
     header('Location: index.php');
+}
+
+function isSessionExpired()
+{
+    if (!isset($_SESSION['current_user']))
+    {
+        return false;
+    }
+
+    if(!isset($_SESSION['expires_at']))
+    {
+        $_SESSION['expires_at'] = time() + 600;
+        return false;
+    }
+
+    if($_SESSION['expires_at'] < time())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+function sessionTicket()
+{
+    if (isset($_COOKIE['ct-s']) === isset($_SESSION['ct-s']))
+    {
+        // C'est reparti pour un tour
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ct-s'] = $ticket;
+        $_SESSION['ct-s'] = $ticket;
+    }
+    else
+    {
+        // On détruit la session
+        $_SESSION = [];
+        unset($_SESSION);
+        header('location:index.php');
+    }
+
 }
 
 /*

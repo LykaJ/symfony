@@ -1,8 +1,21 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
+<?php
 
-<aside class="col col-md-6">
+$cookie_name = "ct-s";
+// On génère quelque chose d'aléatoire
+$ticket = session_id().microtime().rand(0,9999999999);
+// on hash pour avoir quelque chose de propre qui aura toujours la même forme
+$ticket = hash('sha512', $ticket);
+
+if(isset($_SESSION)) {
+    setcookie($cookie_name, $ticket, time() + (60 * 20)); // Expire au bout de 20 min
+}
+
+ ?>
+
+<aside>
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
@@ -29,18 +42,18 @@
             </div>
         </div>
     </div>
-</div>
 </aside>
+
 <br/>
 <section>
     <div class="container">
         <div class="row">
-            <div class="col col-md-4">
+            <div class="col col-md-4 col-sm-12">
                 <h2>Derniers billets du blog :</h2>
             </div>
-            <div class="col col-md-6">
+            <div class="col col-md-6 col-sm-12">
                 <?php foreach($posts as $post): ?>
-                    <div class="article">
+
                         <h3>
                             <?= htmlspecialchars($post['title']) ?>
                         </h3>
@@ -50,21 +63,24 @@
                         <br/>
                         <p><em>Publié le <?php
                         $date = new DateTime($post['creation_date']);
-                        echo $date->format('d/m/Y H:i');
-                        ?> modifié le <?php
-                        $date_edition = new DateTime($post['edition_date']);
-                        echo $date_edition->format('d/m/Y H:i');
+                        echo $date->format('d/m/Y à H:i');
                         ?>
+                        <?php if(isset($post['edition_date'])) { ?>
+                         modifié le
+                         <?php
+                            $date_edition = new DateTime($post['edition_date']);
+                            echo $date_edition->format('d/m/Y à H:i');
+                        } ?>
                     </em></p>
-                    <p><a href="index.php?action=showPost&amp;id=<?= $post['id'] ?>">Commentaires du post</a></p>
-                </div>
+                    <p><a href="index.php?action=showPost&amp;id=<?= $post['id'] ?>">En lire plus...</a></p>
+
             <?php endforeach;?>
         </div>
     </div>
 </div>
 </section>
 
-<div class="container">
+<!--<div class="container">
     <div class="row justify-content-center">
         <div class="col">
             <?php
@@ -86,10 +102,10 @@
             <?php var_dump($pages);?> <br/>
         </div>
     </div>
-</div>
+</div> -->
 
 
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view/template.php'); ?>

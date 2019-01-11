@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <p><a href="index.php">Accéder à l'accueil du site</a></p>
+ <!-- <p><a href="index.php">Accéder à l'accueil du site</a></p> -->
 
   <div class="container">
     <h2>Ajouter Post</h2>
@@ -45,4 +45,4 @@
 </html>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view/template.php'); ?>
