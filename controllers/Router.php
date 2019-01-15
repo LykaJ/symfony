@@ -14,36 +14,36 @@ class Router
                 require_once('models/' .$class. '.php');
             });
 
-            /*    //LE CONTROLLER EST INCLUS SELON L'ACTION DE L'UTILISATEUR
-            if(isset($_GET['uril']))
-            {
-            $url = explode('/', filter_var($_GET['url'], FILTER_SANTITIZE_URL));
+            //LE CONTROLLER EST INCLUS SELON L'ACTION DE L'UTILISATEUR
+        /*     if(isset($_GET['url']))
+           {
+                $url = explode('/', filter_var($_GET['url'], FILTER_SANTITIZE_URL));
 
-            $controller = ucfirst(strtolower($url[0]));
-            $controllerClass = "Controller" .$controller;
-            $controllerFile = "controllers/" .$controllerClass. ".php";
+                $controller = ucfirst(strtolower($url[0]));
+                $controllerClass = "Controller" .$controller;
+                $controllerFile = "controllers/" .$controllerClass. ".php";
 
-            if(file_exists($controllerFile))
+                if(file_exists($controllerFile))
+                {
+                    require_once($controllerFile);
+                    $this->_ctrl = new $controllerClass($url);
+                }
+                else {
+                    throw new Exception('Page introuvable');
+                }
+            }
+            else
             {
-            require_once($controllerFile);
-            $this->_ctrl = new $controllerClass($url);
+                require_once('controllers/ControllerHome.php');
+                $this->_ctrl = new ControllerHome($url);
+            } */
+
+
+            //GESTION ERREURS
+        } catch (\Exception $e) {
+            $errorMsg = $e->getMessage();
+            require_once('view/viewError.php');
         }
-        else {
-        throw new Exception('Page introuvable');
+
     }
-}
-else
-{
-require_once('controllers/ControllerHome.php');
-$this->_ctrl = new ControllerHome($url);
-} */
-
-
-//GESTION ERREURS
-} catch (\Exception $e) {
-    $errorMsg = $e->getMessage();
-    require_once('view/viewError.php');
-}
-
-}
 }

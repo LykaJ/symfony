@@ -3,10 +3,28 @@ session_start();
 
 require_once('controllers/Router.php');
 require_once('controllers/ControllerHome.php');
+//require_once('controllers/ControllerPost.php');
+//require_once('controllers/ControllerComment.php');
+//require_once('controllers/ControllerUser.php');
 require_once('functions/Flash.php');
 
-$rooter = new Router();
-$rooter->routerReq();
+if (isSessionExpired())
+{
+    flash_error('Session expirée');
+    logout();
+    die();
+}
+
+if(sessionTicket())
+{
+    unset($_SESSION);
+    header('location:index.php');
+    flash_error('La session n\'est pas reconnue');
+    die();
+}
+
+$router = new Router();
+$router->routerReq();
 
 try{
     $action = isset($_GET['action']) ? $_GET['action'] : null;

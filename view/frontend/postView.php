@@ -25,10 +25,13 @@
                 </p>
                 <p><em>publié le <?php
                 $date = new DateTime($post['creation_date']);
-                echo $date->format('d/m/Y H:i');
-                ?> modifié le <?php
-                $date_edition = new DateTime($post['edition_date']);
-                echo $date_edition->format('d/m/Y H:i'); ?> </em></p>
+                echo $date->format('d/m/Y à H:i');
+                ?> <?php if(isset($post['edition_date'])) { ?>
+                 modifié le
+                 <?php
+                    $date_edition = new DateTime($post['edition_date']);
+                    echo $date_edition->format('d/m/Y à H:i');
+                } ?> </em></p>
 
                 <?php  if($userRightsManager->can('edit post') && $userRightsManager->can('delete post')) { ?>
 
@@ -90,4 +93,4 @@
 
     <?php $content = ob_get_clean(); ?>
 
-    <?php require('template.php'); ?>
+<?php require('view/template.php'); ?>
