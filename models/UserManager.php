@@ -18,11 +18,21 @@ class UserManager extends Manager
         return $res;
     }
 
+    public function getNewUsers()
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * FROM users WHERE profile_id = 4');
+        $req->execute();
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     public function addUser($pseudo, $password, $email)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO users(pseudo, password, email, signup_date, login_date, profile_id) VALUES (?, ?, ?, NOW(), NOW(), ?)');
-        $newUser = $req->execute(array($pseudo, $password, $email, 1));
+        $newUser = $req->execute(array($pseudo, $password, $email, 4));
 
         return $newUser;
     }

@@ -16,12 +16,12 @@
   <div class="container">
     <h2>Ajouter Post</h2>
 
-<!--    <?php
+  <?php
     $success = get_flash('success');
       if (!empty($success)) {
         ?>
         <div class="alert alert-success" role="alert"><?= $success ?></div>
-    <?php } ?> -->
+    <?php } ?>
 
     <form action="index.php?action=createPost" method="post">
         <?php if(isset($_SESSION['current_user'])) { ?>
