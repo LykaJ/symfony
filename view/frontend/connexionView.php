@@ -17,6 +17,7 @@
             <input id="password" type="password" name="password" class="form-control" placeholder="Mot de passe">
         </div>
         <input class="btn btn-primary" type="submit" value="Se connecter"/>
+        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
     </form>
 </div>
 
@@ -25,4 +26,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view/template.php'); ?>
