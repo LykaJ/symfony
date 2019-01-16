@@ -1,24 +1,19 @@
 <?php
-
 //namespace OpenClassrooms\Blog;
 // Chargement des classes
 require_once('models/PostManager.php');
 require_once('models/CommentManager.php');
 require_once('models/UserManager.php');
 require_once('models/Manager.php');
-
 /*use \OpenClassrooms\Blog\Model\PostManager;
 use \OpenClassrooms\Blog\Model\CommentManager;
 use \OpenClassrooms\Blog\Model\UserRightManager;
 use \OpenClassrooms\Blog\Model\PaginationManager;*/
-
-
 //CREATION CLASSE
 class ControllerHome
 {
     private $_postManager;
     private $_view;
-
     public function __construct($url)
     {
         if(isset($url) && count($url) > 1)
@@ -29,30 +24,76 @@ class ControllerHome
             $this->posts();
         }
     }
-
     private function posts()
     {
         $this->_postManager = new PostManager;
         $posts = $this->_postManager->getPosts();
-
         require_once('view/frontend/listPostsView.php');
+        require_once('view/backend/validationView.php');
     }
 }
-
 //POST
 //AFFICHER LA LISTE DES POSTS
-
 function listPosts()
 {
-    $postManager = new PostManager(); // Création d'un objet
+    $postManager = new PostManager();
     $userRightsManager = new UserRightManager();
     $pagination = new PaginationManager();
-    $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
+
+    $posts = $postManager->getPosts();
 
     require('view/frontend/listPostsView.php');
 }
 
+//VALIDATION VIEW
+function showUnvalidated()
+{
+    $userRightsManager = new UserRightManager();
+    $postManager = new PostManager();
+    $commentManager = new CommentManager();
+    $userManager = new UserManager();
 
+    if($userRightsManager->can('validate'))
+    {
+        $unvalidated_posts = $postManager->getPosts();
+        $unvalidated_comments = $commentManager->getUnvalidatedComments();
+        $new_users = $userManager->getNewUsers();
+        require('view/backend/validationView.php');
+
+    } else {
+        flash_error("Vous n'avez pas les droits");
+        header('Location: index.php');
+    }
+    //$newComment = $commentManager->listUnvalidatedComments();
+}
+
+function validatePost()
+{
+    $postManager = new PostManager();
+    $userRightsManager = new UserRightManager();
+
+    if($userRightsManager->can('validate'))
+    {
+        if(isset($_GET['id']) && $_GET['id'] > 0)
+
+        {
+            $id = $_GET['id'];
+
+            $post = $postManager->getPost($id);
+            $newStatus = $postManager->updatePostStatus($id);
+
+        } else {
+
+            flash_error("Aucun post à valider");
+        }
+
+    } else {
+        flash_error("Vous n'avez pas les droits");
+
+    } header('Location: index.php');
+}
+
+//POST
 function showPost()
 {
     if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -64,40 +105,42 @@ function showPost()
 
         $post = $postManager->getPost($id);
         $comments = $commentManager->getComments($id);
+        $status = $post['status'];
 
-        require('view/frontend/postView.php');
-    } else {
-        throw new Exception('Aucun identifiant de billet envoyé');
+        if(isset($status)) {
+            require('view/frontend/postView.php');
+        } else {
+            header('Location: index.php');
+            flash_error('Ce post n\'est pas validé !');
+        }
+    }
+    else {
+        flash_error('Aucun identifiant de billet envoyé');
     }
 }
 
 // AJOUTER UN POST
-
 function createPost()
 {
     $userRightsManager = new UserRightManager();
-
     if(!$userRightsManager->can('add post'))
     {
         flash_error('Vous n\'avez pas les droits');
         header('Location: index.php');
         return;
     }
-
     if (!empty($_SESSION['current_user']) && !empty($_POST['title']) && !empty($_POST['content']))
     {
         $author = $_SESSION['current_user']['pseudo'];
         $title = htmlspecialchars($_POST['title']);
         $content = htmlspecialchars($_POST['content']);
         $postManager = new PostManager();
-
         $newPostLines = $postManager->postPost($title, $author, $content);
-
         if ($newPostLines === false) {
-            throw new Exception('Impossible d\'ajouter le post !');
+            falsh_error('Impossible d\'ajouter le post !');
         } else {
-            //    flash_sucess('Le post a bien été ajouté');
             header('Location: index.php');
+            flash_warning('Le post doit être validé avant d\'apparaître dans la liste');
         }
     }
 }
@@ -105,7 +148,6 @@ function createPost()
 function newPost()
 {
     $userRightsManager = new UserRightManager();
-
     if(!$userRightsManager->can('add post'))
     {
         flash_error('Vous n\'avez pas les droits');
@@ -115,8 +157,8 @@ function newPost()
     require_once('view/backend/addPostView.php');
 }
 
-// METTRE A JOUR UN POST
 
+// METTRE A JOUR UN POST
 function updatePost()
 {
     if(isset($_GET['id']) && $_GET['id'] > 0)
@@ -124,7 +166,6 @@ function updatePost()
         if (!empty($_POST['title']) && !empty($_POST['content']))
         {
             $id = $_GET['id'];
-
             $title = htmlspecialchars($_POST['title']);
             $content = htmlspecialchars($_POST['content']);
             $postManager = new PostManager();
@@ -133,7 +174,6 @@ function updatePost()
             if($userRightsManager->can('edit post'))
             {
                 $updatedPost = $postManager->updatePost($id, $title, $content);
-
                 if($updatedPost === false)
                 {
                     flash_error('Impossible de modifier le post');
@@ -154,15 +194,11 @@ function updatePost()
     header('Location: index.php');
 }
 
-
 function editPost()
 {
     if(isset($_GET['id']) && $_GET['id'] > 0) {
-
         $id = $_GET['id'];
-
         $postManager = new PostManager();
-
         $post = $postManager->getPost($id);
     }
     if ($post === false)
@@ -178,8 +214,8 @@ function editPost()
 function deletePost()
 {
     if(isset($_GET['id']) && $_GET['id'] > 0) {
-        $id = $_GET['id'];
 
+        $id = $_GET['id'];
         $postManager = new PostManager();
         $userRightsManager = new UserRightManager();
 
@@ -187,11 +223,10 @@ function deletePost()
     }
     if($deletePost === false)
     {
-        throw new Exception('Impossible de supprimer le post');
-    } else {
-        header('Location: index.php');
-    }
+        flash_error('Impossible de supprimer le post');
+    } header('Location: index.php');
 }
+
 
 //Pagination
 /*
@@ -202,19 +237,15 @@ if(isset($_GET['page']) && isset($_GET['per_page']))
 $page = $_GET['page'] ? (int)$_GET['page'] : 1;
 $perPage = $_GET['per_page'] <= 50 ? (int)$_GET['per_page'] : 5;
 $pagination = new PaginationManager();
-
 $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
 $totalPages = $pagination->countArticles($totalPages);
-
 var_dump($totalPages);
-
 if(!empty($page) && !empty($perPage))
 {
 $totalPosts = $pagination->pageTotal();
 $pages = ceil($totalPosts/$perPage);
-}
-}
 } */
+
 
 //COMMENTS
 // AJOUTER UN COMMENTAIRE
@@ -222,13 +253,12 @@ function addComment()
 {
     if (isset($_GET['id']) && $_GET['id'] > 0) {
         if (!empty($_SESSION['current_user']) && !empty($_POST['comment'])) {
-
             $postId = $_GET['id'];
             $author = $_SESSION['current_user']['pseudo'];
             $userId = $_SESSION['current_user']['id'];
             $comment = htmlspecialchars($_POST['comment']);
-            $commentManager = new CommentManager();
 
+            $commentManager = new CommentManager();
             $affectedLines = $commentManager->postComment($postId, $author, $userId, $comment);
 
             if ($affectedLines === false) {
@@ -249,23 +279,18 @@ function addComment()
 function updateComment()
 {
     $userRightsManager = new UserRightManager();
-
     if(!$userRightsManager->can('edit comment'))
     {
         flash_error('Vous n\'avez pas les droits');
         header('Location: index.php');
         return;
     }
-
     if (isset($_GET['id']) && $_GET['id'] > 0) {
         if (!empty($_POST['comment'])) {
-
             $id = $_GET['id'];
             $comment = htmlspecialchars($_POST['comment']);
-
             $commentManager = new CommentManager();
             $newComment = $commentManager->updateComment($id, $comment);
-
             if ($newComment == false) {
                 throw new Exception("Impossible d\'editer le commentaire !");
             }
@@ -273,7 +298,6 @@ function updateComment()
                 echo "commentaire :" . $_POST['comment'];
                 header('Location: index.php?action=editComment&id=' . $id);
             }
-
         } else {
             flash_error('Tous les champs ne sont pas remplis');
         }
@@ -283,30 +307,48 @@ function updateComment()
     }
 }
 
+function validateComment()
+{
+    $commentManager = new CommentManager();
+    $userRightsManager = new UserRightManager();
 
+    if($userRightsManager->can('validate'))
+    {
+        if(isset($_GET['id']) && $_GET['id'] > 0)
+
+        {
+            $id = $_GET['id'];
+
+            $comment = $commentManager->getComment($id);
+            $newStatus = $commentManager->updateCommentStatus($id);
+
+        } else {
+
+            flash_error("Aucun commentaire à valider");
+        }
+
+    } else {
+        flash_error("Vous n'avez pas les droits");
+
+    } header('Location: index.php');
+}
 
 // RECUPERER INFOS COMMENTAIRE ET POST
 function editComment()
 {
     if(isset($_GET['id']) && $_GET['id'] > 0) {
-
         $id = $_GET['id'];
         $postManager = new PostManager();
         $commentManager = new CommentManager();
-
         $comment = $commentManager->getComment($id);
-
         if(!empty($_SESSION['current_user']) && $comment['user_id'] === $_SESSION['current_user']['id'])
         {
             require('view/backend/commentView.php');
-
         } else {
             flash_error('Nope');
         }
     }
 }
-
-
 
 //users
 //INSCRIPTION User
@@ -319,9 +361,7 @@ function newUser()
         $password2 = htmlspecialchars($_POST['password2']);
         $email = htmlspecialchars($_POST['email']);
         $hash = hash('sha256', $password);
-
         $userManager = new UserManager();
-
         if($password !== $password2)
         {
             flash_error('Les mots de passe ne correspondent pas');
@@ -356,17 +396,12 @@ function login()
     if(!empty($_POST['pseudo']) && !empty($_POST['password']))
     {
         sleep(1);
-
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $passform = htmlspecialchars($_POST['password']);
-
         $passform = hash('sha256', $passform);
-
         $userManager = new UserManager();
-
         $user = $userManager->getUser($pseudo);
         $password = $user['password'];
-
         if($passform === $password)
         {
             $_SESSION['current_user'] = $user;
@@ -392,24 +427,49 @@ function logout()
     header('Location: index.php');
 }
 
+function validateUser()
+{
+    $userManager = new UserManager();
+    $new_user = $userManager->getNewUser();
+    require('view/backend/validationView.php');
+}
+
+//Profile User
+function newMember()
+{
+    if(isset($_GET['id']) && $_GET['id'] > 0)
+    {
+        $id = $_GET['id'];
+        $userManager = new UserManager();
+
+        $newProfile = $userManager->profileUser($id);
+
+        if($profileUser === false)
+        {
+            flash_error('Impossible de modifier le profil');
+
+        } else {
+            flash_success('Cet utilisateur est maintenant ' . $newProfile['profile_id']);
+            header('Location: index.php?action=validateUser');
+        }
+    }
+}
+
 function isSessionExpired()
 {
     if (!isset($_SESSION['current_user']))
     {
         return false;
     }
-
     if(!isset($_SESSION['expires_at']))
     {
         $_SESSION['expires_at'] = time() + 600;
         return false;
     }
-
     if($_SESSION['expires_at'] < time())
     {
         return true;
     }
-
     return false;
 }
 
@@ -430,18 +490,32 @@ function sessionTicket()
         unset($_SESSION);
         header('location:index.php');
     }
-
 }
 
-/*
+//DELETE USER
 function deleteUser()
 {
-$userRightsManager = new UserRightManager();
+    if(isset($_GET['id']) && $_GET['id'] > 0)
+    {
+        $id = $_GET['id'];
 
-if(!$userRightsManager->can('delete user'))
-{
-flash_error('Vous n\'avez pas les droits');
-header('Location: index.php');
-return;
+        $userRightsManager = new UserRightManager();
+        $userManager = new UserManager;
+
+        if(!$userRightsManager->can('delete user'))
+        {
+            flash_error('Vous n\'avez pas les droits');
+            header('Location: index.php');
+            return;
+        }
+
+        $deleteUser = $userManager->deleteUser($id);
+
+        if($deleteUser === false)
+        {
+            flash_error('Impossible de supprimer ce user');
+        } else {
+            header('Location: index.php');
+        }
+    }
 }
-} */

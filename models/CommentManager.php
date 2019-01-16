@@ -13,10 +13,20 @@ class CommentManager extends Manager
     return $comments;
   }
 
+  public function getUnvalidatedComments()
+  {
+      $db = $this->dbConnect();
+      $req = $db->prepare('SELECT * FROM comments WHERE status = NULL ORDER BY comment_date DESC');
+      $req->execute();
+      $result = $req->fetchAll(PDO::FETCH_ASSOC);
+
+      return $result;
+  }
+
   public function postComment($postId, $author, $userId, $comment)
   {
     $db = $this->dbConnect();
-    $comments = $db->prepare('INSERT INTO comments(post_id, author, user_id, comment, comment_date) VALUES(?, ?, ?, ?, NOW())');
+    $comments = $db->prepare('INSERT INTO comments(post_id, author, user_id, comment, comment_date, status) VALUES(?, ?, ?, ?, NOW(), NULL)');
     $affectedLines = $comments->execute(array($postId, $author, $userId, $comment));
 
     return $affectedLines;
@@ -39,5 +49,14 @@ class CommentManager extends Manager
     $newComment = $req->execute(array($comment, $id));
 
     return $newComment;
+  }
+
+  public function updateCommentStatus($id)
+  {
+      $db = $this->dbConnect();
+      $req = $db->prepare('UPDATE comments SET status = 1 WHERE id = ?');
+      $newStatus = $req->execute(array($id));
+
+      return $newStatus;
   }
 }

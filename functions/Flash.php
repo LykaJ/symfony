@@ -29,7 +29,7 @@ function get_flash($type)
     return null;
 }
 
-function flash_sucess($message)
+function flash_success($message)
 {
     flash('success', $message);
 }
@@ -37,4 +37,9 @@ function flash_sucess($message)
 function flash_error($message)
 {
     flash('error', $message);
+}
+
+function flash_warning($message)
+{
+    flash('warning', $message);
 }

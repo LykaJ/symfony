@@ -35,7 +35,7 @@
 
                 <?php  if($userRightsManager->can('edit post') && $userRightsManager->can('delete post')) { ?>
 
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=editPost&amp;id=<?= $post['id']?>"> Modifier</a> <a role="button" class="btn btn-outline-primary" href="index.php?action=deletePost&amp;id=<?= $post['id']?>"> Supprimer</a>
+                    <a role="button" class="btn btn-outline-primary" href="index.php?action=editPost&amp;id=<?= $post['id']?>"> Modifier</a> <a role="button" class="btn btn-outline-danger" href="index.php?action=deletePost&amp;id=<?= $post['id']?>"> Supprimer</a>
 
                 <?php } ?>
             </div>
@@ -70,7 +70,7 @@
                     <?php
                     while ($comment = $comments->fetch())
                     {
-                        ?>
+                        if($comment['status'] == 1) {?>
                         <div class="col col-sm-8">
                             <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?php $dateComment = new DateTime($comment['comment_date']); echo $dateComment->format('d/m/Y');?> <br/>
                                 <?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
@@ -84,6 +84,7 @@
 
                             <?php
                         }
+                    }
                         ?>
                     </div>
                 </div>
