@@ -9,16 +9,18 @@ class PostManager extends Manager
     public function getPosts()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, author, content, creation_date, edition_date FROM posts ORDER BY creation_date DESC');
+        $req = $db->prepare('SELECT id, title, author, content, creation_date, edition_date, status FROM posts ORDER BY creation_date DESC');
         $req->execute();
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
 
-        return $req;
+        return $result;
+
     }
 
     public function getPost($postId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, author, content, creation_date, edition_date FROM posts WHERE id = ?');
+        $req = $db->prepare('SELECT id, title, author, content, creation_date, edition_date, status FROM posts WHERE id = ?');
         $req->execute(array($postId));
         $post = $req->fetch();
 
@@ -28,7 +30,7 @@ class PostManager extends Manager
     public function postPost($title, $author, $content)
     {
         $db = $this->dbConnect();
-        $newPost = $db->prepare('INSERT INTO posts(title, author, content, creation_date, edition_date) VALUES(?, ?, ?, NOW(), NULL)');
+        $newPost = $db->prepare('INSERT INTO posts(title, author, content, creation_date, edition_date, status) VALUES(?, ?, ?, NOW(), NULL, NULL)');
         $newPostLines = $newPost->execute(array($title, $author, $content));
 
         return $newPostLines;
@@ -43,7 +45,14 @@ class PostManager extends Manager
         return $updatedPost;
     }
 
+    public function updatePostStatus($id, $status)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET status = 1 WHERE id = ?');
+        $updatedStatus = $req->execute(array($status, $id));
 
+        return $updatedStatus;
+    }
 
     public function deletePost($id)
     {

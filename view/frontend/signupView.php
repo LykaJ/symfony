@@ -33,6 +33,9 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
+    <p>Un validateur va vérifier votre profil avant de le valider. Vous serez informé(e) par mail lors de la confirmation de votre demande. </p>
+
+
     <?php
     $error = get_flash('error');
 

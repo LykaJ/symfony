@@ -36,6 +36,8 @@ class ControllerHome
         $posts = $this->_postManager->getPosts();
 
         require_once('view/frontend/listPostsView.php');
+        require_once('view/backend/validationView.php');
+
     }
 }
 
@@ -44,15 +46,38 @@ class ControllerHome
 
 function listPosts()
 {
-    $postManager = new PostManager(); // Création d'un objet
+    $postManager = new PostManager();
     $userRightsManager = new UserRightManager();
     $pagination = new PaginationManager();
-    $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
+    $posts = $postManager->getPosts();
 
     require('view/frontend/listPostsView.php');
 }
 
+//VALIDATION VIEW
 
+function showUnvalidated() {
+    $userRightsManager = new UserRightManager();
+    $postManager = new PostManager();
+    $commentManager = new CommentManager();
+    $userManager = new UserManager();
+
+    if($userRightsManager->can('validate'))
+    {
+        $unvalidated_posts = $postManager->getPosts();
+        $new_users = $userManager->getNewUsers();
+
+        require('view/backend/validationView.php');
+
+    } else {
+        flash_error("Vous n'avez pas les droits");
+        header('Location: index.php');
+    }
+    //$newComment = $commentManager->listUnvalidatedComments();
+}
+
+
+//POST
 function showPost()
 {
     if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -65,9 +90,18 @@ function showPost()
         $post = $postManager->getPost($id);
         $comments = $commentManager->getComments($id);
 
-        require('view/frontend/postView.php');
-    } else {
-        throw new Exception('Aucun identifiant de billet envoyé');
+        $status = $post['status'];
+
+        if(isset($status)) {
+            require('view/frontend/postView.php');
+
+        } else {
+            header('Location: index.php');
+            flash_error('Ce post n\'est pas validé !');
+        }
+    }
+    else {
+        flash_error('Aucun identifiant de billet envoyé');
     }
 }
 
@@ -84,6 +118,7 @@ function createPost()
         return;
     }
 
+
     if (!empty($_SESSION['current_user']) && !empty($_POST['title']) && !empty($_POST['content']))
     {
         $author = $_SESSION['current_user']['pseudo'];
@@ -94,10 +129,10 @@ function createPost()
         $newPostLines = $postManager->postPost($title, $author, $content);
 
         if ($newPostLines === false) {
-            throw new Exception('Impossible d\'ajouter le post !');
+            falsh_error('Impossible d\'ajouter le post !');
         } else {
-            //    flash_sucess('Le post a bien été ajouté');
             header('Location: index.php');
+            flash_sucess('Le post doit être validé avant d\'apparaître dans la liste');
         }
     }
 }
@@ -114,6 +149,62 @@ function newPost()
     }
     require_once('view/backend/addPostView.php');
 }
+
+// VALIDATION POST
+/* function listUnvalidatedPosts()
+{
+
+    $postManager = new PostManager();
+    $userRightsManager = new UserRightManager();
+    $unvalidated_posts = $postManager->getPosts();
+
+    if($userRightsManager->can('validate'))
+    {
+        require('view/backend/validationView.php');
+
+    } else {
+        flash_error("Vous n'avez pas les droits");
+        header('Location: index.php');
+    }
+} */
+
+
+function validatePost()
+{
+    if(isset($_GET['id']) && $_GET['id'] > 0) {
+
+        $id = $_GET['id'];
+
+        $postManager = new PostManager();
+        $userRightsManager = new UserRightManager();
+
+        if($userRightsManager->can('validate')) {
+
+            $post = $postManager->getPost($id);
+            $status = $post['status'];
+
+            if(isset($status) && $status === NULL)
+            {
+                $updatedStatus = $post->updatePostStatus($id, $status);
+
+                if($updatedStatus === false)
+                {
+                    flash_error('Impossible de validé ce post');
+                }
+            } // else {
+                //flash_sucess('Le post est validé');
+        //    }
+
+        } else {
+            flash_error("Vous n'avez pas les droits");
+        }
+    } else {
+        flash_error('Il n\'y a pas de post a valider');
+    }
+     header('Location: index.php');
+}
+
+
 
 // METTRE A JOUR UN POST
 
@@ -187,7 +278,7 @@ function deletePost()
     }
     if($deletePost === false)
     {
-        throw new Exception('Impossible de supprimer le post');
+        flash_error('Impossible de supprimer le post');
     } else {
         header('Location: index.php');
     }
@@ -392,6 +483,14 @@ function logout()
     header('Location: index.php');
 }
 
+function validateUser()
+{
+    $userManager = new UserManager();
+
+    $new_user = $userManager->getUser();
+    require('view/backend/validationView.php');
+}
+
 function isSessionExpired()
 {
     if (!isset($_SESSION['current_user']))
@@ -430,7 +529,6 @@ function sessionTicket()
         unset($_SESSION);
         header('location:index.php');
     }
-
 }
 
 /*

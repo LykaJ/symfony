@@ -74,6 +74,18 @@ try{
         deletePost();
         break;
 
+        case 'showUnvalidated':
+        showUnvalidated();
+        break;
+
+        case 'listUnvalidatedPosts':
+        listUnvalidatedPosts();
+        break;
+
+        case 'validatePost':
+        validatePost();
+        break;
+
         case 'newUser':
         newUser();
         break;
