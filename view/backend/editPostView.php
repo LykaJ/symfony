@@ -6,33 +6,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Administration</title>
-  <meta charset="utf-8" />
+    <title>Administration</title>
+    <meta charset="utf-8" />
 
 </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h2>Modifier Post</h2>
+    <section class="container">
+        <h2>Modifier Post</h2>
 
-    <form action="index.php?action=updatePost&amp;id=<?= $post['id']?>" method="post">
-        <div>
-            <p>Auteur : <?= htmlspecialchars($post['author'])?></p>
+        <form action="index.php?action=updatePost&amp;id=<?= $post['id']?>" method="post">
+            <div>
+                <p>Auteur : <?= htmlspecialchars($post['author'])?></p>
+            </div>
+            <div class="form-group">
+                <label for="title">Titre</label><br />
+                <input class="form-control" id="title" name="title" value="<?= htmlspecialchars($post['title'])?>"/>
+            </div>
+            <div class="form-group">
+                <label for="content">Contenu</label><br />
+                <textarea class="form-control" id="content" name="content" rows="8"><?= htmlspecialchars($post['content'])?></textarea>
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" />
+            </form>
         </div>
-        <div>
-            <label for="title">Titre</label><br />
-            <textarea id="title" name="title" rows="2" cols="80"><?= htmlspecialchars($post['title'])?></textarea>
-        </div>
-        <div>
-            <label for="content">Contenu</label><br />
-            <textarea id="content" name="content" rows="8" cols="80"><?= htmlspecialchars($post['content'])?></textarea>
-        </div>
-        <div>
-            <input class="btn btn-primary" type="submit" />
-    </form>
-  </div>
+    </section>
 </body>
 </html>
 <?php $content = ob_get_clean(); ?>

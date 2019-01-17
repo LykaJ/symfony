@@ -30,10 +30,14 @@
             <label class="form-check-label" for="exampleCheck1"> By submitting this form, I agree that my data will be processed, used and exploited in order to be contacted considering the business relationship established here.
             </label>
         </div> -->
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
     </form>
 
-    <p>Un validateur va vérifier votre profil avant de le valider. Vous serez informé(e) par mail lors de la confirmation de votre demande. </p>
+<br/>
+
+        <p class="alert alert-info" role="alert">Un validateur va vérifier votre profil avant de le valider. Vous serez informé(e) par mail lors de la confirmation de votre demande. </p>
+
+
 
 
     <?php
@@ -43,7 +47,6 @@
         <div class="alert alert-danger" role="alert"><?= $error ?></div>
 
     <?php } ?>
-</div>
 </div>
 </body>
 </html>

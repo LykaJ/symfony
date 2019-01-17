@@ -5,6 +5,7 @@ require_once('models/PostManager.php');
 require_once('models/CommentManager.php');
 require_once('models/UserManager.php');
 require_once('models/Manager.php');
+require_once('vendor/autoload.php');
 /*use \OpenClassrooms\Blog\Model\PostManager;
 use \OpenClassrooms\Blog\Model\CommentManager;
 use \OpenClassrooms\Blog\Model\UserRightManager;
@@ -64,7 +65,6 @@ function showUnvalidated()
         flash_error("Vous n'avez pas les droits");
         header('Location: index.php');
     }
-    //$newComment = $commentManager->listUnvalidatedComments();
 }
 
 function validatePost()
@@ -375,7 +375,7 @@ function newUser()
         else
         {
             $newUser = $userManager->addUser($pseudo, $hash, $email);
-            flash_sucess('Bienvenue ' . $pseudo . ' !');
+            flash_success('Bienvenue ' . $pseudo . ' !');
             header('Location: index.php');
         }
     }
@@ -402,14 +402,16 @@ function login()
         $userManager = new UserManager();
         $user = $userManager->getUser($pseudo);
         $password = $user['password'];
+
         if($passform === $password)
         {
             $_SESSION['current_user'] = $user;
             header('Location: index.php');
+            flash_success('Bienvenue ' . $pseudo . ' !');
         }
         else
         {
-            throw new Exception('Mauvais identifiants');
+            flash_error('Mauvais identifiants');
             header('Location: index.php?action=loginForm');
         }
     }
@@ -518,4 +520,48 @@ function deleteUser()
             header('Location: index.php');
         }
     }
+}
+
+//CONTACT
+
+function contactMail()
+{
+    if (!empty($_SESSION['current_user']) && !empty($_POST['email']) && !empty($_POST['message']))
+    {
+        $author = $_SESSION['current_user']['pseudo'];
+        $email = htmlspecialchars($_POST['email']);
+        $message = htmlspecialchars($_POST['message']);
+
+        // Create the Transport
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+        ->setUsername('webdesigner.form@gmail.com')
+        ->setPassword('OpenClassRooms12')
+        ;
+
+        var_dump($transport);
+
+        if(!empty($transport)) {
+            // Create the Mailer using your created Transport
+            $mailer = new Swift_Mailer($transport);
+            // Create a message
+            $message = (new Swift_Message($message))
+            ->setFrom([$email => $author])
+            ->setTo(['webdesigner.form@gmail.com', 'other@domain.org' => 'Jane Doe'])
+            ->setBody('Here is the message itself')
+            ;
+            // Send the message
+            $result = $mailer->send($message);
+
+            flash_success('Le mail est envoyé');
+
+        } else {
+            flash_error('Tous les champs ne sont pas remplis');
+        }
+    }
+
+}
+
+function contactForm()
+{
+    require_once('view/frontend/contact.php');
 }

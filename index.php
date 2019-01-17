@@ -1,11 +1,14 @@
 <?php
 session_start();
+
 require_once('controllers/Router.php');
 require_once('controllers/ControllerHome.php');
 //require_once('controllers/ControllerPost.php');
 //require_once('controllers/ControllerComment.php');
 //require_once('controllers/ControllerUser.php');
 require_once('functions/Flash.php');
+require_once('vendor/autoload.php');
+
 if (isSessionExpired())
 {
     flash_error('Session expirée');
@@ -98,6 +101,10 @@ try{
 
         case 'logout':
         logout();
+        break;
+
+        case 'contactForm':
+        contactForm();
         break;
 
         case 'countArticles':

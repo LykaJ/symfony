@@ -32,11 +32,16 @@
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="index.php?action=contactForm">Contact</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="index.php?action=newPost">Ajouter Post</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=showUnvalidated">Validation</a>
                     </li>
+
                 </ul>
             </div>
         </nav>
