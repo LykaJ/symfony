@@ -11,16 +11,7 @@ class CommentManager extends Manager
     $comments->execute(array($postId));
 
     return $comments;
-  }
 
-  public function getUnvalidatedComments()
-  {
-      $db = $this->dbConnect();
-      $req = $db->prepare('SELECT * FROM comments WHERE status = NULL ORDER BY comment_date DESC');
-      $req->execute();
-      $result = $req->fetchAll(PDO::FETCH_ASSOC);
-
-      return $result;
   }
 
   public function postComment($postId, $author, $userId, $comment)
@@ -58,5 +49,13 @@ class CommentManager extends Manager
       $newStatus = $req->execute(array($id));
 
       return $newStatus;
+  }
+
+  public function deleteComment($id)
+  {
+      $db = $this->dbConnect();
+      $req = $db->prepare('DELETE FROM comments WHERE id = ?');
+      $deletedComment = $req->execute(array($id));
+      return $deletedComment;
   }
 }

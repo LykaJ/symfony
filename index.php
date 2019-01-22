@@ -3,9 +3,9 @@ session_start();
 
 require_once('controllers/Router.php');
 require_once('controllers/ControllerHome.php');
-//require_once('controllers/ControllerPost.php');
-//require_once('controllers/ControllerComment.php');
-//require_once('controllers/ControllerUser.php');
+require_once('controllers/ControllerPost.php');
+require_once('controllers/ControllerComment.php');
+require_once('controllers/ControllerUser.php');
 require_once('functions/Flash.php');
 require_once('vendor/autoload.php');
 
@@ -22,8 +22,15 @@ if(sessionTicket())
     flash_error('La session n\'est pas reconnue');
     die();
 }
-$router = new Router();
-$router->routerReq();
+
+$route = new Router;
+$route->add('', 'ControllerHome');
+$route->add('', 'ControllerPost');
+$route->add('', 'ControllerComment');
+$route->add('', 'ControllerUser');
+
+$route->submit();
+
 try{
     $action = isset($_GET['action']) ? $_GET['action'] : null;
     switch($action) {
@@ -79,6 +86,14 @@ try{
         validatePost();
         break;
 
+        case 'validateComment':
+        validateComment();
+        break;
+
+        case 'deleteComment':
+        deleteComment();
+        break;
+
         case 'newUser':
         newUser();
         break;
@@ -87,8 +102,16 @@ try{
         deleteUser();
         break;
 
+        case 'newMemberForm':
+        newMemberForm();
+        break;
+
         case 'signupForm':
         signupForm();
+        break;
+
+        case 'validateUser':
+        validateUser();
         break;
 
         case 'login':

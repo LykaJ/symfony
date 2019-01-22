@@ -17,14 +17,16 @@ function showPost()
 
         $post = $postManager->getPost($id);
         $comments = $commentManager->getComments($id);
-        $status = $post['status'];
+        $postStatus = $post['status'];
 
-        if(isset($status)) {
-            require('view/frontend/postView.php');
-        } else {
-            header('Location: index.php');
-            flash_error('Ce post n\'est pas validé !');
-        }
+        if(isset($postStatus) && $postStatus != NULL) {
+
+                require('view/frontend/postView.php');
+
+            } else {
+                header('Location: index.php');
+                flash_error('Ce post n\'est pas validé !');
+            }
     }
     else {
         flash_error('Aucun identifiant de billet envoyé');
@@ -40,6 +42,7 @@ function listPosts()
     $posts = $postManager->getPosts();
 
     require('view/frontend/listPostsView.php');
+
 }
 
 //VALIDATION VIEW
@@ -55,7 +58,7 @@ function showUnvalidated()
         $unvalidated_posts = $postManager->getPosts();
         $new_users = $userManager->getNewUsers();
 
-        $unvalidated_comments = $commentManager->getUnvalidatedComments();
+        
 
         require('view/backend/validationView.php');
 

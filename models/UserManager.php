@@ -45,11 +45,12 @@ class UserManager extends Manager
         return $deleteUser;
     }
 
-    public function profileUser($id)
+    public function profileUser($id, $profileId)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE users SET profile_id = ? WHERE id = ?');
-        $profileUser = $req->execute(array($id));
-        return $profileUser;
+        $result = $req->execute(array($profileId, $id));
+
+        return $result;
     }
 }

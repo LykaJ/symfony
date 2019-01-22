@@ -8,7 +8,7 @@ class PostManager extends Manager
     public function getPosts()
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, author, content, creation_date, edition_date, status FROM posts ORDER BY creation_date DESC');
+        $req = $db->prepare('SELECT * FROM posts ORDER BY creation_date DESC');
         $req->execute();
         $result = $req->fetchAll(PDO::FETCH_ASSOC);
         return $result;

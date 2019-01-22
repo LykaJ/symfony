@@ -97,8 +97,8 @@
                                             </div>
                                             <div class="col col-sm-4">
 
-                                                <p><a role="button" class="btn btn-outline-success" href="index.php?action=validateComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> Valider</a>
-                                                <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> Supprimer</a></p>
+                                                <p><a role="button" class="btn btn-outline-success" href="index.php?action=validateComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> Yes</a>
+                                                <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> No</a></p>
 
                                             <?php }    ?>
 

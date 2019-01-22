@@ -6,6 +6,7 @@
 <h1>Inscription</h1>
 
 <div class="container">
+    
 
     <form method="post" action="index.php?action=newUser">
         <div class="form-group">

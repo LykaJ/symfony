@@ -2,16 +2,18 @@
 //namespace OpenClassrooms\Blog;
 // Chargement des classes
 require_once('models/PostManager.php');
-
-
 require_once('models/UserManager.php');
 require_once('models/UserRightManager.php');
 require_once('models/Manager.php');
 require_once('vendor/autoload.php');
-/*use \OpenClassrooms\Blog\Model\PostManager;
+
+
+/*
+use \OpenClassrooms\Blog\Model\PostManager;
 use \OpenClassrooms\Blog\Model\CommentManager;
 use \OpenClassrooms\Blog\Model\UserRightManager;
-use \OpenClassrooms\Blog\Model\PaginationManager;*/
+use \OpenClassrooms\Blog\Model\PaginationManager;
+*/
 
 
 //CREATION CLASSE

@@ -13,6 +13,8 @@ function newUser()
         $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
         $hash = hash('sha256', $password);
         $userManager = new UserManager();
+
+
         if($password !== $password2)
         {
             flash_error('Les mots de passe ne correspondent pas');
@@ -23,6 +25,11 @@ function newUser()
             flash_error('Ce pseudo est déjà utilisé :(');
             header('Location: index.php?action=signupForm');
         }
+        elseif (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email))
+            {
+                flash_error("L'adresse email n'est pas valide");
+                header('Location: index.php?action=signupForm');
+            }
         else
         {
             $newUser = $userManager->addUser($pseudo, $hash, $email);
@@ -82,44 +89,30 @@ function logout()
 function validateUser()
 {
     $userManager = new UserManager();
+    $userRightsManager = new UserRightManager();
 
     if(isset($_GET['id']) && $_GET['id'] > 0)
     {
         $id = $_GET['id'];
-    }
 
+        if ($userRightsManager->can('validate')) {
 
-        /*    $id = $_GET['id'];
-            $userManager = new UserManager();
-
-            $newProfile = $userManager->profileUser($id);
-            var_dump($newProfile);
-
-            if(isset($_GET['url']) && $_GET['url'] > 0)
+            if(!empty($_GET['profileId']))
             {
-                $url = $_GET['url'];
+                $profileId = $_GET['profileId'];
+                $newUser = $userManager->profileUser($id, $profileId);
 
-                if($url === 1)
-                {
-                    $profileId = 1;
-                    var_dump($profileId);
-                    $newProfile = $userManager->profileUser($id, $profileId);
-
-                } else {
-                    flash_error('Impossible de valider cet utilisateur');
-                }
-            }
-
-            if($newProfile === false)
-            {
-                flash_error('Impossible de modifier le profil');
+                flash_success("Le profile de l'utilisateur a bien été modifié");
 
             } else {
-                flash_success('Cet utilisateur est maintenant ' . $newProfile['profile_id']);
-                header('Location: index.php?action=newMemberForm');
-            } */
 
-    }
+                flash_error('Impossible de changer le profile de cet utilisateur');
+            }
+        } else {
+            flash_error("Vous n'avez pas les droits");
+        }
+    }             header('Location: index.php');
+}
 
 
 

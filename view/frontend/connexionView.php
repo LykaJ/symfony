@@ -1,10 +1,26 @@
-
 <?php $title = 'Connexion' ?>
 
 <?php ob_start(); ?>
 
-<html>
+
 <h1>Connexion</h1>
+
+<?php
+$error = get_flash('error');
+if (!empty($error)) {
+    ?>
+    <div class="alert alert-danger" role="alert"><?= $error ?></div>
+<?php }
+$success = get_flash('success');
+if (!empty($success)) {
+    ?>
+    <div class="alert alert-success" role="alert"><?= $success ?></div>
+<?php }
+$warning = get_flash('warning');
+if (!empty($warning)) {
+    ?>
+    <div class="alert alert-warning" role="alert"><?= $warning ?></div>
+<?php } ?>
 
 <div class="container">
     <form method="post" action="index.php?action=login">
@@ -21,8 +37,6 @@
     </form>
 </div>
 
-</body>
-</html>
 
 <?php $content = ob_get_clean(); ?>
 

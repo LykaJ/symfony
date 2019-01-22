@@ -96,17 +96,19 @@
                                 <td><?= $new_user['email']; ?></td>
                                 <td><?= $new_user['signup_date']; ?></td>
                                 <td>
+
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Valider
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id'];?>&amp;url=<?= $url = 1; ?>">Membre</a>
-                                            <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;url=<?= $url = 2; ?>">Collaborateur</a>
-                                            <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;url=<?= $url = 3; ?>">Administrateur</a>
+                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Valider
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 1 ?>">Membre</a>
+                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 2 ?>">Collaborateur</a>
+                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 3 ?>"> Administrateur</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteUser&amp;id=<?= $new_user['id']; ?>">Supprimer</a>
+
+                                        <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteUser&amp;id=<?= $new_user['id']; ?>">Supprimer</a>
                                 </td>
                             </tr>
                         </tbody>
