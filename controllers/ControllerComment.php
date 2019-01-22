@@ -95,6 +95,7 @@ function validateComment()
 function editComment()
 {
     if(isset($_GET['id']) && $_GET['id'] > 0) {
+
         $id = $_GET['id'];
         $postManager = new PostManager();
         $commentManager = new CommentManager();
@@ -102,8 +103,34 @@ function editComment()
         if(!empty($_SESSION['current_user']) && $comment['user_id'] === $_SESSION['current_user']['id'])
         {
             require('view/backend/commentView.php');
+
         } else {
             flash_error('Nope');
         }
     }
+}
+
+function deleteComment()
+{
+    if(isset($_GET['id']) && $_GET['id'] > 0) {
+
+        $id = $_GET['id'];
+        $postManager = new CommentManager();
+        $userRightsManager = new UserRightManager();
+
+        if($userRightsManager->can('delete comment'))
+        {
+            $deleteComment = $postManager->deleteComment($id);
+
+            if($deleteComment === false)
+            {
+                flash_error('Impossible de supprimer le post');
+            }
+        } else {
+            flash_error("Vous n'avez pas les droits");
+
+        }
+    } header('Location: index.php');
+
+
 }

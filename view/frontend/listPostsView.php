@@ -56,11 +56,10 @@ if(isset($_SESSION)) {
 <br/>
 <section>
     <div class="container">
-        <div class="row">
-            <div class="col col-md-4 col-sm-12">
+
+
                 <h2>Derniers billets du blog :</h2>
-            </div>
-            <div class="col col-md-6 col-sm-12">
+
 
                 <?php foreach($posts as $post):
                     if($post['status'] == 1) { ?>
@@ -85,8 +84,7 @@ if(isset($_SESSION)) {
                     <p><a href="index.php?action=showPost&amp;id=<?= $post['id'] ?>">En lire plus...</a></p>
                 <?php } ?>
             <?php endforeach;?>
-        </div>
-    </div>
+
 </div>
 </section>
 

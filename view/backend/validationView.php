@@ -74,72 +74,50 @@
     </div>
 </div>
 </section>
-
 <section>
     <div class="container">
-        <h2>Commentaires non validés :</h2>
+        <h2>Nouveaux comptes créés :</h2>
+        <?php foreach($new_users as $new_user):
+            if(!empty($new_user)) { ?>
 
-        <?php foreach($unvalidated_comments as $unvalidated_comment):
-            if($unvalidated_comment['status'] == NULL) { var_dump($unvalidated_comment);?>
-                <div class="col col-sm-8">
-                    <p><strong><?= htmlspecialchars($unvalidated_comment['author']) ?></strong> le <?php $dateComment = new DateTime($unvalidated_comment['comment_date']); echo $dateComment->format('d/m/Y');?> <br/>
-                        <?= nl2br(htmlspecialchars($unvalidated_comment['comment'])) ?></p>
-                    </div>
-                    <p>
-                        <a role="button" class="btn btn-outline-success" href="index.php?action=validateComment&amp;id=<?= $unvalidated_comment['id']; ?>">Valider</a>
-                        <a role="button" class="btn btn-outline-danger" href="index.php?action=deletePost&amp;id=<?= $unvalidated_comment['id']; ?>">Supprimer</a>
-                    </p>
-
-                <?php } ?>
-            <?php endforeach;?>
-
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2>Nouveaux comptes créés :</h2>
-            <?php foreach($new_users as $new_user):
-                if(!empty($new_user)) { ?>
-
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Identifiant</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Date inscription</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><?= $new_user['pseudo']; ?></td>
-                                    <td><?= $new_user['email']; ?></td>
-                                    <td><?= $new_user['signup_date']; ?></td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Valider
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id'];?>">Membre</a>
-                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>">Collaborateur</a>
-                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>">Administrateur</a>
-                                            </div>
+                <div class="table-responsive-md">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Identifiant</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Date inscription</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?= $new_user['pseudo']; ?></td>
+                                <td><?= $new_user['email']; ?></td>
+                                <td><?= $new_user['signup_date']; ?></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Valider
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id'];?>&amp;url=<?= $url = 1; ?>">Membre</a>
+                                            <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;url=<?= $url = 2; ?>">Collaborateur</a>
+                                            <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;url=<?= $url = 3; ?>">Administrateur</a>
                                         </div>
-                                        <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteUser&amp;id=<?= $new_user['id']; ?>">Supprimer</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    </div>
+                                    <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteUser&amp;id=<?= $new_user['id']; ?>">Supprimer</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
 
-                <?php } ?>
-            <?php endforeach; ?>
-        </div>
-    </section>
-    <?php $content = ob_get_clean(); ?>
+            <?php } ?>
+        <?php endforeach; ?>
+    </div>
+</section>
+<?php $content = ob_get_clean(); ?>
 
-    <?php require('view/template.php'); ?>
+<?php require('view/template.php'); ?>
