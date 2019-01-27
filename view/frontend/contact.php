@@ -3,7 +3,9 @@
 <?php ob_start(); ?>
 
 <div class="container">
-    <h1>Contact</h1>
+    <h1 class="rewrite-bt-banner">Contact</h1>
+
+    <p>Vous avez une question ? Envoyez moi un message :)</p>
 
     <form method="post" action="index.php?action=contactMail">
         <div class="form-group">
@@ -27,7 +29,7 @@
             <textarea class="form-control" id="message" rows="3"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Envoyer</button>
+        <button type="submit" class="btn btn-info">Envoyer</button>
     </form>
 
     <?php

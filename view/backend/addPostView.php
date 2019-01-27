@@ -14,7 +14,7 @@
     <!-- <p><a href="index.php">Accéder à l'accueil du site</a></p> -->
 
     <section class="container">
-        <h2>Ajouter Post</h2>
+        <h1 class="rewrite-bt-banner">Ajouter Post</h1>
 
         <?php
         $success = get_flash('success');
@@ -39,7 +39,8 @@
                 <textarea class="form-control" id="content" name="content" rows="3"></textarea>
             </div>
             <div>
-                <input class="btn btn-primary" type="submit" />
+                <input class="btn btn-info" type="submit" />
+                <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
             </form>
         </div>
     </section>

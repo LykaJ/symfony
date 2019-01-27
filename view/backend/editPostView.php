@@ -30,7 +30,8 @@
                 <textarea class="form-control" id="content" name="content" rows="8"><?= htmlspecialchars($post['content'])?></textarea>
             </div>
             <div>
-                <input class="btn btn-primary" type="submit" />
+                <input class="btn btn-info" type="submit" />
+                <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
             </form>
         </div>
     </section>

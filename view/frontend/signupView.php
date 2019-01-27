@@ -3,10 +3,10 @@
 <?php ob_start(); ?>
 
 <html>
-<h1>Inscription</h1>
+<h1 class="rewrite-bt-banner">Inscription</h1>
 
 <div class="container">
-    
+
 
     <form method="post" action="index.php?action=newUser">
         <div class="form-group">
@@ -31,7 +31,8 @@
             <label class="form-check-label" for="exampleCheck1"> By submitting this form, I agree that my data will be processed, used and exploited in order to be contacted considering the business relationship established here.
             </label>
         </div> -->
-        <button type="submit" class="btn btn-primary">S'inscrire</button>
+        <button type="submit" class="btn btn-info">S'inscrire</button>
+        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
     </form>
 
 <br/>

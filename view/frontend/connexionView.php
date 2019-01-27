@@ -3,7 +3,7 @@
 <?php ob_start(); ?>
 
 
-<h1>Connexion</h1>
+<h1 class="rewrite-bt-banner">Connexion</h1>
 
 <?php
 $error = get_flash('error');
@@ -23,7 +23,7 @@ if (!empty($warning)) {
 <?php } ?>
 
 <div class="container">
-    <form method="post" action="index.php?action=login">
+    <form method="post" action="/Blog/login">
         <div class="form-group">
             <label for="identifiant">Identifiant*</label>
             <input id="pseudo" type="text" name="pseudo" class="form-control" placeholder="Identifiant">
@@ -32,7 +32,7 @@ if (!empty($warning)) {
             <label for="identifiant">Mot de passe*</label>
             <input id="password" type="password" name="password" class="form-control" placeholder="Mot de passe">
         </div>
-        <input class="btn btn-primary" type="submit" value="Se connecter"/>
+        <input class="btn btn-info" type="submit" value="Se connecter"/>
         <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
     </form>
 </div>

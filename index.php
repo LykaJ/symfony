@@ -1,148 +1,40 @@
 <?php
+//ini_set('display_errors', 'on');
+//namespace Blog;
 session_start();
 
-require_once('controllers/Router.php');
-require_once('controllers/ControllerHome.php');
-require_once('controllers/ControllerPost.php');
-require_once('controllers/ControllerComment.php');
-require_once('controllers/ControllerUser.php');
-require_once('functions/Flash.php');
+//require_once('controllers/Autoloader.php');
+//\Blog\Autoloader::register();
+
+require_once('core/router/Router.php');
+require_once('core/functions/Flash.php');
+
 require_once('vendor/autoload.php');
 
-if (isSessionExpired())
-{
-    flash_error('Session expirée');
-    logout();
-    die();
-}
-if(sessionTicket())
-{
-    unset($_SESSION);
-    header('location:index.php');
-    flash_error('La session n\'est pas reconnue');
-    die();
+if (isset($_GET['url'])) {
+    $url = $_GET['url'];
+} else {
+    $url = "";
 }
 
-$route = new Router;
-$route->add('', 'ControllerHome');
-$route->add('', 'ControllerPost');
-$route->add('', 'ControllerComment');
-$route->add('', 'ControllerUser');
+$router = new Router($url);
 
-$route->submit();
+//$router->get('/', 'Home');
+$router->get('', 'HomeController#index');
+$router->get('posts/:id', 'PostsController#show');
+$router->get('posts', 'PostsController#list');
+$router->get('posts', 'PostsController#new');
+$router->get('admin/validation', 'AdminController#showUnvalidated');
 
-try{
-    $action = isset($_GET['action']) ? $_GET['action'] : null;
-    switch($action) {
-        case 'showPost':
-        showPost();
-        break;
+$router->post('posts/create', 'PostsController#create');
+$router->post('posts/validate', 'PostsController#validate');
+$router->post('posts/edit', 'PostsController#update');
+$router->post('posts/delete', 'PostsController#delete');
 
-        case 'newComment':
-        newComment();
-        break;
+$router->get('signup', 'UsersController#new');
+$router->post('signup', 'UsersController#create');
+$router->get('signin', 'UsersController#loginForm');
+$router->post('login', 'UsersController#login');
+$router->get('logout', 'SessionManager#logout');
 
-        case 'addComment':
-        addComment();
-        break;
-
-        case 'viewComment':
-        viewComment();
-        break;
-
-        case 'editComment':
-        editComment();
-        break;
-
-        case 'updateComment':
-        updateComment();
-        break;
-
-        case 'createPost':
-        createPost();
-        break;
-
-        case 'newPost':
-        newPost();
-        break;
-
-        case 'editPost':
-        editPost();
-        break;
-
-        case 'updatePost':
-        updatePost();
-        break;
-
-        case 'deletePost':
-        deletePost();
-        break;
-
-        case 'showUnvalidated':
-        showUnvalidated();
-        break;
-
-        case 'validatePost':
-        validatePost();
-        break;
-
-        case 'validateComment':
-        validateComment();
-        break;
-
-        case 'deleteComment':
-        deleteComment();
-        break;
-
-        case 'newUser':
-        newUser();
-        break;
-
-        case 'deleteUser':
-        deleteUser();
-        break;
-
-        case 'newMemberForm':
-        newMemberForm();
-        break;
-
-        case 'signupForm':
-        signupForm();
-        break;
-
-        case 'validateUser':
-        validateUser();
-        break;
-
-        case 'login':
-        login();
-        break;
-
-        case 'loginForm':
-        loginForm();
-        break;
-
-        case 'logout':
-        logout();
-        break;
-
-        case 'contactForm':
-        contactForm();
-        break;
-
-        case 'countArticles':
-        countArticles();
-        break;
-
-        case 'pageTotal':
-        pageTotal();
-        break;
-
-        case 'listPosts':
-        default:
-        listPosts();
-    }
-}
-catch(Exception $e) {
-    echo 'Erreur : ' . $e->getMessage();
-}
+$router->run();

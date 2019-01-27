@@ -21,30 +21,31 @@
 
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/Blog">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=contactForm">Contact</a>
+                        <a class="nav-link" href="/contact">Contact</a>
                     </li>
-
+                <!--    <?php # if($userRightsManager->can('add post')) { ?> -->
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=newPost">Ajouter Post</a>
+                        <a class="nav-link" href="/posts/new">Ajouter Post</a>
                     </li>
+            <!--    <?php # } ?> -->
+            <!--    <?php # if($userRightsManager->can('validate')) { ?> -->
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=showUnvalidated">Validation</a>
+                        <a class="nav-link" href="/admin/validation">Validation</a>
                     </li>
-
+            <!--    <?php # } ?> -->
                 </ul>
             </div>
         </nav>
-
 
 
         <?= $content ?>
@@ -54,12 +55,12 @@
                 <div class="container">
                     <div class="row">
                         <div class="footer-col col-md-4">
-                            <h3>CV</h3>
+                            <h3 class="rewrite-bt-light-font">CV</h3>
                             <a href="https://drive.google.com/file/d/1zLCE0MCBIa-iqdN127FFKBYyuW7LMJsG/view?usp=sharing" target="_blank">Consulter mon CV</a>
 
                         </div>
                         <div class="footer-col col-md-4">
-                            <h3>Around the Web</h3>
+                            <h3 class="rewrite-bt-light-font">Around the Web</h3>
                             <!--    <ul class="list-inline">
                             <li>
                             <a href="https://github.com/LykaJ" class="btn-social btn-outline"><i class="fa fa-github"></i></a>
@@ -73,8 +74,8 @@
                 <a href="https://www.linkedin.com/in/alicia-raulet-771397b2/" target="_blank">LinkedIn</a>
             </div>
             <div class="footer-col col-md-4">
-                <h3>About this blog</h3>
-                <p>This blog is the fith project of the OpenClassrooms training <a href="https://openclassrooms.com/fr/paths/59-developpeur-dapplication-php-symfony" target="_blank">Website Developpement using PHP/Symfony</a> .</p>
+                <h3 class="rewrite-bt-light-font">About this blog</h3>
+                <p class="rewrite-bt-light-font">This blog is the fith project of the OpenClassrooms training <a href="https://openclassrooms.com/fr/paths/59-developpeur-dapplication-php-symfony" target="_blank">Website Developpement using PHP/Symfony</a> .</p>
             </div>
         </div>
     </div>
@@ -83,8 +84,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                Copyright &copy; <?php $date = new DateTime();
-                echo $date->format('Y'); ?>
+                <p class="rewrite-bt-light-font">Copyright &copy; <?php $date = new DateTime();
+                echo $date->format('Y'); ?></p>
             </div>
         </div>
     </div>

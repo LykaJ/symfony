@@ -1,70 +1,70 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<?php
-$cookie_name = "ct-s";
-// On génère quelque chose d'aléatoire
-$ticket = session_id().microtime().rand(0,9999999999);
-// on hash pour avoir quelque chose de propre qui aura toujours la même forme
-$ticket = hash('sha512', $ticket);
-if(isset($_SESSION)) {
-    setcookie($cookie_name, $ticket, time() + (60 * 20)); // Expire au bout de 20 min
-}
-?>
 
 <aside>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center">
-            <div class="col">
-                <h1>Mon super blog !</h1>
-            </div>
-        </div>
-        <div class="row align-items-center">
-            <div class="col">
-                <?php
-                $error = get_flash('error');
-                if (!empty($error)) {
-                    ?>
-                    <div class="alert alert-danger" role="alert"><?= $error ?></div>
-                <?php } ?>
-                <?php
-                $success = get_flash('success');
-                if (!empty($success)) {
-                    ?>
-                    <div class="alert alert-success" role="alert"><?= $success ?></div>
-                <?php } ?>
-                <?php
-                $warning = get_flash('warning');
-                if (!empty($warning)) {
-                    ?>
-                    <div class="alert alert-warning" role="alert"><?= $warning ?></div>
-                <?php } ?>
 
-                <?php if ($userRightsManager->can('add post')) { ?>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=newPost">Ajouter un post</a>
-                <?php } if (isset($_SESSION['current_user'])) { ?>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=logout">Déconnexion</a>
-                <?php } else { ?>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=signupForm">Inscription</a>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=loginForm">Connexion</a>
-                <?php } ?>
-            </div>
         </div>
     </div>
 </aside>
 
+<section class="container-fluid" id="about-container">
+    <div class="row align-items-center">
+        <div class="col-md-4 offset-md-8">
+            <?php
+            $error = get_flash('error');
+            if (!empty($error)) {
+                ?>
+                <div class="alert alert-danger" role="alert"><?= $error ?></div>
+            <?php } ?>
+            <?php
+            $success = get_flash('success');
+            if (!empty($success)) {
+                ?>
+                <div class="alert alert-success" role="alert"><?= $success ?></div>
+            <?php } ?>
+            <?php
+            $warning = get_flash('warning');
+            if (!empty($warning)) {
+                ?>
+                <div class="alert alert-warning" role="alert"><?= $warning ?></div>
+            <?php } ?>
+
+            <?php if ($userRightsManager->can('add post')) { ?>
+                <a role="button" class="btn btn-warning" href="/posts/new">Ajouter un post</a>
+            <?php } if (isset($_SESSION['current_user'])) { ?>
+                <a role="button" class="btn btn-warning" href="/Blog/logout">Déconnexion</a>
+            <?php } else { ?>
+                <a role="button" class="btn btn-warning" href="/Blog/signup">Inscription</a>
+                <a role="button" class="btn btn-warning" href="/Blog/signin">Connexion</a>
+            <?php } ?>
+        </div>
+        <div class="col">
+            <h1 class="rewrite-bt-light">Bienvenue !</h1>
+            <div class="">
+                <img src="public/img/id-real.png" alt="ID-image" class="rounded-circle" width="150">
+            </div>
+            <!-- <p>Bienvenue sur mon blog.</p>
+            <p>Suivant une formation OpenClassrooms, j'ai créé ce blog pour suivre l'un des projets demandés. Je le mettrai à jour une fois que la formation sera validée.</p> -->
+
+        </div>
+
+    </div>
+
+</section>
+
 <br/>
 <section>
     <div class="container">
-
-
-                <h2>Derniers billets du blog :</h2>
+                <h2 class="rewrite-bt-dark">Derniers billets du blog :</h2>
 
 
                 <?php foreach($posts as $post):
                     if($post['status'] == 1) { ?>
-                        <h3>
-                            <?= htmlspecialchars($post['title']) ?>
+                        <h3 class="rewrite-bt-banner">
+                            <?= htmlspecialchars($post['title']);?>
                         </h3>
                         <?= nl2br(htmlspecialchars($post['content'])) ?>
                         <br />
@@ -81,7 +81,7 @@ if(isset($_SESSION)) {
                             echo $date_edition->format('d/m/Y à H:i');
                         } ?>
                     </em></p>
-                    <p><a href="index.php?action=showPost&amp;id=<?= $post['id'] ?>">En lire plus...</a></p>
+                    <p><a role="button" class="btn btn-info" href="Blog/posts/<?= $post['id'] ?>">En lire plus...</a></p>
                 <?php } ?>
             <?php endforeach;?>
 

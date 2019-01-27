@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
-                <h1>Page de validation</h1>
+                <h1 class="rewrite-bt-banner">Page de validation</h1>
             </div>
         </div>
         <div class="row align-items-center">
