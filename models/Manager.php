@@ -1,8 +1,12 @@
 <?php
+//namespace Blog;
+require_once('core/database/database.php');
 
 class Manager
 {
+    protected $db;
 
+<<<<<<< HEAD
   protected function dbConnect()
   {
     $db = new \PDO('mysql:host=localhost;dbname=blog;charset=utf8', '', '');
@@ -10,4 +14,9 @@ class Manager
 
     return $db;
   }
+=======
+    public function __construct() {
+        $this->db = Database::get();
+    }
+>>>>>>> views
 }

@@ -6,7 +6,11 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
+<<<<<<< HEAD
                 <h1>Page de validation</h1>
+=======
+                <h1 class="rewrite-bt-banner">Page de validation</h1>
+>>>>>>> views
             </div>
         </div>
         <div class="row align-items-center">
@@ -23,6 +27,15 @@
                     ?>
                     <div class="alert alert-success" role="alert"><?= $success ?></div>
                 <?php } ?>
+<<<<<<< HEAD
+=======
+                <?php
+                $warning = get_flash('warning');
+                if (!empty($warning)) {
+                    ?>
+                    <div class="alert alert-warning" role="alert"><?= $warning ?></div>
+                <?php } ?>
+>>>>>>> views
             </div>
         </div>
     </div>
@@ -38,7 +51,11 @@
 
             <div class="col col-md-6 col-sm-12">
                 <?php foreach($unvalidated_posts as $unvalidated_post):
+<<<<<<< HEAD
                     if($unvalidated_post['status'] === NULL) { ?>
+=======
+                    if($unvalidated_post['status'] == NULL) { ?>
+>>>>>>> views
                         <h3>
                             <?= htmlspecialchars($unvalidated_post['title']) ?>
                         </h3>
@@ -55,7 +72,11 @@
                             <?php
                             $date_edition = new DateTime($unvalidated_post['edition_date']);
                             echo $date_edition->format('d/m/Y à H:i');
+<<<<<<< HEAD
                         } ?>
+=======
+                        }  ?>
+>>>>>>> views
                     </em></p>
                     <p>
                         <a role="button" class="btn btn-outline-success" href="index.php?action=validatePost&amp;id=<?= $unvalidated_post['id']; ?>">Valider</a>
@@ -68,6 +89,7 @@
     </div>
 </div>
 </section>
+<<<<<<< HEAD
 
 <section>
     <div class="container">
@@ -79,6 +101,11 @@
 <section>
     <div class="container">
         <h3>Nouveaux comptes créés :</h3>
+=======
+<section>
+    <div class="container">
+        <h2>Nouveaux comptes créés :</h2>
+>>>>>>> views
         <?php foreach($new_users as $new_user):
             if(!empty($new_user)) { ?>
 
@@ -98,6 +125,7 @@
                                 <td><?= $new_user['email']; ?></td>
                                 <td><?= $new_user['signup_date']; ?></td>
                                 <td>
+<<<<<<< HEAD
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Valider
@@ -123,3 +151,32 @@
     <?php $content = ob_get_clean(); ?>
 
     <?php require('view/template.php'); ?>
+=======
+
+                                    <div class="btn-group">
+                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Valider
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 1 ?>">Membre</a>
+                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 2 ?>">Collaborateur</a>
+                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 3 ?>"> Administrateur</a>
+                                            </div>
+                                        </div>
+
+                                        <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteUser&amp;id=<?= $new_user['id']; ?>">Supprimer</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            <?php } ?>
+        <?php endforeach; ?>
+    </div>
+</section>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('view/template.php'); ?>
+>>>>>>> views

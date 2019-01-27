@@ -1,6 +1,9 @@
 <?php
+//ini_set('display_errors', 'on');
+//namespace Blog;
 session_start();
 
+<<<<<<< HEAD
 require_once('controllers/Router.php');
 require_once('controllers/ControllerHome.php');
 //require_once('controllers/ControllerPost.php');
@@ -25,10 +28,17 @@ if(sessionTicket())
 
 $router = new Router();
 $router->routerReq();
+=======
+//require_once('controllers/Autoloader.php');
+//\Blog\Autoloader::register();
 
-try{
-    $action = isset($_GET['action']) ? $_GET['action'] : null;
+require_once('core/router/Router.php');
+require_once('core/functions/Flash.php');
+>>>>>>> views
 
+require_once('vendor/autoload.php');
+
+<<<<<<< HEAD
     switch($action) {
         case 'showPost':
         showPost();
@@ -101,25 +111,32 @@ try{
         case 'loginForm':
         loginForm();
         break;
-
-        case 'logout':
-        logout();
-        break;
-
-        case 'countArticles':
-        countArticles();
-        break;
-
-        case 'pageTotal':
-        pageTotal();
-        break;
-
-        case 'listPosts':
-        default:
-        listPosts();
-
-    }
+=======
+if (isset($_GET['url'])) {
+    $url = $_GET['url'];
+} else {
+    $url = "";
 }
-catch(Exception $e) {
-    echo 'Erreur : ' . $e->getMessage();
-}
+>>>>>>> views
+
+$router = new Router($url);
+
+//$router->get('/', 'Home');
+$router->get('', 'HomeController#index');
+$router->get('posts/:id', 'PostsController#show');
+$router->get('posts', 'PostsController#list');
+$router->get('posts', 'PostsController#new');
+$router->get('admin/validation', 'AdminController#showUnvalidated');
+
+$router->post('posts/create', 'PostsController#create');
+$router->post('posts/validate', 'PostsController#validate');
+$router->post('posts/edit', 'PostsController#update');
+$router->post('posts/delete', 'PostsController#delete');
+
+$router->get('signup', 'UsersController#new');
+$router->post('signup', 'UsersController#create');
+$router->get('signin', 'UsersController#loginForm');
+$router->post('login', 'UsersController#login');
+$router->get('logout', 'SessionManager#logout');
+
+$router->run();

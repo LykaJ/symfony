@@ -3,6 +3,7 @@
 <?php ob_start(); ?>
 <?php
 
+<<<<<<< HEAD
 $cookie_name = "ct-s";
 // On génère quelque chose d'aléatoire
 $ticket = session_id().microtime().rand(0,9999999999);
@@ -17,11 +18,14 @@ if(isset($_SESSION)) {
 
 <aside>
     <div class="container">
+=======
+<aside>
+    <div class="container-fluid">
+>>>>>>> views
         <div class="row align-items-center">
-            <div class="col">
-                <h1>Mon super blog !</h1>
-            </div>
+
         </div>
+<<<<<<< HEAD
         <div class="row align-items-center">
             <div class="col">
                 <?php
@@ -36,23 +40,64 @@ if(isset($_SESSION)) {
                     ?>
                     <div class="alert alert-success" role="alert"><?= $success ?></div>
                 <?php } ?>
-
-                <?php if ($userRightsManager->can('add post')) { ?>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=newPost">Ajouter un post</a>
-                <?php } if (isset($_SESSION['current_user'])) { ?>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=logout">Déconnexion</a>
-                <?php } else { ?>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=signupForm">Inscription</a>
-                    <a role="button" class="btn btn-outline-primary" href="index.php?action=loginForm">Connexion</a>
-                <?php } ?>
-            </div>
-        </div>
+=======
     </div>
 </aside>
+>>>>>>> views
+
+<section class="container-fluid" id="about-container">
+    <div class="row align-items-center">
+        <div class="col-md-4 offset-md-8">
+            <?php
+            $error = get_flash('error');
+            if (!empty($error)) {
+                ?>
+                <div class="alert alert-danger" role="alert"><?= $error ?></div>
+            <?php } ?>
+            <?php
+            $success = get_flash('success');
+            if (!empty($success)) {
+                ?>
+                <div class="alert alert-success" role="alert"><?= $success ?></div>
+            <?php } ?>
+            <?php
+            $warning = get_flash('warning');
+            if (!empty($warning)) {
+                ?>
+                <div class="alert alert-warning" role="alert"><?= $warning ?></div>
+            <?php } ?>
+
+            <?php if ($userRightsManager->can('add post')) { ?>
+                <a role="button" class="btn btn-warning" href="/posts/new">Ajouter un post</a>
+            <?php } if (isset($_SESSION['current_user'])) { ?>
+                <a role="button" class="btn btn-warning" href="/Blog/logout">Déconnexion</a>
+            <?php } else { ?>
+                <a role="button" class="btn btn-warning" href="/Blog/signup">Inscription</a>
+                <a role="button" class="btn btn-warning" href="/Blog/signin">Connexion</a>
+            <?php } ?>
+        </div>
+        <div class="col">
+            <h1 class="rewrite-bt-light">Bienvenue !</h1>
+            <div class="">
+                <img src="public/img/id-real.png" alt="ID-image" class="rounded-circle" width="150">
+            </div>
+            <!-- <p>Bienvenue sur mon blog.</p>
+            <p>Suivant une formation OpenClassrooms, j'ai créé ce blog pour suivre l'un des projets demandés. Je le mettrai à jour une fois que la formation sera validée.</p> -->
+
+        </div>
+
+    </div>
+<<<<<<< HEAD
+</aside>
+=======
+
+</section>
+>>>>>>> views
 
 <br/>
 <section>
     <div class="container">
+<<<<<<< HEAD
         <div class="row">
             <div class="col col-md-4 col-sm-12">
                 <h2>Derniers billets du blog :</h2>
@@ -63,6 +108,15 @@ if(isset($_SESSION)) {
                     if($post['status'] == 1) { ?>
                         <h3>
                             <?= htmlspecialchars($post['title']) ?>
+=======
+                <h2 class="rewrite-bt-dark">Derniers billets du blog :</h2>
+
+
+                <?php foreach($posts as $post):
+                    if($post['status'] == 1) { ?>
+                        <h3 class="rewrite-bt-banner">
+                            <?= htmlspecialchars($post['title']);?>
+>>>>>>> views
                         </h3>
                         <?= nl2br(htmlspecialchars($post['content'])) ?>
                         <br />
@@ -79,11 +133,14 @@ if(isset($_SESSION)) {
                             echo $date_edition->format('d/m/Y à H:i');
                         } ?>
                     </em></p>
+<<<<<<< HEAD
                     <p><a href="index.php?action=showPost&amp;id=<?= $post['id'] ?>">En lire plus...</a></p>
+=======
+                    <p><a role="button" class="btn btn-info" href="Blog/posts/<?= $post['id'] ?>">En lire plus...</a></p>
+>>>>>>> views
                 <?php } ?>
             <?php endforeach;?>
-        </div>
-    </div>
+
 </div>
 </section>
 
@@ -104,7 +161,10 @@ for($x = 1; $x <= $pages; $x++): ?>
 </ul>
 </nav>
 <?php endfor; ?>
+<<<<<<< HEAD
 
+=======
+>>>>>>> views
 <?php var_dump($x);?> <br/>
 <?php var_dump($pages);?> <br/>
 </div>

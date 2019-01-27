@@ -1,6 +1,71 @@
+<<<<<<< HEAD
 footer {
     background-color: #E2E2E2;
 
     padding : 10px;
     margin-top: 50px;
+=======
+@import url('https://fonts.googleapis.com/css?family=Montserrat+Subrayada');
+@import url('https://fonts.googleapis.com/css?family=Vampiro+One');
+
+html {
+     height: 100%;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 8rem;
+  min-height: 100%;
+}
+
+.rewrite-bt-light {
+    font-family: 'Montserrat Subrayada', sans-serif;
+    color: white;
+}
+
+.rewrite-bt-dark {
+    font-family: 'Montserrat Subrayada', sans-serif;
+    color: #2e3030;
+}
+
+.rewrite-bt-banner {
+    background-color: #ffc107;
+    padding: 5px;
+    border-bottom: 6px solid;
+    border-right: 3px solid;
+    border-color: black;
+}
+
+#about-container {
+    background-color: #17a2b8;
+    text-align: center;
+    padding: 10px;
+    min-height: 350px;
+}
+
+.rewrite-bt-btn {
+    color: white;
+    background-color: #17a2b8;
+    padding: 10px;
+    margin: 2px;
+    width: auto;
+}
+
+.bt-alert {
+    margin-top: 5px;
+}
+
+footer {
+    background-color: #343a40;
+    position: absolute;
+    margin-top: 50px;
+    width: 100%;
+
+    padding: 1rem;
+}
+
+.rewrite-bt-light-font {
+    color: white;
+>>>>>>> views
 }
