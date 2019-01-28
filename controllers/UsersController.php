@@ -88,12 +88,6 @@ class UsersController extends BaseController
         require_once('view/frontend/connexionView.php');
     }
 
-
-
-
-
-
-
     //DELETE USER
     function delete()
     {

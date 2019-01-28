@@ -15,17 +15,10 @@ class UserManager extends Manager
 
     public function getNewUsers()
     {
-<<<<<<< HEAD
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT * FROM users WHERE profile_id = 4');
-        $req->execute();
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
 
-=======
         $req = $this->db->prepare('SELECT * FROM users WHERE profile_id = 4');
         $req->execute();
         $result = $req->fetchAll(PDO::FETCH_ASSOC);
->>>>>>> views
         return $result;
     }
 

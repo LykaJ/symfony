@@ -1,49 +1,6 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<?php
-
-<<<<<<< HEAD
-$cookie_name = "ct-s";
-// On génère quelque chose d'aléatoire
-$ticket = session_id().microtime().rand(0,9999999999);
-// on hash pour avoir quelque chose de propre qui aura toujours la même forme
-$ticket = hash('sha512', $ticket);
-
-if(isset($_SESSION)) {
-    setcookie($cookie_name, $ticket, time() + (60 * 20)); // Expire au bout de 20 min
-}
-
-?>
-
-<aside>
-    <div class="container">
-=======
-<aside>
-    <div class="container-fluid">
->>>>>>> views
-        <div class="row align-items-center">
-
-        </div>
-<<<<<<< HEAD
-        <div class="row align-items-center">
-            <div class="col">
-                <?php
-                $error = get_flash('error');
-                if (!empty($error)) {
-                    ?>
-                    <div class="alert alert-danger" role="alert"><?= $error ?></div>
-                <?php } ?>
-                <?php
-                $success = get_flash('success');
-                if (!empty($success)) {
-                    ?>
-                    <div class="alert alert-success" role="alert"><?= $success ?></div>
-                <?php } ?>
-=======
-    </div>
-</aside>
->>>>>>> views
 
 <section class="container-fluid" id="about-container">
     <div class="row align-items-center">
@@ -87,28 +44,12 @@ if(isset($_SESSION)) {
         </div>
 
     </div>
-<<<<<<< HEAD
-</aside>
-=======
-
-</section>
->>>>>>> views
+</section>    
 
 <br/>
 <section>
     <div class="container">
-<<<<<<< HEAD
-        <div class="row">
-            <div class="col col-md-4 col-sm-12">
-                <h2>Derniers billets du blog :</h2>
-            </div>
-            <div class="col col-md-6 col-sm-12">
 
- <?php foreach($posts as $post):
-                    if($post['status'] == 1) { ?>
-                        <h3>
-                            <?= htmlspecialchars($post['title']) ?>
-=======
                 <h2 class="rewrite-bt-dark">Derniers billets du blog :</h2>
 
 
@@ -116,7 +57,6 @@ if(isset($_SESSION)) {
                     if($post['status'] == 1) { ?>
                         <h3 class="rewrite-bt-banner">
                             <?= htmlspecialchars($post['title']);?>
->>>>>>> views
                         </h3>
                         <?= nl2br(htmlspecialchars($post['content'])) ?>
                         <br />
@@ -133,11 +73,7 @@ if(isset($_SESSION)) {
                             echo $date_edition->format('d/m/Y à H:i');
                         } ?>
                     </em></p>
-<<<<<<< HEAD
-                    <p><a href="index.php?action=showPost&amp;id=<?= $post['id'] ?>">En lire plus...</a></p>
-=======
                     <p><a role="button" class="btn btn-info" href="Blog/posts/<?= $post['id'] ?>">En lire plus...</a></p>
->>>>>>> views
                 <?php } ?>
             <?php endforeach;?>
 

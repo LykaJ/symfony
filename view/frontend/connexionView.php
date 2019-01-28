@@ -32,11 +32,9 @@ if (!empty($warning)) {
             <label for="identifiant">Mot de passe*</label>
             <input id="password" type="password" name="password" class="form-control" placeholder="Mot de passe">
         </div>
-<<<<<<< HEAD
-        <input class="btn btn-primary" type="submit" value="Se connecter"/>
-=======
+
         <input class="btn btn-info" type="submit" value="Se connecter"/>
->>>>>>> views
+
         <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
     </form>
 </div>

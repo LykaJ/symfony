@@ -45,6 +45,8 @@ class Route {
             $action = $params[1];
             $controller = new $controller();
             $controller->$action();
+
+            var_dump($controller);
             //return call_user_func_array([$controller, $params[1]], $this->matches);
         } else {
 

@@ -23,13 +23,8 @@
                 $date = new DateTime($post['creation_date']);
                 echo $date->format('d/m/Y à H:i');
                 ?> <?php if(isset($post['edition_date'])) { ?>
-<<<<<<< HEAD
-                 modifié le
-                 <?php
-=======
                     modifié le
                     <?php
->>>>>>> views
                     $date_edition = new DateTime($post['edition_date']);
                     echo $date_edition->format('d/m/Y à H:i');
                 } ?> </em></p>
