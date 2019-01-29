@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col col-md-6">
                 <p class="bt-alert">
-                     <a role="button" class="btn btn-info" href="index.php">
+                     <a role="button" class="btn btn-info" href="/Blog">
                          Retour à la liste des billets
                      </a>
                 </p>
@@ -31,7 +31,7 @@
 
                 <?php  if($userRightsManager->can('edit post') && $userRightsManager->can('delete post')) { ?>
 
-                    <a role="button" class="btn btn-info" href="index.php?action=editPost&amp;id=<?= $post['id']?>"> Modifier</a> <a role="button" class="btn btn-info" href="index.php?action=deletePost&amp;id=<?= $post['id']?>"> Supprimer</a>
+                    <a role="button" class="btn btn-info" href="/Blog/posts/edit/<?= $post['id']?>"> Modifier</a> <a role="button" class="btn btn-info" href="/Blog/posts/delete/<?= $post['id']?>"> Supprimer</a>
 
                 <?php } ?>
             </div>
@@ -45,7 +45,7 @@
                     <div class="alert alert-danger" role="alert"><?= $error ?></div>
                 <?php } ?>
                 <?php if ($userRightsManager->can('add comment')) { ?>
-                    <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+                    <form action="/Blog/comments/add/<?= $post['id'] ?>" method="post">
                         <?php if(isset($_SESSION['current_user'])) { ?>
                             <div>
                                 <label for="author">Auteur : <?php echo ($_SESSION['current_user']['pseudo']); ?></label><br />
@@ -88,7 +88,7 @@
                     <div class="col col-sm-4">
                         <?php if($userRightsManager->can('validate')) { ?>
 
-                            <p><a role="button" class="btn btn-outline-danger" href="index.php?action=deleteComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> Supprimer</a></p>
+                            <p><a role="button" class="btn btn-outline-danger" href="/Blog/comments/delete/<?= $comment['id']?>/<?= $post['id'] ?>"> Supprimer</a></p>
 
                         <?php } ?>
                     </div>
@@ -108,8 +108,8 @@
                             </div>
                             <div class="col col-sm-4">
 
-                                <p><a role="button" class="btn btn-outline-success" href="index.php?action=validateComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> Yes</a>
-                                    <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteComment&amp;id=<?= $comment['id']?>&amp;postId=<?= $post['id'] ?>"> No</a></p>
+                                <p><a role="button" class="btn btn-outline-success" href="/Blog/comments/validate/<?= $comment['id']?>/<?= $post['id'] ?>"> Yes</a>
+                                    <a role="button" class="btn btn-outline-danger" href="/Blog/comments/delete/<?= $comment['id']?>/<?= $post['id'] ?>"> No</a></p>
 
                                 </div>
 

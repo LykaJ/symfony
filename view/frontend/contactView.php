@@ -6,7 +6,7 @@
 <h1>Contact</h1>
 
 <div class="container">
-    <form method="post" action="index.php?action=newUser">
+    <form method="post" action="/Blog/signup">
         <div class="form-group">
             <label for="name">Nom</label>
             <input id="name" type="text" name="name" class="form-control" placeholder="Votre nom">

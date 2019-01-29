@@ -12,11 +12,12 @@ require_once('controllers/BaseController.php');
 // AJOUTER UN COMMENTAIRE
 class CommentsController extends BaseController
 {
-    function addComment()
+    function add($postId)
     {
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
+        if (isset($postId) && $postId > 0) {
             if (!empty($_SESSION['current_user']) && !empty($_POST['comment'])) {
-                $postId = $_GET['id'];
+
+                //$postId = $_GET['id'];
                 $author = $_SESSION['current_user']['pseudo'];
                 $userId = $_SESSION['current_user']['id'];
                 $comment = htmlspecialchars_decode($_POST['comment'], ENT_QUOTES);
@@ -28,18 +29,19 @@ class CommentsController extends BaseController
                     throw new Exception('Impossible d\'ajouter le commentaire !');
                 }
                 else {
-                    header('Location: index.php?action=showPost&id=' . $postId);
+                    header('Location: /Blog/posts/' . $postId);
                 }
             } else {
-                throw new Exception('Tous les champs ne sont pas remplis !');
+                flash_error('Tous les champs ne sont pas remplis !');
+                header('Location: /Blog/posts/' . $postId);
             }
         } else {
-            throw new Exception('Aucun identifiant de billet envoyé');
+            flash_error('Aucun identifiant de billet envoyé');
         }
     }
 
     // MODIFIER UN COMMENTAIRE
-    function updateComment()
+    function update()
     {
         $userRightsManager = new UserRightManager();
         if(!$userRightsManager->can('edit comment'))
@@ -70,7 +72,7 @@ class CommentsController extends BaseController
         }
     }
 
-    function validateComment()
+    function validate($id, $postId)
     {
         $commentManager = new CommentManager();
         $postManager = new PostManager();
@@ -78,13 +80,13 @@ class CommentsController extends BaseController
 
         if($userRightsManager->can('validate'))
         {
-            if(isset($_GET['id']) && $_GET['id'] > 0)
+            if(isset($id) && $id > 0)
             {
                 $post = $postManager->getPost($id);
-                $id = $_GET['id'];
 
                 $comment = $commentManager->getComment($id);
                 $newStatus = $commentManager->updateCommentStatus($id);
+
 
             } else {
 
@@ -94,11 +96,11 @@ class CommentsController extends BaseController
         } else {
             flash_error("Vous n'avez pas les droits");
 
-        } header('Location: /');
+        } header('Location: /Blog/posts/' . $postId);
     }
 
     // RECUPERER INFOS COMMENTAIRE ET POST
-    function editComment()
+    function edit()
     {
         if(isset($_GET['id']) && $_GET['id'] > 0) {
 
@@ -117,11 +119,11 @@ class CommentsController extends BaseController
         }
     }
 
-    function deleteComment()
+    function delete($id, $postId)
     {
-        if(isset($_GET['id']) && $_GET['id'] > 0) {
+        if(isset($id) && $id > 0) {
 
-            $id = $_GET['id'];
+            //$id = $_GET['id'];
             $postManager = new CommentManager();
             $userRightsManager = new UserRightManager();
 
@@ -137,7 +139,7 @@ class CommentsController extends BaseController
                 flash_error("Vous n'avez pas les droits");
 
             }
-        } header('Location: /Blog');
+        } header('Location: /Blog/posts/'. $postId);
 
     }
 }

@@ -10,7 +10,7 @@
 
 
         <!-- Custom stylesheet -->
-        <link rel="stylesheet" href="public/css/master.css">
+        <link rel="stylesheet" href="/Blog/public/css/master.css">
 
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -33,16 +33,16 @@
                         <a class="nav-link" href="/Blog">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="/Blog/contact">Contact</a>
                     </li>
                     <!--    <?php # if($userRightsManager->can('add post')) { ?> -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/posts/new">Ajouter Post</a>
+                        <a class="nav-link" href="/Blog/posts/new">Ajouter Post</a>
                     </li>
                     <!--    <?php # } ?> -->
                     <!--    <?php # if($userRightsManager->can('validate')) { ?> -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/validation">Validation</a>
+                        <a class="nav-link" href="/Blog/admin/validation">Validation</a>
                     </li>
                     <!--    <?php # } ?> -->
 

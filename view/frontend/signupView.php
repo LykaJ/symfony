@@ -8,7 +8,7 @@
 <div class="container">
 
 
-    <form method="post" action="index.php?action=newUser">
+    <form method="post" action="/Blog/signup">
         <div class="form-group">
             <label for="identifiant">Identifiant*</label>
             <input id="pseudo" type="text" name="pseudo" class="form-control" placeholder="Identifiant">

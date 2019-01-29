@@ -16,6 +16,7 @@ class Router {
 
     public function get($path, $callable, $name = NULL){
         return $this->add($path, $callable, $name, 'GET');
+
     }
 
     public function post($path, $callable, $name = NULL){
@@ -39,17 +40,30 @@ class Router {
         return $route;
     }
 
+
+
     public function run(){
         if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
             throw new Exception('REQUEST_METHOD does not exist');
         }
 
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
+
             if($route->match($this->url)){
+
                 return $route->call();
             }
         }
         throw new Exception('No matching routes');
     }
 
+
+    public function url($name, $params = []){
+
+       if(!isset($this->namedRoutes[$name])){
+
+           throw new Exception('No route matches this name');
+       }
+       return $this->namedRoutes[$name]->getUrl($params);
+   }
 }

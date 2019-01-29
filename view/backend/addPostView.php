@@ -14,16 +14,22 @@
  <!-- <p><a href="index.php">Accéder à l'accueil du site</a></p> -->
 
   <div class="container">
-    <h2>Ajouter Post</h2>
+    <h1 class="rewrite-bt-banner">Ajouter Post</h1>
 
   <?php
     $success = get_flash('success');
       if (!empty($success)) {
         ?>
         <div class="alert alert-success" role="alert"><?= $success ?></div>
-    <?php } ?>
+    <?php }
 
-    <form action="index.php?action=createPost" method="post">
+      $error = get_flash('error');
+        if (!empty($error)) {
+          ?>
+          <div class="alert alert-danger" role="alert"><?= $error ?></div>
+      <?php } ?>
+
+    <form action="/Blog/posts/create" method="post">
         <?php if(isset($_SESSION['current_user'])) { ?>
         <div>
             <label for="author">Auteur : <strong><?php echo $_SESSION['current_user']['pseudo']; ?></strong> </label><br />
@@ -35,12 +41,13 @@
         </div>
         <div>
             <label for="content">Contenu</label><br />
-            <textarea id="content" name="content" rows="8" cols="80"></textarea>
+            <textarea id="content" name="content" class="form-control" rows="3"></textarea>
         </div>
         <div>
-            <input class="btn btn-primary" type="submit" />
+            <input class="btn btn-info" type="submit" />
     </form>
   </div>
+</div>
 </body>
 </html>
 <?php $content = ob_get_clean(); ?>
