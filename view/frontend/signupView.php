@@ -34,20 +34,13 @@
         <button type="submit" class="btn btn-info">S'inscrire</button>
         <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
     </form>
-
-<<<<<<< HEAD
-    <p>Un validateur va vérifier votre profil avant de le valider. Vous serez informé(e) par mail lors de la confirmation de votre demande. </p>
-=======
 <br/>
 
         <p class="alert alert-info" role="alert">Un validateur va vérifier votre profil avant de le valider. Vous serez informé(e) par mail lors de la confirmation de votre demande. </p>
 
 
->>>>>>> views
-
-
     <?php
-    $error = get_flash('error');
+    $error = \Blog\get_flash('error');
     if (!empty($error)) {
         ?>
         <div class="alert alert-danger" role="alert"><?= $error ?></div>

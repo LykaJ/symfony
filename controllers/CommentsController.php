@@ -1,10 +1,11 @@
 <?php
 
-//namespace Blog;
+namespace Blog\controllers;
 
-require_once('models/CommentManager.php');
-require_once('models/UserManager.php');
-require_once('models/UserRightManager.php');
+use \Blog\models\CommentManager;
+use \Blog\models\UserManager;
+use \Blog\models\UserRightManager;
+
 require_once('controllers/BaseController.php');
 
 
@@ -32,11 +33,13 @@ class CommentsController extends BaseController
                     header('Location: /Blog/posts/' . $postId);
                 }
             } else {
-                flash_error('Tous les champs ne sont pas remplis !');
+
+                \Blog\flash_error('Tous les champs ne sont pas remplis !');
                 header('Location: /Blog/posts/' . $postId);
             }
         } else {
-            flash_error('Aucun identifiant de billet envoyé');
+            \Blog\flash_error('Aucun identifiant de billet envoyé');
+
         }
     }
 
@@ -46,7 +49,7 @@ class CommentsController extends BaseController
         $userRightsManager = new UserRightManager();
         if(!$userRightsManager->can('edit comment'))
         {
-            flash_error('Vous n\'avez pas les droits');
+            \Blog\flash_error('Vous n\'avez pas les droits');
             header('Location: /Blog');
             return;
         }
@@ -64,11 +67,11 @@ class CommentsController extends BaseController
                     header('Location: index.php?action=editComment&id=' . $id);
                 }
             } else {
-                flash_error('Tous les champs ne sont pas remplis');
+                \Blog\flash_error('Tous les champs ne sont pas remplis');
             }
         }
         else {
-            flash_error('Aucun identifiant de billet envoyé');
+            \Blog\flash_error('Aucun identifiant de billet envoyé');
         }
     }
 
@@ -82,7 +85,9 @@ class CommentsController extends BaseController
         {
             if(isset($id) && $id > 0)
             {
-                $post = $postManager->getPost($id);
+
+                $post = $postManager->getPost($postId);
+
 
                 $comment = $commentManager->getComment($id);
                 $newStatus = $commentManager->updateCommentStatus($id);
@@ -90,11 +95,11 @@ class CommentsController extends BaseController
 
             } else {
 
-                flash_error("Aucun commentaire à valider");
+                \Blog\flash_error("Aucun commentaire à valider");
             }
 
         } else {
-            flash_error("Vous n'avez pas les droits");
+            \Blog\flash_error("Vous n'avez pas les droits");
 
         } header('Location: /Blog/posts/' . $postId);
     }
@@ -114,7 +119,7 @@ class CommentsController extends BaseController
                 require('view/backend/commentView.php');
 
             } else {
-                flash_error('Nope');
+                \Blog\flash_error('Nope');
             }
         }
     }
@@ -133,10 +138,10 @@ class CommentsController extends BaseController
 
                 if($deleteComment === false)
                 {
-                    flash_error('Impossible de supprimer le post');
+                    \Blog\flash_error('Impossible de supprimer le post');
                 }
             } else {
-                flash_error("Vous n'avez pas les droits");
+                \Blog\flash_error("Vous n'avez pas les droits");
 
             }
         } header('Location: /Blog/posts/'. $postId);

@@ -1,5 +1,5 @@
 <?php
-//namespace Blog;
+namespace Blog\models;
 
 class User
 {

@@ -1,9 +1,10 @@
 <?php
 
-//namespace Blog;
+namespace Blog\controllers;
 
-require_once('models/UserManager.php');
-require_once('models/UserRightManager.php');
+use \Blog\models\UserManager;
+use \Blog\models\UserRightManager;
+
 require_once('controllers/BaseController.php');
 
 //users
@@ -25,29 +26,29 @@ class UsersController extends BaseController
 
             if($password !== $password2)
             {
-                flash_error('Les mots de passe ne correspondent pas');
+                \Blog\flash_error('Les mots de passe ne correspondent pas');
                 header('Location: index.php?action=signupForm');
             }
             else if(!empty($userManager->getUser($pseudo)))
             {
-                flash_error('Ce pseudo est déjà utilisé :(');
+                \Blog\flash_error('Ce pseudo est déjà utilisé :(');
                 header('Location: index.php?action=signupForm');
             }
             elseif (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email))
             {
-                flash_error("L'adresse email n'est pas valide");
+                \Blog\flash_error("L'adresse email n'est pas valide");
                 header('Location: index.php?action=signupForm');
             }
             else
             {
                 $newUser = $userManager->addUser($pseudo, $hash, $email);
-                flash_success('Bienvenue ' . $pseudo . ' !');
+                \Blog\flash_success('Bienvenue ' . $pseudo . ' !');
                 header('Location: index.php');
             }
         }
         else
         {
-            flash_error('Tous les champs ne sont pas remplis');
+            \Blog\flash_error('Tous les champs ne sont pas remplis');
             header('Location: index.php?action=signupForm');
         }
     }
@@ -76,7 +77,7 @@ class UsersController extends BaseController
             }
             else
             {
-                flash_error('Mauvais identifiants');
+                \Blog\flash_error('Mauvais identifiants');
                 //header('Location: index.php?action=loginForm');
             }
         }
@@ -100,7 +101,7 @@ class UsersController extends BaseController
 
             if(!$userRightsManager->can('delete user'))
             {
-                flash_error('Vous n\'avez pas les droits');
+                \Blog\flash_error('Vous n\'avez pas les droits');
                 header('Location: index.php');
                 return;
             }
@@ -109,7 +110,7 @@ class UsersController extends BaseController
 
             if($deleteUser === false)
             {
-                flash_error('Impossible de supprimer ce user');
+                \Blog\flash_error('Impossible de supprimer ce user');
             }
         }
     }

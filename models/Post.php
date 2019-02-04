@@ -1,6 +1,5 @@
 <?php
-//namespace Blog;
-
+namespace Blog\models;
 /**
 *
 */

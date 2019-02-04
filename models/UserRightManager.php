@@ -1,5 +1,7 @@
 <?php
-//namespace Blog;
+namespace Blog\models;
+
+use Blog\models\Manager;
 
 require_once('models/Manager.php');
 

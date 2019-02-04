@@ -6,17 +6,17 @@
 <h1 class="rewrite-bt-banner">Connexion</h1>
 
 <?php
-$error = get_flash('error');
+$error = \Blog\get_flash('error');
 if (!empty($error)) {
     ?>
     <div class="alert alert-danger" role="alert"><?= $error ?></div>
 <?php }
-$success = get_flash('success');
+$success = \Blog\get_flash('success');
 if (!empty($success)) {
     ?>
     <div class="alert alert-success" role="alert"><?= $success ?></div>
 <?php }
-$warning = get_flash('warning');
+$warning = \Blog\get_flash('warning');
 if (!empty($warning)) {
     ?>
     <div class="alert alert-warning" role="alert"><?= $warning ?></div>

@@ -33,13 +33,13 @@
     </form>
 
     <?php
-    $error = get_flash('error');
+    $error = \Blog\get_flash('error');
     if (!empty($error)) {
         ?>
         <div class="alert alert-danger" role="alert"><?= $error ?></div>
 
     <?php }
-    $success = get_flash('success');
+    $success = \Blog\get_flash('success');
     if (!empty($success)) {
         ?>
         <div class="alert alert-success" role="alert"><?= $success ?></div>

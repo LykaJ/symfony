@@ -6,32 +6,35 @@
     <div class="row align-items-center">
         <div class="col-md-4 offset-md-8">
             <?php
-            $error = get_flash('error');
+            $error = \Blog\get_flash('error');
             if (!empty($error)) {
                 ?>
                 <div class="alert alert-danger" role="alert"><?= $error ?></div>
             <?php } ?>
             <?php
-            $success = get_flash('success');
+            $success = \Blog\get_flash('success');
             if (!empty($success)) {
                 ?>
                 <div class="alert alert-success" role="alert"><?= $success ?></div>
             <?php } ?>
             <?php
-            $warning = get_flash('warning');
+            $warning = \Blog\get_flash('warning');
             if (!empty($warning)) {
                 ?>
                 <div class="alert alert-warning" role="alert"><?= $warning ?></div>
             <?php } ?>
 
-            <?php if ($userRightsManager->can('add post')) { ?>
-                <a role="button" class="btn btn-warning" href="/Blog/posts/new">Ajouter un post</a>
-            <?php } if (isset($_SESSION['current_user'])) { ?>
-                <a role="button" class="btn btn-warning" href="/Blog/logout">Déconnexion</a>
-            <?php } else { ?>
-                <a role="button" class="btn btn-warning" href="/Blog/signup">Inscription</a>
-                <a role="button" class="btn btn-warning" href="/Blog/signin">Connexion</a>
-            <?php } ?>
+
+
+                    <?php if ($userRightsManager->can('add post')) { ?>
+                        <a role="button" class="btn btn-warning" href="/Blog/posts/new">Ajouter un post</a>
+                    <?php } if (isset($_SESSION['current_user'])) { ?>
+                        <a role="button" class="btn btn-warning" href="/Blog/logout">Déconnexion</a>
+                    <?php } else { ?>
+                        <a role="button" class="btn btn-warning" href="/Blog/signup">Inscription</a>
+                        <a role="button" class="btn btn-warning" href="/Blog/signin">Connexion</a>
+                    <?php } ?>
+
         </div>
         <div class="col">
             <h1 class="rewrite-bt-light">Bienvenue !</h1>
@@ -97,10 +100,6 @@ for($x = 1; $x <= $pages; $x++): ?>
 </ul>
 </nav>
 <?php endfor; ?>
-<<<<<<< HEAD
-
-=======
->>>>>>> views
 <?php var_dump($x);?> <br/>
 <?php var_dump($pages);?> <br/>
 </div>

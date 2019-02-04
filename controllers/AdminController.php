@@ -1,9 +1,12 @@
 <?php
 
+namespace Blog\controllers;
+
+use \Blog\models\PostManager;
+use \Blog\models\UserManager;
+use \Blog\models\UserRightManager;
+
 require_once('controllers/BaseController.php');
-require_once('models/UserManager.php');
-require_once('models/PostManager.php');
-require_once('models/UserRightManager.php');
 
 class AdminController extends BaseController
 {
@@ -22,7 +25,9 @@ class AdminController extends BaseController
             require('view/backend/validationView.php');
 
         } else {
-            flash_error("Vous n'avez pas les droits");
+
+            \Blog\flash_error("Vous n'avez pas les droits");
+
             header('Location: /Blog');
         }
     }
@@ -42,11 +47,13 @@ class AdminController extends BaseController
 
             } else {
 
-                flash_error("Aucun post à valider");
+                \Blog\flash_error("Aucun post à valider");
             }
 
         } else {
-            flash_error("Vous n'avez pas les droits");
+
+            \Blog\flash_error("Vous n'avez pas les droits");
+
         } header('Location: /Blog');
     }
 
@@ -66,14 +73,14 @@ class AdminController extends BaseController
                     //$profileId = $_GET['profileId'];
                     $newUser = $userManager->profileUser($id, $profileId);
 
-                    flash_success("Le profil de l'utilisateur a bien été modifié");
+                    \Blog\flash_success("Le profil de l'utilisateur a bien été modifié");
 
                 } else {
 
-                    flash_error('Impossible de changer le profile de cet utilisateur');
+                    \Blog\flash_error('Impossible de changer le profile de cet utilisateur');
                 }
             } else {
-                flash_error("Vous n'avez pas les droits");
+                \Blog\flash_error("Vous n'avez pas les droits");
             }
         } header('Location: /Blog/admin-validation');
     }

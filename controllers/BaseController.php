@@ -1,4 +1,5 @@
 <?php
+namespace Blog\controllers;
 
 require_once('controllers/SessionController.php');
 
@@ -14,7 +15,7 @@ class BaseController
         if ($sessionManager->isSessionExpired())
         {
             $sessionManager->logout();
-            flash_error('Session expirée');
+            \Blog\flash_error('Session expirée');
             header('Location: /Blog/signin');
             die();
         }
@@ -22,7 +23,7 @@ class BaseController
         if(!$sessionManager->checkSessionTicket())
         {
             $sessionManager->resetTicket();
-            flash_error('La session n\'est pas reconnue');
+            \Blog\flash_error('La session n\'est pas reconnue');
             header('Location: /Blog');
             die();
         }

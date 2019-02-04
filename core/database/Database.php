@@ -1,4 +1,5 @@
 <?php
+namespace Blog;
 
 class Database
 {
@@ -11,12 +12,12 @@ class Database
 
   public static function get() {
       if (is_null(self::$PDOInstance)) {
-          self::$PDOInstance = new PDO(
+          self::$PDOInstance = new \PDO(
               'mysql:dbname='.self::DEFAULT_SQL_DTB.';host='.self::DEFAULT_SQL_HOST,
               self::DEFAULT_SQL_USER,
               self::DEFAULT_SQL_PASS
           );
-          self::$PDOInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          self::$PDOInstance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
       }
 
       return self::$PDOInstance;

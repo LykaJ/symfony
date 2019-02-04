@@ -20,12 +20,12 @@
                     <strong>Auteur :  <?= nl2br(htmlspecialchars($post['author'])) ?></strong>
                 </p>
                 <p><em>publié le <?php
-                $date = new DateTime($post['creation_date']);
+                $date = new \DateTime($post['creation_date']);
                 echo $date->format('d/m/Y à H:i');
                 ?> <?php if(isset($post['edition_date'])) { ?>
                     modifié le
                     <?php
-                    $date_edition = new DateTime($post['edition_date']);
+                    $date_edition = new \DateTime($post['edition_date']);
                     echo $date_edition->format('d/m/Y à H:i');
                 } ?> </em></p>
 
@@ -39,7 +39,7 @@
             <div class="col col-md-6">
                 <h2 class="rewrite-bt-dark">Commentaires</h2>
                 <?php
-                $error = get_flash('error');
+                $error = \Blog\get_flash('error');
                 if (!empty($error)) {
                     ?>
                     <div class="alert alert-danger" role="alert"><?= $error ?></div>
@@ -103,7 +103,7 @@
                         ?>
 
                         <div class="col col-sm-8">
-                            <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?php $dateComment = new DateTime($comment['comment_date']); echo $dateComment->format('d/m/Y');?> <br/>
+                            <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?php $dateComment = new \DateTime($comment['comment_date']); echo $dateComment->format('d/m/Y');?> <br/>
                                 <?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
                             </div>
                             <div class="col col-sm-4">

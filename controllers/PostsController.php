@@ -1,10 +1,12 @@
 <?php
 
-//namespace Blog;
+namespace Blog\controllers;
 
-require_once('models/PostManager.php');
-require_once('models/UserManager.php');
-require_once('models/UserRightManager.php');
+use \Blog\models\PostManager;
+use \Blog\models\UserManager;
+use \Blog\models\UserRightManager;
+use \Blog\models\CommentManager;
+
 require_once('controllers/BaseController.php');
 
 //POST
@@ -32,11 +34,11 @@ class PostsController extends BaseController {
 
                 } else {
                     header('Location: index.php');
-                    flash_error('Ce post n\'est pas validé !');
+                    \Blog\flash_error('Ce post n\'est pas validé !');
                 }
         }
         else {
-            flash_error('Aucun identifiant de billet envoyé');
+            \Blog\flash_error('Aucun identifiant de billet envoyé');
         }
     }
 
@@ -62,7 +64,7 @@ class PostsController extends BaseController {
 
         if(!$userRightsManager->can('add post'))
         {
-            flash_error('Vous n\'avez pas les droits');
+            \Blog\flash_error('Vous n\'avez pas les droits');
             header('Location: index.php');
             return;
         }
@@ -78,11 +80,13 @@ class PostsController extends BaseController {
                 falsh_error('Impossible d\'ajouter le post !');
 
             } else {
-                flash_warning('Le post doit être validé avant d\'apparaître dans la liste');
+
+                \Blog\flash_warning('Le post doit être validé avant d\'apparaître dans la liste');
                 header('Location: /Blog');
             }
         } else {
-            flash_error('Tous les champs ne sont pas remplis');
+            \Blog\flash_error('Tous les champs ne sont pas remplis');
+
             header('Location: /Blog/posts-new');
         }
     }
@@ -92,7 +96,9 @@ class PostsController extends BaseController {
         $userRightsManager = new UserRightManager();
         if(!$userRightsManager->can('add post'))
         {
-            flash_error('Vous n\'avez pas les droits');
+
+            \Blog\flash_error('Vous n\'avez pas les droits');
+
             header('Location: /Blog');
             return;
         } else {
@@ -120,20 +126,20 @@ class PostsController extends BaseController {
                     $updatedPost = $postManager->updatePost($id, $title, $content);
                     if($updatedPost === false)
                     {
-                        flash_error('Impossible de modifier le post');
+                        \Blog\flash_error('Impossible de modifier le post');
                     }
                 } else {
-                    flash_error('Vous n\'avez pas les droits');
+                    \Blog\flash_error('Vous n\'avez pas les droits');
                 }
             }
             else
             {
-                flash_error('Tous les champs ne sont pas remplis');
+                \Blog\flash_error('Tous les champs ne sont pas remplis');
             }
         }
         else
         {
-            flash_error('Aucun post sélectionné');
+            \Blog\flash_error('Aucun post sélectionné');
         }
         header('Location: /Blog');
     }
@@ -168,7 +174,7 @@ class PostsController extends BaseController {
         }
         if($deletePost === false)
         {
-            flash_error('Impossible de supprimer le post');
+            \Blog\flash_error('Impossible de supprimer le post');
         } header('Location: index.php');
     }
 }

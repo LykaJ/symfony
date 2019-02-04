@@ -1,5 +1,6 @@
 <?php
-//namespace Blog;
+namespace Blog\models;
+use Blog\models\Manager;
 
 require_once('models/Manager.php');
 /**
@@ -12,7 +13,7 @@ class PostManager extends Manager
 
         $req = $this->db->prepare('SELECT * FROM posts ORDER BY creation_date DESC');
         $req->execute();
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
 
     }

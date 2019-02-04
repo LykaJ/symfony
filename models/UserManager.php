@@ -1,5 +1,6 @@
 <?php
-//namespace Blog;
+namespace Blog\models;
+use Blog\models\Manager;
 
 require_once('models/Manager.php');
 class UserManager extends Manager
@@ -18,7 +19,7 @@ class UserManager extends Manager
 
         $req = $this->db->prepare('SELECT * FROM users WHERE profile_id = 4');
         $req->execute();
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 

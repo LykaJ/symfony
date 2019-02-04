@@ -1,14 +1,16 @@
 <?php
 ini_set('display_errors', 'on');
-//namespace Blog;
 session_start();
 
-//require_once('controllers/Autoloader.php');
-//\Blog\Autoloader::register();
+use \Blog\Autoloader;
+use \Blog\Route;
+use \Blog\Router;
+
+require_once('core/Autoloader.php');
+Autoloader::register();
 
 require_once('core/router/Router.php');
 require_once('core/functions/Flash.php');
-
 require_once('vendor/autoload.php');
 
 if (isset($_GET['url'])) {
@@ -20,37 +22,39 @@ if (isset($_GET['url'])) {
 $router = new Router($url);
 
 //$router->get('/', 'Home');
-$router->get('', 'Home#index');
-$router->get('posts', 'Posts#index');
-$router->get('posts/new', 'Posts#new');
-$router->get('posts/:id', 'Posts#show');
-$router->get('admin/validation', 'Admin#showUnvalidated');
 
-$router->post('posts/create', 'Posts#create');
+$router->get('', '\Blog\controllers\Home#index');
+$router->get('posts', '\Blog\controllers\Posts#index');
+$router->get('posts/new', '\Blog\controllers\Posts#new');
+$router->get('posts/:id', '\Blog\controllers\Posts#show');
+$router->get('admin/validation', '\Blog\controllers\Admin#showUnvalidated');
 
-$router->get('validate/post/:id', 'Admin#validatePost');
+$router->post('posts/create', '\Blog\controllers\Posts#create');
 
-$router->get('posts/edit/:id', 'Posts#edit');
-$router->post('posts/update/:id', 'Posts#update');
-$router->get('posts/delete/:id', 'Posts#delete');
+$router->get('validate/post/:id', '\Blog\controllers\Admin#validatePost');
 
-$router->get('signup', 'Users#new');
-$router->post('signup', 'Users#create');
-$router->get('signin', 'Users#loginForm');
-$router->post('login', 'Users#login');
-$router->get('logout', 'Session#logout');
+$router->get('posts/edit/:id', '\Blog\controllers\Posts#edit');
+$router->post('posts/update/:id', '\Blog\controllers\Posts#update');
+$router->get('posts/delete/:id', '\Blog\controllers\Posts#delete');
 
-$router->get('delete/:id', 'Users#delete');
+$router->get('signup', '\Blog\controllers\Users#new');
+$router->post('signup', '\Blog\controllers\Users#create');
+$router->get('signin', '\Blog\controllers\Users#loginForm');
+$router->post('login', '\Blog\controllers\Users#login');
+$router->get('logout', '\Blog\controllers\Session#logout');
 
-$router->get('validate/user/:id/:profileId', 'Admin#validateUser');
+$router->get('delete/:id', '\Blog\controllers\Users#delete');
 
-$router->post('comments/add/:postId', 'Comments#add');
-$router->get('comments/validate/:id/:postId', 'Comments#validate');
-$router->get('comments/edit', 'Comments#edit');
-$router->post('comments/update', 'Comments#update');
-$router->get('comments/delete/:id/:postId', 'Comments#delete');
+$router->get('validate/user/:id/:profileId', '\Blog\controllers\Admin#validateUser');
 
-$router->get('contact', 'Home#contactForm');
-$router->post('contact/sent', 'Home#contactMail');
+$router->post('comments/add/:postId', '\Blog\controllers\Comments#add');
+$router->get('comments/validate/:id/:postId', '\Blog\controllers\Comments#validate');
+$router->get('comments/edit', '\Blog\controllers\Comments#edit');
+$router->post('comments/update', '\Blog\controllers\Comments#update');
+$router->get('comments/delete/:id/:postId', '\Blog\controllers\Comments#delete');
+
+$router->get('contact', '\Blog\controllers\Home#contactForm');
+$router->post('contact/sent', '\Blog\controllers\Home#contactMail');
+
 
 $router->run();

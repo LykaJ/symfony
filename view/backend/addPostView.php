@@ -2,7 +2,6 @@
 
 <?php ob_start(); ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,13 +16,14 @@
     <h1 class="rewrite-bt-banner">Ajouter Post</h1>
 
   <?php
-    $success = get_flash('success');
+    $success = \Blog\get_flash('success');
       if (!empty($success)) {
         ?>
         <div class="alert alert-success" role="alert"><?= $success ?></div>
     <?php }
 
-      $error = get_flash('error');
+
+      $error = \Blog\get_flash('error');
         if (!empty($error)) {
           ?>
           <div class="alert alert-danger" role="alert"><?= $error ?></div>
@@ -43,10 +43,13 @@
             <label for="content">Contenu</label><br />
             <textarea id="content" name="content" class="form-control" rows="3"></textarea>
         </div>
-        <div>
+
+        <div class="bt-alert">
             <input class="btn btn-info" type="submit" />
+            </div>
     </form>
-  </div>
+
+
 </div>
 </body>
 </html>

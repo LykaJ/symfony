@@ -1,5 +1,7 @@
 <?php
-//namespace Blog;
+namespace Blog\models;
+use Blog\models\Manager;
+
 
 class MailClass
 {

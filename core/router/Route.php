@@ -1,12 +1,14 @@
 <?php
-//namespace Blog;
+namespace Blog;
 
-require_once('controllers/HomeController.php');
-require_once('controllers/PostsController.php');
-require_once('controllers/UsersController.php');
-require_once('controllers/CommentsController.php');
-require_once('controllers/AdminController.php');
-require_once('controllers/SessionController.php');
+
+use \Blog\controllers\HomeController;
+use \Blog\controllers\PostsController;
+use \Blog\controllers\UsersController;
+use \Blog\controllers\CommentsController;
+use \Blog\controllers\AdminController;
+use \Blog\controllers\SessionController;
+
 
 class Route {
 
@@ -49,7 +51,8 @@ class Route {
     public function with($param, $regex)
     {
         $this->params[$param] = str_replace('(', '(?:', $regex);
-        return $this; // On retourne tjrs l'objet pour enchainer les arguments
+        return $this;
+
     }
 
 

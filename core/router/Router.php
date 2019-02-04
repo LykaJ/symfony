@@ -1,6 +1,6 @@
 <?php
 
-//namespace Blog;
+namespace Blog;
 
 require_once('core/router/Route.php');
 

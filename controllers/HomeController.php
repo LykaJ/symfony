@@ -1,14 +1,16 @@
 <?php
 
-//namespace Blog;
+namespace Blog\controllers;
+
+use \Blog\models\PostManager;
+use \Blog\models\UserManager;
+use \Blog\models\UserRightManager;
+use \Blog\models\Manager;
+use \Blog\models\MailClass;
 
 // Chargement des classes
-require_once('models/PostManager.php');
-require_once('models/UserManager.php');
-require_once('models/UserRightManager.php');
-require_once('models/Manager.php');
+
 require_once('vendor/autoload.php');
-require_once('models/MailClass.php');
 require_once('vendor/swiftmailer/swiftmailer/lib/swift_required.php');
 require_once('controllers/BaseController.php');
 

@@ -1,5 +1,6 @@
 <?php
-//namespace Blog;
+namespace Blog\models;
+use Blog\models\Manager;
 
 require_once('models/Manager.php');
 /**
@@ -17,7 +18,7 @@ class PaginationManager extends Manager
         $req->bindValue(':perPage', $perPage, PDO::PARAM_INT);
         $articles = $req->execute();
 
-        $articles->fetchAll(PDO::FETCH_ASSOC);
+        $articles->fetchAll(\PDO::FETCH_ASSOC);
         return $articles;
     }
 

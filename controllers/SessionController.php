@@ -1,5 +1,8 @@
 <?php
 
+namespace Blog\controllers;
+
+
 class SessionController
 {
     function isSessionExpired()

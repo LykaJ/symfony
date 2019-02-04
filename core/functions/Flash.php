@@ -1,6 +1,6 @@
 <?php
 
-//namespace Blog;
+namespace Blog;
 
 /*
     Set un message flash avec un type donné
