@@ -27,7 +27,7 @@ class CommentsController extends BaseController
                 $affectedLines = $commentManager->postComment($postId, $author, $userId, $comment);
 
                 if ($affectedLines === false) {
-                    throw new Exception('Impossible d\'ajouter le commentaire !');
+                    throw new \Exception('Impossible d\'ajouter le commentaire !');
                 }
                 else {
                     header('Location: /Blog/posts/' . $postId);
@@ -60,7 +60,7 @@ class CommentsController extends BaseController
                 $commentManager = new CommentManager();
                 $newComment = $commentManager->updateComment($id, $comment);
                 if ($newComment == false) {
-                    throw new Exception("Impossible d\'editer le commentaire !");
+                    throw new \Exception("Impossible d\'editer le commentaire !");
                 }
                 else {
                     $this->token = $token;

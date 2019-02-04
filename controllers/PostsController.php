@@ -153,7 +153,7 @@ class PostsController extends BaseController {
         }
         if ($post === false)
         {
-            throw new Exception('Impossible d\'afficher le post');
+            throw new \Exception('Impossible d\'afficher le post');
         }
         else {
             $token = $this->token;
@@ -175,6 +175,6 @@ class PostsController extends BaseController {
         if($deletePost === false)
         {
             \Blog\flash_error('Impossible de supprimer le post');
-        } header('Location: index.php');
+        } header('Location: /Blog/admin/validation');
     }
 }

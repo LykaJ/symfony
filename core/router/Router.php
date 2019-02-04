@@ -44,7 +44,7 @@ class Router {
 
     public function run(){
         if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
-            throw new Exception('REQUEST_METHOD does not exist');
+            throw new \Exception('REQUEST_METHOD does not exist');
         }
 
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
@@ -54,7 +54,7 @@ class Router {
                 return $route->call();
             }
         }
-        throw new Exception('No matching routes');
+        throw new \Exception('No matching routes');
     }
 
 
@@ -62,7 +62,7 @@ class Router {
 
        if(!isset($this->namedRoutes[$name])){
 
-           throw new Exception('No route matches this name');
+           throw new \Exception('No route matches this name');
        }
        return $this->namedRoutes[$name]->getUrl($params);
    }

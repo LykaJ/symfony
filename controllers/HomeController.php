@@ -61,9 +61,9 @@ class HomeController extends BaseController
                 $mailClient = new MailClass();
                 $swiftmail = $mailClient->sendMail($sendto, $body); // add $target_dir if file sent
 
-                flash_success('Votre email a été envoyé');
+                \Blog\flash_success('Votre email a été envoyé');
             } else {
-                flash_error('Votre email n\'a pas pu être envoyé');
+                \Blog\flash_error('Votre email n\'a pas pu être envoyé');
             }
 
         } header('Location: /Blog');
@@ -125,10 +125,10 @@ $message = (new Swift_Message($message))
 // Send the message
 $result = $mailer->send($message);
 
-flash_success('Le mail est envoyé');
+\Blog\flash_success('Le mail est envoyé');
 
 } else {
-flash_error('Tous les champs ne sont pas remplis');
+\Blog\flash_error('Tous les champs ne sont pas remplis');
 }
 }
 

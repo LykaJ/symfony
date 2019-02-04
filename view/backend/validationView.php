@@ -73,8 +73,8 @@
 
                     </em></p>
                     <p>
-                        <a role="button" class="btn btn-outline-success" href="/Blog/validate/post-<?= $unvalidated_post['id']; ?>">Valider</a>
-                        <a role="button" class="btn btn-outline-danger" href="/Blog/posts/delete-<?= $unvalidated_post['id']; ?>">Supprimer</a>
+                        <a role="button" class="btn btn-outline-success" href="/Blog/validate/post/<?= $unvalidated_post['id']; ?>">Valider</a>
+                        <a role="button" class="btn btn-outline-danger" href="/Blog/posts/delete/<?= $unvalidated_post['id']; ?>">Supprimer</a>
                     </p>
 
                 <?php } ?>

@@ -82,6 +82,6 @@ class AdminController extends BaseController
             } else {
                 \Blog\flash_error("Vous n'avez pas les droits");
             }
-        } header('Location: /Blog/admin-validation');
+        } header('Location: /Blog/admin/validation');
     }
 }

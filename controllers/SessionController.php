@@ -1,7 +1,5 @@
 <?php
-
 namespace Blog\controllers;
-
 
 class SessionController
 {
