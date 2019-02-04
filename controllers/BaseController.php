@@ -1,6 +1,6 @@
 <?php
 
-require_once('models/SessionManager.php');
+require_once('controllers/SessionController.php');
 
 class BaseController
 {
@@ -9,7 +9,7 @@ class BaseController
 
     function __construct()
     {
-        $sessionManager = new SessionManager;
+        $sessionManager = new SessionController;
 
         if ($sessionManager->isSessionExpired())
         {
@@ -27,7 +27,8 @@ class BaseController
             die();
         }
 
-        $this->token = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
+        $bytes = random_bytes(5);
+        $this->token = bin2hex($bytes);
         $_SESSION['token'] = $this->token;
 
 

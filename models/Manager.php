@@ -1,6 +1,6 @@
 <?php
 //namespace Blog;
-require_once('core/database/database.php');
+require_once('core/database/Database.php');
 
 class Manager
 {

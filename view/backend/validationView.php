@@ -7,8 +7,6 @@
         <div class="row align-items-center">
             <div class="col">
 
-                <h1>Page de validation</h1>
-
                 <h1 class="rewrite-bt-banner">Page de validation</h1>
 
             </div>
@@ -75,8 +73,8 @@
 
                     </em></p>
                     <p>
-                        <a role="button" class="btn btn-outline-success" href="index.php?action=validatePost&amp;id=<?= $unvalidated_post['id']; ?>">Valider</a>
-                        <a role="button" class="btn btn-outline-danger" href="index.php?action=deletePost&amp;id=<?= $unvalidated_post['id']; ?>">Supprimer</a>
+                        <a role="button" class="btn btn-outline-success" href="/Blog/validate/post-<?= $unvalidated_post['id']; ?>">Valider</a>
+                        <a role="button" class="btn btn-outline-danger" href="/Blog/posts/delete-<?= $unvalidated_post['id']; ?>">Supprimer</a>
                     </p>
 
                 <?php } ?>
@@ -86,7 +84,7 @@
 </div>
 </section>
 
-
+<section class="container">
         <h2>Nouveaux comptes créés :</h2>
         <?php foreach($new_users as $new_user):
             if(!empty($new_user)) { ?>
@@ -113,13 +111,13 @@
                                                 Valider
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 1 ?>">Membre</a>
-                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 2 ?>">Collaborateur</a>
-                                                <a class="dropdown-item" href="index.php?action=validateUser&amp;id=<?= $new_user['id']; ?>&amp;profileId=<?= $new_user['profile_id'] = 3 ?>"> Administrateur</a>
+                                                <a class="dropdown-item" href="/Blog/validate/user/<?= $new_user['id']; ?>/<?= $new_user['profile_id'] = 1 ?>">Membre</a>
+                                                <a class="dropdown-item" href="/Blog/validate/user/<?= $new_user['id']; ?>/<?= $new_user['profile_id'] = 2 ?>">Collaborateur</a>
+                                                <a class="dropdown-item" href="/Blog/validate/user/<?= $new_user['id']; ?>/<?= $new_user['profile_id'] = 3 ?>"> Administrateur</a>
                                             </div>
                                         </div>
 
-                                        <a role="button" class="btn btn-outline-danger" href="index.php?action=deleteUser&amp;id=<?= $new_user['id']; ?>">Supprimer</a>
+                                        <a role="button" class="btn btn-outline-danger" href="/Blog/delete/user/<?= $new_user['id']; ?>">Supprimer</a>
                                 </td>
                             </tr>
                         </tbody>

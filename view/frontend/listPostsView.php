@@ -25,7 +25,7 @@
             <?php } ?>
 
             <?php if ($userRightsManager->can('add post')) { ?>
-                <a role="button" class="btn btn-warning" href="/posts/new">Ajouter un post</a>
+                <a role="button" class="btn btn-warning" href="/Blog/posts/new">Ajouter un post</a>
             <?php } if (isset($_SESSION['current_user'])) { ?>
                 <a role="button" class="btn btn-warning" href="/Blog/logout">Déconnexion</a>
             <?php } else { ?>
@@ -44,7 +44,7 @@
         </div>
 
     </div>
-</section>    
+</section>
 
 <br/>
 <section>
@@ -73,7 +73,7 @@
                             echo $date_edition->format('d/m/Y à H:i');
                         } ?>
                     </em></p>
-                    <p><a role="button" class="btn btn-info" href="Blog/posts/<?= $post['id'] ?>">En lire plus...</a></p>
+                    <p><a role="button" class="btn btn-info" href="/Blog/posts/<?= $post['id'] ?>">En lire plus...</a></p>
                 <?php } ?>
             <?php endforeach;?>
 

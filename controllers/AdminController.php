@@ -23,22 +23,20 @@ class AdminController extends BaseController
 
         } else {
             flash_error("Vous n'avez pas les droits");
-            header('Location: index.php');
+            header('Location: /Blog');
         }
     }
 
-    function validatePost()
+    function validatePost($id)
     {
         $postManager = new PostManager();
         $userRightsManager = new UserRightManager();
 
         if($userRightsManager->can('validate'))
         {
-            if(isset($_GET['id']) && $_GET['id'] > 0)
+            if(isset($id) && $id > 0)
 
             {
-                $id = $_GET['id'];
-
                 $post = $postManager->getPost($id);
                 $newStatus = $postManager->updatePostStatus($id);
 
@@ -49,24 +47,23 @@ class AdminController extends BaseController
 
         } else {
             flash_error("Vous n'avez pas les droits");
-            header('Location: index.php');
-        }
+        } header('Location: /Blog');
     }
 
-    function validateUser()
+    function validateUser($id, $profileId)
     {
         $userManager = new UserManager();
         $userRightsManager = new UserRightManager();
 
-        if(isset($_GET['id']) && $_GET['id'] > 0)
+        if(isset($id) && $id > 0)
         {
-            $id = $_GET['id'];
+            //$id = $_GET['id'];
 
             if ($userRightsManager->can('validate')) {
 
-                if(!empty($_GET['profileId']))
+                if(!empty($profileId))
                 {
-                    $profileId = $_GET['profileId'];
+                    //$profileId = $_GET['profileId'];
                     $newUser = $userManager->profileUser($id, $profileId);
 
                     flash_success("Le profil de l'utilisateur a bien été modifié");
@@ -78,6 +75,6 @@ class AdminController extends BaseController
             } else {
                 flash_error("Vous n'avez pas les droits");
             }
-        } header('Location: /Blog');
+        } header('Location: /Blog/admin-validation');
     }
 }

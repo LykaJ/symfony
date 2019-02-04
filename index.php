@@ -1,5 +1,5 @@
 <?php
-//ini_set('display_errors', 'on');
+ini_set('display_errors', 'on');
 //namespace Blog;
 session_start();
 
@@ -20,21 +20,37 @@ if (isset($_GET['url'])) {
 $router = new Router($url);
 
 //$router->get('/', 'Home');
-$router->get('', 'HomeController#index');
-$router->get('posts/:id', 'PostsController#show');
-$router->get('posts', 'PostsController#list');
-$router->get('posts', 'PostsController#new');
-$router->get('admin/validation', 'AdminController#showUnvalidated');
+$router->get('', 'Home#index');
+$router->get('posts', 'Posts#index');
+$router->get('posts/new', 'Posts#new');
+$router->get('posts/:id', 'Posts#show');
+$router->get('admin/validation', 'Admin#showUnvalidated');
 
-$router->post('posts/create', 'PostsController#create');
-$router->post('posts/validate', 'PostsController#validate');
-$router->post('posts/edit', 'PostsController#update');
-$router->post('posts/delete', 'PostsController#delete');
+$router->post('posts/create', 'Posts#create');
 
-$router->get('signup', 'UsersController#new');
-$router->post('signup', 'UsersController#create');
-$router->get('signin', 'UsersController#loginForm');
-$router->post('login', 'UsersController#login');
-$router->get('logout', 'SessionManager#logout');
+$router->get('validate/post/:id', 'Admin#validatePost');
+
+$router->get('posts/edit/:id', 'Posts#edit');
+$router->post('posts/update/:id', 'Posts#update');
+$router->get('posts/delete/:id', 'Posts#delete');
+
+$router->get('signup', 'Users#new');
+$router->post('signup', 'Users#create');
+$router->get('signin', 'Users#loginForm');
+$router->post('login', 'Users#login');
+$router->get('logout', 'Session#logout');
+
+$router->get('delete/:id', 'Users#delete');
+
+$router->get('validate/user/:id/:profileId', 'Admin#validateUser');
+
+$router->post('comments/add/:postId', 'Comments#add');
+$router->get('comments/validate/:id/:postId', 'Comments#validate');
+$router->get('comments/edit', 'Comments#edit');
+$router->post('comments/update', 'Comments#update');
+$router->get('comments/delete/:id/:postId', 'Comments#delete');
+
+$router->get('contact', 'Home#contactForm');
+$router->post('contact/sent', 'Home#contactMail');
 
 $router->run();

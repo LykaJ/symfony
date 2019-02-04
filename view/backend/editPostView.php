@@ -15,24 +15,26 @@
 <body>
 
   <div class="container">
-    <h2>Modifier Post</h2>
+    <h1 class="rewrite-bt-banner">Modifier Post</h1>
 
-    <form action="index.php?action=updatePost&amp;id=<?= $post['id']?>" method="post">
+    <form action="/Blog/posts/update/<?= $post['id']?>" method="post">
         <div>
             <p>Auteur : <?= htmlspecialchars($post['author'])?></p>
         </div>
         <div>
             <label for="title">Titre</label><br />
-            <textarea id="title" name="title" rows="2" cols="80"><?= htmlspecialchars($post['title'])?></textarea>
+            <textarea id="title" name="title" class="form-control" rows="3"><?= htmlspecialchars($post['title'])?></textarea>
         </div>
         <div>
             <label for="content">Contenu</label><br />
-            <textarea id="content" name="content" rows="8" cols="80"><?= htmlspecialchars($post['content'])?></textarea>
+            <textarea id="content" name="content" class="form-control" rows="3"><?= htmlspecialchars($post['content'])?></textarea>
         </div>
         <div>
-            <input class="btn btn-primary" type="submit" />
+            <input class="btn btn-info" type="submit" />
+        </div>
     </form>
   </div>
+
 </body>
 </html>
 <?php $content = ob_get_clean(); ?>

@@ -7,7 +7,7 @@
 
     <p>Vous avez une question ? Envoyez moi un message :)</p>
 
-    <form method="post" action="index.php?action=contactMail">
+    <form method="post" action="/Blog/contact/sent">
         <div class="form-group">
             <?php if(isset($_SESSION['current_user'])) {?>
                 <label for="identifiant">Votre Identifiant : <?php echo $_SESSION['current_user']['pseudo']; ?></label>

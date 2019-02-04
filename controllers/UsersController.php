@@ -89,11 +89,11 @@ class UsersController extends BaseController
     }
 
     //DELETE USER
-    function delete()
+    function delete($id)
     {
-        if(isset($_GET['id']) && $_GET['id'] > 0)
+        if(isset($id) && $id > 0)
         {
-            $id = $_GET['id'];
+            //$id = $_GET['id'];
 
             $userRightsManager = new UserRightManager();
             $userManager = new UserManager;

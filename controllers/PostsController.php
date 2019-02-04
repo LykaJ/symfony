@@ -12,11 +12,12 @@ require_once('controllers/BaseController.php');
 
 class PostsController extends BaseController {
 
-    function show()
+  public function show($id)
     {
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
 
-            $id = $_GET['id'];
+        if (isset($id) && $id > 0) {
+
+            //$id = $_GET['id'];
             $postManager = new PostManager();
             $commentManager = new CommentManager();
             $userRightsManager = new UserRightManager();
@@ -51,8 +52,6 @@ class PostsController extends BaseController {
 
     }
 
-
-
     //POST
 
 
@@ -74,13 +73,17 @@ class PostsController extends BaseController {
             $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
             $postManager = new PostManager();
             $newPostLines = $postManager->postPost($title, $author, $content);
+
             if ($newPostLines === false) {
                 falsh_error('Impossible d\'ajouter le post !');
-            } else {
 
+            } else {
                 flash_warning('Le post doit être validé avant d\'apparaître dans la liste');
-                header('Location: index.php');
+                header('Location: /Blog');
             }
+        } else {
+            flash_error('Tous les champs ne sont pas remplis');
+            header('Location: /Blog/posts-new');
         }
     }
 
@@ -90,22 +93,23 @@ class PostsController extends BaseController {
         if(!$userRightsManager->can('add post'))
         {
             flash_error('Vous n\'avez pas les droits');
-            header('Location: index.php');
+            header('Location: /Blog');
             return;
+        } else {
+            $token = $this->token;
+            require_once('view/backend/addPostView.php');
         }
-        $token = $this->token;
-        require_once('view/backend/addPostView.php');
     }
 
 
     // METTRE A JOUR UN POST
-    function update()
+    function update($id)
     {
-        if(isset($_GET['id']) && $_GET['id'] > 0)
+        if(isset($id) && $id > 0)
         {
             if (!empty($_POST['title']) && !empty($_POST['content']))
             {
-                $id = $_GET['id'];
+                // $id = $_GET['id'];
                 $title = htmlspecialchars_decode($_POST['title'], ENT_QUOTES);
                 $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
                 $postManager = new PostManager();
@@ -131,13 +135,13 @@ class PostsController extends BaseController {
         {
             flash_error('Aucun post sélectionné');
         }
-        header('Location: index.php');
+        header('Location: /Blog');
     }
 
-    function edit()
+    function edit($id)
     {
-        if(isset($_GET['id']) && $_GET['id'] > 0) {
-            $id = $_GET['id'];
+        if(isset($id) && $id > 0) {
+            //$id = $_GET['id'];
             $postManager = new PostManager();
             $post = $postManager->getPost($id);
         }
@@ -152,11 +156,11 @@ class PostsController extends BaseController {
     }
 
     // SUPPRIMER Post
-    function delete()
+    function delete($id)
     {
-        if(isset($_GET['id']) && $_GET['id'] > 0) {
+        if(isset($id) && $id > 0) {
 
-            $id = $_GET['id'];
+            //$id = $_GET['id'];
             $postManager = new PostManager();
             $userRightsManager = new UserRightManager();
 

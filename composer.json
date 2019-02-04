@@ -1,5 +1,20 @@
 {
+    "name": "alicia/router",
+    "authors": [
+        {
+            "name": "Alicia Raulet",
+            "email": "webdesigner.form@gmail.com"
+        }
+    ],
+    
+    "autoload": {
+        "psr-4": {
+            "App\\" : "src"
+        }
+    },
+
     "require": {
         "swiftmailer/swiftmailer": "^6.0"
     }
+
 }

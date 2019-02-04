@@ -6,7 +6,7 @@ require_once('controllers/PostsController.php');
 require_once('controllers/UsersController.php');
 require_once('controllers/CommentsController.php');
 require_once('controllers/AdminController.php');
-require_once('models/SessionManager.php');
+require_once('controllers/SessionController.php');
 
 class Route {
 
@@ -26,28 +26,55 @@ class Route {
     **/
     public function match($url)
     {
-        $path = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
+        $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
         $regex = "#^$path$#i";
+
         if(!preg_match($regex, $url, $matches)){
             return false;
         }
         array_shift($matches);
-        $this->matches = $matches;  // On sauvegarde les paramètre dans l'instance pour plus tard
+        $this->matches = $matches;
         return true;
+    }
+
+    private function paramMatch($match)
+     {
+         if(isset($this->params[$match[1]]))
+         {
+             return '(' . $this->params[$match[1]] . ')';
+         }
+         return '([^/]+)';
+     }
+
+    public function with($param, $regex)
+    {
+        $this->params[$param] = str_replace('(', '(?:', $regex);
+        return $this; // On retourne tjrs l'objet pour enchainer les arguments
+    }
+
+
+    public function getUrl($params)
+    {
+        $path = $this->path;
+
+        foreach($params as $k => $v)
+        {
+            $path = str_replace(":$k", $v, $path);
+        }
+        return $path;
     }
 
     public function call(){
 
-       if(is_string($this->callable))
+        if(is_string($this->callable))
         {
             $params = explode('#', $this->callable);
-            $controller = $params[0]; // . "Controller";
+            $controller = $params[0] . "Controller";
             $action = $params[1];
             $controller = new $controller();
-            $controller->$action();
 
-            var_dump($controller);
-            //return call_user_func_array([$controller, $params[1]], $this->matches);
+            return call_user_func_array([$controller, $params[1]], $this->matches);
+
         } else {
 
             return call_user_func_array($this->callable, $this->matches);

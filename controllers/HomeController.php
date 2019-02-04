@@ -25,6 +25,52 @@ class HomeController extends BaseController
         require_once('view/frontend/listPostsView.php');
 
     }
+
+    function contactMail()
+    {
+        if(isset($_POST['submit']))
+        {
+        //    $subject = $_POST['subject'];
+            $sendto = $_POST['email'];
+            $body = $_POST['message'];
+        /*    $file = $_FILES["file"];
+            $file_name = $file["name"];
+            $file_tmp = $file["tmp_name"];
+            $file_ext = explode(".", $file_name);
+            $file_ext = strtolower(end($file_ext));
+            $allowed = array("txt", "pdf", "jpg" , "png" , "xlsx" , "docx");
+            $target_dir = null;
+        */
+
+            if (!empty($_SESSION['current_user']) && !empty($_POST['email']) && !empty($_POST['message']))
+            {
+                $author = $_SESSION['current_user']['pseudo'];
+                $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
+                $message = htmlspecialchars_decode($_POST['message'], ENT_QUOTES);
+
+    //IF FILE ALLOWED
+
+            /*    if(in_array($file_ext, $allowed))
+                {
+                    $target_dir = "attachement/" . $file_name;
+                    move_uploaded_file($file_tmp,$target_dir);
+                } */
+
+                $mailClient = new MailClass();
+                $swiftmail = $mailClient->sendMail($sendto, $body); // add $target_dir if file sent
+
+                flash_success('Votre email a été envoyé');
+            } else {
+                flash_error('Votre email n\'a pas pu être envoyé');
+            }
+
+        } header('Location: /Blog');
+    }
+
+    function contactForm()
+    {
+        require_once('view/frontend/contact.php');
+    }
 }
 
 //Pagination
@@ -86,45 +132,3 @@ flash_error('Tous les champs ne sont pas remplis');
 
 }
 */
-
-function contactMail()
-{
-    if(isset($_POST['submit']))
-    {
-    //    $subject = $_POST['subject'];
-        $sendto = $_POST['email'];
-        $body = $_POST['message'];
-    /*    $file = $_FILES["file"];
-        $file_name = $file["name"];
-        $file_tmp = $file["tmp_name"];
-        $file_ext = explode(".", $file_name);
-        $file_ext = strtolower(end($file_ext));
-        $allowed = array("txt", "pdf", "jpg" , "png" , "xlsx" , "docx");
-        $target_dir = null;
-    */
-
-        if (!empty($_SESSION['current_user']) && !empty($_POST['email']) && !empty($_POST['message']))
-        {
-            $author = $_SESSION['current_user']['pseudo'];
-            $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
-            $message = htmlspecialchars_decode($_POST['message'], ENT_QUOTES);
-
-//IF FILE ALLOWED
-
-        /*    if(in_array($file_ext, $allowed))
-            {
-                $target_dir = "attachement/" . $file_name;
-                move_uploaded_file($file_tmp,$target_dir);
-            } */
-
-            $mailClient = new MailClass();
-            $swiftmail = $mailClient->sendMail($sendto, $body); // add $target_dir if file sent
-        }
-
-    }
-}
-
-function contactForm()
-{
-    require_once('view/frontend/contact.php');
-}
