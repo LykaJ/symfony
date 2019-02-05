@@ -12,6 +12,7 @@
         <!-- Custom stylesheet -->
         <link rel="stylesheet" href="/Blog/public/css/master.css">
 
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -20,6 +21,8 @@
     </head>
 
     <body>
+
+<!-- NAVIGATION -->
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
@@ -50,13 +53,15 @@
             </div>
         </nav>
 
+<!-- PAGE CONTENT-->
 
+<?= $content ?>
 
-        <?= $content ?>
+<!-- FOOTER-->
 
         <footer class="text-center">
             <div class="footer-above">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="footer-col col-md-4">
 
@@ -66,23 +71,14 @@
 
                         </div>
                         <div class="footer-col col-md-4">
-                            <h3 class="rewrite-bt-light-font">Around the Web</h3>
+                            <h3 class="rewrite-bt-light-font">Réseaux sociaux</h3>
+                            <a class="icon" href="https://github.com/LykaJ" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+                            <a class="icon" href="https://www.linkedin.com/in/alicia-raulet-771397b2/" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
 
-                            <!--    <ul class="list-inline">
-                            <li>
-                            <a href="https://github.com/LykaJ" class="btn-social btn-outline"><i class="fa fa-github"></i></a>
-                        </li>
-                        <li>
-                        <a href="https://www.linkedin.com/in/alicia-raulet-771397b2/" class="btn-social btn-outline"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul> -->
-
-                <a href="https://github.com/LykaJ" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/alicia-raulet-771397b2/" target="_blank">LinkedIn</a>
             </div>
             <div class="footer-col col-md-4">
-                <h3 class="rewrite-bt-light-font">About this blog</h3>
-                <p class="rewrite-bt-light-font">This blog is the fith project of the OpenClassrooms training <a href="https://openclassrooms.com/fr/paths/59-developpeur-dapplication-php-symfony" target="_blank">Website Developpement using PHP/Symfony</a> .</p>
+                <h3 class="rewrite-bt-light-font">A propos</h3>
+                <p class="rewrite-bt-light-font">Ce blog est le projet 5 de la formation OpenClassrooms <a href="https://openclassrooms.com/fr/paths/59-developpeur-dapplication-php-symfony" target="_blank">Développement Web avec PHP/Symfony</a>.</p>
 
             </div>
         </div>

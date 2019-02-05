@@ -56,7 +56,6 @@ class AdminController extends BaseController
         $userRightsManager = new UserRightManager();
 
         if (isset($id) && $id > 0) {
-            //$id = $_GET['id'];
 
             if ($userRightsManager->can('validate')) {
                 if (!empty($profileId)) {
