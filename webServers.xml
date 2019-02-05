@@ -1,13 +1,8 @@
 <application>
   <component name="WebServers">
     <option name="servers">
-      <webServer id="4818320f-fb08-47e9-8c2b-1d48528abe05" name="gm-dev.fr_Projet_5" url="https://alicia-blog.gm-dev.fr/">
-        <fileTransfer host="gm-dev.fr" port="22" rootFolder="/var/www/alicia-blog.gm-dev.fr/web" accessType="SFTP">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
-          </advancedOptions>
-          <option name="port" value="22" />
-        </fileTransfer>
+      <webServer id="4818320f-fb08-47e9-8c2b-1d48528abe05" name="gm-dev.fr_Projet_5" url="http://localhost">
+        <fileTransfer port="0" accessType="LOCAL" />
       </webServer>
     </option>
   </component>
