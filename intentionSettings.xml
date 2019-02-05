@@ -1,5 +1,0 @@
-<application>
-  <component name="IntentionManagerSettings">
-    <ignoreAction name="PHP/Inject language using PHPDoc" />
-  </component>
-</application>
