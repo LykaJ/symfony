@@ -1,7 +1,7 @@
 <application>
   <component name="WebServers">
     <option name="servers">
-      <webServer id="4818320f-fb08-47e9-8c2b-1d48528abe05" name="gm-dev.fr_Projet_5" url="http://localhost:8888">
+      <webServer id="4818320f-fb08-47e9-8c2b-1d48528abe05" name="MAMP Apache" url="http://localhost:8888">
         <fileTransfer port="0" mountedRoot="/Applications/MAMP/htdocs" accessType="MOUNT" />
       </webServer>
     </option>
