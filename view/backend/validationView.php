@@ -18,20 +18,23 @@
                 if (!empty($error)) {
                     ?>
                     <div class="alert alert-danger" role="alert"><?= $error ?></div>
-                <?php } ?>
+                <?php
+                } ?>
                 <?php
                 $success = \Blog\get_flash('success');
                 if (!empty($success)) {
                     ?>
                     <div class="alert alert-success" role="alert"><?= $success ?></div>
-                <?php } ?>
+                <?php
+                } ?>
 
                 <?php
                 $warning = \Blog\get_flash('warning');
                 if (!empty($warning)) {
                     ?>
                     <div class="alert alert-warning" role="alert"><?= $warning ?></div>
-                <?php } ?>
+                <?php
+                } ?>
 
             </div>
         </div>
@@ -47,9 +50,10 @@
             </div>
 
             <div class="col col-md-6 col-sm-12">
-                <?php foreach($unvalidated_posts as $unvalidated_post):
+                <?php foreach ($unvalidated_posts as $unvalidated_post):
 
-                    if($unvalidated_post['status'] === NULL) { ?>
+                    if ($unvalidated_post['status'] === null) {
+                        ?>
 
 
                         <h3>
@@ -61,14 +65,13 @@
                         <br/>
                         <p><em>Publié le <?php
                         $date = new DateTime($unvalidated_post['creation_date']);
-                        echo $date->format('d/m/Y à H:i');
-                        ?>
-                        <?php if(isset($unvalidated_post['edition_date'])) { ?>
+                        echo $date->format('d/m/Y à H:i'); ?>
+                        <?php if (isset($unvalidated_post['edition_date'])) {
+                            ?>
                             modifié le
                             <?php
                             $date_edition = new DateTime($unvalidated_post['edition_date']);
                             echo $date_edition->format('d/m/Y à H:i');
-
                         } ?>
 
                     </em></p>
@@ -77,7 +80,8 @@
                         <a role="button" class="btn btn-outline-danger" href="/Blog/posts/delete/<?= $unvalidated_post['id']; ?>">Supprimer</a>
                     </p>
 
-                <?php } ?>
+                <?php
+                    } ?>
             <?php endforeach;?>
         </div>
     </div>
@@ -86,8 +90,9 @@
 
 <section class="container">
         <h2>Nouveaux comptes créés :</h2>
-        <?php foreach($new_users as $new_user):
-            if(!empty($new_user)) { ?>
+        <?php foreach ($new_users as $new_user):
+            if (!empty($new_user)) {
+                ?>
 
                 <div class="table-responsive-md">
                     <table class="table">
@@ -125,7 +130,8 @@
                 </div>
 
 
-            <?php } ?>
+            <?php
+            } ?>
         <?php endforeach; ?>
     </div>
 </section>

@@ -1,145 +1,132 @@
 <?php
 namespace Blog\models;
+
 /**
 *
 */
 class Post
 {
+    private $_errors = [];
+    private $_id;
+    private $_title;
+    private $_content;
+    private $_author;
+    private $_dateCreation;
+    private $_dateEdition;
 
-  private $_errors = [],
-  $_id,
-  $_title,
-  $_content,
-  $_author,
-  $_dateCreation,
-  $_dateEdition;
+    const AUTEUR_INVALIDE = 1;
+    const TITRE_INVALIDE = 2;
+    const CONTENU_INVALIDE = 3;
 
-  const AUTEUR_INVALIDE = 1;
-  const TITRE_INVALIDE = 2;
-  const CONTENU_INVALIDE = 3;
-
-  public function __construct(array $data)
-  {
-    $this->hydrate($data);
-  }
-
-  public function hydrate(array $data)
-  {
-    foreach ($data as $key => $value)
+    public function __construct(array $data)
     {
-      $method = 'set'.ucfirst($key);
-
-      if(method_exists($this, $method))
-      {
-        $this->$method($value);
-      }
+        $this->hydrate($data);
     }
-  }
 
-  public function isNew()
-  {
-    return empty($this->_id);
-  }
-
-  public function isValid()
-  {
-    return !(empty($this->_author) || empty($this->_title) || empty($this->_content));
-  }
-
-  //SETTERS
-
-  public function setId($id)
-  {
-    $id = (int) $id;
-
-    if($id > 0)
+    public function hydrate(array $data)
     {
-      $this->_id = $id;
-    }
-  }
+        foreach ($data as $key => $value) {
+            $method = 'set'.ucfirst($key);
 
-  public function setAuthor($author)
-  {
-    if (!is_string($author) || empty($author))
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+
+    public function isNew()
     {
-      $this->_errors[] = self::AUTEUR_INVALIDE;
+        return empty($this->_id);
     }
-    else
+
+    public function isValid()
     {
-      $this->_author = $author;
+        return !(empty($this->_author) || empty($this->_title) || empty($this->_content));
     }
-  }
 
-  public function setTitle($title)
-  {
-    if (!is_string($title) || empty($title))
+    //SETTERS
+
+    public function setId($id)
     {
-      $this->_errors[] = self::TITRE_INVALIDE;
+        $id = (int) $id;
+
+        if ($id > 0) {
+            $this->_id = $id;
+        }
     }
-    else
+
+    public function setAuthor($author)
     {
-      $this->_title = $title;
+        if (!is_string($author) || empty($author)) {
+            $this->_errors[] = self::AUTEUR_INVALIDE;
+        } else {
+            $this->_author = $author;
+        }
     }
-  }
 
-  public function setContent($content)
-  {
-    if (!is_string($content) || empty($content))
+    public function setTitle($title)
     {
-      $this->_errors[] = self::CONTENU_INVALIDE;
+        if (!is_string($title) || empty($title)) {
+            $this->_errors[] = self::TITRE_INVALIDE;
+        } else {
+            $this->_title = $title;
+        }
     }
-    else
+
+    public function setContent($content)
     {
-      $this->_content = $content;
+        if (!is_string($content) || empty($content)) {
+            $this->_errors[] = self::CONTENU_INVALIDE;
+        } else {
+            $this->_content = $content;
+        }
     }
-  }
 
-  public function setCreationDate(DateTime $dateCreation)
-  {
-    $this->_dateCreation = $dateCreation;
-  }
+    public function setCreationDate(DateTime $dateCreation)
+    {
+        $this->_dateCreation = $dateCreation;
+    }
 
-  public function setEditionDate(DateTime $dateEdition)
-  {
-    $this->_dateEdition = $dateEdition;
-  }
-
+    public function setEditionDate(DateTime $dateEdition)
+    {
+        $this->_dateEdition = $dateEdition;
+    }
 
 
-  //GETTERS
-  public function errors()
-  {
-    return $this->_errors;
-  }
 
-  public function id()
-  {
-    return $this->_id;
-  }
+    //GETTERS
+    public function errors()
+    {
+        return $this->_errors;
+    }
 
-  public function author()
-  {
-    return $this->_author;
-  }
+    public function id()
+    {
+        return $this->_id;
+    }
 
-  public function title()
-  {
-    return $this->_title;
-  }
+    public function author()
+    {
+        return $this->_author;
+    }
 
-  public function content()
-  {
-    return $this->_content;
-  }
+    public function title()
+    {
+        return $this->_title;
+    }
 
-  public function dateCreation()
-  {
-    return $this->_dateCreation;
-  }
+    public function content()
+    {
+        return $this->_content;
+    }
 
-  public function dateEdition()
-  {
-    return $this->_dateEdition;
-  }
+    public function dateCreation()
+    {
+        return $this->_dateCreation;
+    }
 
+    public function dateEdition()
+    {
+        return $this->_dateEdition;
+    }
 }

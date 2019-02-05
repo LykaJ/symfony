@@ -18,23 +18,27 @@
   <?php
     $success = \Blog\get_flash('success');
       if (!empty($success)) {
-        ?>
+          ?>
         <div class="alert alert-success" role="alert"><?= $success ?></div>
-    <?php }
+    <?php
+      }
 
 
       $error = \Blog\get_flash('error');
         if (!empty($error)) {
-          ?>
+            ?>
           <div class="alert alert-danger" role="alert"><?= $error ?></div>
-      <?php } ?>
+      <?php
+        } ?>
 
     <form action="/Blog/posts/create" method="post">
-        <?php if(isset($_SESSION['current_user'])) { ?>
+        <?php if (isset($_SESSION['current_user'])) {
+            ?>
         <div>
             <label for="author">Auteur : <strong><?php echo $_SESSION['current_user']['pseudo']; ?></strong> </label><br />
         </div>
-        <?php } ?>
+        <?php
+        } ?>
         <div>
             <label for="title">Titre</label><br />
             <input type="text" name="title" />

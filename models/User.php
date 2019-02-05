@@ -3,11 +3,11 @@ namespace Blog\models;
 
 class User
 {
-    private $_errors = [],
-    $_pseudo,
-    $_password,
-    $_signUpDate,
-    $_loginDate;
+    private $_errors = [];
+    private $_pseudo;
+    private $_password;
+    private $_signUpDate;
+    private $_loginDate;
 
     //doit-on utiliser une variable profile ici ? ou créer une nouvelle classe?
 
@@ -21,12 +21,10 @@ class User
 
     public function hydrate(array $data)
     {
-        foreach ($data as $key => $value)
-        {
+        foreach ($data as $key => $value) {
             $method = 'set'.ucfirst($key);
 
-            if(method_exists($this, $method))
-            {
+            if (method_exists($this, $method)) {
                 $this->$method($value);
             }
         }
@@ -36,24 +34,18 @@ class User
 
     public function setPseudo($pseudo)
     {
-        if (!is_string($pseudo) || empty($pseudo))
-        {
+        if (!is_string($pseudo) || empty($pseudo)) {
             $this->_errors[] = self::PSEUDO_INVALIDE;
-        }
-        else
-        {
+        } else {
             $this->_pseudo = $pseudo;
         }
     }
 
     public function setPass($password)
     {
-        if (!is_string($password) || empty($password))
-        {
+        if (!is_string($password) || empty($password)) {
             $this->_errors[] = self::PASSWORD_INVALIDE;
-        }
-        else
-        {
+        } else {
             $this->_password = $password;
         }
     }
@@ -87,11 +79,11 @@ class User
 
     public function datesignUpDate()
     {
-      return $this->_dateloginDate;
+        return $this->_dateloginDate;
     }
 
     public function dateloginDate()
     {
-      return $this->_dateEdition;
+        return $this->_dateEdition;
     }
 }

@@ -45,7 +45,8 @@
         ?>
         <div class="alert alert-danger" role="alert"><?= $error ?></div>
 
-    <?php } ?>
+    <?php
+    } ?>
 </div>
 </body>
 </html>

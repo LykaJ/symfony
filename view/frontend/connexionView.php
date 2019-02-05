@@ -10,17 +10,20 @@ $error = \Blog\get_flash('error');
 if (!empty($error)) {
     ?>
     <div class="alert alert-danger" role="alert"><?= $error ?></div>
-<?php }
+<?php
+}
 $success = \Blog\get_flash('success');
 if (!empty($success)) {
     ?>
     <div class="alert alert-success" role="alert"><?= $success ?></div>
-<?php }
+<?php
+}
 $warning = \Blog\get_flash('warning');
 if (!empty($warning)) {
     ?>
     <div class="alert alert-warning" role="alert"><?= $warning ?></div>
-<?php } ?>
+<?php
+} ?>
 
 <div class="container">
     <form method="post" action="/Blog/login">

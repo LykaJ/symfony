@@ -1,5 +1,6 @@
 <?php
 namespace Blog\models;
+
 use Blog\models\Manager;
 
 require_once('models/Manager.php');
@@ -10,17 +11,14 @@ class PostManager extends Manager
 {
     public function getPosts()
     {
-
         $req = $this->db->prepare('SELECT * FROM posts ORDER BY creation_date DESC');
         $req->execute();
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
-
     }
 
     public function getPost($postId)
     {
-
         $req = $this->db->prepare('SELECT id, title, author, content, creation_date, edition_date, status FROM posts WHERE id = ?');
         $req->execute(array($postId));
         $post = $req->fetch();
@@ -29,7 +27,6 @@ class PostManager extends Manager
 
     public function postPost($title, $author, $content)
     {
-
         $newPost = $this->db->prepare('INSERT INTO posts(title, author, content, creation_date, edition_date, status) VALUES(?, ?, ?, NOW(), NULL, NULL)');
         $newPostLines = $newPost->execute(array($title, $author, $content));
         return $newPostLines;

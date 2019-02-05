@@ -35,16 +35,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Blog/contact">Contact</a>
                     </li>
-                    <!--    <?php # if($userRightsManager->can('add post')) { ?> -->
+                    <!--    <?php # if($userRightsManager->can('add post')) {?> -->
                     <li class="nav-item">
                         <a class="nav-link" href="/Blog/posts/new">Ajouter Post</a>
                     </li>
-                    <!--    <?php # } ?> -->
-                    <!--    <?php # if($userRightsManager->can('validate')) { ?> -->
+                    <!--    <?php # }?> -->
+                    <!--    <?php # if($userRightsManager->can('validate')) {?> -->
                     <li class="nav-item">
                         <a class="nav-link" href="/Blog/admin/validation">Validation</a>
                     </li>
-                    <!--    <?php # } ?> -->
+                    <!--    <?php # }?> -->
 
                 </ul>
             </div>

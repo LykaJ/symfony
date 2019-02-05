@@ -3,38 +3,35 @@ namespace Blog\models;
 
 class Comment
 {
-  private $_id,
-          $_author,
-          $_content,
-          $_date;
+    private $_id;
+    private $_author;
+    private $_content;
+    private $_date;
 
-  public function __construct(array $data)
-  {
-    $this->hydrate($data);
-  }
-
-  public function hydrate(array $data)
-  {
-    foreach ($data as $key => $value)
+    public function __construct(array $data)
     {
-      $method = 'set'.ucfirst($key);
-
-      if(method_exists($this, $method))
-      {
-        $this->$method($value);
-      }
+        $this->hydrate($data);
     }
-  }
 
-  //SETTERS
-
-  public function setId($id)
-  {
-    $id = (int) $id;
-
-    if($id > 0)
+    public function hydrate(array $data)
     {
-      $this->_id=$id;
+        foreach ($data as $key => $value) {
+            $method = 'set'.ucfirst($key);
+
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
     }
-  }
+
+    //SETTERS
+
+    public function setId($id)
+    {
+        $id = (int) $id;
+
+        if ($id > 0) {
+            $this->_id=$id;
+        }
+    }
 }

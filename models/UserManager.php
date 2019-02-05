@@ -1,5 +1,6 @@
 <?php
 namespace Blog\models;
+
 use Blog\models\Manager;
 
 require_once('models/Manager.php');
@@ -16,7 +17,6 @@ class UserManager extends Manager
 
     public function getNewUsers()
     {
-
         $req = $this->db->prepare('SELECT * FROM users WHERE profile_id = 4');
         $req->execute();
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);

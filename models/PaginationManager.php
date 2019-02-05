@@ -1,5 +1,6 @@
 <?php
 namespace Blog\models;
+
 use Blog\models\Manager;
 
 require_once('models/Manager.php');
@@ -8,10 +9,8 @@ require_once('models/Manager.php');
  */
 class PaginationManager extends Manager
 {
-
     public function countArticles($totalPages)
     {
-
         $db = $this->dbConnect();
         $req = $db->prepare("SELECT SQL_CALC_FOUND_ROWS id, title, content, author FROM posts LIMIT :start , :perPage");
         $req->bindValue(':start', $start, PDO::PARAM_INT);

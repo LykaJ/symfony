@@ -6,15 +6,16 @@
             "email": "webdesigner.form@gmail.com"
         }
     ],
-    
+
     "autoload": {
         "psr-4": {
-            "App\\" : "src"
+            "Blog\\" : "Blog"
         }
     },
 
     "require": {
-        "swiftmailer/swiftmailer": "^6.0"
+        "swiftmailer/swiftmailer": "^6.0",
+        "friendsofphp/php-cs-fixer": "^2.14"
     }
 
 }
