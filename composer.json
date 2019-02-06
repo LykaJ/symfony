@@ -1,0 +1,21 @@
+{
+    "name": "alicia/router",
+    "authors": [
+        {
+            "name": "Alicia Raulet",
+            "email": "webdesigner.form@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "Blog\\" : "Blog"
+        }
+    },
+
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0",
+        "friendsofphp/php-cs-fixer": "^2.14"
+    }
+
+}
