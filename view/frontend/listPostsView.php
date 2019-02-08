@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-<section id="about-container">
+<section class="container-fluid" id="about-container">
     <div class="row align-items-center">
         <div class="col-md-4 offset-md-8">
             <?php
@@ -46,9 +46,12 @@
 
         </div>
         <div class="col">
-            <h1 class="rewrite-bt-light">Projet 5</h1>
-
+            <h1 class="rewrite-bt-light">Bienvenue !</h1>
+            <div class="">
                 <img src="public/img/id-real.png" alt="ID-image" class="rounded-circle" width="150">
+            </div>
+            <!-- <p>Bienvenue sur mon blog.</p>
+            <p>Suivant une formation OpenClassrooms, j'ai créé ce blog pour suivre l'un des projets demandés. Je le mettrai à jour une fois que la formation sera validée.</p> -->
 
         </div>
 
@@ -58,11 +61,6 @@
 <br/>
 <section>
     <div class="container">
-        <div>
-            <p>Bienvenue sur mon blog.
-                Suivant une formation OpenClassrooms, j'ai créé ce blog pour suivre l'un des projets demandés. Je le mettrais à jour une fois que la formation sera validée.</p>
-
-        </div>
 
                 <h2 class="rewrite-bt-dark">Derniers billets du blog :</h2>
 
@@ -78,13 +76,13 @@
                         <strong>Auteur :  <?= nl2br(htmlspecialchars($post['author'])) ?></strong>
                         <br/>
                         <p><em>Publié le <?php
-                        $date = new \DateTime($post['creation_date']);
+                        $date = new DateTime($post['creation_date']);
                         echo $date->format('d/m/Y à H:i'); ?>
                         <?php if (isset($post['edition_date'])) {
                             ?>
                             modifié le
                             <?php
-                            $date_edition = new \DateTime($post['edition_date']);
+                            $date_edition = new DateTime($post['edition_date']);
                             echo $date_edition->format('d/m/Y à H:i');
                         } ?>
                     </em></p>

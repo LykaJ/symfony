@@ -1,10 +1,10 @@
 <?php
-
-/*
 namespace Blog\models;
 
 require_once('models/Manager.php');
-
+/**
+ *
+ */
 class PaginationManager extends Manager
 {
     public function countArticles($totalPages)
@@ -26,4 +26,3 @@ class PaginationManager extends Manager
         return $req;
     }
 }
-*/

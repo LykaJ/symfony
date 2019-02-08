@@ -76,8 +76,8 @@ class CommentsController extends BaseController
     }
 
     /**
-     * @param $id CommentManager the comment id
-     * @param $postId PostManager the post id
+     * @param $id gets the comment id
+     * @param $postId gets the post id
      */
     public function validate($id, $postId)
     {

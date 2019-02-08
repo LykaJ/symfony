@@ -7,7 +7,7 @@
 
     <p>Vous avez une question ? Envoyez moi un message :)</p>
 
-    <form method="post" action="/Blog/contact">
+    <form method="post" action="/Blog/contact/sent">
         <div class="form-group">
             <?php if (isset($_SESSION['current_user'])) {
     ?>
@@ -27,35 +27,34 @@
             <?php
     } else {
         ?>
-                <label for="email">Votre Email*</label>
-                <input type="email" class="form-control" id="email" placeholder="Saisir email" name="email">
+                <label for="identifiant">Votre Email*</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Saisir email" name="email">
             <?php
     } ?>
         </div>
         <div class="form-group">
-            <label for="content">Votre Message*</label>
-            <textarea class="form-control" id="content" rows="3" name="content"></textarea>
+            <label for="message">Votre Message*</label>
+            <textarea class="form-control" id="message" rows="3"></textarea>
         </div>
 
         <button type="submit" class="btn btn-info">Envoyer</button>
     </form>
-    <div class="bt-alert">
-        <?php
-        $error = \Blog\get_flash('error');
-        if (!empty($error)) {
-            ?>
-            <div class="alert alert-danger" role="alert"><?= $error ?></div>
 
-            <?php
-        }
-        $success = \Blog\get_flash('success');
-        if (!empty($success)) {
-            ?>
-            <div class="alert alert-success" role="alert"><?= $success ?></div>
+    <?php
+    $error = \Blog\get_flash('error');
+    if (!empty($error)) {
+        ?>
+        <div class="alert alert-danger" role="alert"><?= $error ?></div>
 
-            <?php
-        } ?>
-    </div>
+    <?php
+    }
+    $success = \Blog\get_flash('success');
+    if (!empty($success)) {
+        ?>
+        <div class="alert alert-success" role="alert"><?= $success ?></div>
+
+    <?php
+    } ?>
 </div>
 
 <?php $content = ob_get_clean(); ?>

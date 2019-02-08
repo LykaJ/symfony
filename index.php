@@ -53,7 +53,7 @@ $router->post('comments/update', '\Blog\controllers\Comments#update');
 $router->get('comments/delete/:id/:postId', '\Blog\controllers\Comments#delete');
 
 $router->get('contact', '\Blog\controllers\Home#contactForm');
-$router->post('contact', '\Blog\controllers\Home#contactMail');
+$router->post('contact/sent', '\Blog\controllers\Home#contactMail');
 
 
 $router->run();

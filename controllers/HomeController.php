@@ -2,12 +2,13 @@
 
 namespace Blog\controllers;
 
-use function Blog\flash_success;
 use \Blog\models\PostManager;
 use \Blog\models\UserManager;
 use \Blog\models\UserRightManager;
-use function PHPSTORM_META\elementType;
+use \Blog\models\Manager;
+use \Blog\models\MailClass;
 
+// Chargement des classes
 
 require_once('vendor/autoload.php');
 require_once('vendor/swiftmailer/swiftmailer/lib/swift_required.php');
@@ -15,6 +16,7 @@ require_once('controllers/BaseController.php');
 
 class HomeController extends BaseController
 {
+    //private $_view;
 
     public function index()
     {
@@ -25,63 +27,44 @@ class HomeController extends BaseController
         require_once('view/frontend/listPostsView.php');
     }
 
-   public function contactMail()
-   {
+    public function contactMail()
+    {
+        if (isset($_POST['submit'])) {
+            //    $subject = $_POST['subject'];
+            $sendto = $_POST['email'];
+            $body = $_POST['message'];
+            /*    $file = $_FILES["file"];
+                $file_name = $file["name"];
+                $file_tmp = $file["tmp_name"];
+                $file_ext = explode(".", $file_name);
+                $file_ext = strtolower(end($file_ext));
+                $allowed = array("txt", "pdf", "jpg" , "png" , "xlsx" , "docx");
+                $target_dir = null;
+            */
 
-       if (isset($_SESSION['current_user']) && !empty($_POST['content']))
-       {
-           $email = $_SESSION['current_user']['email'];
-           $pseudo = $_SESSION['current_user']['pseudo'];
-           $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
+            if (!empty($_SESSION['current_user']) && !empty($_POST['email']) && !empty($_POST['message'])) {
+                $author = $_SESSION['current_user']['pseudo'];
+                $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
+                $message = htmlspecialchars_decode($_POST['message'], ENT_QUOTES);
 
-       } else if (!empty($_POST['email']) && !empty($_POST['content']) && !empty($_POST['pseudo'])) {
+                //IF FILE ALLOWED
 
-           $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
-           $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
-           $pseudo = htmlspecialchars_decode($_POST['pseudo'], ENT_QUOTES);
-       }
+                /*    if(in_array($file_ext, $allowed))
+                    {
+                        $target_dir = "attachement/" . $file_name;
+                        move_uploaded_file($file_tmp,$target_dir);
+                    } */
 
-               // Create the Transport
-               $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
-                   ->setUsername('webdesigner.form@gmail.com')
-                   ->setPassword('OpenClassRooms12');
+                $mailClient = new MailClass();
+                $swiftmail = $mailClient->sendMail($sendto, $body); // add $target_dir if file sent
 
-                // Create the Mailer using your created Transport
-               $mailer = new \Swift_Mailer($transport);
-
-                // Create a message
-
-                $message = (new \Swift_Message('Blog - Formulaire Contact'))
-                    ->setFrom(array($email => $pseudo))
-                    ->setTo(array("webdesigner.form@gmail.com" => "Jane Doe"))
-                    ->setBody(
-                        '<html>' .
-                        ' <body>' .
-                        $content .
-                        ' </body>' .
-                        '</html>',
-                        'text/html'
-                    )
-                    ->setCharset('utf-8')
-                    ->setContentType('text/html');
-
-                // Send the message
-                //printf("Sent %d messages\n", $numSent);
-
-                if ($mailer->send($message)) {
-
-                    \Blog\flash_success('Votre message a été envoyé');
-
-                } else if (!$mailer->send($message, $failures)) {
-
-                    \Blog\flash_error('Votre message n\'a pas pu être envoyé');
-                    print_r($failures);
-                }
-
-          header('Location: /Blog/contact');
-   }
-
-
+                \Blog\flash_success('Votre email a été envoyé');
+            } else {
+                \Blog\flash_error('Votre email n\'a pas pu être envoyé');
+            }
+        }
+        header('Location: /Blog');
+    }
 
     public function contactForm()
     {

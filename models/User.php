@@ -50,12 +50,12 @@ class User
         }
     }
 
-    public function setsignUpDate(\Datetime $signUpDate)
+    public function setsignUpDate(Datetime $signUpDate)
     {
         $this->_signUpDate = $signUpDate;
     }
 
-    public function setloginDate(\DateTime $loginDate)
+    public function setloginDate(DateTime $loginDate)
     {
         $this->_loginDate = $loginDate;
     }
@@ -79,11 +79,11 @@ class User
 
     public function datesignUpDate()
     {
-        return $this->_signUpDate;
+        return $this->_dateloginDate;
     }
 
     public function dateloginDate()
     {
-        return $this->_loginDate;
+        return $this->_dateEdition;
     }
 }

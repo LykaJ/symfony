@@ -15,8 +15,7 @@
 
     "require": {
         "swiftmailer/swiftmailer": "^6.0",
-        "friendsofphp/php-cs-fixer": "^2.14",
-      "ext-pdo": "*"
+        "friendsofphp/php-cs-fixer": "^2.14"
     }
 
 }
