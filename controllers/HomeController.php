@@ -5,8 +5,6 @@ namespace Blog\controllers;
 use \Blog\models\PostManager;
 use \Blog\models\UserManager;
 use \Blog\models\UserRightManager;
-use function PHPSTORM_META\elementType;
-
 
 require_once('vendor/autoload.php');
 require_once('vendor/swiftmailer/swiftmailer/lib/swift_required.php');
@@ -31,6 +29,7 @@ class HomeController extends BaseController
             $email = $_SESSION['current_user']['email'];
             $pseudo = $_SESSION['current_user']['pseudo'];
             $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
+
         } else if (!empty($_POST['email']) && !empty($_POST['content']) && !empty($_POST['pseudo'])) {
             $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
             $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
