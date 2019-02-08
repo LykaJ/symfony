@@ -2,8 +2,7 @@
 
 <?php ob_start(); ?>
 
-<aside>
-    <div class="container">
+<aside class="container">
         <div class="row align-items-center">
             <div class="col">
 
@@ -38,12 +37,10 @@
 
             </div>
         </div>
-    </div>
 </aside>
 
 <br/>
-<section>
-    <div class="container">
+<section class="container">
         <div class="row">
             <div class="col col-md-4 col-sm-12">
                 <h2>Derniers billets non validés :</h2>
@@ -64,13 +61,13 @@
                         <strong>Auteur :  <?= nl2br(htmlspecialchars($unvalidated_post['author'])) ?></strong>
                         <br/>
                         <p><em>Publié le <?php
-                        $date = new DateTime($unvalidated_post['creation_date']);
+                        $date = new \DateTime($unvalidated_post['creation_date']);
                         echo $date->format('d/m/Y à H:i'); ?>
                         <?php if (isset($unvalidated_post['edition_date'])) {
                             ?>
                             modifié le
                             <?php
-                            $date_edition = new DateTime($unvalidated_post['edition_date']);
+                            $date_edition = new \DateTime($unvalidated_post['edition_date']);
                             echo $date_edition->format('d/m/Y à H:i');
                         } ?>
 
@@ -85,9 +82,9 @@
             <?php endforeach;?>
         </div>
     </div>
-</div>
 </section>
 
+<!--suppress Annotator -->
 <section class="container">
         <h2>Nouveaux comptes créés :</h2>
         <?php foreach ($new_users as $new_user):
@@ -133,7 +130,6 @@
             <?php
             } ?>
         <?php endforeach; ?>
-    </div>
 </section>
 <?php $content = ob_get_clean(); ?>
 

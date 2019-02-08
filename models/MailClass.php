@@ -1,38 +1,60 @@
 <?php
+/*
 namespace Blog\models;
+
+require_once('vendor/swiftmailer/swiftmailer/lib/swift_required.php');
 
 class MailClass
 {
-    public function sendMail($sendto, $body) // add $targetpath = null if files to be sent
+
+    public function sendMail() // add $targetpath = null if files to be sent
     {
+        $sendto = $_POST('email');
+        $body = $_POST('message');
+
         try {
-            $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 'tls', 587);
+            $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 'ssl', 587);
             $transport->setUsername('webdesigner.form@gmail.com');
             $transport->setPassword('OpenClassRooms12');
 
-            $message = Swift_Message::newInstance();
+            $message = \Swift_Message::newInstance();
             $message->setTo($sendto);
-            // $message->setSubject($subject);
+            $message->setSubject('Fomulaire de contact');
             $message->setBody($body);
-            $message->setFrom("webdesigner.form@gmail.com", "Jane Doe");
+            $message->setFrom(array("webdesigner.form@gmail.com" => "Jane Doe"));
 
-            //CONDITION TO SEND FILES
+            $message->setCharset('utf-8');
+            $message->setContentType('text/html');
+            $message->setBody($this->renderView('view/frontend/contact.php'));
 
-            /*    if(!empty($targetpath))
-                {
-                    $message->attach(Swift_Attachment::fromPath($targetpath));
-                } */
+            /*  if (!empty($_SESSION['current_user']) && !empty($_POST['email']) && !empty($_POST['content']))
+           {
+               $author = $_SESSION['current_user']['pseudo'];
+               $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
+               $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
 
-            $mailer = Swift_Mailer::newInstance($transport);
-            $result = $mailer->send($message);
+               //IF FILE ALLOWED
 
-            if ($result) {
-                echo "Number of emails sent: $result";
-            } else {
-                echo "Couldn't send email";
-            }
-        } catch (Exception $e) {
+                if(in_array($file_ext, $allowed))
+                   {
+                       $target_dir = "attachement/" . $file_name;
+                       move_uploaded_file($file_tmp,$target_dir);
+                   } */
+
+                $mailer = \Swift_Mailer::newInstance($transport);
+                $result = $mailer->send($message);
+
+                if ($result) {
+                    \Blog\flash_success('Votre email a été envoyé');
+                } else {
+                    \Blog\flash_error('Votre email n\'a pas pu être envoyé');
+                }
+           /* } */
+
+        } catch (\Exception $e) {
             echo 'Erreur : ' . $e->getMessage();
+
         }
     }
 }
+*/

@@ -79,12 +79,12 @@ class Post
         }
     }
 
-    public function setCreationDate(DateTime $dateCreation)
+    public function setCreationDate(\DateTime $dateCreation)
     {
         $this->_dateCreation = $dateCreation;
     }
 
-    public function setEditionDate(DateTime $dateEdition)
+    public function setEditionDate(\DateTime $dateEdition)
     {
         $this->_dateEdition = $dateEdition;
     }

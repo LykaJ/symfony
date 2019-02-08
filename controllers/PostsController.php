@@ -2,7 +2,6 @@
 
 namespace Blog\controllers;
 
-use function Blog\flash_error;
 use \Blog\models\PostManager;
 use \Blog\models\UserRightManager;
 use \Blog\models\CommentManager;
@@ -72,7 +71,7 @@ class PostsController extends BaseController
             $newPostLines = $postManager->postPost($title, $author, $content);
 
             if ($newPostLines === false) {
-                falsh_error('Impossible d\'ajouter le post !');
+                \Blog\flash_error('Impossible d\'ajouter le post !');
             } else {
                 \Blog\flash_warning('Le post doit être validé avant d\'apparaître dans la liste');
                 header('Location: /Blog');

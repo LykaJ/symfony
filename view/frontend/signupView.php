@@ -2,7 +2,6 @@
 
 <?php ob_start(); ?>
 
-<html>
 <h1 class="rewrite-bt-banner">Inscription</h1>
 
 <div class="container">
@@ -26,17 +25,17 @@
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Saisir email" name="email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-    <!--    <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1"> By submitting this form, I agree that my data will be processed, used and exploited in order to be contacted considering the business relationship established here.
-            </label>
-        </div> -->
+        <!--    <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1"> By submitting this form, I agree that my data will be processed, used and exploited in order to be contacted considering the business relationship established here.
+                </label>
+            </div> -->
         <button type="submit" class="btn btn-info">S'inscrire</button>
         <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
     </form>
-<br/>
+    <br/>
 
-        <p class="alert alert-info" role="alert">Un validateur va vérifier votre profil avant de le valider. Vous serez informé(e) par mail lors de la confirmation de votre demande. </p>
+    <p class="alert alert-info" role="alert">Un validateur va vérifier votre profil avant de le valider. Vous serez informé(e) par mail lors de la confirmation de votre demande. </p>
 
 
     <?php
@@ -45,11 +44,9 @@
         ?>
         <div class="alert alert-danger" role="alert"><?= $error ?></div>
 
-    <?php
+        <?php
     } ?>
 </div>
-</body>
-</html>
 
 <?php $content = ob_get_clean(); ?>
 

@@ -1,13 +1,6 @@
 <?php
 namespace Blog;
 
-use \Blog\controllers\HomeController;
-use \Blog\controllers\PostsController;
-use \Blog\controllers\UsersController;
-use \Blog\controllers\CommentsController;
-use \Blog\controllers\AdminController;
-use \Blog\controllers\SessionController;
-
 class Route
 {
     private $path;
@@ -72,6 +65,7 @@ class Route
             $controller = new $controller();
 
             return call_user_func_array([$controller, $params[1]], $this->matches);
+
         } else {
             return call_user_func_array($this->callable, $this->matches);
         }
