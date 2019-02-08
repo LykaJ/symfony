@@ -51,7 +51,7 @@ class UsersController extends BaseController
     public function login()
     {
         if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
-            sleep(1);
+
             $pseudo = htmlspecialchars_decode($_POST['pseudo'], ENT_QUOTES);
             $passform = htmlspecialchars_decode($_POST['password'], ENT_QUOTES);
             $passform = hash('sha256', $passform);
@@ -64,7 +64,6 @@ class UsersController extends BaseController
                 header('Location: index.php');
             } else {
                 \Blog\flash_error('Mauvais identifiants');
-                //header('Location: index.php?action=loginForm');
             }
         }
     }
@@ -79,7 +78,6 @@ class UsersController extends BaseController
     public function delete($id)
     {
         if (isset($id) && $id > 0) {
-            //$id = $_GET['id'];
 
             $userRightsManager = new UserRightManager();
             $userManager = new UserManager;

@@ -133,7 +133,7 @@
             <?php
             } ?>
         <?php endforeach; ?>
-    </div>
+
 </section>
 <?php $content = ob_get_clean(); ?>
 

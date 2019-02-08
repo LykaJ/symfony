@@ -73,7 +73,13 @@ body {
 
 .rewrite-bt-light-font {
     color: white;
+    padding-top: 20px;
 
+}
+
+.rewrite-bt-footer {
+    font-style: italic;
+    color: #ffffff;
 }
 
 .icon {
