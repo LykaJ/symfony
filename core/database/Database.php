@@ -7,12 +7,6 @@ class Database
 {
     private static $PDOInstance = null;
 
-    const DEFAULT_SQL_USER = 'root';
-   // const DEFAULT_SQL_HOST = 'localhost';
-    const DEFAULT_SQL_PASS = 'admin32';
-    const DEFAULT_SQL_DTB = 'blog';
-
-
 
     public static function get()
     {
