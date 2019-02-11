@@ -2,10 +2,10 @@
 
 namespace Blog\controllers;
 
-use function Blog\flash_error;
 use \Blog\models\PostManager;
 use \Blog\models\UserRightManager;
 use \Blog\models\CommentManager;
+use \Blog\models\Input;
 
 require_once('controllers/BaseController.php');
 
@@ -44,35 +44,37 @@ class PostsController extends BaseController
     {
         $postManager = new PostManager();
         $userRightsManager = new UserRightManager();
-        //$pagination = new PaginationManager();
 
-        $posts = $postManager->getPosts();
+        $postManager->getPosts();
 
         require('view/frontend/listPostsView.php');
     }
 
     //POST
-
-
     // AJOUTER UN POST
     public function create()
     {
         $userRightsManager = new UserRightManager();
+
+        $input = new Input();
+        $session = $input->session('current_user');
 
         if (!$userRightsManager->can('add post')) {
             \Blog\flash_error('Vous n\'avez pas les droits');
             header('Location: index.php');
             return;
         }
-        if (!empty($_SESSION['current_user']) && !empty($_POST['title']) && !empty($_POST['content'])) {
-            $author = $_SESSION['current_user']['pseudo'];
-            $title = htmlspecialchars_decode($_POST['title'], ENT_QUOTES);
-            $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
+        if (!empty($session) && !empty($input->post('title')) && !empty($input->post('content'))) {
+
+            $author = $session['pseudo'];
+            $title = htmlspecialchars_decode($input->post('title'), ENT_QUOTES);
+            $content = htmlspecialchars_decode($input->post('content'), ENT_QUOTES);
+
             $postManager = new PostManager();
             $newPostLines = $postManager->postPost($title, $author, $content);
 
             if ($newPostLines === false) {
-                falsh_error('Impossible d\'ajouter le post !');
+                \Blog\falsh_error('Impossible d\'ajouter le post !');
             } else {
                 \Blog\flash_warning('Le post doit être validé avant d\'apparaître dans la liste');
                 header('Location: /Blog');
@@ -102,11 +104,13 @@ class PostsController extends BaseController
     // METTRE A JOUR UN POST
     public function update($id)
     {
+        $input = new Input();
+
         if (isset($id) && $id > 0) {
-            if (!empty($_POST['title']) && !empty($_POST['content'])) {
-                // $id = $_GET['id'];
-                $title = htmlspecialchars_decode($_POST['title'], ENT_QUOTES);
-                $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
+            if (!empty($input->post('title')) && !empty($input->post('content'))) {
+
+                $title = htmlspecialchars_decode($input->post('title'), ENT_QUOTES);
+                $content = htmlspecialchars_decode($input->post('content'), ENT_QUOTES);
                 $postManager = new PostManager();
                 $userRightsManager = new UserRightManager();
 

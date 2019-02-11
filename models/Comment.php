@@ -4,9 +4,6 @@ namespace Blog\models;
 class Comment
 {
     private $_id;
-    private $_author;
-    private $_content;
-    private $_date;
 
     public function __construct(array $data)
     {

@@ -30,14 +30,6 @@ class CommentManager extends Manager
         return $comment;
     }
 
-    public function updateComment($id, $comment)
-    {
-        $req = $this->db->prepare('UPDATE comments SET comment = ?, comment_date = NOW() WHERE id = ?');
-        $newComment = $req->execute(array($comment, $id));
-
-        return $newComment;
-    }
-
     public function updateCommentStatus($id)
     {
         $req = $this->db->prepare('UPDATE comments SET status = 1 WHERE id = ?');

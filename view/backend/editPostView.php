@@ -3,15 +3,6 @@
 <?php ob_start(); ?>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Administration</title>
-  <meta charset="utf-8" />
-</head>
-
-<body>
-
   <div class="container">
     <h1 class="rewrite-bt-banner">Modifier Post</h1>
 
@@ -32,9 +23,6 @@
         </div>
     </form>
   </div>
-
-</body>
-</html>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('view/template.php'); ?>

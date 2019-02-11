@@ -94,33 +94,6 @@
 </div>
 </section>
 
-<!--<div class="container">
-<div class="row justify-content-center">
-<div class="col">
-<?php
-for ($x = 1; $x <= $pages; $x++): ?>
-<nav aria-label="Page navigation example">
-<ul class="pagination justify-content-center">
-<li class="page-item disabled">
-<a class="page-link" href="#" tabindex="-1">Previous</a>
-</li>
-<li class="page-item"><a class="page-link" href="?page=<?php echo $x; ?>&amp;perPage=<?php echo $perPage; ?>"<?php if ($page === $x) {
-                        echo "class:'selected'";
-                    } ?>> <?php echo $x; ?></a></li>
-<li class="page-item">
-<a class="page-link" href="#">Next</a>
-</li>
-</ul>
-</nav>
-<?php endfor; ?>
-<?php var_dump($x);?> <br/>
-<?php var_dump($pages);?> <br/>
-</div>
-</div>
-</div> -->
-
-
-
 <?php $content = ob_get_clean(); ?>
 
 <?php require('view/template.php'); ?>
