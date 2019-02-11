@@ -4,6 +4,7 @@ namespace Blog\controllers;
 
 use \Blog\models\UserManager;
 use \Blog\models\UserRightManager;
+use \Blog\models\Input;
 
 require_once('controllers/BaseController.php');
 
@@ -14,11 +15,13 @@ class UsersController extends BaseController
 {
     public function create()
     {
-        if (!empty($_POST['pseudo']) && !empty($_POST['password']) && !empty($_POST['password2']) && !empty($_POST['email'])) {
-            $pseudo = htmlspecialchars_decode($_POST['pseudo'], ENT_QUOTES);
-            $password = htmlspecialchars_decode($_POST['password'], ENT_QUOTES);
-            $password2 = htmlspecialchars_decode($_POST['password2'], ENT_QUOTES);
-            $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
+        $input = new Input();
+
+        if (!empty($input->post("pseudo")) && !empty($input->post("password")) && !empty($input->post("password2")) && !empty($input->post("email"))) {
+            $pseudo = htmlspecialchars_decode($input->post("pseudo"), ENT_QUOTES);
+            $password = htmlspecialchars_decode($input->post("password"), ENT_QUOTES);
+            $password2 = htmlspecialchars_decode($input->post("password2"), ENT_QUOTES);
+            $email = htmlspecialchars_decode($input->post("email"), ENT_QUOTES);
             $hash = hash('sha256', $password);
             $userManager = new UserManager();
 
@@ -50,10 +53,12 @@ class UsersController extends BaseController
 
     public function login()
     {
-        if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
+        $input = new Input();
 
-            $pseudo = htmlspecialchars_decode($_POST['pseudo'], ENT_QUOTES);
-            $passform = htmlspecialchars_decode($_POST['password'], ENT_QUOTES);
+        if (!empty($input->post("pseudo")) && !empty($input->post("password"))) {
+
+            $pseudo = htmlspecialchars_decode($input->post("pseudo"), ENT_QUOTES);
+            $passform = htmlspecialchars_decode($input->post("password"), ENT_QUOTES);
             $passform = hash('sha256', $passform);
             $userManager = new UserManager();
             $user = $userManager->getUser($pseudo);

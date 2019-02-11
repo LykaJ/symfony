@@ -68,7 +68,7 @@
         <div class="footer-above">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="footer-col col-md-4">
+                    <div class="footer-col col-md-4 col-xs-12">
 
                         <h3 class="rewrite-bt-light-font">Infos pratiques</h3>
 
@@ -76,13 +76,13 @@
                         <p><a class="rewrite-bt-footer" href="/Blog/admin/validation" >Administration</a> </p>
 
                     </div>
-                    <div class="footer-col col-md-4">
+                    <div class="footer-col col-md-4 col-xs-12">
                         <h3 class="rewrite-bt-light-font">Réseaux sociaux</h3>
-                        <a class="icon" href="https://github.com/LykaJ" target="_blank"><i class="fa fa-github fa-2x"></i></a>
-                        <a class="icon" href="https://www.linkedin.com/in/alicia-raulet-771397b2/" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+                        <a class="icon" href="https://github.com/LykaJ" target="_blank"><i class="fa fa-github fa-3x"></i></a>
+                        <a class="icon" href="https://www.linkedin.com/in/alicia-raulet-771397b2/" target="_blank"><i class="fa fa-linkedin fa-3x"></i></a>
 
                     </div>
-                    <div class="footer-col col-md-4">
+                    <div class="footer-col col-md-4 col-xs-12">
                         <h3 class="rewrite-bt-light-font">A propos</h3>
                         <p class="rewrite-bt-light-font">Ce blog est le projet 5 de la formation OpenClassrooms <a href="https://openclassrooms.com/fr/paths/59-developpeur-dapplication-php-symfony" target="_blank">Développement Web avec PHP/Symfony</a>.</p>
 
@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="footer-below">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <p class="rewrite-bt-light-font">Copyright &copy; <?php $date = new \DateTime();

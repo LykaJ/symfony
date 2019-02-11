@@ -34,7 +34,7 @@ if (!empty($warning)) {
 } ?>
 
 <div class="container">
-    <form method="post" action="/login">
+    <form method="post" action="/Blog/login">
         <div class="form-group">
             <label for="identifiant">Identifiant*</label>
             <input id="pseudo" type="text" name="pseudo" class="form-control" placeholder="Identifiant">

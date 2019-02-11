@@ -1,7 +1,10 @@
 <?php
 namespace Blog\controllers;
 
+use \Blog\models\Input;
+
 require_once('controllers/SessionController.php');
+
 
 class BaseController
 {
@@ -10,6 +13,8 @@ class BaseController
     public function __construct()
     {
         $sessionManager = new SessionController;
+        $input = new Input;
+        $session = $input->session('token');
 
         if ($sessionManager->isSessionExpired()) {
             $sessionManager->logout();
@@ -27,6 +32,6 @@ class BaseController
 
         $bytes = random_bytes(5);
         $this->token = bin2hex($bytes);
-        $_SESSION['token'] = $this->token;
+        $session = $this->token;
     }
 }
