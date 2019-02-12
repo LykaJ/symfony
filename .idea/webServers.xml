@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ee1b68a0-48dd-4ab0-8fa5-9c6a90a8d64c" name="gm-dev.fr" url="https://alicia-blog.gm-dev.fr/">
+        <fileTransfer host="gm-dev.fr" port="22" rootFolder="/var/www/clients/client2/web4/web" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

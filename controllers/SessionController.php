@@ -1,18 +1,25 @@
 <?php
 namespace Blog\controllers;
 
+use \Blog\models\Input;
+
 class SessionController
 {
     public function isSessionExpired()
     {
-        if (!isset($_SESSION['current_user'])) {
+        $input = new Input();
+
+        $session = $input->session('current_user');
+        $sessionExpires = $input->session('expires_at');
+
+        if (!isset($session)) {
             return false;
         }
-        if (!isset($_SESSION['expires_at'])) {
+        if (!isset($sessionExpires)) {
             $_SESSION['expires_at'] = time() + 1800;
             return false;
         }
-        if ($_SESSION['expires_at'] < time()) {
+        if ($sessionExpires < time()) {
             return true;
         }
         return false;
@@ -20,18 +27,23 @@ class SessionController
 
     public function checkSessionTicket()
     {
-        if (!isset($_COOKIE['ct-s'])) {
+        $input = new Input();
+        $cookie = $input->cookie('ct-s');
+        $sessionCTS = $input->session('ct-s');
+
+        if (!isset($cookie)) {
             $this->createTicket();
             return true;
         }
 
-        return $_COOKIE['ct-s'] === $_SESSION['ct-s'];
+        return $cookie === $sessionCTS;
     }
 
     public function logout()
     {
         unset($_SESSION['current_user']);
         unset($_SESSION['expires_at']);
+
         header('Location: /Blog');
     }
 

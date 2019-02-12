@@ -1,10 +1,10 @@
 <?php
 namespace Blog\controllers;
 
-
 use \Blog\models\PostManager;
 use \Blog\models\UserManager;
 use \Blog\models\UserRightManager;
+use \Blog\models\Input;
 
 require_once('vendor/autoload.php');
 require_once('vendor/swiftmailer/swiftmailer/lib/swift_required.php');
@@ -24,17 +24,29 @@ class HomeController extends BaseController
 
     public function contactMail()
     {
-        if (isset($_SESSION['current_user']) && !empty($_POST['content']))
+        $input = new Input();
+        $session = $input->session('current_user');
+
+        if (isset($session) && !empty($input->post('content')))
         {
-            $email = $_SESSION['current_user']['email'];
-            $pseudo = $_SESSION['current_user']['pseudo'];
+            $email = $session['email'];
+            $pseudo = $session['pseudo'];
             $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
 
-        } else if (!empty($_POST['email']) && !empty($_POST['content']) && !empty($_POST['pseudo'])) {
-            $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
-            $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
-            $pseudo = htmlspecialchars_decode($_POST['pseudo'], ENT_QUOTES);
+
+        } else if (!empty($input->post('email')) && !empty($input->post('content')) && !empty($input->post('pseudo'))) {
+            $email = htmlspecialchars_decode($input->post('email'), ENT_QUOTES);
+            $content = htmlspecialchars_decode($input->post('content'), ENT_QUOTES);
+            $pseudo = htmlspecialchars_decode($input->post('pseudo'), ENT_QUOTES);
+
         }
+
+        else if (empty($input->post('email')) && empty($input->post('content')) && empty($input->post('pseudo')))
+        {
+            header('Location: /Blog/contact');
+            \Blog\flash_error('Tout les champs ne sont pas remplis');
+        }
+
         // Create the Transport
         $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
             ->setUsername('webdesigner.form@gmail.com')

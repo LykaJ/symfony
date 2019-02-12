@@ -48,9 +48,9 @@ class ComposerStaticInit828a7f5303862e9c9e5ba5400a58306f
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Semver\\' => 16,
         ),
-        'A' => 
+        'B' => 
         array (
-            'App\\' => 4,
+            'Blog\\' => 5,
         ),
     );
 
@@ -127,9 +127,9 @@ class ComposerStaticInit828a7f5303862e9c9e5ba5400a58306f
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
-        'App\\' => 
+        'Blog\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/Blog',
         ),
     );
 

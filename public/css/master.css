@@ -15,23 +15,16 @@ body {
 }
 
 #body {
-    margin: 0;
-    padding-bottom:350px;   /* Height of the footer */
+    margin-bottom: 10%;
 }
 
 #footer {
-    position:absolute;
+    position:relative;
     bottom:0;
     width:100%;
     background-color: #343a40;
-}
-
-.footer-above {
-    height: 200px;
-}
-
-.footer-below {
-    height: 100px;
+    min-height: 250px;
+    max-height: 500px;
 }
 
 .rewrite-bt-light {
@@ -84,5 +77,5 @@ body {
 
 .icon {
     color: #ffffff;
-    padding: 5px;
+    padding: 20px;
 }

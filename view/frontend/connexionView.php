@@ -2,6 +2,14 @@
 
 <?php ob_start(); ?>
 
+<head>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("demo-form").submit();
+        }
+    </script>
+</head>
 
 <h1 class="rewrite-bt-banner">Connexion</h1>
 
@@ -10,19 +18,19 @@ $error = \Blog\get_flash('error');
 if (!empty($error)) {
     ?>
     <div class="alert alert-danger" role="alert"><?= $error ?></div>
-<?php
+    <?php
 }
 $success = \Blog\get_flash('success');
 if (!empty($success)) {
     ?>
     <div class="alert alert-success" role="alert"><?= $success ?></div>
-<?php
+    <?php
 }
 $warning = \Blog\get_flash('warning');
 if (!empty($warning)) {
     ?>
     <div class="alert alert-warning" role="alert"><?= $warning ?></div>
-<?php
+    <?php
 } ?>
 
 <div class="container">
@@ -36,7 +44,9 @@ if (!empty($warning)) {
             <input id="password" type="password" name="password" class="form-control" placeholder="Mot de passe">
         </div>
 
-        <input class="btn btn-info" type="submit" value="Se connecter"/>
+        <div class="g-recaptcha" data-sitekey="your_site_key" data-callback='onSubmit'>
+            <input class="btn btn-info" type="submit" value="Se connecter"/>
+        </div>
 
         <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
     </form>

@@ -2,15 +2,6 @@
 
 <?php ob_start(); ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Administration</title>
-  <meta charset="utf-8" />
-</head>
-
-<body>
- <!-- <p><a href="index.php">Accéder à l'accueil du site</a></p> -->
 
   <div class="container">
     <h1 class="rewrite-bt-banner">Ajouter Post</h1>
@@ -34,16 +25,16 @@
     <form action="/Blog/posts/create" method="post">
         <?php if (isset($_SESSION['current_user'])) {
             ?>
-        <div>
+        <div class="form-group">
             <label for="author">Auteur : <strong><?php echo $_SESSION['current_user']['pseudo']; ?></strong> </label><br />
         </div>
         <?php
         } ?>
-        <div>
+        <div class="form-group">
             <label for="title">Titre</label><br />
             <input type="text" name="title" />
         </div>
-        <div>
+        <div class="form-group">
             <label for="content">Contenu</label><br />
             <textarea id="content" name="content" class="form-control" rows="3"></textarea>
         </div>
@@ -55,8 +46,7 @@
 
 
 </div>
-</body>
-</html>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('view/template.php'); ?>

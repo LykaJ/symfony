@@ -20,11 +20,6 @@
     <label for="exampleFormControlTextarea1">Message</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
-        <!--    <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1"> By submitting this form, I agree that my data will be processed, used and exploited in order to be contacted considering the business relationship established here.
-    </label>
-</div> -->
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
