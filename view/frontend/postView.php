@@ -59,10 +59,14 @@
             <?php if ($userRightsManager->can('add comment')) {
                 ?>
                 <form action="/Blog/comments/add/<?= $post['id'] ?>" method="post">
-                    <?php if (isset($_SESSION['current_user'])) {
+                    <?php
+                    $input = new \Blog\models\Input();
+                    $session = $input->session('current_user');
+
+                    if (isset($session)) {
                         ?>
                         <div>
-                            <label for="author">Auteur : <?php echo($_SESSION['current_user']['pseudo']); ?></label><br />
+                            <label for="author">Auteur : <?= \Blog\e($session['pseudo']); ?></label><br />
                         </div>
                         <?php
                     } ?>
@@ -92,9 +96,9 @@
                     if ($comment['status'] == 1) {
                     ?>
 
-                    <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?php $dateComment = new DateTime($comment['comment_date']);
-                        echo $dateComment->format('d/m/Y'); ?> <br/>
-                        <?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+                    <p><strong><?= \Blog\e($comment['author']) ?></strong> le <?php $dateComment = new \DateTime($comment['comment_date']);
+                        echo \Blog\e($dateComment->format('d/m/Y')); ?> <br/>
+                        <?= nl2br(\Blog\e($comment['comment'])) ?></p>
                 </div>
 
                 <!-- COMMENTS VALIDATION -->
@@ -113,13 +117,13 @@
                             ?>
 
 
-                            <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?php $dateComment = new \DateTime($comment['comment_date']);
-                                echo $dateComment->format('d/m/Y'); ?> <br/>
-                                <?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+                            <p><strong><?= \Blog\e($comment['author']) ?></strong> le <?php \Blog\e($dateComment = new \DateTime($comment['comment_date']));
+                                echo \Blog\e($dateComment->format('d/m/Y')); ?> <br/>
+                                <?= nl2br(\Blog\e($comment['comment'])) ?></p>
 
                             <p>
-                                <a role="button" class="btn btn-outline-success" href="/Blog/comments/validate/<?= $comment['id']?>/<?= $post['id'] ?>"> Yes</a>
-                                <a role="button" class="btn btn-outline-danger" href="/Blog/comments/delete/<?= $comment['id']?>/<?= $post['id'] ?>"> No</a>
+                                <a role="button" class="btn btn-outline-success" href="/Blog/comments/validate/<?= \Blog\e($comment['id'])?>/<?= \Blog\e($post['id']) ?>"> Yes</a>
+                                <a role="button" class="btn btn-outline-danger" href="/Blog/comments/delete/<?= \Blog\e($comment['id'])?>/<?= \Blog\e($post['id']) ?>"> No</a>
                             </p>
 
                             <?php

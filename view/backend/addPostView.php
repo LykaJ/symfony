@@ -13,8 +13,6 @@
         <div class="alert alert-success" role="alert"><?= $success ?></div>
     <?php
       }
-
-
       $error = \Blog\get_flash('error');
         if (!empty($error)) {
             ?>
@@ -23,10 +21,15 @@
         } ?>
 
     <form action="/Blog/posts/create" method="post">
-        <?php if (isset($_SESSION['current_user'])) {
+        <?php
+
+        $input = new \Blog\models\Input();
+        $session = $input->session('current_user');
+
+        if (isset($session)) {
             ?>
         <div class="form-group">
-            <label for="author">Auteur : <strong><?php echo $_SESSION['current_user']['pseudo']; ?></strong> </label><br />
+            <label for="author">Auteur : <strong><?= \Blog\e($session['pseudo']); ?></strong> </label><br />
         </div>
         <?php
         } ?>

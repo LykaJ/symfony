@@ -66,7 +66,7 @@ class UsersController extends BaseController
 
             if ($passform === $password) {
                 $_SESSION['current_user'] = $user;
-                header('Location: index.php');
+                header('Location: /Blog');
             } else {
                 \Blog\flash_error('Mauvais identifiants');
             }
@@ -89,7 +89,7 @@ class UsersController extends BaseController
 
             if (!$userRightsManager->can('delete user')) {
                 \Blog\flash_error('Vous n\'avez pas les droits');
-                header('Location: index.php');
+                header('Location: /Blog');
                 return;
             }
 

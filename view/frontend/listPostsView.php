@@ -69,24 +69,24 @@
                     if ($post['status'] == 1) {
                         ?>
                         <h3 class="rewrite-bt-banner">
-                            <?= htmlspecialchars($post['title']); ?>
+                            <?= \Blog\e($post['title']); ?>
                         </h3>
-                        <?= nl2br(htmlspecialchars($post['content'])) ?>
+                        <?= nl2br(\Blog\e($post['content'])) ?>
                         <br />
-                        <strong>Auteur :  <?= nl2br(htmlspecialchars($post['author'])) ?></strong>
+                        <strong>Auteur :  <?= nl2br(\Blog\e($post['author'])) ?></strong>
                         <br/>
                         <p><em>Publié le <?php
-                        $date = new DateTime($post['creation_date']);
-                        echo $date->format('d/m/Y à H:i'); ?>
+                        $date = new \DateTime($post['creation_date']);
+                        echo \Blog\e($date->format('d/m/Y à H:i')); ?>
                         <?php if (isset($post['edition_date'])) {
                             ?>
                             modifié le
                             <?php
-                            $date_edition = new DateTime($post['edition_date']);
-                            echo $date_edition->format('d/m/Y à H:i');
+                            $date_edition = new \DateTime($post['edition_date']);
+                            echo \Blog\e($date_edition->format('d/m/Y à H:i'));
                         } ?>
                     </em></p>
-                    <p><a role="button" class="btn btn-info" href="/Blog/posts/<?= $post['id'] ?>">En lire plus...</a></p>
+                    <p><a role="button" class="btn btn-info" href="/Blog/posts/<?= \Blog\e($post['id']) ?>">Voir le post</a></p>
                 <?php
                     } ?>
             <?php endforeach;?>

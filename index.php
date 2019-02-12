@@ -1,4 +1,5 @@
 <?php
+ini_get('display_errors');
 session_start();
 
 use \Blog\Autoloader;
@@ -9,6 +10,7 @@ Autoloader::register();
 
 require_once('core/router/Router.php');
 require_once('core/functions/Flash.php');
+require_once ('core/functions/Escape.php');
 require_once('vendor/autoload.php');
 
 if (isset($_GET['url'])) {

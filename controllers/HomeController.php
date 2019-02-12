@@ -31,7 +31,7 @@ class HomeController extends BaseController
         {
             $email = $session['email'];
             $pseudo = $session['pseudo'];
-            $content = htmlspecialchars_decode($_POST['content'], ENT_QUOTES);
+            $content = htmlspecialchars_decode($input->post('content'), ENT_QUOTES);
 
 
         } else if (!empty($input->post('email')) && !empty($input->post('content')) && !empty($input->post('pseudo'))) {

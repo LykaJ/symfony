@@ -59,7 +59,7 @@ class AdminController extends BaseController
 
             if ($userRightsManager->can('validate')) {
                 if (!empty($profileId)) {
-                    //$profileId = $_GET['profileId'];
+
                     $newUser = $userManager->profileUser($id, $profileId);
 
                     \Blog\flash_success("Le profil de l'utilisateur a bien été modifié");
