@@ -65,7 +65,7 @@ class UsersController extends BaseController
             $password = $user['password'];
 
             if ($passform === $password) {
-                $input->session('current_user') = $user;
+                $_SESSION['current_user'] = $user;
                 header('Location: index.php');
             } else {
                 \Blog\flash_error('Mauvais identifiants');
