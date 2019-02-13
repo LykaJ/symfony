@@ -61,6 +61,9 @@ class HomeController extends BaseController
                 '<html>' .
                 ' <body>' .
                 $content .
+                '<br/>' .
+                '  Adresse mail : ' .
+                $email .
                 ' </body>' .
                 '</html>',
                 'text/html'

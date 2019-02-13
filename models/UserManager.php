@@ -28,10 +28,10 @@ class UserManager extends Manager
         return $newUser;
     }
 
-    public function updateUser($password, $email)
+    public function updateUser($id)
     {
-        $req = $this->db->prepare('UPDATE users SET password = ?, email = ?, login_date = NOW() WHERE id = ?');
-        $updatedUser = $req->execute(array($password, $email));
+        $req = $this->db->prepare('UPDATE users SET login_date = NOW() WHERE id = ?');
+        $updatedUser = $req->execute(array($id));
         return $updatedUser;
     }
 

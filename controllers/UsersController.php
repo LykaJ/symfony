@@ -66,6 +66,10 @@ class UsersController extends BaseController
 
             if ($passform === $password) {
                 $_SESSION['current_user'] = $user;
+
+                $id = $user['id'];
+                $userManager->updateUser($id);
+
                 header('Location: /Blog');
             } else {
                 \Blog\flash_error('Mauvais identifiants');
