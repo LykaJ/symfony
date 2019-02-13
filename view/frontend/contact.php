@@ -9,9 +9,16 @@
 
         <form method="post" action="/Blog/contact">
             <div class="form-group">
-                <?php if (isset($_SESSION['current_user'])) {
+                <?php
+
+                $input = new \Blog\models\Input();
+                $session = $input->session('current_user');
+
+                if (isset($session)) {
                     ?>
-                    <label for="identifiant">Votre Identifiant : <?php echo $_SESSION['current_user']['pseudo']; ?></label>
+
+                    <label for="identifiant">Votre Identifiant : <?= \Blog\esc($session['pseudo']); ?></label>
+
                     <?php
                 } else {
                     ?>
@@ -21,9 +28,11 @@
                 } ?>
             </div>
             <div class="form-group">
-                <?php if (isset($_SESSION['current_user'])) {
+                <?php if (isset($session)) {
                     ?>
-                    <label for="email">Votre Email : <?php echo $_SESSION['current_user']['email']; ?></label>
+
+                    <label for="email">Votre Email : <?= \Blog\esc($session['email']); ?></label>
+
                     <?php
                 } else {
                     ?>

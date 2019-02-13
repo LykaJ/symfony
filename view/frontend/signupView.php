@@ -2,8 +2,6 @@
 
 <?php ob_start(); ?>
 
-<html>
-
 <h1 class="rewrite-bt-banner">Inscription</h1>
 
 <div class="container">
@@ -45,8 +43,7 @@
     <?php
     } ?>
 </div>
-</body>
-</html>
+
 
 <?php $content = ob_get_clean(); ?>
 
