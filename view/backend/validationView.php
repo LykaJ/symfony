@@ -57,27 +57,33 @@
 
 
                         <h3>
-                            <?= \Blog\e($unvalidated_post['title']) ; ?>
+
+                            <?= \Blog\esc($unvalidated_post['title']) ; ?>
                         </h3>
-                        <?= nl2br(\Blog\e($unvalidated_post['content'])) ?>
+                        <?= nl2br(\Blog\esc($unvalidated_post['content'])) ?>
                         <br />
-                        <strong>Auteur :  <?= nl2br(\Blog\e($unvalidated_post['author'])) ?></strong>
+                        <strong>Auteur :  <?= nl2br(\Blog\esc($unvalidated_post['author'])) ?></strong>
                         <br/>
                         <p><em>Publié le <?php
-                        $date = new \DateTime(\Blog\e($unvalidated_post['creation_date']));
-                        echo \Blog\e($date->format('d/m/Y à H:i')); ?>
+                        $date = new \DateTime(\Blog\esc($unvalidated_post['creation_date']));
+                        echo \Blog\esc($date->format('d/m/Y à H:i')); ?>
+
                         <?php if (isset($unvalidated_post['edition_date'])) {
                             ?>
                             modifié le
                             <?php
                             $date_edition = new \DateTime($unvalidated_post['edition_date']);
-                            echo \Blog\e($date_edition->format('d/m/Y à H:i'));
+
+                            echo \Blog\esc($date_edition->format('d/m/Y à H:i'));
+
                         } ?>
 
                     </em></p>
                     <p>
-                        <a role="button" class="btn btn-outline-success" href="/Blog/validate/post/<?= \Blog\e($unvalidated_post['id']); ?>">Valider</a>
-                        <a role="button" class="btn btn-outline-danger" href="/Blog/posts/delete/<?= \Blog\e($unvalidated_post['id']); ?>">Supprimer</a>
+
+                        <a role="button" class="btn btn-outline-success" href="/Blog/validate/post/<?= \Blog\esc($unvalidated_post['id']); ?>">Valider</a>
+                        <a role="button" class="btn btn-outline-danger" href="/Blog/posts/delete/<?= \Blog\esc($unvalidated_post['id']); ?>">Supprimer</a>
+
                     </p>
 
                 <?php
@@ -106,9 +112,11 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><?= \Blog\e($new_user['pseudo']); ?></td>
-                                <td><?= \Blog\e($new_user['email']); ?></td>
-                                <td><?= \Blog\e($new_user['signup_date']); ?></td>
+
+                                <td><?= \Blog\esc($new_user['pseudo']); ?></td>
+                                <td><?= \Blog\esc($new_user['email']); ?></td>
+                                <td><?= \Blog\esc($new_user['signup_date']); ?></td>
+
                                 <td>
 
                                     <div class="btn-group">
@@ -116,13 +124,15 @@
                                                 Valider
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="/Blog/validate/user/<?= \Blog\e($new_user['id']); ?>/<?= \Blog\e($new_user['profile_id'] = 1) ?>">Membre</a>
-                                                <a class="dropdown-item" href="/Blog/validate/user/<?= \Blog\e($new_user['id']); ?>/<?= \Blog\e($new_user['profile_id'] = 2) ?>">Collaborateur</a>
-                                                <a class="dropdown-item" href="/Blog/validate/user/<?= \Blog\e($new_user['id']); ?>/<?= \Blog\e($new_user['profile_id'] = 3) ?>"> Administrateur</a>
+
+                                                <a class="dropdown-item" href="/Blog/validate/user/<?= \Blog\esc($new_user['id']); ?>/<?= \Blog\esc($new_user['profile_id'] = 1) ?>">Membre</a>
+                                                <a class="dropdown-item" href="/Blog/validate/user/<?= \Blog\esc($new_user['id']); ?>/<?= \Blog\esc($new_user['profile_id'] = 2) ?>">Collaborateur</a>
+                                                <a class="dropdown-item" href="/Blog/validate/user/<?= \Blog\esc($new_user['id']); ?>/<?= \Blog\esc($new_user['profile_id'] = 3) ?>"> Administrateur</a>
                                             </div>
                                         </div>
 
-                                        <a role="button" class="btn btn-outline-danger" href="/Blog/delete/user/<?= \Blog\e($new_user['id']); ?>">Supprimer</a>
+                                        <a role="button" class="btn btn-outline-danger" href="/Blog/delete/user/<?= \Blog\esc($new_user['id']); ?>">Supprimer</a>
+
                                 </td>
                             </tr>
                         </tbody>

@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0d21f1b-3797-4758-9eea-2c9e44c6fc9c" name="Default Changelist" comment="">
+
+      <change beforePath="$PROJECT_DIR$/core/functions/Escape.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/functions/Escape.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/backend/addPostView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/backend/addPostView.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/backend/editPostView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/backend/editPostView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/backend/validationView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/backend/validationView.php" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/view/frontend/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/frontend/contact.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/frontend/listPostsView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/frontend/listPostsView.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/frontend/postView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/frontend/postView.php" afterDir="false" />
@@ -31,46 +35,45 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/backend/addPostView.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="31" column="79" selection-start-line="31" selection-start-column="79" selection-end-line="31" selection-end-column="79" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+
         <entry file="file://$PROJECT_DIR$/view/backend/commentView.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/frontend/listPostsView.php">
+
+       <entry file="file://$PROJECT_DIR$/view/frontend/listPostsView.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="157">
-              <caret line="88" column="102" selection-start-line="88" selection-start-column="102" selection-end-line="88" selection-end-column="102" />
+              <caret line="88" column="104" selection-start-line="88" selection-start-column="104" selection-end-line="88" selection-end-column="104" />
+
             </state>
           </provider>
         </entry>
       </file>
+
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/frontend/postView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="125" column="165" selection-start-line="125" selection-start-column="165" selection-end-line="125" selection-end-column="165" />
+            <state>
+              <caret column="25" selection-start-column="25" selection-end-column="25" />
+
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/frontend/signupView.php">
+          <provider selected="true" editor-type-id="text-editor">
+
+            <state relative-caret-position="277">
+              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+
             </state>
           </provider>
         </entry>
@@ -78,8 +81,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/backend/editPostView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="18" column="92" selection-start-line="18" selection-start-column="92" selection-end-line="18" selection-end-column="92" />
+
+            <state relative-caret-position="270">
+              <caret line="18" column="94" selection-start-line="18" selection-start-column="94" selection-end-line="18" selection-end-column="94" />
+
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+
+        <entry file="file://$PROJECT_DIR$/core/functions/Flash.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+
+        <entry file="file://$PROJECT_DIR$/core/functions/Escape.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+
             </state>
           </provider>
         </entry>
@@ -88,21 +115,13 @@
         <entry file="file://$PROJECT_DIR$/view/backend/validationView.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1860">
-              <caret line="124" column="139" selection-start-line="124" selection-start-column="139" selection-end-line="124" selection-end-column="139" />
+              <caret line="124" column="141" selection-start-line="124" selection-start-column="141" selection-end-line="124" selection-end-column="141" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/functions/Flash.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+
         <entry file="file://$PROJECT_DIR$/view/frontend/connexionView.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="142">
@@ -115,7 +134,9 @@
         <entry file="file://$PROJECT_DIR$/view/frontend/contact.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-233">
-              <caret line="30" column="82" selection-start-line="30" selection-start-column="82" selection-end-line="30" selection-end-column="82" />
+
+              <caret line="30" column="84" selection-start-line="30" selection-start-column="84" selection-end-line="30" selection-end-column="84" />
+
             </state>
           </provider>
         </entry>
@@ -147,7 +168,8 @@
         <option value="$PROJECT_DIR$/controllers/UsersController.php" />
         <option value="$PROJECT_DIR$/view/frontend/contactView.php" />
         <option value="$PROJECT_DIR$/view/frontend/signupView.php" />
-        <option value="$PROJECT_DIR$/core/functions/Escape.php" />
+
+
         <option value="$PROJECT_DIR$/view/template.php" />
         <option value="$PROJECT_DIR$/core/functions/Flash.php" />
         <option value="$PROJECT_DIR$/index.php" />
@@ -156,6 +178,9 @@
         <option value="$PROJECT_DIR$/view/backend/editPostView.php" />
         <option value="$PROJECT_DIR$/view/frontend/contact.php" />
         <option value="$PROJECT_DIR$/view/frontend/listPostsView.php" />
+
+        <option value="$PROJECT_DIR$/core/functions/Escape.php" />
+
         <option value="$PROJECT_DIR$/view/frontend/postView.php" />
       </list>
     </option>
@@ -315,12 +340,16 @@
       <workItem from="1549631668119" duration="43000" />
       <workItem from="1549904729166" duration="480000" />
       <workItem from="1549976121463" duration="85000" />
-      <workItem from="1549976461488" duration="6523000" />
+
+      <workItem from="1549976461488" duration="7079000" />
+
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8368000" />
+
+    <option name="totallyTimeSpent" value="8924000" />
+
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="23" width="1219" height="777" extended-state="6" />
@@ -535,11 +564,14 @@
           <folding>
             <element signature="e#36#65#0#PHP" expanded="true" />
           </folding>
+
+
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/SessionController.php">
       <provider selected="true" editor-type-id="text-editor">
+
         <state relative-caret-position="-13">
           <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
         </state>
@@ -555,13 +587,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/frontend/signupView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/template.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -569,20 +594,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/functions/Escape.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/functions/Flash.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -607,17 +618,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/backend/editPostView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="18" column="92" selection-start-line="18" selection-start-column="92" selection-end-line="18" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/backend/validationView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1860">
-          <caret line="124" column="139" selection-start-line="124" selection-start-column="139" selection-end-line="124" selection-end-column="139" />
+          <caret line="124" column="141" selection-start-line="124" selection-start-column="141" selection-end-line="124" selection-end-column="141" />
         </state>
       </provider>
     </entry>
@@ -638,21 +642,50 @@
     <entry file="file://$PROJECT_DIR$/view/frontend/contact.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-233">
-          <caret line="30" column="82" selection-start-line="30" selection-start-column="82" selection-end-line="30" selection-end-column="82" />
+          <caret line="30" column="84" selection-start-line="30" selection-start-column="84" selection-end-line="30" selection-end-column="84" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/frontend/listPostsView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
-          <caret line="88" column="102" selection-start-line="88" selection-start-column="102" selection-end-line="88" selection-end-column="102" />
+          <caret line="88" column="104" selection-start-line="88" selection-start-column="104" selection-end-line="88" selection-end-column="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/frontend/signupView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/backend/editPostView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="94" selection-start-line="18" selection-start-column="94" selection-end-line="18" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/functions/Flash.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/functions/Escape.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/frontend/postView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="125" column="165" selection-start-line="125" selection-start-column="165" selection-end-line="125" selection-end-column="165" />
+        <state>
+          <caret column="25" selection-start-column="25" selection-end-column="25" />
+
         </state>
       </provider>
     </entry>

@@ -16,7 +16,9 @@
 
                 if (isset($session)) {
                     ?>
-                    <label for="identifiant">Votre Identifiant : <?= \Blog\e($session['pseudo']); ?></label>
+
+                    <label for="identifiant">Votre Identifiant : <?= \Blog\esc($session['pseudo']); ?></label>
+
                     <?php
                 } else {
                     ?>
@@ -28,7 +30,9 @@
             <div class="form-group">
                 <?php if (isset($session)) {
                     ?>
-                    <label for="email">Votre Email : <?= \Blog\e($session['email']); ?></label>
+
+                    <label for="email">Votre Email : <?= \Blog\esc($session['email']); ?></label>
+
                     <?php
                 } else {
                     ?>

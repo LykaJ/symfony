@@ -29,7 +29,9 @@
         if (isset($session)) {
             ?>
         <div class="form-group">
-            <label for="author">Auteur : <strong><?= \Blog\e($session['pseudo']); ?></strong> </label><br />
+
+            <label for="author">Auteur : <strong><?= \Blog\esc($session['pseudo']); ?></strong> </label><br />
+
         </div>
         <?php
         } ?>
