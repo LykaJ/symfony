@@ -27,7 +27,7 @@ class TrickRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
-            ->setMaxResults(10)
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult()
             ;

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Cocur\Slugify\Slugify;
 
 /**
@@ -45,7 +44,7 @@ class Trick
 
     public function __construct()
     {
-        $this->creation_date = new DateTime();
+        $this->creation_date = new \DateTime();
     }
 
     public function getId(): ?int

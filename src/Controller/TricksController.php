@@ -21,19 +21,20 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="trick.index")
+     * @Route("/tricks", name="trick.index" )
      * @return Response
      */
-    public function index(): Response
+    public function index(TrickRepository $repository): Response
     {
-        $this->repository->findAll ();
+        $tricks = $repository->findAll ();
         return $this->render('tricks/trick.html.twig', [
+            'tricks' => $tricks,
             'current_menu' => 'tricks'
         ]);
     }
 
     /**
-     * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"} )
+     * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
     public function show(Trick $trick, string $slug): Response
@@ -45,7 +46,7 @@ class TricksController extends AbstractController
                'slug' => $trick->getSlug()
            ], 301);
        }
-        return $this->render ('tricks/show.html.twig', [
+        return $this->render('tricks/show.html.twig', [
             'trick' => $trick,
             'current_menu' => 'tricks'
         ]);
