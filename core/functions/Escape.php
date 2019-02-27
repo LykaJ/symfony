@@ -1,9 +1,0 @@
-<?php
-
-namespace Blog;
-
-
-function esc($string) {
-
-    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
-}

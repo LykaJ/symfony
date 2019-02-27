@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title 'Home' %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1>SnowTricks</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Les derniers tricks</h2>
+        <div class="row">
+            {% for trick in tricks %}
+                <div class="col-3">
+                    <div class="card">
+                       <div class="card-body">
+                           <h3 class="card-title">
+                               <a href="{{ path('trick.show', {id: trick.id, slug: trick.slug}) }}">{{ trick.title }}</a>
+                           </h3>
+                           <p class="card-text">{{ trick.content }}</p>
+                           <p class="badge badge-pill badge-primary">{{ trick.category }}</p>
+                       </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
