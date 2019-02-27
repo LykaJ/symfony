@@ -7,7 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
-use Doctrine\Common\Persistence\ObjectManager;;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,6 +36,31 @@ class AdminTrickController extends AbstractController
     {
        $tricks = $this->repository->findAll ();
        return $this->render ('admin/tricks/index.html.twig', compact ('tricks'));
+    }
+
+
+    /**
+     * @Route("/admin/create", name="admin.tricks.new")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function new(Request $request)
+    {
+        $trick = new Trick();
+        $form = $this->createForm (TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($trick);
+            $this->em->flush();
+            $this->addFlash('success', 'Le trick a bien été créé');
+            return $this->redirectToRoute('admin.tricks.index');
+        }
+
+        return $this->render ('admin/tricks/new.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView ()
+        ]);
     }
 
     /**
