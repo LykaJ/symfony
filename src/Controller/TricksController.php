@@ -21,7 +21,7 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="trick.index")
+     * @Route("/tricks", name="trick.index" )
      * @return Response
      */
     public function index(TrickRepository $repository): Response

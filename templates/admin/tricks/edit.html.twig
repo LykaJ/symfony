@@ -3,8 +3,8 @@
 {% block body %}
     <div class="container">
         <h1>Editer le trick</h1>
-        {{ form_start(form) }}
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
+
+        {{  include('admin/tricks/_form.html.twig', {form: form, button: 'Editer'}) }}
+
     </div>
 {% endblock %}
