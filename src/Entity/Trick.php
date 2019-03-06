@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -46,9 +47,14 @@ class Trick
     private $edition_date;
 
 
+    /**
+     * Trick constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->creation_date = new \DateTime();
+        $this->edition_date = new \DateTime();
     }
 
     public function __toString()
@@ -109,26 +115,36 @@ class Trick
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate(): ?DateTimeInterface
     {
         return $this->creation_date;
     }
 
-    public function setCreationDate(\DateTimeInterface $creation_date): self
+    public function setCreationDate(DateTimeInterface $creation_date): self
     {
         $this->creation_date = $creation_date;
 
         return $this;
     }
 
-    public function getEditionDate(): ?\DateTimeInterface
+    public function getEditionDate(): ?DateTimeInterface
     {
         return $this->edition_date;
     }
 
-    public function setEditionDate(?\DateTimeInterface $edition_date): self
+    /**
+     * @param DateTimeInterface|null $edition_date
+     * @return Trick
+     * @throws \Exception
+     */
+    public function setEditionDate(?DateTimeInterface $edition_date): self
     {
         $this->edition_date = $edition_date;
+
+        if($this->edition_date instanceof Trick)
+        {
+            $this->edition_date = new \DateTime('now');
+        }
 
         return $this;
     }

@@ -3,8 +3,6 @@
 
 namespace App\Controller\Admin;
 
-
-use App\Entity\Category;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
@@ -35,7 +33,7 @@ class AdminTrickController extends AbstractController
 
     public function index()
     {
-       $tricks = $this->repository->findAll ();
+       $tricks = $this->repository->findAll();
        return $this->render ('admin/tricks/index.html.twig', compact ('tricks'));
     }
 
@@ -44,6 +42,7 @@ class AdminTrickController extends AbstractController
      * @Route("/admin/create", name="admin.tricks.new")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function new(Request $request)
     {
