@@ -13,6 +13,7 @@
             <thead>
             <tr>
                 <th>Titre</th>
+                <th>Catégorie</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -20,6 +21,7 @@
             {% for trick in tricks %}
             <tr>
                 <td>{{ trick.title }}</td>
+                <td>{{ trick.category }}</td>
                 <td>
                     <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn btn-secondary">Editer</a>
                     <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
