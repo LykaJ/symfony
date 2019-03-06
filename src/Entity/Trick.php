@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use App\Service\FileUploader;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -45,6 +47,11 @@ class Trick
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $edition_date;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
 
     /**
@@ -141,11 +148,26 @@ class Trick
     {
         $this->edition_date = $edition_date;
 
-        if($this->edition_date instanceof Trick)
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     * @return Trick
+     * @throws \Exception
+     */
+    public function setImage(?File $image = null): void
+    {
+        $this->image = $image;
+
+        if($this->image instanceof FileUploader)
         {
             $this->edition_date = new \DateTime('now');
         }
-
-        return $this;
     }
 }

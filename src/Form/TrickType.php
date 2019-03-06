@@ -7,6 +7,7 @@ use App\Entity\Trick;
 use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,9 +31,16 @@ class TrickType extends AbstractType
                         ->setParameter('id', 0);
                 },
             ])
+            ->add('image', FileType::class, [
+                'data_class' => null,
+                'required' => false
+                ])
         ;
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
