@@ -4,6 +4,7 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\Category;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;

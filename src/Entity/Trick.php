@@ -51,6 +51,11 @@ class Trick
         $this->creation_date = new \DateTime();
     }
 
+    public function __toString()
+    {
+       return $this->category;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
