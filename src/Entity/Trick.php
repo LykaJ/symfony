@@ -30,7 +30,6 @@ class Trick
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=60)
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
 
@@ -46,10 +45,6 @@ class Trick
      */
     private $edition_date;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $category_id;
 
     public function __construct()
     {
@@ -93,7 +88,7 @@ class Trick
     /**
      * @return Category|null
      */
-    public function getCategory(): ?string //?Category
+    public function getCategory(): ?Category //?Category
     {
         return $this->category;
     }
@@ -102,7 +97,7 @@ class Trick
      * @param Category|null $category
      * @return Trick
      */
-    public function setCategory(string $category): self //(?Category $category)
+    public function setCategory(?Category $category): self //(?Category $category)
     {
         $this->category = $category;
 
@@ -132,17 +127,4 @@ class Trick
 
         return $this;
     }
-
-    public function getCategoryId(): ?int
-    {
-        return $this->category_id;
-    }
-
-    public function setCategoryId(int $category_id): self
-    {
-        $this->category_id = $category_id;
-
-        return $this;
-    }
-
 }
