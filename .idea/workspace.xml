@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5734f231-3667-4210-ad27-473e7982b316" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1dcaeda6-b395-4a27-a23d-b28330ebaa7e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1dcaeda6-b395-4a27-a23d-b28330ebaa7e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Trick.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trick.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TrickType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TrickType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/tricks/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/tricks/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FileUploader.php" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,39 +72,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-100">
-              <caret line="91" column="38" selection-start-line="91" selection-start-column="38" selection-end-line="91" selection-end-column="38" />
+            <state relative-caret-position="307">
+              <caret line="104" column="5" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
               <folding>
                 <element signature="e#41#62#0#PHP" expanded="true" />
-                <element signature="e#871#901#0#PHP" expanded="true" />
-                <element signature="e#2268#2296#0#PHP" expanded="true" />
-                <element signature="e#2968#2988#1#PHP" expanded="true" />
-                <element signature="e#3031#3060#0#PHP" expanded="true" />
+                <element signature="e#948#978#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Service/FileUploader.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
-              <folding>
-                <element signature="e#30#96#0#PHP" expanded="true" />
-              </folding>
+        <entry file="das://1dcaeda6-b395-4a27-a23d-b28330ebaa7e/schema/symfony/table/trick">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Form/TrickType.php">
+        <entry file="file://$PROJECT_DIR$/config/services.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="35" column="35" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
-              <folding>
-                <element signature="e#28#52#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="33">
+              <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -117,6 +105,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>category</find>
+      <find>broc</find>
+      <find>pro</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -149,11 +139,12 @@
         <option value="$PROJECT_DIR$/templates/admin/tricks/_form.html.twig" />
         <option value="$PROJECT_DIR$/src/Services/FileUploader.php" />
         <option value="$PROJECT_DIR$/src/Entity/Trick.php" />
-        <option value="$PROJECT_DIR$/config/services.yaml" />
         <option value="$PROJECT_DIR$/src/Service/FileUploader.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
-        <option value="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" />
         <option value="$PROJECT_DIR$/src/Form/TrickType.php" />
+        <option value="$PROJECT_DIR$/src/EventListener/BrochureUploadListener.php" />
+        <option value="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" />
+        <option value="$PROJECT_DIR$/config/services.yaml" />
       </list>
     </option>
   </component>
@@ -322,13 +313,13 @@
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
+              <item name="EventListener" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Service" type="462c0819:PsiDirectoryNode" />
+              <item name="Form" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
@@ -364,6 +355,11 @@
     <property name="settings.editor.selected.configurable" value="Images" />
     <property name="sql.rename.search.for.storage.occurrences" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/uploads/images" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -395,7 +391,7 @@
       <workItem from="1551690423592" duration="538000" />
       <workItem from="1551694049148" duration="196000" />
       <workItem from="1551703486739" duration="913000" />
-      <workItem from="1551795714536" duration="27531000" />
+      <workItem from="1551795714536" duration="29787000" />
     </task>
     <task id="LOCAL-00001" summary="Trick suppression&#10;Flashes added">
       <created>1551282780177</created>
@@ -408,7 +404,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41701000" />
+    <option name="totallyTimeSpent" value="43957000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="23" width="1219" height="777" extended-state="6" />
@@ -418,7 +414,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.329927" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.329927" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -427,7 +423,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4995752" visible="true" weight="0.2890511" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4995752" weight="0.2890511" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5004248" side_tool="true" weight="0.2890511" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.329927" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -444,9 +440,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Trick suppression&#10;Flashes added" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/routes/annotations.yaml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/doctrine_migrations.yaml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -740,17 +733,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://1dcaeda6-b395-4a27-a23d-b28330ebaa7e/schema/symfony/table/trick">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/src/Form/TrickType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="35" column="35" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+          <folding>
+            <element signature="e#28#52#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Service/FileUploader.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="136">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
           <folding>
             <element signature="e#30#96#0#PHP" expanded="true" />
           </folding>
@@ -759,42 +755,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Trick.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        <state relative-caret-position="172">
+          <caret line="163" column="24" lean-forward="true" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="24" />
           <folding>
             <element signature="e#30#59#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/services.yaml">
+    <entry file="file://$PROJECT_DIR$/src/EventListener/BrochureUploadListener.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        <state relative-caret-position="645">
+          <caret line="43" column="55" selection-start-line="43" selection-start-column="55" selection-end-line="43" selection-end-column="55" />
+          <folding>
+            <element signature="e#36#91#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-100">
-          <caret line="91" column="38" selection-start-line="91" selection-start-column="38" selection-end-line="91" selection-end-column="38" />
+        <state relative-caret-position="307">
+          <caret line="104" column="5" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
           <folding>
             <element signature="e#41#62#0#PHP" expanded="true" />
-            <element signature="e#871#901#0#PHP" expanded="true" />
-            <element signature="e#2268#2296#0#PHP" expanded="true" />
-            <element signature="e#2968#2988#1#PHP" expanded="true" />
-            <element signature="e#3031#3060#0#PHP" expanded="true" />
+            <element signature="e#948#978#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/TrickType.php">
+    <entry file="das://1dcaeda6-b395-4a27-a23d-b28330ebaa7e/schema/symfony/table/trick">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/services.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="35" column="35" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
-          <folding>
-            <element signature="e#28#52#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="33">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
         </state>
       </provider>
     </entry>

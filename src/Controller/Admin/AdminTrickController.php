@@ -6,12 +6,10 @@ namespace App\Controller\Admin;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
-use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\File\File;
 
 
 class AdminTrickController extends AbstractController
@@ -46,19 +44,13 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function new(Request $request, FileUploader $fileUploader)
+    public function new(Request $request)
     {
         $trick = new Trick();
         $form = $this->createForm (TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $trick->getImage();
-            $fileName = $fileUploader->upload($file);
-
-            $trick->setImage($fileName);
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
@@ -83,9 +75,6 @@ class AdminTrickController extends AbstractController
     {
         $form = $this->createForm (TrickType::class, $trick);
         $form->handleRequest($request);
-        $trick->setImage(
-            new File($this->getParameter('images').'/'.$trick->getImage())
-        );
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
@@ -113,10 +102,5 @@ class AdminTrickController extends AbstractController
             $this->addFlash('success', 'Le trick a bien été supprimé');
         }
         return $this->redirectToRoute('admin.tricks.index');
-    }
-
-    private function generateUniqueFileName()
-    {
-        return md5(uniqid());
     }
 }
