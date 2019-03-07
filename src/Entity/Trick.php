@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Service\FileUploader;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -50,9 +50,9 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Ajoutez une image")
      */
     private $image;
-
 
     /**
      * Trick constructor.
@@ -106,7 +106,7 @@ class Trick
     /**
      * @return Category|null
      */
-    public function getCategory(): ?Category //?Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -115,7 +115,7 @@ class Trick
      * @param Category|null $category
      * @return Trick
      */
-    public function setCategory(?Category $category): self //(?Category $category)
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
@@ -151,23 +151,25 @@ class Trick
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
     /**
-     * @param string|null $image
-     * @return Trick
+     * @param $image
+     * @return $this
      * @throws \Exception
      */
-    public function setImage(?File $image = null): void
+    public function setImage($image)
     {
         $this->image = $image;
 
-        if($this->image instanceof FileUploader)
+        if($this->image instanceof UploadedFile)
         {
             $this->edition_date = new \DateTime('now');
         }
+
+        return $this;
     }
 }

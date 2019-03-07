@@ -12,11 +12,19 @@ class ImageUploadListener
 {
     private $uploader;
 
+    /**
+     * ImageUploadListener constructor.
+     * @param FileUploader $uploader
+     */
     public function __construct(FileUploader $uploader)
     {
         $this->uploader = $uploader;
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     * @throws \Exception
+     */
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -24,6 +32,10 @@ class ImageUploadListener
         $this->uploadFile($entity);
     }
 
+    /**
+     * @param PreUpdateEventArgs $args
+     * @throws \Exception
+     */
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -31,6 +43,10 @@ class ImageUploadListener
         $this->uploadFile($entity);
     }
 
+    /**
+     * @param $entity
+     * @throws \Exception
+     */
     private function uploadFile($entity)
     {
         if (!$entity instanceof Trick) {
@@ -41,12 +57,26 @@ class ImageUploadListener
 
         // only upload new files
         if ($file instanceof UploadedFile) {
+
             $fileName = $this->uploader->upload($file);
             $entity->setImage($fileName);
+
         } elseif ($file instanceof File) {
-            // prevents the full file path being saved on updates
-            // as the path is set on the postLoad listener
+
             $entity->setImage($file->getFilename());
+        }
+    }
+
+    public function postLoad(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof Trick) {
+            return;
+        }
+
+        if ($fileName = $entity->getImage()) {
+            $entity->setImage(new File($this->uploader->getTargetDirectory().'/'.$fileName));
         }
     }
 }

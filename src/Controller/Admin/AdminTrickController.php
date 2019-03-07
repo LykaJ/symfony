@@ -6,8 +6,10 @@ namespace App\Controller\Admin;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,16 +43,22 @@ class AdminTrickController extends AbstractController
     /**
      * @Route("/admin/create", name="admin.tricks.new")
      * @param Request $request
+     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function new(Request $request)
+    public function new(Request $request, FileUploader $fileUploader)
     {
         $trick = new Trick();
         $form = $this->createForm (TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $trick->getImage();
+            $fileName = $fileUploader->upload($file);
+
+            $trick->setImage($fileName);
+
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
@@ -59,7 +67,7 @@ class AdminTrickController extends AbstractController
 
         return $this->render ('admin/tricks/new.html.twig', [
             'trick' => $trick,
-            'form' => $form->createView ()
+            'form' => $form->createView()
         ]);
     }
 
@@ -77,6 +85,10 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           // $trick->setImage(
+          //      new File($this->getParameter('images_directory').'/'.$trick->getImage())
+          //  );
+
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
             return $this->redirectToRoute('admin.tricks.index');
@@ -84,7 +96,7 @@ class AdminTrickController extends AbstractController
 
        return $this->render ('admin/tricks/edit.html.twig', [
            'trick' => $trick,
-           'form' => $form->createView ()
+           'form' => $form->createView()
        ]);
     }
 

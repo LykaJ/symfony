@@ -32,9 +32,11 @@ class TrickType extends AbstractType
                 },
             ])
             ->add('image', FileType::class, [
-                'data_class' => null,
-                'required' => false
-                ])
+                    'label' => 'Image de l\'article',
+                    'required' => false,
+                    'data_class' => null
+                ]
+            )
         ;
     }
 
