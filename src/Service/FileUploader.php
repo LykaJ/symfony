@@ -17,7 +17,6 @@ class FileUploader
         $this->targetDirectory = $targetDirectory;
     }
 
-
     /**
      * @param UploadedFile $file
      * @return string

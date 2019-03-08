@@ -67,6 +67,10 @@ class ImageUploadListener
         }
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     * @throws \Exception
+     */
     public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();

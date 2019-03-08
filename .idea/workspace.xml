@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5734f231-3667-4210-ad27-473e7982b316" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/FileUploader.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Trick.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trick.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EventListener/ImageUploadListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/ImageUploadListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TrickType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TrickType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FileUploader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileUploader.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,20 +71,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-217">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-              <folding>
-                <element signature="e#41#62#0#PHP" expanded="true" />
-                <element signature="e#948#978#0#PHP" expanded="true" />
-                <element signature="e#1784#1812#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="das://1dcaeda6-b395-4a27-a23d-b28330ebaa7e/schema/symfony/table/trick">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
@@ -96,22 +80,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Trick.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="163" column="35" selection-start-line="163" selection-start-column="29" selection-end-line="163" selection-end-column="35" />
-              <folding>
-                <element signature="e#30#52#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Service/FileUploader.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+            <state relative-caret-position="-160">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="e#30#96#0#PHP" expanded="true" />
               </folding>
@@ -122,11 +94,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/EventListener/ImageUploadListener.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+            <state relative-caret-position="366">
+              <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
               <folding>
                 <element signature="e#36#91#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/services.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="244">
+              <caret line="17" column="50" lean-forward="true" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -172,12 +153,12 @@
         <option value="$PROJECT_DIR$/src/Services/FileUploader.php" />
         <option value="$PROJECT_DIR$/src/EventListener/BrochureUploadListener.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
-        <option value="$PROJECT_DIR$/config/services.yaml" />
-        <option value="$PROJECT_DIR$/src/EventListener/ImageUploadListener.php" />
-        <option value="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" />
         <option value="$PROJECT_DIR$/src/Form/TrickType.php" />
-        <option value="$PROJECT_DIR$/src/Service/FileUploader.php" />
         <option value="$PROJECT_DIR$/src/Entity/Trick.php" />
+        <option value="$PROJECT_DIR$/config/services.yaml" />
+        <option value="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" />
+        <option value="$PROJECT_DIR$/src/EventListener/ImageUploadListener.php" />
+        <option value="$PROJECT_DIR$/src/Service/FileUploader.php" />
       </list>
     </option>
   </component>
@@ -316,25 +297,7 @@
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
@@ -345,14 +308,13 @@
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
+              <item name="var" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Service" type="462c0819:PsiDirectoryNode" />
+              <item name="var" type="462c0819:PsiDirectoryNode" />
+              <item name="log" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -406,7 +368,7 @@
       <workItem from="1551690423592" duration="538000" />
       <workItem from="1551694049148" duration="196000" />
       <workItem from="1551703486739" duration="913000" />
-      <workItem from="1551795714536" duration="41175000" />
+      <workItem from="1551795714536" duration="43211000" />
     </task>
     <task id="LOCAL-00001" summary="Trick suppression&#10;Flashes added">
       <created>1551282780177</created>
@@ -419,13 +381,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55345000" />
+    <option name="totallyTimeSpent" value="57381000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="23" width="1219" height="777" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2880204" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16057774" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -736,9 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Kernel.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/symfony/http-foundation/File/UploadedFile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -764,27 +723,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/services.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="7" column="20" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/EventListener/ImageUploadListener.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
-          <folding>
-            <element signature="e#36#91#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/Kernel.php">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-217">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        <state relative-caret-position="210">
+          <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
           <folding>
             <element signature="e#41#62#0#PHP" expanded="true" />
             <element signature="e#948#978#0#PHP" expanded="true" />
@@ -793,12 +738,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Service/FileUploader.php">
+    <entry file="file://$PROJECT_DIR$/src/Entity/Trick.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+        <state relative-caret-position="230">
+          <caret line="163" column="36" selection-start-line="163" selection-start-column="36" selection-end-line="163" selection-end-column="36" />
           <folding>
-            <element signature="e#30#96#0#PHP" expanded="true" />
+            <element signature="e#30#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/EventListener/ImageUploadListener.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
+          <folding>
+            <element signature="e#36#91#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -810,12 +765,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Trick.php">
+    <entry file="file://$PROJECT_DIR$/config/services.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="163" column="35" selection-start-line="163" selection-start-column="29" selection-end-line="163" selection-end-column="35" />
+        <state relative-caret-position="244">
+          <caret line="17" column="50" lean-forward="true" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Service/FileUploader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-160">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
           <folding>
-            <element signature="e#30#52#0#PHP" expanded="true" />
+            <element signature="e#30#96#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

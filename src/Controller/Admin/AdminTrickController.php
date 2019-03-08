@@ -54,10 +54,10 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $trick->getImage();
-            $fileName = $fileUploader->upload($file);
+           // $file = $trick->getImage();
+           // $fileName = $fileUploader->upload($file);
 
-            $trick->setImage($fileName);
+           // $trick->setImage($fileName);
 
             $this->em->persist($trick);
             $this->em->flush();
