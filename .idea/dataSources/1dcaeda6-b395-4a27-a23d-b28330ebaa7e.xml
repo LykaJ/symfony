@@ -1007,7 +1007,7 @@
     </column>
     <column id="249" parent="235" name="image">
       <Position>7</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="250" parent="235" name="IDX_D8F0A91E12469DE2">

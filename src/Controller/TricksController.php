@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Repository\TrickRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,17 +23,13 @@ class TricksController extends AbstractController
 
     /**
      * @Route("/tricks", name="trick.index" )
-     * @var PaginatorInterface
-     * @var Request
      * @method Trick[]    findAll()
      * @return Response
      */
-    public function index(PaginatorInterface $paginator, Request $request): Response
+    public function index(): Response
     {
-        $tricks = $paginator->paginate(
-            $this->repository->findAll(),
-            $request->query->getInt('page', '1'), 8
-        );
+        $tricks = $this->repository->findAll();
+
         return $this->render('tricks/trick.html.twig', [
             'tricks' => $tricks,
             'current_menu' => 'tricks'

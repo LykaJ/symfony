@@ -49,7 +49,7 @@ class Trick
     private $edition_date;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank(message="Ajoutez une image")
      */
     private $image;
