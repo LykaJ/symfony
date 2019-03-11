@@ -52,6 +52,15 @@ class User implements UserInterface,\Serializable
      */
     private $picture_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Trick", mappedBy="author", cascade={"persist", "remove"})
+     */
+    private $trick;
+
+    /**
+     * User constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->signup_date = new \DateTime();
@@ -147,6 +156,7 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
+
     /**
      * Returns the roles granted to the user.
      *
@@ -200,7 +210,7 @@ class User implements UserInterface,\Serializable
         return serialize([
             $this->id,
             $this->username,
-            $this->password
+            $this->password,
         ]);
     }
 
@@ -220,5 +230,22 @@ class User implements UserInterface,\Serializable
             $this->username,
             $this->password
         ) =  unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(Trick $trick): self
+    {
+        $this->trick = $trick;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $trick->getAuthor()) {
+            $trick->setAuthor($this);
+        }
+
+        return $this;
     }
 }

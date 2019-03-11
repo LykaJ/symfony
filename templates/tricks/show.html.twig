@@ -3,6 +3,13 @@
 
 {% block body %}
     <div class="container">
-        <h1>{{ trick.title }}</h1>
+        <div class="row">
+            <h1 class="col-md-12">{{ trick.title }}</h1>
+            <div class="col-md-12">{{ trick.content }}</div>
+            <div class="col-md-3">{{ trick.creationDate|date('d/m/Y') }}</div>
+            <div class="col-md-3">
+                <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
+            </div>
+        </div>
     </div>
 {% endblock %}

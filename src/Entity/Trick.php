@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,7 +36,6 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
-
     private $category;
 
     /**
@@ -48,11 +48,17 @@ class Trick
      */
     private $edition_date;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
+    /**@var UploadedFile
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Ajoutez une image")
      */
     private $image;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="trick")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     /**
      * Trick constructor.
@@ -60,7 +66,7 @@ class Trick
      */
     public function __construct()
     {
-        $this->creation_date = new \DateTime();
+        $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();
     }
 
@@ -151,17 +157,20 @@ class Trick
         return $this;
     }
 
+    /**
+     * @return UploadedFile
+     */
     public function getImage()
     {
         return $this->image;
     }
 
     /**
-     * @param $image
+     * @param UploadedFile $image
      * @return $this
      * @throws \Exception
      */
-    public function setImage($image)
+    public function setImage(UploadedFile $image)
     {
         $this->image = $image;
 
@@ -169,6 +178,18 @@ class Trick
         {
             $this->edition_date = new \DateTime('now');
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

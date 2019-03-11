@@ -16,14 +16,20 @@ services:
 
 
     App\Service\FileUploader:
-        arguments:
+       arguments:
             $targetDirectory: '%images_directory%'
 
 
-    App\EventListener\ImageUploadListener:
+    App\EventListener\UploadListener:
         tags:
-            - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: kernel.event_listener, event: kernel.response }
+
+   # App\EventListener\ImageUploadListener:
+       # tags:
+         #   - { name: doctrine.event_listener, event: prePersist }
+         #   - { name: doctrine.event_listener, event: preUpdate }
+
+
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
