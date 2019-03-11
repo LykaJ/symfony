@@ -1,0 +1,13 @@
+<div class="col-3">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="card-title">
+                <a href="{{ path('trick.show', {id: trick.id, slug: trick.slug}) }}">
+                    {{ trick.title }}
+                </a>
+            </h3>
+            <p class="card-text">{{ trick.content }}</p>
+            <p class="badge badge-pill badge-primary">{{ trick.category.name }}</p>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,6 @@
 
 namespace App\Controller\Admin;
 
-
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
@@ -34,7 +33,7 @@ class AdminTrickController extends AbstractController
 
     public function index()
     {
-       $tricks = $this->repository->findAll ();
+       $tricks = $this->repository->findAll();
        return $this->render ('admin/tricks/index.html.twig', compact ('tricks'));
     }
 
@@ -42,7 +41,9 @@ class AdminTrickController extends AbstractController
     /**
      * @Route("/admin/create", name="admin.tricks.new")
      * @param Request $request
+     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function new(Request $request)
     {
@@ -59,7 +60,7 @@ class AdminTrickController extends AbstractController
 
         return $this->render ('admin/tricks/new.html.twig', [
             'trick' => $trick,
-            'form' => $form->createView ()
+            'form' => $form->createView()
         ]);
     }
 
@@ -68,14 +69,15 @@ class AdminTrickController extends AbstractController
      * @param Trick $trick
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
-
     public function edit(Trick $trick, Request $request)
     {
         $form = $this->createForm (TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
             return $this->redirectToRoute('admin.tricks.index');
@@ -83,7 +85,7 @@ class AdminTrickController extends AbstractController
 
        return $this->render ('admin/tricks/edit.html.twig', [
            'trick' => $trick,
-           'form' => $form->createView ()
+           'form' => $form->createView()
        ]);
     }
 

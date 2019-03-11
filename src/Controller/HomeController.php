@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Alicia
- * Date: 2019-02-22
- * Time: 16:27
- */
 
 namespace App\Controller;
 
@@ -26,6 +20,7 @@ class HomeController extends AbstractController {
     public function index(TrickRepository $repository): Response
     {
         $tricks = $repository->findLatest();
+
         return $this->render('pages/home.html.twig', [
             'tricks' => $tricks
         ]);
