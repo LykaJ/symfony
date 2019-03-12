@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\CommentType;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +50,7 @@ class TricksController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function show(Trick $trick, string $slug, Request $request, ObjectManager $em): Response
+    public function show(Trick $trick, string $slug, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
     {
        if($trick->getSlug() !== $slug)
        {
@@ -75,10 +76,14 @@ class TricksController extends AbstractController
                 ]);
         }
 
+        $comments = $commentRepository->findByOrder();
+
         return $this->render('tricks/show.html.twig', [
             'trick' => $trick,
             'current_menu' => 'tricks',
+            'comments' => $comments,
             'form' => $form->createView()
+
         ]);
     }
 
