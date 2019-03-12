@@ -73,11 +73,13 @@ class User implements UserInterface,\Serializable
     private $comments;
 
     /**
+
      * @Assert\EqualTo(propertyPath="password", message="Les mots de passe ne correspondent pas")
      */
     private $confirm_password;
 
     /**
+
      * User constructor.
      * @throws \Exception
      */

@@ -16,6 +16,7 @@
         <h2>Commentaires</h2>
         {% if app.user %}
         {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
+
         {% else %}
             <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
         {% endif %}
@@ -25,5 +26,6 @@
             <div class="col-md-9">{{ comment.content|raw}}</div>
         </div>
         {% endfor %}
+
     </section>
 {% endblock %}
