@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5734f231-3667-4210-ad27-473e7982b316" name="Default Changelist" comment="">
-
-      <change afterPath="$PROJECT_DIR$/templates/security/signup.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TricksController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TricksController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CommentRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CommentRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/forms.fr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/forms.fr.yaml" afterDir="false" />
-
-   
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +45,13 @@
         <item name="symfony@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="symfony: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="category: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="symfony@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="symfony: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="comment: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
       <path>
@@ -77,17 +73,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/SecurityController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="46" column="54" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
-              <folding>
-                <element signature="e#35#55#0#PHP" expanded="true" />
-                <element signature="e#1517#1530#1#PHP" expanded="true" />
-                <element signature="e#1502#1529#0#PHP" expanded="true" />
-              </folding>
+              <caret line="51" column="11" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -95,14 +85,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/TricksController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-77">
-              <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+            <state relative-caret-position="-17">
+              <caret line="61" column="39" selection-start-line="61" selection-start-column="39" selection-end-line="61" selection-end-column="39" />
               <folding>
                 <element signature="e#34#57#0#PHP" expanded="true" />
-                <element signature="e#1547#1559#0#PHP" expanded="true" />
-                <element signature="e#2077#2089#0#PHP" expanded="true" />
               </folding>
-
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="22" column="85" selection-start-line="22" selection-start-column="85" selection-end-line="22" selection-end-column="85" />
+              <folding>
+                <element signature="e#1122#1133#0#Twig" expanded="true" />
+                <element signature="e#1266#1278#0#Twig" expanded="true" />
+                <element signature="e#1416#1421#0#Twig" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,7 +150,6 @@
         <option value="$PROJECT_DIR$/src/Migrations/Version20190311144934.php" />
         <option value="$PROJECT_DIR$/templates/tricks/_list.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/Admin/AdminTrickController.php" />
-
         <option value="$PROJECT_DIR$/config/packages/security.yaml" />
         <option value="$PROJECT_DIR$/src/Entity/User.php" />
         <option value="$PROJECT_DIR$/src/DataFixtures/UserFixtures.php" />
@@ -162,7 +162,7 @@
         <option value="$PROJECT_DIR$/templates/comment/_form.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/TricksController.php" />
         <option value="$PROJECT_DIR$/templates/tricks/show.html.twig" />
-
+        <option value="$PROJECT_DIR$/templates/base.html.twig" />
       </list>
     </option>
   </component>
@@ -325,14 +325,11 @@
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-
               <item name="Form" type="462c0819:PsiDirectoryNode" />
-
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -340,7 +337,6 @@
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
-
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
@@ -348,12 +344,6 @@
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
               <item name="tricks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="comment" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
@@ -371,9 +361,7 @@
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-
               <item name="tricks" type="462c0819:PsiDirectoryNode" />
-
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
@@ -433,9 +421,7 @@
       <workItem from="1551703486739" duration="913000" />
       <workItem from="1551795714536" duration="61484000" />
       <workItem from="1552308452072" duration="21000" />
-
       <workItem from="1552309128677" duration="24691000" />
-
     </task>
     <task id="LOCAL-00001" summary="Trick suppression&#10;Flashes added">
       <created>1551282780177</created>
@@ -448,20 +434,15 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-
-    <option name="totallyTimeSpent" value="100366000" />
-
+    <option name="totallyTimeSpent" value="100403000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="23" width="1219" height="777" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16567545" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16567545" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-
       <window_info anchor="bottom" id="Inspection Results" order="0" weight="0.329927" />
-
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.329927" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -472,9 +453,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4995752" visible="true" weight="0.2642336" />
-
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4995752" visible="true" weight="0.2642336" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5004248" side_tool="true" weight="0.2890511" />
       <window_info anchor="bottom" id="Database Console" order="13" weight="0.329927" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -491,7 +470,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Trick suppression&#10;Flashes added" />
   </component>
   <component name="editorHistoryManager">
-
     <entry file="file://$PROJECT_DIR$/config/packages/validator.yaml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -585,30 +563,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311144934.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311141457.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-173" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311154853.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311155656.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-230" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311144934.php" />
+    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311141457.php" />
+    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311154853.php" />
+    <entry file="file://$PROJECT_DIR$/src/Migrations/Version20190311155656.php" />
     <entry file="das://1dcaeda6-b395-4a27-a23d-b28330ebaa7e/schema/symfony/table/migration_versions">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -617,7 +575,6 @@
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/date/date.php">
-
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="965" column="34" lean-forward="true" selection-start-line="965" selection-start-column="34" selection-end-line="965" selection-end-column="34" />
@@ -758,23 +715,14 @@
             <element signature="e#41#62#0#PHP" expanded="true" />
             <element signature="e#2338#2358#1#PHP" expanded="true" />
             <element signature="e#2402#2430#0#PHP" expanded="true" />
-
           </folding>
         </state>
       </provider>
     </entry>
-
     <entry file="file://$PROJECT_DIR$/src/Controller/HomeController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/tricks/show.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -819,7 +767,6 @@
           <folding>
             <element signature="e#28#52#0#PHP" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -833,7 +780,6 @@
         </state>
       </provider>
     </entry>
-
     <entry file="file://$PROJECT_DIR$/translations/forms.fr.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -850,37 +796,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="25" column="74" selection-start-line="25" selection-start-column="74" selection-end-line="25" selection-end-column="74" />
+        <state relative-caret-position="128">
+          <caret line="22" column="85" selection-start-line="22" selection-start-column="85" selection-end-line="22" selection-end-column="85" />
           <folding>
             <element signature="e#1122#1133#0#Twig" expanded="true" />
             <element signature="e#1266#1278#0#Twig" expanded="true" />
-            <element signature="e#1412#1417#0#Twig" expanded="true" />
+            <element signature="e#1416#1421#0#Twig" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="das://1dcaeda6-b395-4a27-a23d-b28330ebaa7e/schema/symfony/table/user">
-
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-
     <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
           <folding>
             <element signature="e#30#78#0#PHP" expanded="true" />
-
           </folding>
         </state>
       </provider>
     </entry>
-
     <entry file="file://$PROJECT_DIR$/templates/security/login.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
@@ -888,14 +830,12 @@
           <folding>
             <element signature="e#12#26#0#Twig" expanded="true" />
             <element signature="e#323#328#0#Twig" expanded="true" />
-
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/security.yaml">
       <provider selected="true" editor-type-id="text-editor">
-
         <state relative-caret-position="165">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
@@ -903,28 +843,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/TricksController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-77">
-          <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
-
+        <state relative-caret-position="-17">
+          <caret line="61" column="39" selection-start-line="61" selection-start-column="39" selection-end-line="61" selection-end-column="39" />
           <folding>
             <element signature="e#34#57#0#PHP" expanded="true" />
-            <element signature="e#1547#1559#0#PHP" expanded="true" />
-            <element signature="e#2077#2089#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-
     <entry file="file://$PROJECT_DIR$/src/Controller/SecurityController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="46" column="54" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
-
-          <folding>
-            <element signature="e#35#55#0#PHP" expanded="true" />
-            <element signature="e#1517#1530#1#PHP" expanded="true" />
-            <element signature="e#1502#1529#0#PHP" expanded="true" />
-          </folding>
+          <caret line="51" column="11" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="11" />
         </state>
       </provider>
     </entry>

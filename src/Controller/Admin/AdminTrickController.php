@@ -74,7 +74,7 @@ class AdminTrickController extends AbstractController
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
-            return $this->redirectToRoute('admin.tricks.index');
+            return $this->redirectToRoute('trick.index');
         }
 
         return $this->render ('admin/tricks/new.html.twig', [
