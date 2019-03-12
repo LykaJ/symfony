@@ -2,7 +2,7 @@
 {% block title 'Détails du trick' %}
 
 {% block body %}
-    <div class="container">
+    <article class="container">
         <div class="row">
             <h1 class="col-md-12">{{ trick.title }}</h1>
             <div class="col-md-12">{{ trick.content }}</div>
@@ -11,5 +11,19 @@
                 <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
             </div>
         </div>
-    </div>
+    </article>
+    <section class="container">
+        <h2>Commentaires</h2>
+        {% if app.user %}
+        {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
+        {% for comment in trick.comments %}
+        <div class="row">
+           <div class="col-md-3">{{ comment.author.username }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</div>
+            <div class="col-md-9">{{ comment.content|raw}}</div>
+        </div>
+        {% endfor %}
+        {% else %}
+            <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
+        {% endif %}
+    </section>
 {% endblock %}
