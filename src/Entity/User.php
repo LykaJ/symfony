@@ -5,10 +5,16 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet identifiant est déjà utilisé"
+ * )
  */
 class User implements UserInterface,\Serializable
 {
@@ -31,11 +37,13 @@ class User implements UserInterface,\Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="4", minMessage="Votre mot de passe doit contenir au moins 4 caractères")
      */
     private $password;
 
@@ -65,6 +73,13 @@ class User implements UserInterface,\Serializable
     private $comments;
 
     /**
+
+     * @Assert\EqualTo(propertyPath="password", message="Les mots de passe ne correspondent pas")
+     */
+    private $confirm_password;
+
+    /**
+
      * User constructor.
      * @throws \Exception
      */
@@ -162,6 +177,17 @@ class User implements UserInterface,\Serializable
         $this->picture_id = $picture_id;
 
         return $this;
+    }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirm_password;
+    }
+
+    public function setConfirmPassword(string $confirm_password): self
+    {
+     $this->confirm_password = $confirm_password;
+     return $this;
     }
 
 
