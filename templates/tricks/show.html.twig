@@ -14,18 +14,20 @@
     </article>
     <section class="container">
         <h2>Commentaires</h2>
-        {% if app.user %}
-        {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
 
-        {% else %}
-            <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
-        {% endif %}
-        {% for comment in trick.comments %}
-        <div class="row">
+            {% if app.user %}
+                {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
+
+            {% else %}
+                <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
+            {% endif %}
+
+        <div class="row mt-4">
+        {% for comment in trick.comments|sort|reverse %}
            <div class="col-md-3">{{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</div>
             <div class="col-md-9">{{ comment.content }}</div>
-        </div>
-        {% endfor %}
 
+        {% endfor %}
+        </div>
     </section>
 {% endblock %}

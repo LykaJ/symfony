@@ -169,14 +169,19 @@ class Trick
         return $this->image;
     }
 
+    /**
+     * @param $image
+     * @return $this
+     * @throws \Exception
+     */
     public function setImage($image)
     {
         $this->image = $image;
 
-       # if($this->image instanceof UploadedFile)
-       # {
-      #      $this->edition_date = new \DateTime('now');
-      #  }
+        if($this->image instanceof UploadedFile)
+        {
+            $this->edition_date = new \DateTime('now');
+        }
 
         return $this;
     }
