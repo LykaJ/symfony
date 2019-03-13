@@ -56,20 +56,20 @@ class AdminTrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $file */
-            #$file = $trick->getImage();
+            $file = $trick->getImage();
 
-            #$fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-           # try {
-            #    $file->move(
-             #       $this->getParameter('images_directory'),
-             #       $fileName
-            #    );
-          #  } catch (FileException $e) {
+            try {
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+            } catch (FileException $e) {
                 // ... handle exception if something happens during file upload
-           # }
+            }
 
-           # $trick->setImage($fileName);
+            $trick->setImage($fileName);
 
             $this->em->persist($trick);
             $this->em->flush();
@@ -119,7 +119,8 @@ class AdminTrickController extends AbstractController
      */
     public function delete(Trick $trick, Request $request)
     {
-        if($this->isCsrfTokenValid('delete' . $trick->getId(), $request->get('_token'))){
+        $trickId = $trick->getId();
+        if($this->isCsrfTokenValid('delete' . $trickId, $request->get('_token'))){
             $this->em->remove($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été supprimé');

@@ -7,10 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -50,10 +49,6 @@ class Trick
      */
     private $edition_date;
 
-    /**@var UploadedFile
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Ajoutez une image")
-     */
     private $image;
 
     /**
@@ -165,27 +160,23 @@ class Trick
         return $this;
     }
 
+
     /**
-     * @return UploadedFile
+     * @return File
      */
     public function getImage()
     {
         return $this->image;
     }
 
-    /**
-     * @param UploadedFile $image
-     * @return $this
-     * @throws \Exception
-     */
     public function setImage(UploadedFile $image)
     {
         $this->image = $image;
 
-        if($this->image instanceof UploadedFile)
-        {
-            $this->edition_date = new \DateTime('now');
-        }
+       # if($this->image instanceof UploadedFile)
+       # {
+      #      $this->edition_date = new \DateTime('now');
+      #  }
 
         return $this;
     }
