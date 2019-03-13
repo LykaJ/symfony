@@ -15,6 +15,7 @@
     <section class="container">
         <h2>Commentaires</h2>
         {% if app.user %}
+            <p><strong>Auteur : {{ app.user.realName }}</strong></p>
         {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
 
         {% else %}
@@ -23,8 +24,8 @@
 
         <div class="row mt-4">
             {% for comment in trick.comments|sort|reverse %}
-           <div class="col-md-3">{{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</div>
-            <div class="col-md-9">{{ comment.content }}</div>
+                <div class="col-md-3">{{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</div>
+                <div class="col-md-9">{{ comment.content }}</div>
             {% endfor %}
         </div>
     </section>
