@@ -79,6 +79,11 @@ class User implements UserInterface,\Serializable
     private $confirm_password;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
+
+    /**
 
      * User constructor.
      * @throws \Exception
@@ -310,6 +315,18 @@ class User implements UserInterface,\Serializable
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }

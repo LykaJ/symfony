@@ -7,6 +7,7 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -55,6 +56,8 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user= $this->get('security.token_storage')->getToken()->getUser(); // get the current user
+            $trick->setAuthor($user);
             /** @var UploadedFile $file */
             $file = $trick->getImage();
 
@@ -111,22 +114,41 @@ class AdminTrickController extends AbstractController
        ]);
     }
 
+
     /**
      * @Route("/admin/{id}", name="admin.tricks.delete", methods="DELETE")
-     * @param Trick $trick
      * @param Request $request
+     * @param Trick $trick
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Trick $trick, Request $request)
+    public function deleteAction(Request $request, Trick $trick)
     {
-        $trickId = $trick->getId();
-        if($this->isCsrfTokenValid('delete' . $trickId, $request->get('_token'))){
-            $this->em->remove($trick);
-            $this->em->flush();
+        $form = $this->createDeleteForm($trick);
+        $form->handleRequest($request);
+
+        if ($trick) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($trick);
+            $em->flush();
             $this->addFlash('success', 'Le trick a bien été supprimé');
         }
+
         return $this->redirectToRoute('admin.tricks.index');
     }
+
+    /**
+     * @param Trick $trick
+     * @return mixed
+     */
+    private function createDeleteForm(Trick $trick)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin.tricks.delete', array('id' => $trick->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
 
     private function generateUniqueFileName()
     {

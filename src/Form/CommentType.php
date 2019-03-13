@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +16,7 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('author', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'username'
-            ])
+            ->add('author', HiddenType::class)
         ;
     }
 
