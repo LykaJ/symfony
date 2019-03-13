@@ -169,7 +169,7 @@ class Trick
         return $this->image;
     }
 
-    public function setImage(UploadedFile $image)
+    public function setImage($image)
     {
         $this->image = $image;
 

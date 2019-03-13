@@ -69,8 +69,10 @@ class TricksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user= $this->get('security.token_storage')->getToken()->getUser();
             $comment->setCreationDate(new \DateTime('now'))
-                    ->setTrick($trick);
+                    ->setTrick($trick)
+                    ->setAuthor($user);
             $em->persist($comment);
             $em->flush();
 

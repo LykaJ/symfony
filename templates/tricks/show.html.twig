@@ -23,7 +23,7 @@
         {% for comment in trick.comments %}
         <div class="row">
            <div class="col-md-3">{{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</div>
-            <div class="col-md-9">{{ comment.content|raw}}</div>
+            <div class="col-md-9">{{ comment.content }}</div>
         </div>
         {% endfor %}
 

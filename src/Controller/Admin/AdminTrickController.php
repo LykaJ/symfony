@@ -55,6 +55,8 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user= $this->get('security.token_storage')->getToken()->getUser(); // get the current user
+            $trick->setAuthor($user);
             /** @var UploadedFile $file */
             $file = $trick->getImage();
 
@@ -119,8 +121,7 @@ class AdminTrickController extends AbstractController
      */
     public function delete(Trick $trick, Request $request)
     {
-        $trickId = $trick->getId();
-        if($this->isCsrfTokenValid('delete' . $trickId, $request->get('_token'))){
+        if($this->isCsrfTokenValid('delete' . $trick, $request->get('_token'))){
             $this->em->remove($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été supprimé');
