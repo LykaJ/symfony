@@ -1,6 +1,7 @@
 <application>
   <component name="FileTypeManager" version="17">
     <extensionMap>
+      <mapping pattern="Event" type="PHP" />
       <mapping ext="template" type="PHP" />
     </extensionMap>
   </component>
