@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Media;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
@@ -38,6 +39,10 @@ class TrickType extends AbstractType
                     'data_class' => null
                 ]
             )
+          #  ->add('media', MediaType::class, [
+            #    'data_class' => null,
+          #      'label' => 'URL de la vidéo'
+           # ])
         ;
     }
 

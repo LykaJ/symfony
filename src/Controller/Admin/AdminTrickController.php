@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Trick;
 use App\Entity\User;
+use App\Event\AdminUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -49,13 +50,15 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function new(Request $request)
+    public function new(Request $request, AdminUploadEvent $event_dispatcher)
     {
         $trick = new Trick();
         $form = $this->createForm (TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $event_dispatcher->dispatch(AdminUploadEvent::class, null);
+
             $user= $this->get('security.token_storage')->getToken()->getUser(); // get the current user
             $trick->setAuthor($user);
             /** @var UploadedFile $file */
