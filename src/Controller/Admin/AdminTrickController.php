@@ -4,15 +4,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Trick;
-use App\Entity\User;
 use App\Event\AdminUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -50,32 +49,16 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function new(Request $request, AdminUploadEvent $event_dispatcher)
+    public function new(Request $request, EventDispatcherInterface $event_dispatcher, FileUploader $fileUploader)
     {
         $trick = new Trick();
         $form = $this->createForm (TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $event_dispatcher->dispatch(AdminUploadEvent::class, null);
-
+            $event_dispatcher->dispatch(AdminUploadEvent::UPLOAD, new AdminUploadEvent($trick));
             $user= $this->get('security.token_storage')->getToken()->getUser(); // get the current user
             $trick->setAuthor($user);
-            /** @var UploadedFile $file */
-            $file = $trick->getImage();
-
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-
-            try {
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
-
-            $trick->setImage($fileName);
 
             $this->em->persist($trick);
             $this->em->flush();
@@ -107,9 +90,9 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          #  $trick->setImage(
-           #     new File($this->getParameter('images_directory').'/'.$trick->getImage())
-          #  );
+            $trick->setImage(
+                new File($this->getParameter('images_directory').'/'.$trick->getImage())
+            );
 
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');

@@ -1,36 +1,33 @@
 <?php
 namespace App\EventSubscriber;
 
+use App\Entity\Trick;
+use App\Event\AdminUploadEvent;
+use App\Service\FileUploader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 class UploadSubscriber implements EventSubscriberInterface
 {
+    private $uploader;
+
+    public function __construct(FileUploader $uploader)
+    {
+        $this->uploader = $uploader;
+    }
+
     public static function getSubscribedEvents()
     {
         // return the subscribed events, their methods and priorities
         return [
-            KernelEvents::EXCEPTION => [
-                ['processException', 10],
-                ['logException', 0],
-                ['notifyException', -10],
-            ]
+            AdminUploadEvent::UPLOAD => [
+                ['upload', 10]
+            ],
         ];
     }
 
-    public function processException(GetResponseForExceptionEvent $event)
+    public function upload(AdminUploadEvent $event)
     {
-        // ...
-    }
-
-    public function logException(GetResponseForExceptionEvent $event)
-    {
-        // ...
-    }
-
-    public function notifyException(GetResponseForExceptionEvent $event)
-    {
-        // ...
+       $trick = $event->getTrick();
+       $this->uploader->upload($trick->getImage());
     }
 }

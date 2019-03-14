@@ -50,6 +50,7 @@ class Trick
     private $edition_date;
 
     /**
+     * @var UploadedFile
      * @ORM\Column(type="string", nullable=true)
      */
     private $image;
@@ -173,21 +174,19 @@ class Trick
         return $this;
     }
 
-
     /**
-     * @return File
+     * @return string|null
      */
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
     /**
-     * @param $image
-     * @return $this
+     * @return Trick
      * @throws \Exception
      */
-    public function setImage($image)
+    public function setImage($image): self
     {
         $this->image = $image;
 
