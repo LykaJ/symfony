@@ -4,10 +4,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Trick;
+use App\Entity\User;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -77,10 +77,15 @@ class AdminTrickController extends AbstractController
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
+
+            if(!$form->isSubmitted() && !$form->isValid())
+            {
+                $this->addFlash('error', 'Le trick n\'a pas pu être créé');
+            }
             return $this->redirectToRoute('trick.index');
         }
 
-        return $this->render ('admin/tricks/new.html.twig', [
+        return $this->render('admin/tricks/new.html.twig', [
             'trick' => $trick,
             'form' => $form->createView()
         ]);
@@ -99,13 +104,13 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick->setImage(
-                new File($this->getParameter('images_directory').'/'.$trick->getImage())
-            );
+          #  $trick->setImage(
+           #     new File($this->getParameter('images_directory').'/'.$trick->getImage())
+          #  );
 
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
-            return $this->redirectToRoute('admin.tricks.index');
+            return $this->redirectToRoute('trick.index');
         }
 
        return $this->render ('admin/tricks/edit.html.twig', [
@@ -133,7 +138,7 @@ class AdminTrickController extends AbstractController
             $this->addFlash('success', 'Le trick a bien été supprimé');
         }
 
-        return $this->redirectToRoute('admin.tricks.index');
+        return $this->redirectToRoute('trick.index');
     }
 
     /**

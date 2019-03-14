@@ -9,11 +9,8 @@ use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TrickType extends AbstractType
 {
@@ -35,7 +32,6 @@ class TrickType extends AbstractType
                         ->setParameter('id', 0);
                 },
             ])
-            ->add('author', HiddenType::class)
             ->add('image', FileType::class, [
                     'label' => 'Image de l\'article',
                     'required' => false,

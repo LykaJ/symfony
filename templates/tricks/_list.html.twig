@@ -6,6 +6,14 @@
                     {{ trick.title }}
                 </a>
             </h3>
+            {% if app.user %}
+            <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn"><i class="fas fa-pen fa-sm"></i></a>
+            <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                <button class="btn"><i class="fas fa-trash fa-sm"></i></button>
+            </form>
+            {% endif %}
             <p class="card-text">{{ trick.content }}</p>
             <p class="badge badge-pill badge-primary">{{ trick.category.name }}</p>
             <p class="card-text">{{ trick.author.username }}</p>
