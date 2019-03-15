@@ -24,6 +24,11 @@
                 <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
             </div>
         </div>
+        <div class="row">
+            {% if trick.media %}
+                <iframe width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            {% endif %}
+        </div>
     </article>
     <section class="container">
         <h2>Commentaires</h2>

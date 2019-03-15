@@ -5,11 +5,12 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Media;
 use App\Entity\Trick;
-use App\Entity\User;
 use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -39,10 +40,14 @@ class TrickType extends AbstractType
                     'data_class' => null
                 ]
             )
-          #  ->add('media', MediaType::class, [
-            #    'data_class' => null,
-          #      'label' => 'URL de la vidéo'
-           # ])
+            ->add('media', CollectionType::class, [
+                'entry_type' => MediaType::class,
+                'entry_options' => ['data_class' => 'App\Entity\Media'],
+                'label' => 'URL de la vidéo',
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false
+            ])
         ;
     }
 

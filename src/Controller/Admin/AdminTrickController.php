@@ -56,7 +56,8 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $event_dispatcher->dispatch(AdminUploadEvent::UPLOAD, new AdminUploadEvent($trick));
+           # $event_dispatcher->dispatch(AdminUploadEvent::UPLOAD, new AdminUploadEvent($trick));
+
             $user= $this->get('security.token_storage')->getToken()->getUser(); // get the current user
             $trick->setAuthor($user);
 
@@ -90,9 +91,9 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick->setImage(
-                new File($this->getParameter('images_directory').'/'.$trick->getImage())
-            );
+           # $trick->setImage(
+           #     new File($this->getParameter('images_directory').'/'.$trick->getImage())
+          #  );
 
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');

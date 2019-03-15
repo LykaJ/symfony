@@ -22,11 +22,6 @@ class Media
     private $path;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $creation_date;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="media")
      */
     private $trick;
@@ -44,18 +39,6 @@ class Media
     public function setPath(string $path): self
     {
         $this->path = $path;
-
-        return $this;
-    }
-
-    public function getCreationDate(): ?\DateTimeInterface
-    {
-        return $this->creation_date;
-    }
-
-    public function setCreationDate(\DateTimeInterface $creation_date): self
-    {
-        $this->creation_date = $creation_date;
 
         return $this;
     }

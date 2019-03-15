@@ -67,7 +67,8 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick", cascade={"persist", "remove"})
      */
     private $media;
 
@@ -247,6 +248,12 @@ class Trick
     public function getMedia(): Collection
     {
         return $this->media;
+    }
+
+    public function setMedia(array $medias) {
+        foreach($medias as $media) {
+         $this->addMedium($media);
+        }
     }
 
     public function addMedium(Media $medium): self
