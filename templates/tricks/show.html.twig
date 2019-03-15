@@ -5,11 +5,29 @@
     <article class="container">
         <div class="row">
             <h1 class="col-md-12">{{ trick.title }}</h1>
+            {% if app.user %}
+                <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn"><i class="fas fa-pen fa-sm"></i></a>
+                <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                    <button class="btn"><i class="fas fa-trash fa-sm"></i></button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="row">
+            {% if trick.image %}
+                <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: auto; height: 100%;">
+            {% endif %}
             <div class="col-md-12">{{ trick.content }}</div>
             <div class="col-md-3">{{ trick.creationDate|date('d/m/Y') }}</div>
             <div class="col-md-3">
                 <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
             </div>
+        </div>
+        <div class="row">
+            {% if trick.media %}
+                <iframe width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            {% endif %}
         </div>
     </article>
     <section class="container">

@@ -50,7 +50,12 @@ class Trick
     private $edition_date;
 
     /**
+<<<<<<< HEAD
      * @ORM\Column(type="string")
+=======
+     * @var UploadedFile
+     * @ORM\Column(type="string", nullable=true)
+>>>>>>> trick-edition
      */
     private $image;
 
@@ -66,7 +71,8 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick", cascade={"persist", "remove"})
      */
     private $media;
 
@@ -82,6 +88,9 @@ class Trick
         $this->media = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
        return $this->category;
@@ -169,23 +178,26 @@ class Trick
         return $this;
     }
 
-
     /**
-     * @return File
+     * @return string|null
      */
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image)
+    /**
+     * @return Trick
+     * @throws \Exception
+     */
+    public function setImage($image): self
     {
         $this->image = $image;
 
-       # if($this->image instanceof UploadedFile)
-       # {
-      #      $this->edition_date = new \DateTime('now');
-      #  }
+        if($this->image instanceof UploadedFile)
+        {
+            $this->edition_date = new \DateTime('now');
+        }
 
         return $this;
     }
@@ -241,6 +253,13 @@ class Trick
         return $this->media;
     }
 
+    public function setMedia(array $medias) {
+        foreach($medias as $media) {
+         $this->addMedium($media);
+        }
+    }
+
+
     public function addMedium(Media $medium): self
     {
         if (!$this->media->contains($medium)) {
@@ -260,7 +279,6 @@ class Trick
                 $medium->setPath(null);
             }
         }
-
         return $this;
     }
 }
