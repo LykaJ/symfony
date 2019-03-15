@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -49,6 +49,9 @@ class Trick
      */
     private $edition_date;
 
+    /**
+     * @ORM\Column(type="string")
+     */
     private $image;
 
     /**
@@ -63,6 +66,11 @@ class Trick
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick")
+     */
+    private $media;
+
+    /**
      * Trick constructor.
      * @throws \Exception
      */
@@ -71,6 +79,7 @@ class Trick
         $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();
         $this->comments = new ArrayCollection();
+        $this->media = new ArrayCollection();
     }
 
     public function __toString()
@@ -218,6 +227,37 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Media $medium): self
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media[] = $medium;
+            $medium->setPath($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): self
+    {
+        if ($this->media->contains($medium)) {
+            $this->media->removeElement($medium);
+            // set the owning side to null (unless already changed)
+            if ($medium->getPath() === $this) {
+                $medium->setPath(null);
             }
         }
 

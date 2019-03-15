@@ -35,7 +35,6 @@ class TrickType extends AbstractType
                         ->setParameter('id', 0);
                 },
             ])
-            ->add('author', HiddenType::class)
             ->add('image', FileType::class, [
                     'label' => 'Image de l\'article',
                     'required' => false,
