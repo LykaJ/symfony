@@ -1,12 +1,11 @@
 <?php
 namespace App\EventSubscriber;
 
-use App\Entity\Trick;
-use App\Event\AdminUploadEvent;
+use App\Event\AdminUploadTrickImageEvent;
 use App\Service\FileUploader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class UploadSubscriber implements EventSubscriberInterface
+class AdminTrickSubscriber implements EventSubscriberInterface
 {
     private $uploader;
 
@@ -19,15 +18,15 @@ class UploadSubscriber implements EventSubscriberInterface
     {
         // return the subscribed events, their methods and priorities
         return [
-            AdminUploadEvent::UPLOAD => [
+            AdminUploadTrickImageEvent::NAME => [
                 ['upload', 10]
             ],
         ];
     }
 
-    public function upload(AdminUploadEvent $event)
+    public function upload(AdminUploadTrickImageEvent $event)
     {
        $trick = $event->getTrick();
-       $this->uploader->upload($trick->getImage());
+       $trick->setImage($this->uploader->upload($trick->getImageUpload()));
     }
 }

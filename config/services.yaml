@@ -16,11 +16,6 @@ services:
         bind:
             $targetDirectory: '%images_directory%'
 
-
-    App\EventListener\UploadListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.response }
-
    # App\EventListener\ImageUploadListener:
        # tags:
          #   - { name: doctrine.event_listener, event: prePersist }

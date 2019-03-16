@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
@@ -50,14 +50,14 @@ class Trick
     private $edition_date;
 
     /**
-<<<<<<< HEAD
-     * @ORM\Column(type="string")
-=======
-     * @var UploadedFile
      * @ORM\Column(type="string", nullable=true)
->>>>>>> trick-edition
      */
     private $image;
+
+    /**
+     * @var UploadedFile
+     */
+    private $uploadedImage;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="trick")
@@ -187,17 +187,33 @@ class Trick
     }
 
     /**
+     * @param string $image
      * @return Trick
-     * @throws \Exception
      */
-    public function setImage($image): self
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
-        if($this->image instanceof UploadedFile)
-        {
-            $this->edition_date = new \DateTime('now');
-        }
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile|null
+     */
+    public function getImageUpload(): ?UploadedFile
+    {
+        return $this->uploadedImage;
+    }
+
+    /**
+     * @param UploadedFile $uploadedImage
+     * @return Trick
+     * @throws \Exception
+     */
+    public function setImageUpload(UploadedFile $uploadedImage): self
+    {
+        $this->uploadedImage = $uploadedImage;
+        $this->edition_date = new \DateTime('now');
 
         return $this;
     }

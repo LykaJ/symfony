@@ -5,10 +5,10 @@ namespace App\Event;
 use App\Entity\Trick;
 use Symfony\Component\EventDispatcher\Event;
 
-class AdminUploadEvent extends Event
+class AdminUploadTrickImageEvent extends Event
 
 {
-    const UPLOAD = 'create.trick';
+    const NAME = 'trick.image.upload';
 
     private $trick;
 
