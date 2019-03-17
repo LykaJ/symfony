@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5734f231-3667-4210-ad27-473e7982b316" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/images/13e959f7a98300c0f06c8a521813a5a9.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/images/207b6c02d94bfe51e320011a9213c7a1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/images/2b28aa01fc080e6057ebf002e0dfb4f7.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/images/538964e3c17feac59a7038bcc36780e4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/images/b3d10bd1342f77d4b17f6bb2b9a0d201.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/tricks/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/tricks/_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tricks/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tricks/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,10 +60,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/config/packages/framework.yaml">
+        <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+            <state relative-caret-position="75">
+              <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -123,7 +115,6 @@
         <option value="$PROJECT_DIR$/src/Controller/TricksController.php" />
         <option value="$PROJECT_DIR$/src/Form/CommentType.php" />
         <option value="$PROJECT_DIR$/config/packages/dev/easy_log_handler.yaml" />
-        <option value="$PROJECT_DIR$/templates/base.html.twig" />
         <option value="$PROJECT_DIR$/templates/tricks/trick.html.twig" />
         <option value="$PROJECT_DIR$/src/Entity/User.php" />
         <option value="$PROJECT_DIR$/src/Event" />
@@ -149,6 +140,7 @@
         <option value="$PROJECT_DIR$/templates/admin/tricks/_form.html.twig" />
         <option value="$PROJECT_DIR$/templates/tricks/show.html.twig" />
         <option value="$PROJECT_DIR$/config/packages/framework.yaml" />
+        <option value="$PROJECT_DIR$/templates/base.html.twig" />
       </list>
     </option>
   </component>
@@ -277,17 +269,6 @@
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snowtricks" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="packages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="snowtricks" type="b2602c69:ProjectViewProjectNode" />
@@ -442,7 +423,7 @@
       <workItem from="1551795714536" duration="61484000" />
       <workItem from="1552308452072" duration="21000" />
       <workItem from="1552309128677" duration="24691000" />
-      <workItem from="1552810601057" duration="473000" />
+      <workItem from="1552810601057" duration="708000" />
     </task>
     <task id="LOCAL-00001" summary="Trick suppression&#10;Flashes added">
       <created>1551282780177</created>
@@ -454,7 +435,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5966000" />
+    <option name="totallyTimeSpent" value="6201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="23" width="1219" height="777" extended-state="0" />
@@ -475,7 +456,7 @@
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.329927" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49872556" visible="true" weight="0.45839417" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49872556" weight="0.610219" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5012744" side_tool="true" weight="0.2642336" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.329927" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -660,8 +641,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/framework.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
+        <state relative-caret-position="135">
           <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
         </state>
       </provider>
     </entry>
