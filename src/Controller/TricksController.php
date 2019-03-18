@@ -28,7 +28,7 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="trick.index", methods="GET|POST")
+     * @Route("/tricks", name="trick.index")
      * @method Trick[]    findAll()
      * @return Response
      */

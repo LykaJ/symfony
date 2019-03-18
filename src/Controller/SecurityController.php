@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="login", mmethods="GET|POST")
+     * @Route("/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -30,7 +30,8 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/signup", name="registration", methods="GET|POST")
+     * @Route("/signup", name="registration")
+     * @param Request $request
      * @param ObjectManager $em
      * @param UserPasswordEncoderInterface $encoder
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
