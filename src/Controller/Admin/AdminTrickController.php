@@ -42,7 +42,7 @@ class AdminTrickController extends AbstractController
 
 
     /**
-     * @Route("/admin/create", name="admin.tricks.new")
+     * @Route("/admin/create", name="admin.tricks.new", methods={POST|GET})
      * @param Request $request
      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

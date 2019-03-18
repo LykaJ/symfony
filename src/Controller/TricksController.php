@@ -28,7 +28,7 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="trick.index" )
+     * @Route("/tricks", name="trick.index", methods={POST|GET} )
      * @method Trick[]    findAll()
      * @return Response
      */
@@ -44,15 +44,16 @@ class TricksController extends AbstractController
 
 
     /**
-     * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
+     *      * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods={POST|GET})
+
      * @param Trick $trick
      * @param string $slug
      * @param Request $request
      * @param ObjectManager $em
+     * @param CommentRepository $commentRepository
      * @return Response
      * @throws \Exception
      */
-
     public function show(Trick $trick, string $slug, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
 
     {

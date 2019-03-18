@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController {
 
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", methods={POST|GET})
      * @param TrickRepository $repository
      * @var Environment
      * @return Response
