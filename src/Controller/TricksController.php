@@ -28,7 +28,7 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="trick.index", methods={POST|GET} )
+     * @Route("/tricks", name="trick.index", methods="GET|POST")
      * @method Trick[]    findAll()
      * @return Response
      */
@@ -44,7 +44,7 @@ class TricksController extends AbstractController
 
 
     /**
-     *      * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods={POST|GET})
+     *      * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST")
 
      * @param Trick $trick
      * @param string $slug
