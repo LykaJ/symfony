@@ -30,4 +30,10 @@ class FileUploader
     {
         return $this->targetDirectory;
     }
+
+    public function removeUploadedImage(UploadedFile $file): self
+    {
+        $file_path = $this->getTargetDirectory().'/'.$file;
+        if(file_exists($file_path)) unlink($file_path);
+    }
 }

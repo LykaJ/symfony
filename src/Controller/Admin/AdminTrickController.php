@@ -93,6 +93,7 @@ class AdminTrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
             return $this->redirectToRoute('trick.index');

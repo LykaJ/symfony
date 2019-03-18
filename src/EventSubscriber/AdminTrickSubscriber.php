@@ -19,7 +19,8 @@ class AdminTrickSubscriber implements EventSubscriberInterface
         // return the subscribed events, their methods and priorities
         return [
             AdminUploadTrickImageEvent::NAME => [
-                ['upload', 10]
+                ['upload', 10],
+                ['remove', 20]
             ],
         ];
     }
@@ -28,5 +29,13 @@ class AdminTrickSubscriber implements EventSubscriberInterface
     {
        $trick = $event->getTrick();
        $trick->setImage($this->uploader->upload($trick->getImageUpload()));
+    }
+
+    public function remove(AdminUploadTrickImageEvent $event)
+    {
+        $trick = $event->getTrick();
+        $file = $trick->getImage();
+        $file_path = $this->uploader->getTargetDirectory().'/'.$file;
+        if(file_exists($file_path)) unlink($file_path);
     }
 }
