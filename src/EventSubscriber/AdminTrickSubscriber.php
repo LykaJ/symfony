@@ -35,7 +35,12 @@ class AdminTrickSubscriber implements EventSubscriberInterface
     {
         $trick = $event->getTrick();
         $file = $trick->getImage();
-        $file_path = $this->uploader->getTargetDirectory().'/'.$file;
-        if(file_exists($file_path)) unlink($file_path);
+
+        if(isset($file))
+        {
+            $file_path = $this->uploader->getTargetDirectory().'/'.$file;
+            if(file_exists($file_path)) unlink($file_path);
+        }
+
     }
 }
