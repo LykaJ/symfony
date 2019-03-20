@@ -29,6 +29,7 @@ class AdminTrickSubscriber implements EventSubscriberInterface
     {
        $trick = $event->getTrick();
        $trick->setImage($this->uploader->upload($trick->getImageUpload()));
+
     }
 
     public function remove(AdminUploadTrickImageEvent $event)

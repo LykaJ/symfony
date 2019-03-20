@@ -276,7 +276,7 @@ class Trick
 
     public function setMedia(array $medias) {
         foreach($medias as $media) {
-         $this->addMedium($media);
+            $this->addMedium($media);
         }
     }
 

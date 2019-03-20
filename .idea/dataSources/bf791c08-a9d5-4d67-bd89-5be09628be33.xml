@@ -1024,7 +1024,6 @@
     <column id="253" parent="235" name="path">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="254" parent="235" name="trick_id">
