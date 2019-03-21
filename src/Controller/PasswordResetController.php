@@ -81,7 +81,7 @@ class PasswordResetController extends AbstractController
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
             $entityManager->flush();
 
-            $this->addFlash('notice', 'Le mot de passe a été réinitialisé');
+            $this->addFlash('success', 'Le mot de passe a été réinitialisé');
 
             return $this->redirectToRoute('trick.index');
         }else {
