@@ -10,6 +10,9 @@
                {{ error.messageKey | trans(error.messagedata, 'security') }}
            </div>
         {% endif %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
 
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">

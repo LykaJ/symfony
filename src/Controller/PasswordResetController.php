@@ -43,7 +43,7 @@ class PasswordResetController extends AbstractController
             $url = $this->generateUrl('reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $message = (new \Swift_Message('Forgot Password'))
-                ->setFrom('webdesigner.form@gmail.com') // recheck comment faire
+                ->setFrom(['webdesigner.form@gmail.com' => 'SnowTricks']) // recheck comment faire
                 ->setTo($user->getEmail())
                 ->setBody(
                     "Cliquez sur ce lien pour réinitialiser votre mot de passe : " . $url,
@@ -52,7 +52,7 @@ class PasswordResetController extends AbstractController
 
             $mailer->send($message);
 
-            $this->addFlash('notice', 'Mail envoyé');
+            $this->addFlash('success', 'Le mail a bien été envoyé');
 
             return $this->redirectToRoute('trick.index');
         }
@@ -83,7 +83,7 @@ class PasswordResetController extends AbstractController
 
             $this->addFlash('success', 'Le mot de passe a été réinitialisé');
 
-            return $this->redirectToRoute('trick.index');
+            return $this->redirectToRoute('login');
         }else {
 
             return $this->render('security/password_reset.html.twig', ['token' => $token]);
