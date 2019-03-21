@@ -6,6 +6,7 @@ use App\Entity\PasswordReset;
 use App\Entity\User;
 use App\Form\PasswordResetType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,10 +15,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class PasswordResetController extends AbstractController
 {
     /**
-     * @Route("/password/reset", name="password_reset")
+     * @Route("/password/reset/", name="password_reset")
      */
-    public function passwordReset(User $user, Request $request, ObjectManager $em, UserPasswordEncoderInterface $encoder)
+    public function passwordReset(Request $request, ObjectManager $em, UserPasswordEncoderInterface $encoder)
     {
+        $user = new User();
         $password_reset = new PasswordReset();
         $form = $this->createForm(PasswordResetType::class, $user);
         $form->handleRequest($request);
