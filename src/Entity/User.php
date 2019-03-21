@@ -79,7 +79,7 @@ class User implements UserInterface,\Serializable
     private $confirm_password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $roles;
 

@@ -36,14 +36,14 @@ class PasswordResetController extends AbstractController
                 $user->setResetToken($token);
                 $entityManager->flush();
             } catch (\Exception $e) {
-                $this->addFlash('warning', $e->getMessage());
+                $this->addFlash('danger', $e->getMessage());
                 return $this->redirectToRoute('trick.index');
             }
 
             $url = $this->generateUrl('reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $message = (new \Swift_Message('Forgot Password'))
-                ->setFrom('') // recheck comment faire
+                ->setFrom('webdesigner.form@gmail.com') // recheck comment faire
                 ->setTo($user->getEmail())
                 ->setBody(
                     "Cliquez sur ce lien pour réinitialiser votre mot de passe : " . $url,
@@ -69,7 +69,7 @@ class PasswordResetController extends AbstractController
         if ($request->isMethod('POST')) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            $user = $entityManager->getRepository(User::class)->findOneByResetToken($token);
+            $user = $entityManager->getRepository(User::class)->findOneByToken($token);
             /* @var $user User */
 
             if ($user === null) {
