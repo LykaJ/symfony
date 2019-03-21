@@ -4,9 +4,11 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Event\UploadUserPictureEvent;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -37,7 +39,7 @@ class SecurityController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function registration(Request $request, ObjectManager $em, UserPasswordEncoderInterface $encoder)
+    public function registration(Request $request, ObjectManager $em, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $event_dispatcher)
     {
         $user = new User();
 
@@ -46,6 +48,7 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $event_dispatcher->dispatch(UploadUserPictureEvent::NAME, new UploadUserPictureEvent($user));
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $em->persist($user);

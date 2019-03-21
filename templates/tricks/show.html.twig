@@ -42,8 +42,11 @@
 
         <div class="row mt-4">
             {% for comment in trick.comments|sort|reverse %}
-                <div class="col-md-3">{{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</div>
-                <div class="col-md-9">{{ comment.content }}</div>
+                <div class="col-md-4">
+                    <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
+                    {{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)
+                </div>
+                <div class="col-md-8">{{ comment.content }}</div>
             {% endfor %}
         </div>
     </section>

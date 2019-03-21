@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -58,9 +59,18 @@ class User implements UserInterface,\Serializable
     private $last_login;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $picture_id;
+    private $picture;
+
+    /**
+     * @var UploadedFile
+     * @Assert\File(
+     *     maxSize = "200k",
+     *     maxSizeMessage = "Le fichier est trop volumineux. Sa taille ne doit pas dépasser 200k."
+     * )
+     */
+    private $uploadedPicture;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Trick", mappedBy="author", cascade={"persist", "remove"})
@@ -81,7 +91,7 @@ class User implements UserInterface,\Serializable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $roles;
+    private $role;
 
     /**
      * @var string le token qui servira lors de l'oubli de mot de passe
@@ -177,15 +187,26 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
-    public function getPictureId(): ?int
+    public function getPicture(): ?string
     {
-        return $this->picture_id;
+        return $this->picture;
     }
 
-    public function setPictureId(int $picture_id): self
+    public function setPicture(string $picture): self
     {
-        $this->picture_id = $picture_id;
+        $this->picture = $picture;
 
+        return $this;
+    }
+
+    public function getPictureUpload(): ?UploadedFile
+    {
+        return $this->uploadedPicture;
+    }
+
+    public function setPictureUpload(?UploadedFile $uploadedPicture): self
+    {
+        $this->uploadedPicture = $uploadedPicture;
         return $this;
     }
 

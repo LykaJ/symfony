@@ -163,7 +163,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `real_name`, `email`, `password`, `signup_date`, `last_login`, `picture_id`, `roles`) VALUES
+INSERT INTO `user` (`id`, `username`, `real_name`, `email`, `password`, `signup_date`, `last_login`, picture, role) VALUES
 (4, 'demo', 'Jack Sparrow', 'pirate@carabiean.com', '$2y$12$nouk/iHz2kwQYEzPPwjsV.ptDCerxvWpFpiR.ZYm6idmL7/pK1bby', '2019-03-11 17:14:15', '2019-03-11 17:14:15', NULL, 'ROLE_ADMIN'),
 (5, 'admin', 'Admin', 'admin@email.com', '$2y$12$fX46bW013gQf/mvkgAXmju14FWQfdV5z3But4FnE4OI2JXp36B2ey', '2019-03-12 08:12:45', '2019-03-12 08:12:45', NULL, 'ROLE_ADMIN'),
 (9, 'Ilian', 'Ilian Jake', 'test@test.com', '$2y$12$Sf18bGJ/IKTH57xGYqaTkOHi8VhQHsWJwEWvd9NZh2Py2dmzc/Edy', '2019-03-12 16:34:24', '2019-03-12 16:34:24', NULL, 'ROLE_ADMIN');
