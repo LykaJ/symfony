@@ -84,19 +84,10 @@ class User implements UserInterface,\Serializable
     private $roles;
 
     /**
-     * @Assert\Length(min="6", minMessage="Votre mot de passe doit contenir au moins 6 caractères")
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $new_password;
-
-    /**
-     * @Assert\EqualTo(propertyPath="password", message="Les mots de passe ne correspondent pas")
-     */
-    private $confirm_new_password;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\PasswordReset", mappedBy="user", cascade={"persist", "remove"})
-     */
-    private $passwordReset;
+    private $token;
 
     /**
      * User constructor.
@@ -207,28 +198,6 @@ class User implements UserInterface,\Serializable
     {
      $this->confirm_password = $confirm_password;
      return $this;
-    }
-
-    public function getNewPassword(): ?string
-    {
-        return $this->new_password;
-    }
-
-    public function setNewPassword(string $new_password): self
-    {
-        $this->new_password = $new_password;
-        return $this;
-    }
-
-    public function getConfirmNewPassword(): ?string
-    {
-        return $this->confirm_new_password;
-    }
-
-    public function setConfirmNewPassword(string $confirm_new_password): self
-    {
-        $this->confirm_new_password = $confirm_new_password;
-        return $this;
     }
 
 
@@ -367,39 +336,19 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
-    public function getPasswordReset(): ?PasswordReset
-    {
-        return $this->passwordReset;
-    }
-
-    public function setPasswordReset(?PasswordReset $passwordReset): self
-    {
-        $this->passwordReset = $passwordReset;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newUser_id = $passwordReset === null ? null : $this;
-        if ($newUser_id !== $passwordReset->getUserId()) {
-            $passwordReset->setUserId($newUser_id);
-        }
-
-        return $this;
-    }
-
-    public function getToken(): ?PasswordReset
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
     {
         return $this->token;
     }
 
-    public function setToken(?PasswordReset $token): self
+    /**
+     * @param string|null $token
+     */
+    public function setResetToken(?string $token): void
     {
         $this->token = $token;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newUser = $token === null ? null : $this;
-        if ($newUser !== $token->getUser()) {
-            $token->setUser($newUser);
-        }
-
-        return $this;
     }
 }
