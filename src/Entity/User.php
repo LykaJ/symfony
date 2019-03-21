@@ -43,7 +43,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="4", minMessage="Votre mot de passe doit contenir au moins 4 caractères")
+     * @Assert\Length(min="6", minMessage="Votre mot de passe doit contenir au moins 6 caractères")
      */
     private $password;
 
@@ -79,17 +79,17 @@ class User implements UserInterface,\Serializable
     private $confirm_password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $roles;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\PasswordReset", mappedBy="user_id", cascade={"persist", "remove"})
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $passwordReset;
+    private $token;
 
     /**
-
      * User constructor.
      * @throws \Exception
      */
@@ -336,21 +336,19 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
-    public function getPasswordReset(): ?PasswordReset
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
     {
-        return $this->passwordReset;
+        return $this->token;
     }
 
-    public function setPasswordReset(?PasswordReset $passwordReset): self
+    /**
+     * @param string|null $token
+     */
+    public function setResetToken(?string $token): void
     {
-        $this->passwordReset = $passwordReset;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newUser_id = $passwordReset === null ? null : $this;
-        if ($newUser_id !== $passwordReset->getUserId()) {
-            $passwordReset->setUserId($newUser_id);
-        }
-
-        return $this;
+        $this->token = $token;
     }
 }

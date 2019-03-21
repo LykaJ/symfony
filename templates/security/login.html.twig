@@ -10,6 +10,9 @@
                {{ error.messageKey | trans(error.messagedata, 'security') }}
            </div>
         {% endif %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
 
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">
@@ -23,5 +26,9 @@
 
             <button type="submit" class="btn btn-primary">Se connecter</button>
         </form>
+
+        <div>
+            <a  href="{{ path('forgotten_password') }}">Forgotten password</a>
+        </div>
     </div>
 {% endblock %}
