@@ -84,6 +84,11 @@ class User implements UserInterface,\Serializable
     private $roles;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\PasswordReset", mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    private $passwordReset;
+
+    /**
 
      * User constructor.
      * @throws \Exception
@@ -327,6 +332,24 @@ class User implements UserInterface,\Serializable
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getPasswordReset(): ?PasswordReset
+    {
+        return $this->passwordReset;
+    }
+
+    public function setPasswordReset(?PasswordReset $passwordReset): self
+    {
+        $this->passwordReset = $passwordReset;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser_id = $passwordReset === null ? null : $this;
+        if ($newUser_id !== $passwordReset->getUserId()) {
+            $passwordReset->setUserId($newUser_id);
+        }
 
         return $this;
     }
