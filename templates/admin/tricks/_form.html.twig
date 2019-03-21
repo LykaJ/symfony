@@ -8,8 +8,66 @@
 <div class="row">
     <div class="col-md-4">{{ form_row(form.category) }}</div>
     <div class="col-md-4">{{ form_row(form.imageUpload) }}</div>
-    <div class="col-md-4">{{ form_row(form.media) }}</div>
+
+    <div class="col-md-4">
+        {{ form_row(form.media) }}
+        <a href="#" id="add_media" class="btn btn-default">Ajouter un média</a>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $container = $('div#trick_media');
+            var index = $container.find(':input').length;
+
+            $('#add_media').click(function(e) {
+                addMedia($container);
+
+                e.preventDefault();
+                return false;
+            });
+
+            if (index === 0) {
+                addMedia($container);
+            } else {
+                $container.children('div').each(function() {
+                    addDeleteLink($(this));
+                });
+            }
+
+
+            function addMedia($container) {
+                var template = $container.attr('data-prototype')
+                    .replace(/__name__label__/g, 'Media n°' + (index+1))
+                    .replace(/__name__/g,        index)
+                ;
+
+
+                var $prototype = $(template);
+
+                addDeleteLink($prototype);
+
+                $container.append($prototype);
+
+                index++;
+            }
+
+            function addDeleteLink($prototype) {
+                var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+                $prototype.append($deleteLink);
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        });
+    </script>
 </div>
+
 {{ form_rest(form) }}
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }}

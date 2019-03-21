@@ -40,10 +40,11 @@ class TrickType extends AbstractType
             )
             ->add('media', CollectionType::class, [
                 'entry_type' => MediaType::class,
-                'label' => 'URL de la vidéo',
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false
+                'prototype' => true,
+                'by_reference' => false,
+                'required' => false
             ])
         ;
     }

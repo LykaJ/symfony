@@ -16,6 +16,8 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function  login(AuthenticationUtils $authenticationUtils)
     {
@@ -29,6 +31,11 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/signup", name="registration")
+     * @param Request $request
+     * @param ObjectManager $em
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function registration(Request $request, ObjectManager $em, UserPasswordEncoderInterface $encoder)
     {

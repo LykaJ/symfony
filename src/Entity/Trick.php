@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -56,6 +57,10 @@ class Trick
 
     /**
      * @var UploadedFile
+     * @Assert\File(
+     *     maxSize = "300k",
+     *     maxSizeMessage = "Le fichier est trop volumineux (0.53 MB). Sa taille ne doit pas dépasser 0.3 MB."
+     * )
      */
     private $uploadedImage;
 
@@ -271,7 +276,7 @@ class Trick
 
     public function setMedia(array $medias) {
         foreach($medias as $media) {
-         $this->addMedium($media);
+            $this->addMedium($media);
         }
     }
 
