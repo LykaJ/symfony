@@ -28,6 +28,8 @@ class UserFixtures extends Fixture
         $user->setRealName('Admin');
         $user->setPassword($this->encoder->encodePassword($user, 'admin'));
         $user->setEmail('admin@email.com');
+        $user->setSignupDate(new \DateTime('now'));
+        $user->setPicture('public/uploads/images/user.png');
         $manager->persist($user);
         $manager->flush();
     }
