@@ -19,7 +19,7 @@ class PasswordReset
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="passwordReset", cascade={"persist", "remove"})
      */
-    private $user_id;
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -36,14 +36,14 @@ class PasswordReset
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
