@@ -21,12 +21,14 @@
                 <li class="nav-item">
                     <a class="nav-link {% if current_menu is defined and current_menu == 'tricks' %}active{% endif %}" href="{{ path('trick.index') }}">Tricks</a>
                 </li>
+                {% if app.user == null %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('registration') }}">Inscription</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('login') }}">Connexion</a>
                 </li>
+                {% endif %}
             </ul>
             {% if app.user %}
                 <ul class="navbar-nav">
