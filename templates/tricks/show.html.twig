@@ -45,8 +45,7 @@
                 <div class="col-md-4">
                     {% if comment.author.picture != null %}
                     <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
-                    {% endif %}
-                    {% if comment.author.picture == null %}
+                    {% else %}
                         <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
                     {% endif %}
                     {{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)

@@ -12,7 +12,6 @@ class CategroryFixtures extends Fixture
     {
         $category = new Category();
         $category->setName('grab');
-        $category->setName('flip');
         $manager->persist($category);
         $manager->flush();
     }

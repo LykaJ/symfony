@@ -11,6 +11,7 @@ use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,10 +43,33 @@ class TricksController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/tricks/ajax")
+     */
+    public function ajaxAction(Request $request) {
+        $tricks = $this->getDoctrine()->getRepository(Trick::class)->findAll();
+
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
+            $jsonData = array();
+            $idx = 0;
+            foreach($tricks as $trick) {
+                $temp = array(
+                    'title' => $trick->getTitle(),
+                    'content' => $trick->getContent(),
+                    'category' => $trick->getCategory(),
+                    'created_at' => $trick->getCreationDate()
+                );
+                $jsonData[$idx++] = $temp;
+            }
+            return new JsonResponse($jsonData);
+        } else {
+            return $this->render('tricks/trick.html.twig');
+        }
+    }
+
 
     /**
-     *      * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST")
-
+     * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST")
      * @param Trick $trick
      * @param string $slug
      * @param Request $request
@@ -91,8 +115,6 @@ class TricksController extends AbstractController
             'current_menu' => 'tricks',
             'comments' => $comments,
             'form' => $form->createView()
-
-
         ]);
     }
 
