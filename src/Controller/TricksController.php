@@ -33,7 +33,7 @@ class TricksController extends AbstractController
      * @method Trick[]    findAll()
      * @return Response
      */
-    public function index(): Response
+   /* public function index(): Response
     {
         $tricks = $this->repository->findAll();
 
@@ -41,13 +41,13 @@ class TricksController extends AbstractController
             'tricks' => $tricks,
             'current_menu' => 'tricks'
         ]);
-    }
+    } */
 
     /**
-     * @Route("/tricks/ajax")
+     * @Route("/tricks", name="trick.index")
      */
     public function ajaxAction(Request $request) {
-        $tricks = $this->getDoctrine()->getRepository(Trick::class)->findAll();
+        $tricks = $this->repository->findAll();
 
         if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
             $jsonData = array();
@@ -63,7 +63,10 @@ class TricksController extends AbstractController
             }
             return new JsonResponse($jsonData);
         } else {
-            return $this->render('tricks/trick.html.twig');
+            return $this->render('tricks/trick.html.twig', [
+                'tricks' => $tricks,
+                'current_menu' => 'tricks'
+            ]);
         }
     }
 
