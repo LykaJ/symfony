@@ -32,11 +32,16 @@
         {% for message in app.flashes('error') %}
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
+        {% if app.user %}
+            <div class="mb-4">
+                <a href="{{ path('admin.tricks.new') }}" class="btn btn-primary">Ajouter un trick</a>
+            </div>
+        {% endif %}
         <div class="row" id="js-tricks">
             {% for trick in tricks %}
                 {% include('/tricks/_list.html.twig') %}
             {% endfor %}
         </div>
-        <a href="{{ path('trick.index') }}" id="js-btn" class="btn btn-info">Load more</a>
+        <a href="{{ path('trick.index') }}" id="js-btn" class="btn btn-info">Charger les 8 suivants...</a>
     </div>
 {% endblock %}

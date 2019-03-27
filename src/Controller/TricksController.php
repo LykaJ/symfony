@@ -11,7 +11,6 @@ use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,25 +42,20 @@ class TricksController extends AbstractController
         ]);
     } */
 
-    /**
-     * @Route("/tricks", name="trick.index")
+    /*
+     * @Route("/tricks/{page}", name="trick.index")
      */
-    public function ajaxAction(Request $request) {
-        $tricks = $this->repository->findAll();
+    public function ajaxAction(Request $request, $page = 1) {
 
-        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
-            $jsonData = array();
-            $idx = 0;
-            foreach($tricks as $trick) {
-                $temp = array(
-                    'title' => $trick->getTitle(),
-                    'content' => $trick->getContent(),
-                    'category' => $trick->getCategory(),
-                    'created_at' => $trick->getCreationDate()
-                );
-                $jsonData[$idx++] = $temp;
-            }
-            return new JsonResponse($jsonData);
+        $tricks = $this->repository->getTricksByLimit(0);
+        $tricks->count();
+
+        if($request->isXmlHttpRequest())
+        {
+            return $this->json([
+                'tricks' => $tricks,
+                'next_page' => $page + 1
+            ]);
         } else {
             return $this->render('tricks/trick.html.twig', [
                 'tricks' => $tricks,

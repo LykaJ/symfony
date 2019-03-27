@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MediaRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ImageMediaRepository")
  */
-class Media
+class ImageMedia
 {
     /**
      * @ORM\Id()
@@ -17,12 +17,12 @@ class Media
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $path;
+    private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="media")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="imageMedia")
      */
     private $trick;
 
@@ -31,21 +31,14 @@ class Media
         return $this->id;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getPath(): ?string
+    public function getName(): ?string
     {
-        return $this->path;
+        return $this->name;
     }
 
-    /**
-     * @param array $path
-     * @return Media
-     */
-    public function setPath(?string $path): self
+    public function setName(?string $name): self
     {
-        $this->path = $path;
+        $this->name = $name;
 
         return $this;
     }
