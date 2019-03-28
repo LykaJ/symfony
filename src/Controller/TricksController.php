@@ -42,24 +42,36 @@ class TricksController extends AbstractController
         ]);
     } */
 
-    /*
-     * @Route("/tricks/{page}", name="trick.index")
+    /**
+     * @Route("/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
+     * @param Request $request
+     * @param int $page
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
      */
     public function ajaxAction(Request $request, $page = 1) {
 
-        $tricks = $this->repository->getTricksByLimit(0);
+        $tricks = $this->repository->getTricksByLimit();
         $tricks->count();
+        $current_page = $request->attributes->get('page');
+
+        if ($tricks->count() > 8)
+        {
+            $page = $current_page + 1;
+        } else {
+            $page = $current_page;
+        }
 
         if($request->isXmlHttpRequest())
         {
             return $this->json([
                 'tricks' => $tricks,
-                'next_page' => $page + 1
+                'page' => $page
             ]);
         } else {
             return $this->render('tricks/trick.html.twig', [
                 'tricks' => $tricks,
-                'current_menu' => 'tricks'
+                'current_menu' => 'tricks',
+                'page' => $page
             ]);
         }
     }

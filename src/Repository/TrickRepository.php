@@ -34,13 +34,14 @@ class TrickRepository extends ServiceEntityRepository
             ;
     }
 
-    public function getTricksByLimit($offset, $limit = 8) // change to 8
+    public function getTricksByLimit($offset = 0, $limit = 8)
     {
         $qb = $this->createQueryBuilder('t');
         $qb
             ->select('t')
             ->setFirstResult($offset)
-            ->setMaxResults($limit);
+            ->setMaxResults($limit)
+        ;
 
         $page = new Paginator($qb);
         return $page;

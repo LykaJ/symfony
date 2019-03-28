@@ -6,7 +6,8 @@
     <script language = "javascript">
         $(document).ready(function(){
             $("#js-tricks").on("click", function(event){
-                event = addEventListener();
+                event.preventDefault();
+
                 $.ajax({
                     url:        '/tricks/ajax',
                     type:       'POST',
