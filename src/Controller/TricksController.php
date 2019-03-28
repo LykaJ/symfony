@@ -11,9 +11,14 @@ use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class TricksController extends AbstractController
 {
@@ -46,31 +51,36 @@ class TricksController extends AbstractController
 
     /**
      * @Route("/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
-     * @param Request $request
      * @param int $page
-     * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
+     * @return JsonResponse
      */
-    public function ajaxAction(Request $request, $page = 1) {
+    public function ajaxAction($page = 1) {
+
+       /* $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+
+        $serializer = new Serializer($normalizers, $encoders); */
+
 
         $offset = ($page - 1) * self::LIMIT;
-        $totalTrickCount = $this->repository->findAll();
+        $totalTrickCount = $this->repository->countTricks();
         $tricks = $this->repository->getTricksByLimit($offset, self::LIMIT);
-        $tricksCount = $tricks->count();
+        $tricksCount = count($tricks);
+        dump($tricks);
 
-        if ($request->isXmlHttpRequest())
-        {
-            $nextPage = $tricksCount + ($page - 1) * self::LIMIT < $totalTrickCount ? $page + 1 : null;
+        $nextPage = $tricksCount + ($page - 1) * self::LIMIT < $totalTrickCount ? $page + 1 : null;
 
-            return $this->json([
-                'tricks' => $tricks,
-                'nextPage' => $nextPage
-            ]);
-        } else {
-            return $this->render('tricks/trick.html.twig', [
-                'tricks' => $tricks,
-                'page' => $page
-            ]);
-        }
+       /* $data = $serializer->serialize([
+            'tricks' => $tricks,
+            'nextPage' => $nextPage
+        ], 'json'); */
+
+       $data = [
+           'tricks' => $tricks,
+           'nextPage' => $nextPage
+       ];
+
+        return new JsonResponse($data);
     }
 
 

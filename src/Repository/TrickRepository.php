@@ -49,14 +49,14 @@ class TrickRepository extends ServiceEntityRepository
 
     public function getTricksByLimit($first_result, $max_results = 8)
     {
-        $qb = $this->createQueryBuilder('t');
-        $qb
+        return $this->createQueryBuilder('t')
             ->select('t')
             ->setFirstResult($first_result)
-            ->setMaxResults($max_results);
+            ->setMaxResults($max_results)
+            ->getQuery()
+            ->getResult()
+            ;
 
-        $page = new Paginator($qb);
-        return $page;
     }
 
 
