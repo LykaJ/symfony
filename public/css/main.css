@@ -1,6 +1,5 @@
 body {
     background-color: #333;
-    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -21,4 +20,12 @@ section {
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+.comment {
+    background-color: aliceblue;
+    padding: 5px;
+    margin: 5px;
+    border-bottom: 1px solid #5eb5e0;
+    border-left: 1px solid #5eb5e0;
 }

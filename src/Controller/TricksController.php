@@ -46,13 +46,14 @@ class TricksController extends AbstractController
 
     /**
      * @Route("/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
+     * @param Request $request
      * @param int $page
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
      */
     public function ajaxAction(Request $request, $page = 1) {
 
         $offset = ($page - 1) * self::LIMIT;
-        $totalTrickCount = $this->repository->countTricks();
+        $totalTrickCount = $this->repository->findAll();
         $tricks = $this->repository->getTricksByLimit($offset, self::LIMIT);
         $tricksCount = $tricks->count();
 
