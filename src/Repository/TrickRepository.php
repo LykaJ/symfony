@@ -5,7 +5,10 @@ namespace App\Repository;
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use http\Exception\InvalidArgumentException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,18 +37,19 @@ class TrickRepository extends ServiceEntityRepository
             ;
     }
 
-    public function getTricksByLimit($offset = 0, $limit = 8)
+
+    public function getTricksByLimit($first_result, $max_results = 8)
     {
         $qb = $this->createQueryBuilder('t');
         $qb
             ->select('t')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
-        ;
+            ->setFirstResult($first_result)
+            ->setMaxResults($max_results);
 
         $page = new Paginator($qb);
         return $page;
     }
+
 
 
 

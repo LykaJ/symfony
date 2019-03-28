@@ -45,18 +45,19 @@ class TricksController extends AbstractController
     /**
      * @Route("/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
      * @param Request $request
+     *
      * @param int $page
      * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
      */
-    public function ajaxAction(Request $request, $page = 1) {
+    public function ajaxAction(Request $request, $page) {
 
-        $tricks = $this->repository->getTricksByLimit();
+        $tricks = $this->repository->getTricksByLimit(0);
         $tricks->count();
         $current_page = $request->attributes->get('page');
 
         if ($tricks->count() > 8)
         {
-            $page = $current_page + 1;
+            $nextPage = $current_page + 1;
         } else {
             $page = $current_page;
         }
@@ -65,7 +66,8 @@ class TricksController extends AbstractController
         {
             return $this->json([
                 'tricks' => $tricks,
-                'page' => $page
+                'page' => $page,
+                'nextPage' => $nextPage
             ]);
         } else {
             return $this->render('tricks/trick.html.twig', [
