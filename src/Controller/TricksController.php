@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TricksController extends AbstractController
 {
+
+    const LIMIT = 8;
     /**
      * @var TrickRepository
      */
@@ -44,35 +46,27 @@ class TricksController extends AbstractController
 
     /**
      * @Route("/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
-     * @param Request $request
-     *
      * @param int $page
-     * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function ajaxAction(Request $request, $page) {
+    public function ajaxAction(Request $request, $page = 1) {
 
-        $tricks = $this->repository->getTricksByLimit(0);
-        $tricks->count();
-        $current_page = $request->attributes->get('page');
+        $offset = ($page - 1) * self::LIMIT;
+        $totalTrickCount = $this->repository->countTricks();
+        $tricks = $this->repository->getTricksByLimit($offset, self::LIMIT);
+        $tricksCount = $tricks->count();
 
-        if ($tricks->count() > 8)
+        if ($request->isXmlHttpRequest())
         {
-            $nextPage = $current_page + 1;
-        } else {
-            $page = $current_page;
-        }
+            $nextPage = $tricksCount + ($page - 1) * self::LIMIT < $totalTrickCount ? $page + 1 : null;
 
-        if($request->isXmlHttpRequest())
-        {
             return $this->json([
                 'tricks' => $tricks,
-                'page' => $page,
                 'nextPage' => $nextPage
             ]);
         } else {
             return $this->render('tricks/trick.html.twig', [
                 'tricks' => $tricks,
-                'current_menu' => 'tricks',
                 'page' => $page
             ]);
         }
