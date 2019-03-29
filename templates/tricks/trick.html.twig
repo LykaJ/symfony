@@ -2,20 +2,25 @@
 {% block title 'Liste des tricks' %}
 
 {% block javascripts %}
-
+    {{ parent() }}
     <script language = "javascript">
         $(document).ready(function(){
-            $("#js-tricks").on("click", function(event){
+            $("#js-btn").on("click", function(event){
                 event.preventDefault();
 
+                let index = $('#js-tricks').data('index');
+                let nextPage = index + parseFloat(1);
+
                 $.ajax({
-                    url:        '/tricks/{page}',
+                    url:        '/ajax/tricks/' + nextPage,
                     type:       'POST',
                     dataType:   'json',
                     async:      true,
 
                     success: function(data) {
-                        //must return table here
+                        console.log(data);
+                        $('#js-next-tricks').append('test ');
+                        $('#js-tricks').data('index', index + parseFloat(1));
                     },
 
                 });
@@ -38,10 +43,11 @@
                 <a href="{{ path('admin.tricks.new') }}" class="btn btn-primary">Ajouter un trick</a>
             </div>
         {% endif %}
-        <div class="row" id="js-tricks">
+        <div class="row" id="js-tricks" data-index="1">
             {% for trick in tricks %}
                 {% include('/tricks/_list.html.twig') %}
             {% endfor %}
+            <div id="js-next-tricks"></div>
         </div>
         <a href="{{ path('trick.index') }}" id="js-btn" class="btn btn-info">Charger les 8 suivants...</a>
     </div>

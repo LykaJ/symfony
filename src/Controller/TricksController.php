@@ -33,22 +33,21 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="trick.index")
-     * @method Trick[]    findAll()
+     * @Route(path="/tricks", name="tricks")
      * @return Response
      */
-   /* public function index(): Response
+    public function index(): Response
     {
-        $tricks = $this->repository->findAll();
+        $tricks = $this->repository->getTricksByLimit(0, self::LIMIT);
 
         return $this->render('tricks/trick.html.twig', [
             'tricks' => $tricks,
             'current_menu' => 'tricks'
         ]);
-    } */
+    }
 
     /**
-     * @Route("/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
+     * @Route("/ajax/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
      * @param int $page
      * @return Response
      */
@@ -64,12 +63,22 @@ class TricksController extends AbstractController
         $tricksCount = count($tricks);
         dump($tricks);
 
-        $nextPage = $tricksCount + ($page - 1) * self::LIMIT < $totalTrickCount ? $page + 1 : null;
+
 
         $data = [
-            'tricks' => $tricks,
-            'nextPage' => $nextPage
+            'nextPage' => $page + 1,
         ];
+
+        foreach ($tricks as $trick)
+        {
+            $data['tricks'][] = [
+                'title' => $trick->getTitle(),
+                'image' => $trick->getImage(),
+                'content' => $trick->getContent(),
+                'category' => $trick->getCategory()->getName(),
+                'author' => $trick->getAuthor()->getRealname(),
+            ];
+        }
 
         return new Response($serializer->serialize($data, 'json', [
             'circular_reference_limit' => 0,
@@ -82,7 +91,7 @@ class TricksController extends AbstractController
 
 
     /**
-     * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST")
+     * @Route("/trick/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST")
      * @param Trick $trick
      * @param string $slug
      * @param Request $request

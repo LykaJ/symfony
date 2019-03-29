@@ -36,7 +36,7 @@ class Trick
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks", fetch="EXTRA_LAZY")
      */
     private $category;
 
@@ -65,25 +65,25 @@ class Trick
     private $uploadedImage;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", fetch="EXTRA_LAZY")
      */
     private $imageMedia;
 
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", fetch="EXTRA_LAZY")
      */
     private $videoMedia;
 
