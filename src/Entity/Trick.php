@@ -65,7 +65,7 @@ class Trick
     private $uploadedImage;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="trick")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
@@ -326,5 +326,24 @@ class Trick
         }
 
         return $this;
+    }
+
+    /**
+     * Constructs the object
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->category,
+            $this->imageMedia,
+            $this->videoMedia
+            ) =  unserialize($serialized, ['allowed_classes' => false]);
     }
 }

@@ -17,6 +17,11 @@ services:
         bind:
             $targetDirectory: '%images_directory%'
 
+    get_set_method_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+        public: false
+        tags: [serializer.normalizer]
+
    # App\EventListener\ImageUploadListener:
        # tags:
          #   - { name: doctrine.event_listener, event: prePersist }

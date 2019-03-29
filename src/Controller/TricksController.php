@@ -11,14 +11,12 @@ use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class TricksController extends AbstractController
 {
@@ -52,15 +50,13 @@ class TricksController extends AbstractController
     /**
      * @Route("/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
      * @param int $page
-     * @return JsonResponse
+     * @return Response
      */
     public function ajaxAction($page = 1) {
 
-       /* $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-
-        $serializer = new Serializer($normalizers, $encoders); */
-
+        $encoder = new JsonEncoder();
+        $normalizer = new GetSetMethodNormalizer();
+        $serializer = new Serializer([$normalizer], [$encoder]);
 
         $offset = ($page - 1) * self::LIMIT;
         $totalTrickCount = $this->repository->countTricks();
@@ -70,17 +66,18 @@ class TricksController extends AbstractController
 
         $nextPage = $tricksCount + ($page - 1) * self::LIMIT < $totalTrickCount ? $page + 1 : null;
 
-       /* $data = $serializer->serialize([
+        $data = [
             'tricks' => $tricks,
             'nextPage' => $nextPage
-        ], 'json'); */
+        ];
 
-       $data = [
-           'tricks' => $tricks,
-           'nextPage' => $nextPage
-       ];
-
-        return new JsonResponse($data);
+        return new Response($serializer->serialize($data, 'json', [
+            'circular_reference_limit' => 0,
+            'ignored_attributes' => ['password'],
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]), 200, ['Content-Type' => 'application/json']);
     }
 
 
