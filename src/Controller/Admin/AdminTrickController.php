@@ -64,7 +64,7 @@ class AdminTrickController extends AbstractController
             }
 
             $uploads_directory = $this->getParameter('images_directory');
-            $files = $request->files->get('trick')['image_media'];
+            /*$files = $request->files->get('trick')['image_media'];
 
             foreach ($files as $file)
             {
@@ -75,7 +75,7 @@ class AdminTrickController extends AbstractController
                     $uploads_directory,
                     $fileName
             );
-            }
+            }*/
 
             $this->em->persist($trick);
             $this->em->flush();

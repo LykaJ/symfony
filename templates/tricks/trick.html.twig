@@ -1,34 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title 'Liste des tricks' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script language = "javascript">
-        $(document).ready(function(){
-            $("#js-btn").on("click", function(event){
-                event.preventDefault();
-
-                let index = $('#js-tricks').data('index');
-                let nextPage = index + parseFloat(1);
-
-                $.ajax({
-                    url:        '/ajax/tricks/' + nextPage,
-                    type:       'POST',
-                    dataType:   'json',
-                    async:      true,
-
-                    success: function(data) {
-                        console.log(data);
-                        $('#js-next-tricks').append('test ');
-                        $('#js-tricks').data('index', index + parseFloat(1));
-                    },
-
-                });
-            });
-        });
-    </script>
-{% endblock %}
-
 {% block body %}
     <div class="container">
         <h1> Liste des tricks</h1>
@@ -43,12 +15,77 @@
                 <a href="{{ path('admin.tricks.new') }}" class="btn btn-primary">Ajouter un trick</a>
             </div>
         {% endif %}
-        <div class="row" id="js-tricks" data-index="1">
-            {% for trick in tricks %}
-                {% include('/tricks/_list.html.twig') %}
-            {% endfor %}
-            <div id="js-next-tricks"></div>
-        </div>
-        <a href="{{ path('trick.index') }}" id="js-btn" class="btn btn-info">Charger les 8 suivants...</a>
     </div>
+    <div class="container" id="js-tricks-container"></div>
+    <div class="container">
+        <div class="row" id="js-tricks-loader">
+            <div class="col-12">
+                <div class="sk-folding-cube" style="margin: 0 auto">
+                    <div class="sk-cube1 sk-cube"></div>
+                    <div class="sk-cube2 sk-cube"></div>
+                    <div class="sk-cube4 sk-cube"></div>
+                    <div class="sk-cube3 sk-cube"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="js-tricks-load-more">
+            <div class="col-12">
+                <a href="{{ path('trick.index') }}"
+                   id="js-tricks-load-more-btn" class="btn btn-info" style="margin: 0 auto">
+                    Charger plus...
+                </a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        var nextPage = null;
+        var $container = $("#js-tricks-container");
+        var $loaderContainer = $("#js-tricks-loader");
+        var $loadBtnContainer = $("#js-tricks-load-more");
+        var $loadBtn = $("#js-tricks-load-more-btn");
+
+        function load(page) {
+            if (page == null) {
+                return
+            }
+
+            $loaderContainer.toggle(true);
+
+            $.get({
+                url: '/api/tricks/' + page,
+                async: true,
+                success: function (data) {
+                    nextPage = data.nextPage;
+
+                    $loadBtnContainer.toggle(nextPage != null);
+                    $loaderContainer.toggle(false);
+                    $container.append(data.content);
+
+                    var $lastRow = $container.find(".row").last();
+                    $lastRow.hide();
+                    $lastRow.fadeIn();
+                },
+                error: function () {
+                    $loaderContainer.toggle(false);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $loadBtnContainer.toggle(false);
+            $loaderContainer.toggle(false);
+
+            $loadBtn.on("click", function (event) {
+                event.preventDefault();
+                load(nextPage);
+            });
+
+            load(1);
+        });
+    </script>
 {% endblock %}

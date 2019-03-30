@@ -33,62 +33,36 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route(path="/tricks", name="tricks")
+     * @Route(path="/tricks", name="trick.index")
      * @return Response
      */
     public function index(): Response
     {
-        $tricks = $this->repository->getTricksByLimit(0, self::LIMIT);
-
         return $this->render('tricks/trick.html.twig', [
-            'tricks' => $tricks,
             'current_menu' => 'tricks'
         ]);
     }
 
     /**
-     * @Route("/ajax/tricks/{page}", name="trick.index", requirements={"page"="\d+"}, defaults={"page": 1})
+     * @Route("/api/tricks/{page}", name="trick.async", requirements={"page"="\d+"}, defaults={"page": 1}, methods="GET")
      * @param int $page
      * @return Response
      */
-    public function ajaxAction($page = 1) {
-
-        $encoder = new JsonEncoder();
-        $normalizer = new GetSetMethodNormalizer();
-        $serializer = new Serializer([$normalizer], [$encoder]);
-
+    public function tricksAsync($page = 1)
+    {
         $offset = ($page - 1) * self::LIMIT;
         $totalTrickCount = $this->repository->countTricks();
         $tricks = $this->repository->getTricksByLimit($offset, self::LIMIT);
         $tricksCount = count($tricks);
-        dump($tricks);
-
-
+        $nextPage = $tricksCount + ($page - 1) * self::LIMIT < $totalTrickCount ? $page + 1 : null;
 
         $data = [
-            'nextPage' => $page + 1,
+            'nextPage' => $nextPage,
+            'content' => $this->renderView('tricks/_list.html.twig', ['tricks' => $tricks])
         ];
 
-        foreach ($tricks as $trick)
-        {
-            $data['tricks'][] = [
-                'title' => $trick->getTitle(),
-                'image' => $trick->getImage(),
-                'content' => $trick->getContent(),
-                'category' => $trick->getCategory()->getName(),
-                'author' => $trick->getAuthor()->getRealname(),
-            ];
-        }
-
-        return new Response($serializer->serialize($data, 'json', [
-            'circular_reference_limit' => 0,
-            'ignored_attributes' => ['password'],
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]), 200, ['Content-Type' => 'application/json']);
+        return $this->json($data);
     }
-
 
     /**
      * @Route("/trick/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST")
@@ -103,13 +77,12 @@ class TricksController extends AbstractController
     public function show(Trick $trick, string $slug, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
 
     {
-       if($trick->getSlug() !== $slug)
-       {
-           return $this->redirectToRoute ('trick.show', [
-               'id' => $trick->getId(),
-               'slug' => $trick->getSlug()
-           ], 301);
-       }
+        if ($trick->getSlug() !== $slug) {
+            return $this->redirectToRoute('trick.show', [
+                'id' => $trick->getId(),
+                'slug' => $trick->getSlug()
+            ], 301);
+        }
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -118,15 +91,15 @@ class TricksController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->get('security.token_storage')->getToken()->getUser();
             $comment->setCreationDate(new \DateTime('now'))
-                    ->setTrick($trick)
-                    ->setAuthor($user);
+                ->setTrick($trick)
+                ->setAuthor($user);
             $em->persist($comment);
             $em->flush();
 
             return $this->redirectToRoute('trick.show', [
                 'id' => $trick->getId(),
                 'slug' => $trick->getSlug()
-                ]);
+            ]);
         }
 
 

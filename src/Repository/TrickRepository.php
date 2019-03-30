@@ -25,15 +25,18 @@ class TrickRepository extends ServiceEntityRepository
 
     public function countTricks()
     {
-        return $this->createQueryBuilder('t')
-            ->select('count(t)')
-            ->getQuery()
-            ->getScalarResult()
-            ;
+        try {
+            return intval($this->createQueryBuilder('t')
+                ->select('count(t)')
+                ->getQuery()
+                ->getSingleScalarResult());
+        } catch (\Exception $e) {
+            return 0;
+        }
     }
 
     /**
-      * @return Trick[] Returns an array of Trick objects
+     * @return Trick[] Returns an array of Trick objects
      */
 
     public function findLatest(): array
@@ -42,8 +45,7 @@ class TrickRepository extends ServiceEntityRepository
             ->orderBy('t.id', 'DESC')
             ->setMaxResults(4)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
 
@@ -54,8 +56,7 @@ class TrickRepository extends ServiceEntityRepository
             ->setFirstResult($first_result)
             ->setMaxResults($max_results)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
 
     }
 
