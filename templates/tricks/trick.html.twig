@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="js-tricks-load-more">
+        <!--<div class="row" id="js-tricks-load-more">
             <div class="col-12">
                 <a href="{{ path('trick.index') }}"
                    id="js-tricks-load-more-btn" class="btn btn-info" style="margin: 0 auto">
@@ -36,7 +36,7 @@
                 </a>
             </div>
 
-        </div>
+        </div>-->
     </div>
 {% endblock %}
 
@@ -44,47 +44,71 @@
     {{ parent() }}
     <script language="javascript">
         var nextPage = null;
+        var isLoading = false;
+
+        var $window = $(window);
+        var $document = $(document);
         var $container = $("#js-tricks-container");
         var $loaderContainer = $("#js-tricks-loader");
-        var $loadBtnContainer = $("#js-tricks-load-more");
-        var $loadBtn = $("#js-tricks-load-more-btn");
+        //var $loadBtnContainer = $("#js-tricks-load-more");
+        //var $loadBtn = $("#js-tricks-load-more-btn");
 
         function load(page) {
-            if (page == null) {
+            if (page == null || isLoading) {
                 return
             }
-
-            $loaderContainer.toggle(true);
 
             $.get({
                 url: '/api/tricks/' + page,
                 async: true,
+                beforeSend: function() {
+                    isLoading = true;
+                    $loaderContainer.toggle(true);
+                },
                 success: function (data) {
                     nextPage = data.nextPage;
 
-                    $loadBtnContainer.toggle(nextPage != null);
-                    $loaderContainer.toggle(false);
+                    //$loadBtnContainer.toggle(nextPage !== null);
                     $container.append(data.content);
 
-                    var $lastRow = $container.find(".row").last();
-                    $lastRow.hide();
-                    $lastRow.fadeIn();
+                    displayNewContent();
                 },
-                error: function () {
+                complete: function () {
                     $loaderContainer.toggle(false);
+                    isLoading = false;
                 }
             });
         }
 
-        $(document).ready(function () {
-            $loadBtnContainer.toggle(false);
-            $loaderContainer.toggle(false);
+        function displayNewContent() {
+            var $lastRow = $container.find(".row").last();
 
-            $loadBtn.on("click", function (event) {
-                event.preventDefault();
-                load(nextPage);
+            $lastRow.children().each(function (index) {
+                $(this)
+                    .css({"top": "100px", "display": "block", "opacity": 0})
+                    .delay(100 * index)
+                    .animate({"top": "0", "opacity": 1}, 200)
+            });
+        }
+
+        function detectLoadMore() {
+            $window.scroll(function() {
+                if($window.scrollTop() + $window.height() === $document.height()) {
+                    load(nextPage);
+                }
             });
 
+            /*$loadBtn.on("click", function (event) {
+                event.preventDefault();
+                load(nextPage);
+            });*/
+        }
+
+        $document.ready(function () {
+            //$loadBtnContainer.toggle(false);
+            $loaderContainer.toggle(false);
+
+            detectLoadMore();
             load(1);
         });
     </script>
