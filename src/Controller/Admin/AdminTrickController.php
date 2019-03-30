@@ -63,6 +63,20 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
+            $uploads_directory = $this->getParameter('images_directory');
+            /*$files = $request->files->get('trick')['image_media'];
+
+            foreach ($files as $file)
+            {
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                $file->move(
+                    $uploads_directory,
+                    $fileName
+            );
+            }*/
+
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');

@@ -54,12 +54,12 @@ class User implements UserInterface,\Serializable
     private $signup_date;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $last_login;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
 
@@ -73,9 +73,9 @@ class User implements UserInterface,\Serializable
     private $uploadedPicture;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Trick", mappedBy="author", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="author", cascade={"persist", "remove"})
      */
-    private $trick;
+    private $tricks;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author")
@@ -107,6 +107,7 @@ class User implements UserInterface,\Serializable
     {
         $this->signup_date = new \DateTime();
         $this->last_login = new \DateTime();
+        $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -163,7 +164,7 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
-    public function getSignupDate(): ?\DateTimeInterface
+    public function getSignupDate(): \DateTimeInterface
     {
         return $this->signup_date;
     }
@@ -180,7 +181,7 @@ class User implements UserInterface,\Serializable
         return $this->last_login;
     }
 
-    public function setLastLogin(\DateTimeInterface $last_login): self
+    public function setLastLogin(?\DateTimeInterface $last_login): self
     {
         $this->last_login = $last_login;
 
@@ -192,7 +193,7 @@ class User implements UserInterface,\Serializable
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
 
@@ -297,18 +298,20 @@ class User implements UserInterface,\Serializable
         ) =  unserialize($serialized, ['allowed_classes' => false]);
     }
 
-    public function getTrick(): ?Trick
+    public function getTricks(): Collection
     {
-        return $this->trick;
+        return $this->tricks;
     }
 
-    public function setTrick(Trick $trick): self
+    public function setTricks(Collection $tricks): self
     {
-        $this->trick = $trick;
+        $this->tricks = $tricks;
 
         // set the owning side of the relation if necessary
-        if ($this !== $trick->getAuthor()) {
-            $trick->setAuthor($this);
+        foreach($tricks as $trick) {
+            if ($this !== $trick->getAuthor()) {
+                $trick->setAuthor($this);
+            }
         }
 
         return $this;
@@ -360,7 +363,7 @@ class User implements UserInterface,\Serializable
     /**
      * @return string
      */
-    public function getResetToken(): string
+    public function getResetToken(): ?string
     {
         return $this->token;
     }

@@ -36,7 +36,7 @@ class Trick
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks", fetch="EXTRA_LAZY")
      */
     private $category;
 
@@ -65,21 +65,27 @@ class Trick
     private $uploadedImage;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="trick")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $comments;
 
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", fetch="EXTRA_LAZY")
      */
-    private $media;
+    private $imageMedia;
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", fetch="EXTRA_LAZY")
+     */
+    private $videoMedia;
 
     /**
      * Trick constructor.
@@ -91,14 +97,8 @@ class Trick
         $this->edition_date = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-       return $this->category;
+        $this->imageMedia = new ArrayCollection();
+        $this->videoMedia = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,39 +267,83 @@ class Trick
     }
 
     /**
-     * @return Collection|Media[]
+     * @return Collection|ImageMedia[]
      */
-    public function getMedia(): Collection
+    public function getImageMedia(): Collection
     {
-        return $this->media;
+        return $this->imageMedia;
     }
 
-    public function setMedia(array $medias) {
-        foreach($medias as $media) {
-            $this->addMedium($media);
-        }
-    }
-
-
-    public function addMedium(Media $medium): self
+    public function addImageMedium(ImageMedia $imageMedium): self
     {
-        if (!$this->media->contains($medium)) {
-            $this->media[] = $medium;
-            $medium->setPath($this);
+        if (!$this->imageMedia->contains($imageMedium)) {
+            $this->imageMedia[] = $imageMedium;
+            $imageMedium->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeMedium(Media $medium): self
+    public function removeImageMedium(ImageMedia $imageMedium): self
     {
-        if ($this->media->contains($medium)) {
-            $this->media->removeElement($medium);
+        if ($this->imageMedia->contains($imageMedium)) {
+            $this->imageMedia->removeElement($imageMedium);
             // set the owning side to null (unless already changed)
-            if ($medium->getPath() === $this) {
-                $medium->setPath(null);
+            if ($imageMedium->getTrick() === $this) {
+                $imageMedium->setTrick(null);
             }
         }
+
         return $this;
+    }
+
+    /**
+     * @return Collection|VideoMedia[]
+     */
+    public function getVideoMedia(): Collection
+    {
+        return $this->videoMedia;
+    }
+
+    public function addVideoMedium(VideoMedia $videoMedium): self
+    {
+        if (!$this->videoMedia->contains($videoMedium)) {
+            $this->videoMedia[] = $videoMedium;
+            $videoMedium->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideoMedium(VideoMedia $videoMedium): self
+    {
+        if ($this->videoMedia->contains($videoMedium)) {
+            $this->videoMedia->removeElement($videoMedium);
+            // set the owning side to null (unless already changed)
+            if ($videoMedium->getTrick() === $this) {
+                $videoMedium->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Constructs the object
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->category,
+            $this->imageMedia,
+            $this->videoMedia
+            ) =  unserialize($serialized, ['allowed_classes' => false]);
     }
 }

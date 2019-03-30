@@ -30,9 +30,10 @@ class PasswordResetController extends AbstractController
                 $this->addFlash('danger', 'Une erreur s\'est produite');
                 return $this->redirectToRoute('trick.index');
             }
+
             $token = $tokenGenerator->generateToken();
 
-            try{
+            try {
                 $user->setResetToken($token);
                 $entityManager->flush();
             } catch (\Exception $e) {
@@ -42,7 +43,7 @@ class PasswordResetController extends AbstractController
 
             $url = $this->generateUrl('reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $message = (new \Swift_Message('Forgot Password'))
+            $message = (new \Swift_Message('Mot de passe oublié'))
                 ->setFrom(['webdesigner.form@gmail.com' => 'SnowTricks']) // recheck comment faire
                 ->setTo($user->getEmail())
                 ->setBody(

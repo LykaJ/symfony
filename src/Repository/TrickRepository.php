@@ -4,7 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use http\Exception\InvalidArgumentException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,8 +23,20 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
+    public function countTricks()
+    {
+        try {
+            return intval($this->createQueryBuilder('t')
+                ->select('count(t)')
+                ->getQuery()
+                ->getSingleScalarResult());
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
     /**
-      * @return Trick[] Returns an array of Trick objects
+     * @return Trick[] Returns an array of Trick objects
      */
 
     public function findLatest(): array
@@ -29,9 +45,23 @@ class TrickRepository extends ServiceEntityRepository
             ->orderBy('t.id', 'DESC')
             ->setMaxResults(4)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
+
+
+    public function getTricksByLimit($first_result, $max_results = 8)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->setFirstResult($first_result)
+            ->setMaxResults($max_results)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+
+
 
     // /**
     //  * @return Trick[] Returns an array of Trick objects

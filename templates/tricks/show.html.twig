@@ -25,10 +25,11 @@
             </div>
         </div>
         <div class="row">
-            {% if trick.media %}
+            {% if trick.videoMedia %}
                 <iframe width="186" height="105" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             {% endif %}
         </div>
+
     </article>
     <section class="container">
         <h2>Commentaires</h2>
@@ -41,18 +42,17 @@
         {% endif %}
 
         <div class="row mt-4">
-            {% for comment in trick.comments|sort|reverse %}
-                <div class="col-md-4">
-                    {% if comment.author.picture != null %}
-                    <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
-                    {% endif %}
-                    {% if comment.author.picture == null %}
-                        <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
-                    {% endif %}
-                    {{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)
-                </div>
-                <div class="col-md-8">{{ comment.content }}</div>
-            {% endfor %}
+                {% for comment in trick.comments|sort|reverse %}
+                    <div class="comment col-md-8">
+                            {% if comment.author.picture != null %}
+                                <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
+                            {% else %}
+                                <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
+                            {% endif %}
+                            {{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)
+                            {{ comment.content }}
+                    </div>
+                {% endfor %}
         </div>
     </section>
 {% endblock %}
