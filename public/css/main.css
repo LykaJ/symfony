@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
 body {
     background-color: #333;
     align-items: center;
@@ -16,7 +18,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: 'Lobster', cursive;
+    font-family: 'Audiowide', cursive;
     text-align: center;
     padding-top: 250px;
 }
@@ -32,7 +34,7 @@ body {
 }
 
 #section-2 {
-    background-color: #CBD3DD;
+    background-image: linear-gradient(to bottom right, white, white);
     background-size: 100%;
     text-align: center;
     background-attachment: fixed;
@@ -40,7 +42,7 @@ body {
 }
 
 #section-2 h2 {
-    font-family: 'Lobster', cursive;
+    font-family: 'Roboto', cursive;
     font-size: 50px;
     color: #3f4e5e;
     padding-top: 20px;
@@ -55,19 +57,20 @@ body {
 }
 
 .card-body {
-    height: 350px;
+    height: 400px;
+    box-shadow: 2px 3px 4px grey;
 }
 
 .card-img {
     width: 100%;
-    height: auto;
+    height: 200px;
     margin: 0;
 }
 
 .card-title h3 {
     padding-top: 5px;
-    font-family: 'Lobster', cursive;
-    font-size: 40px;
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
     color: #3f4e5e;
 
 }
