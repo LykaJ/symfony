@@ -80,7 +80,14 @@ class Trick
      */
     private $imageMedia;
 
-
+    /**
+     * @var UploadedFile
+     * @Assert\File(
+     *     maxSize="300k",
+     *     maxSizeMessage="Le fichier est trop volumineux (0.53 MB). Sa taille ne doit pas dépasser 0.3 MB."
+     * )
+     */
+    private $uploadImageMedia;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", fetch="EXTRA_LAZY")
@@ -195,7 +202,7 @@ class Trick
      * @param string $image
      * @return Trick
      */
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
@@ -215,7 +222,7 @@ class Trick
      * @return Trick
      * @throws \Exception
      */
-    public function setImageUpload(UploadedFile $uploadedImage): self
+    public function setImageUpload(?UploadedFile $uploadedImage): self
     {
         $this->uploadedImage = $uploadedImage;
         $this->edition_date = new \DateTime('now');
@@ -326,6 +333,22 @@ class Trick
         }
 
         return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getUploadImageMedia(): ?UploadedFile
+    {
+        return $this->uploadImageMedia;
+    }
+
+    /**
+     * @param UploadedFile $uploadImageMedia
+     */
+    public function setUploadImageMedia(?UploadedFile $uploadImageMedia): self
+    {
+        $this->uploadImageMedia = $uploadImageMedia;
     }
 
     /**

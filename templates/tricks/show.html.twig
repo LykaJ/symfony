@@ -29,6 +29,11 @@
                 <iframe width="186" height="105" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             {% endif %}
         </div>
+        <div class="row">
+            {% if trick.uploadImageMedia %}
+                <img src="{{ asset('uploads/images/' ~ trick.uploadImageMedia) }}" alt="image media">
+            {% endif %}
+        </div>
 
     </article>
     <section class="container">

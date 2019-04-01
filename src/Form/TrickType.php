@@ -48,10 +48,10 @@ class TrickType extends AbstractType
                 'required' => false
             ])
 
-            ->add('image_media', CollectionType::class, [
-                'entry_type' => FileType::class,
-                'allow_add' => true,
-                'allow_delete' => true
+            ->add('uploadImageMedia', FileType::class, [
+                'multiple' => true,
+                'required' => false,
+                'mapped' => false
             ])
         ;
     }

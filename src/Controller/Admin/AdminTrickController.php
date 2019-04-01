@@ -63,8 +63,8 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-            $uploads_directory = $this->getParameter('images_directory');
-            /*$files = $request->files->get('trick')['image_media'];
+            $uploads_directory = $this->getParameter('media_directory');
+            $files = $request->files->get('trick')['uploadImageMedia'];
 
             foreach ($files as $file)
             {
@@ -74,8 +74,8 @@ class AdminTrickController extends AbstractController
                 $file->move(
                     $uploads_directory,
                     $fileName
-            );
-            }*/
+                );
+            }
 
             $this->em->persist($trick);
             $this->em->flush();
