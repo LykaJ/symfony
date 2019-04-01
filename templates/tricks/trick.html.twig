@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <!--<div class="row" id="js-tricks-load-more">
+        <div class="row" id="js-tricks-load-more">
             <div class="col-12">
                 <a href="{{ path('trick.index') }}"
                    id="js-tricks-load-more-btn" class="btn btn-info" style="margin: 0 auto">
@@ -36,7 +36,7 @@
                 </a>
             </div>
 
-        </div>-->
+        </div>
     </div>
 {% endblock %}
 
@@ -50,8 +50,8 @@
         var $document = $(document);
         var $container = $("#js-tricks-container");
         var $loaderContainer = $("#js-tricks-loader");
-        //var $loadBtnContainer = $("#js-tricks-load-more");
-        //var $loadBtn = $("#js-tricks-load-more-btn");
+        var $loadBtnContainer = $("#js-tricks-load-more");
+        var $loadBtn = $("#js-tricks-load-more-btn");
 
         function load(page) {
             if (page == null || isLoading) {
@@ -68,7 +68,7 @@
                 success: function (data) {
                     nextPage = data.nextPage;
 
-                    //$loadBtnContainer.toggle(nextPage !== null);
+                    $loadBtnContainer.toggle(nextPage !== null);
                     $container.append(data.content);
                     displayNewContent();
                 },
@@ -91,20 +91,20 @@
         }
 
         function detectLoadMore() {
-            $window.scroll(function() {
+           /* $window.scroll(function() {
                 if($window.scrollTop() + $window.height() === $document.height()) {
                     load(nextPage);
                 }
-            });
+            }); */
 
-            /*$loadBtn.on("click", function (event) {
+            $loadBtn.on("click", function (event) {
                 event.preventDefault();
                 load(nextPage);
-            });*/
+            });
         }
 
         $document.ready(function () {
-            //$loadBtnContainer.toggle(false);
+            $loadBtnContainer.toggle(false);
             $loaderContainer.toggle(false);
 
             detectLoadMore();

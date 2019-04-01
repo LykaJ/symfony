@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageMediaRepository")
@@ -20,6 +21,11 @@ class ImageMedia
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
+
+    /**
+     * @var UploadedFile
+     */
+    private $file;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="imageMedia")
@@ -42,6 +48,23 @@ class ImageMedia
 
         return $this;
     }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setFile(?UploadedFile $file): self
+    {
+        $this->file = $file;
+    }
+
 
     public function getTrick(): ?Trick
     {

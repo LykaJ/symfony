@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    var $container = $('div#trick_media');
+    var $container = $('div#js-trick-media');
     var index = $container.find(':input').length;
 
-    $('#add_media').click(function(e) {
+    $('#js-add-media').click(function(e) {
         addMedia($container);
 
         e.preventDefault();

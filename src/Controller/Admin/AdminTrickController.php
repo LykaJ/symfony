@@ -3,6 +3,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
@@ -63,8 +64,8 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-            $uploads_directory = $this->getParameter('media_directory');
-            $files = $request->files->get('trick')['uploadImageMedia'];
+           /* $uploads_directory = $this->getParameter('media_directory');
+            $files = $request->files->get('trick')['imageMedia'];
 
             foreach ($files as $file)
             {
@@ -76,6 +77,7 @@ class AdminTrickController extends AbstractController
                     $fileName
                 );
             }
+          */
 
             $this->em->persist($trick);
             $this->em->flush();

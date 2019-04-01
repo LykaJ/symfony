@@ -10,18 +10,23 @@
     <div class="col-md-4">{{ form_row(form.category) }}</div>
     <div class="col-md-4">{{ form_row(form.imageUpload) }}</div>
 </div>
+
 <div class="row">
-    <div class="col-md-6" id="trick_media">
-        {{ form_row(form.video_media) }}
+    <div class="col-md-4">{{ form_row(form.imageMedia) }}</div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-md-6" id="js-trick-media">
+        {{ form_row(form.videoMedia) }}
     </div>
-    <div class="col-md-4"><a href="#" id="add_media" class="btn btn-primary">Ajouter un média</a></div>
+    <div class="col-md-4"><a href="#" id="js-add-media" class="btn btn-primary">Ajouter un média</a></div>
 </div>
 <div class="row">
-    <div class="col-md-6" id="trick_media">
-        {{ form_row(form.uploadImageMedia ) }}
+    <div class="col-md-6" id="js-trick-media">
+
     </div>
-    <div class="col-md-4"><a href="#" id="add_media" class="btn btn-primary">Ajouter une image</a></div>
-</div>
+    <div class="col-md-4"><a href="#" id="js-add-media" class="btn btn-primary">Ajouter une image</a></div>
+</div> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>

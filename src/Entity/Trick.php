@@ -76,18 +76,15 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", fetch="EXTRA_LAZY")
-     */
-    private $imageMedia;
-
-    /**
      * @var UploadedFile
      * @Assert\File(
      *     maxSize="300k",
      *     maxSizeMessage="Le fichier est trop volumineux (0.53 MB). Sa taille ne doit pas dépasser 0.3 MB."
      * )
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", fetch="EXTRA_LAZY")
      */
-    private $uploadImageMedia;
+    private $imageMedia;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", fetch="EXTRA_LAZY")
@@ -281,6 +278,10 @@ class Trick
         return $this->imageMedia;
     }
 
+    /**
+     * @param ImageMedia $imageMedium
+     * @return Trick
+     */
     public function addImageMedium(ImageMedia $imageMedium): self
     {
         if (!$this->imageMedia->contains($imageMedium)) {
@@ -291,6 +292,10 @@ class Trick
         return $this;
     }
 
+    /**
+     * @param ImageMedia $imageMedium
+     * @return Trick
+     */
     public function removeImageMedium(ImageMedia $imageMedium): self
     {
         if ($this->imageMedia->contains($imageMedium)) {
@@ -312,6 +317,10 @@ class Trick
         return $this->videoMedia;
     }
 
+    /**
+     * @param VideoMedia $videoMedium
+     * @return Trick
+     */
     public function addVideoMedium(VideoMedia $videoMedium): self
     {
         if (!$this->videoMedia->contains($videoMedium)) {
@@ -322,6 +331,10 @@ class Trick
         return $this;
     }
 
+    /**
+     * @param VideoMedia $videoMedium
+     * @return Trick
+     */
     public function removeVideoMedium(VideoMedia $videoMedium): self
     {
         if ($this->videoMedia->contains($videoMedium)) {
@@ -333,22 +346,6 @@ class Trick
         }
 
         return $this;
-    }
-
-    /**
-     * @return UploadedFile
-     */
-    public function getUploadImageMedia(): ?UploadedFile
-    {
-        return $this->uploadImageMedia;
-    }
-
-    /**
-     * @param UploadedFile $uploadImageMedia
-     */
-    public function setUploadImageMedia(?UploadedFile $uploadImageMedia): self
-    {
-        $this->uploadImageMedia = $uploadImageMedia;
     }
 
     /**

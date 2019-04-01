@@ -1,13 +1,20 @@
 <div class="row">
     {% for trick in tricks %}
-        <div class="col-3">
+        <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="card mb-3">
                 <div class="card-body">
-                    <h3 class="card-title">
+                    <div class="card-title">
                         <a href="{{ path('trick.show', {id: trick.id, slug: trick.slug}) }}">
-                            {{ trick.title }}
+                            {% if trick.image %}
+                                <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" class="card-img">
+                                {% else %}
+                                    <img src="{{ asset('images/default.png') }}" alt="card-img-top" class="card-img">
+                            {% endif %}
+                            <h3>
+                                {{ trick.title }}
+                            </h3>
                         </a>
-                    </h3>
+                    </div>
                     {% if app.user %}
                         <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn"><i class="fas fa-pen fa-sm"></i></a>
                         <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
@@ -16,10 +23,6 @@
                             <button class="btn"><i class="fas fa-trash fa-sm"></i></button>
                         </form>
                     {% endif %}
-                    {% if trick.image %}
-                        <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: 100%; height: auto;">
-                    {% endif %}
-                    <p class="card-text">{{ trick.content }}</p>
                     <p class="badge badge-pill badge-primary">{{ trick.category.name }}</p>
                     <p class="card-text">{{ trick.author.username }}</p>
                 </div>
