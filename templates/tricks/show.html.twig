@@ -3,21 +3,21 @@
 
 {% block body %}
     <article class="container trick-show">
-        <div class="row justify-content-md-center">
-                <div class="col-md-5 col-sm-12 trick-text">
+        <div class="row justify-content-md-center no-gutter">
+                <div class="col-md-5 col-sm-12">
                     <h1>
                         {{ trick.title }}
                         {% if app.user %}
-                            <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn"><i class="fas fa-pen fa-sm"></i></a>
+                            <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn btn-primary"><i class="fas fa-pen fa-sm"></i></a>
                             <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
-                                <button class="btn"><i class="fas fa-trash fa-sm"></i></button>
+                                <button class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></button>
                             </form>
                         {% endif %}
                     </h1>
-                    <div>{{ trick.content }}</div>
-                    <div>{{ trick.creationDate|date('d/m/Y') }}</div>
+                    <p>{{ trick.content }}</p>
+                    <p>{{ trick.creationDate|date('d/m/Y') }}</p>
                     <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
                 </div>
 
@@ -28,7 +28,7 @@
                         <img src="{{ asset('images/default.png') }}" alt="card-img-top" style="width: 100%; height: auto;">
                 {% endif %}
             </div>
-            </div>
+        </div>
 
     </article>
     <section class="container">

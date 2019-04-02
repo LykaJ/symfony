@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Audiowide');
 
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
 body {
     background-color: #333;
     align-items: center;
@@ -83,15 +88,28 @@ body {
 /* endregion */
 
 /* region Show Trick */
+.trick-show {
+    background-color: lightgray;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
 .trick-show h1 {
     text-align: center;
     font-family: 'Audiowide', cursive;
     font-size: 50px;
     color: #3f4e5e;
+    padding-top: 10px;
 }
 
-.trick-text {
-    background-color: lightgray;
+.trick-show p {
+    padding: 20px;
+}
+
+.trick-badge {
+    padding: 10px;
 }
 /* endregion */
 
