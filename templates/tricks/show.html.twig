@@ -4,7 +4,7 @@
 {% block body %}
     <article class="container trick-show">
         <div class="row justify-content-md-center">
-                <div class="col-5 trick-text">
+                <div class="col-md-5 col-sm-12 trick-text">
                     <h1>
                         {{ trick.title }}
                         {% if app.user %}
@@ -16,14 +16,12 @@
                             </form>
                         {% endif %}
                     </h1>
-                    <div class="col-md-12">{{ trick.content }}</div>
-                    <div class="col-md-3">{{ trick.creationDate|date('d/m/Y') }}</div>
-                    <div class="col-md-3">
-                        <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
-                    </div>
+                    <div>{{ trick.content }}</div>
+                    <div>{{ trick.creationDate|date('d/m/Y') }}</div>
+                    <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
                 </div>
 
-            <div class="col-7">
+            <div class="col-md-7 col-sm-12">
                 {% if trick.image %}
                     <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: 100%; height: auto;">
                 {% endif %}
