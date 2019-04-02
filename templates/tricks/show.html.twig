@@ -2,36 +2,33 @@
 {% block title 'Détails du trick' %}
 
 {% block body %}
-    <article class="container">
-        <div class="row">
-            <h1 class="col-md-12">{{ trick.title }}</h1>
-            {% if app.user %}
-                <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn"><i class="fas fa-pen fa-sm"></i></a>
-                <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
-                    <button class="btn"><i class="fas fa-trash fa-sm"></i></button>
-                </form>
-            {% endif %}
-        </div>
-        <div class="row">
-            {% if trick.image %}
-                <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: auto; height: 100%;">
-            {% endif %}
-            <div class="col-md-12">{{ trick.content }}</div>
-            <div class="col-md-3">{{ trick.creationDate|date('d/m/Y') }}</div>
-            <div class="col-md-3">
-                <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
-            </div>
-        </div>
-        <div class="row">
-            {% if trick.videoMedia %}
-                <iframe width="186" height="105" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            {% endif %}
-        </div>
-        <div class="row">
+    <article class="container trick-show">
+        <div class="row justify-content-md-center">
+                <div class="col-5 trick-text">
+                    <h1>
+                        {{ trick.title }}
+                        {% if app.user %}
+                            <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn"><i class="fas fa-pen fa-sm"></i></a>
+                            <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                                <button class="btn"><i class="fas fa-trash fa-sm"></i></button>
+                            </form>
+                        {% endif %}
+                    </h1>
+                    <div class="col-md-12">{{ trick.content }}</div>
+                    <div class="col-md-3">{{ trick.creationDate|date('d/m/Y') }}</div>
+                    <div class="col-md-3">
+                        <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
+                    </div>
+                </div>
 
-        </div>
+            <div class="col-7">
+                {% if trick.image %}
+                    <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: 100%; height: auto;">
+                {% endif %}
+            </div>
+            </div>
 
     </article>
     <section class="container">
