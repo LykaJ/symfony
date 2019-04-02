@@ -2,9 +2,16 @@
 {% block title 'Détails du trick' %}
 
 {% block body %}
+    <header class="trick-header">
+        {% if trick.image %}
+            <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: 100%; height: auto;">
+        {% else %}
+            <img src="{{ asset('images/default.png') }}" alt="card-img-top" style="width: 100%; height: auto;">
+        {% endif %}
+    </header>
     <article class="container trick-show">
         <div class="row justify-content-md-center no-gutter">
-                <div class="col-md-5 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <h1>
                         {{ trick.title }}
                         {% if app.user %}
@@ -20,39 +27,36 @@
                     <p>{{ trick.creationDate|date('d/m/Y') }}</p>
                     <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
                 </div>
-
-            <div class="col-md-7 col-sm-12">
-                {% if trick.image %}
-                    <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: 100%; height: auto;">
-                    {% else %}
-                        <img src="{{ asset('images/default.png') }}" alt="card-img-top" style="width: 100%; height: auto;">
-                {% endif %}
             </div>
-        </div>
+        <hr/>
 
     </article>
-    <section class="container">
+    <section id="comments-container">
         <h2>Commentaires</h2>
-        {% if app.user %}
-            <p><strong>Auteur : {{ app.user.realName }}</strong></p>
-        {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
+            {% if app.user %}
+                <p><strong>Auteur : {{ app.user.realName }}</strong></p>
+                {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
 
-        {% else %}
-            <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
-        {% endif %}
+            {% else %}
+                <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
+            {% endif %}
 
-        <div class="row mt-4">
                 {% for comment in trick.comments|sort|reverse %}
-                    <div class="comment col-md-8">
-                            {% if comment.author.picture != null %}
-                                <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
-                            {% else %}
-                                <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
-                            {% endif %}
-                            {{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>)
-                            {{ comment.content }}
+                    <div class="comment col-12">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-6">
+                                {% if comment.author.picture != null %}
+                                    <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
+                                {% else %}
+                                    <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-10 col-sm-6">
+                                <p>{{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>) : <br>
+                                {{ comment.content }}</p>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
-        </div>
     </section>
 {% endblock %}
