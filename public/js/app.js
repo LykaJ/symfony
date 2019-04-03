@@ -3,7 +3,7 @@
         var $container = $('div#trick_imageMedia');
 
         // On ajoute un lien pour ajouter une nouvelle catégorie
-        var $addLink = $('<a href="#" id="add_image" class="btn btn-primary">Ajouter une image</a>');
+        var $addLink = $('<a href="#" id="add_image" class="btn btn-primary mb-3">Ajouter une image</a>');
         $container.append($addLink);
 
         // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
@@ -31,7 +31,7 @@
             // Dans le contenu de l'attribut « data-prototype », on remplace :
             // - le texte "__name__label__" qu'il contient par le label du champ
             // - le texte "__name__" qu'il contient par le numéro du champ
-            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Image n°' + (index+1))
+            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Image ' + (index+1))
                 .replace(/__name__/g, index));
 
             // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
@@ -66,7 +66,7 @@
      var $container = $('div#trick_videoMedia');
 
      // On ajoute un lien pour ajouter une nouvelle catégorie
-     var $addLink = $('<a href="#" id="add_image" class="btn btn-primary">Ajouter une vidéo</a>');
+     var $addLink = $('<a href="#" id="add_image" class="btn btn-primary mb-3">Ajouter une vidéo</a>');
      $container.append($addLink);
 
      // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.

@@ -232,8 +232,10 @@ body {
 
 /* endregion */
 
-/* region Scroll */
-
+/* region Trick form */
+.trick-form {
+    margin-bottom: 20px;
+}
 /* endregion */
 
 /* region Tricks List */
@@ -259,6 +261,14 @@ body {
     justify-content: center;
 }
 /* endregion */
+
+/* region Admin */
+.tricks-admin h1{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #3f4e5e;
+}
+/* endregion*/
 
 /* region Login form */
 .login-form {
