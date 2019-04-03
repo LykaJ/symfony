@@ -232,9 +232,15 @@ body {
 
 /* region Tricks List */
 #tricks-list {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#tricks-list h1 {
     font-family: 'Roboto', sans-serif;
     color: #3f4e5e;
 }
+
 
 .trick-add-button a{
     margin-top: 10px;
@@ -247,3 +253,16 @@ body {
     justify-content: center;
 }
 /* endregion */
+
+/* region Login form */
+.login-form {
+    width: 70%;
+    margin-left: 15%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: lightgray 2px solid;
+}
+
+/*endregion */
