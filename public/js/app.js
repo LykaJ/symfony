@@ -94,7 +94,7 @@
          // Dans le contenu de l'attribut « data-prototype », on remplace :
          // - le texte "__name__label__" qu'il contient par le label du champ
          // - le texte "__name__" qu'il contient par le numéro du champ
-         var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Media n°' + (index+1))
+         var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Video' + (index+1))
              .replace(/__name__/g, index));
 
          // On ajoute au prototype un lien pour pouvoir supprimer la catégorie

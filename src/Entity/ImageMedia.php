@@ -32,6 +32,7 @@ class ImageMedia
      */
     private $trick;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,7 +51,7 @@ class ImageMedia
     }
 
     /**
-     * @return UploadedFile
+     * @return UploadedFile|null
      */
     public function getFile(): ?UploadedFile
     {
@@ -63,6 +64,8 @@ class ImageMedia
     public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
+
+        return $this;
     }
 
 
