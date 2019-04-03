@@ -12,6 +12,10 @@ body {
     flex-direction: column;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 /* region Homepage */
 
 #section-1 {
@@ -41,7 +45,6 @@ body {
 }
 
 #section-2 {
-    background-image: linear-gradient(to bottom right, white, white);
     background-size: 100%;
     text-align: center;
     background-attachment: fixed;
@@ -65,18 +68,13 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-#comments-container p {
-    padding-top: 10px;
-}
-
-.comment {
+#comment {
     background-color: lightgray;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 10px;
-    border-top: #999999 1px solid;
-    border-bottom: #999999 1px solid;
-    justify-content: center;
+    border-radius: 30px;
+    line-height: normal;
+    margin-top: 2px;
+    padding-top: 15px;
+    height: fit-content;
 }
 /* endregion*/
 
@@ -104,12 +102,22 @@ body {
 /* region Show Trick */
 .trick-header {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 600px;
+    background-image: url("../images/trick-header.jpg");
+    min-height: 300px;
+
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
     margin-bottom: 50px;
     border-bottom: #999999 3px solid;
+
+    font-family: 'Audiowide', cursive;
+    color: white;
+    text-align: left;
+    padding-top: 100px;
 }
 
 .trick-show {
@@ -220,4 +228,22 @@ body {
 
 /* region Scroll */
 
+/* endregion */
+
+/* region Tricks List */
+#tricks-list {
+    font-family: 'Roboto', sans-serif;
+    color: #3f4e5e;
+}
+
+.trick-add-button a{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#js-tricks-load-more {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+}
 /* endregion */

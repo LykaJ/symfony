@@ -2,61 +2,64 @@
 {% block title 'Détails du trick' %}
 
 {% block body %}
-    <header class="trick-header">
-        {% if trick.image %}
-            <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" style="width: 100%; height: auto;">
-        {% else %}
-            <img src="{{ asset('images/default.png') }}" alt="card-img-top" style="width: 100%; height: auto;">
-        {% endif %}
-    </header>
+    <header class="trick-header"></header>
     <article class="container trick-show">
         <div class="row justify-content-md-center no-gutter">
-                <div class="col-md-6 col-sm-12">
-                    <h1>
-                        {{ trick.title }}
-                        {% if app.user %}
-                            <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn btn-primary"><i class="fas fa-pen fa-sm"></i></a>
-                            <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
-                                <button class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></button>
-                            </form>
-                        {% endif %}
-                    </h1>
-                    <p>{{ trick.content }}</p>
-                    <p>{{ trick.creationDate|date('d/m/Y') }}</p>
-                    <div class="badge badge-pill badge-primary">{{ trick.category.name }}</div>
-                </div>
+            <div class="col-md-6 col-sm-12">
+                <h1>
+                    {{ trick.title }}
+                    {% if app.user %}
+                        <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn btn-outline-primary"><i
+                                    class="fas fa-pen fa-sm"></i></a>
+                        <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}"
+                              style="display: inline-block"
+                              onsubmit="return confirm('Confirmez-vous la suppression ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                            <button class="btn btn-outline-danger"><i class="fas fa-trash fa-sm"></i></button>
+                        </form>
+                    {% endif %}
+                </h1>
+                {% if trick.image %}
+                    <img src="{{ asset('uploads/images/' ~ trick.image) }}" alt="card-img-top" class="img-fluid">
+                {% else %}
+                    <img src="{{ asset('images/default.png') }}" alt="card-img-top" class="img-fluid">
+                {% endif %}
+                <p>{{ trick.content }}</p>
+                <p>{{ trick.creationDate|date('d/m/Y') }}</p>
+                <div class="badge badge-pill badge-info">{{ trick.category.name }}</div>
             </div>
+        </div>
         <hr/>
 
     </article>
     <section id="comments-container">
         <h2>Commentaires</h2>
-            {% if app.user %}
-                <p><strong>Auteur : {{ app.user.realName }}</strong></p>
-                {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
 
-            {% else %}
-                <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
-            {% endif %}
-
-                {% for comment in trick.comments|sort|reverse %}
-                    <div class="comment col-12">
-                        <div class="row">
-                            <div class="col-md-2 col-sm-6">
-                                {% if comment.author.picture != null %}
-                                    <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
-                                {% else %}
-                                    <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-10 col-sm-6">
-                                <p>{{ comment.author.realName }} (<small>{{ comment.creationDate|date('d/m/Y') }}</small>) : <br>
-                                {{ comment.content }}</p>
-                            </div>
-                        </div>
+        {% if app.user %}
+            <p><strong>Auteur : {{ app.user.realName }}</strong></p>
+            {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
+        {% else %}
+            <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
+        {% endif %}
+        <div class="mt-3">
+            {% for comment in trick.comments|sort|reverse %}
+                <div class="row">
+                    <div class="col-md-2 col-sm-6">
+                        {% if comment.author.picture != null %}
+                            <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
+                        {% else %}
+                            <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
+                        {% endif %}
                     </div>
-                {% endfor %}
+                    <div class="col-md-10 col-sm-6" id="comment">
+                        <p><strong>{{ comment.author.realName }} :</strong> {{ comment.content }}</p>
+                    </div>
+                    <div class="col-md-10 offset-md-2">
+                        <p>(<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </section>
 {% endblock %}

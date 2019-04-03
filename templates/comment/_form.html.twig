@@ -5,6 +5,6 @@
 <div class="row">
     <div class="col-12">{{ form_row(form.content) }}</div>
 </div>
-{{ form_widget(form) }}
-<button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+{{ form_rest(form) }}
+<button class="btn btn-primary">{{ button|default('Créer') }}</button>
 {{ form_end(form) }}

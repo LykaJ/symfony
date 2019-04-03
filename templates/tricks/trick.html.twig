@@ -2,8 +2,7 @@
 {% block title 'Liste des tricks' %}
 
 {% block body %}
-    <div class="container">
-        <h1> Liste des tricks</h1>
+    <div class="container-fluid" id="tricks-list">
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">{{ message }}</div>
         {% endfor %}
@@ -11,31 +10,31 @@
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
         {% if app.user %}
-            <div class="mb-4">
-                <a href="{{ path('admin.tricks.new') }}" class="btn btn-primary">Ajouter un trick</a>
+            <div class="trick-add-button">
+                <a href="{{ path('admin.tricks.new') }}" class="btn btn-outline-primary">Nouveau trick <i class="fas fa-plus"></i></a>
             </div>
         {% endif %}
-    </div>
-    <div class="container" id="js-tricks-container"></div>
-    <div class="container">
-        <div class="row" id="js-tricks-loader">
-            <div class="col-12">
-                <div class="sk-folding-cube" style="margin: 0 auto">
-                    <div class="sk-cube1 sk-cube"></div>
-                    <div class="sk-cube2 sk-cube"></div>
-                    <div class="sk-cube4 sk-cube"></div>
-                    <div class="sk-cube3 sk-cube"></div>
+        <div class="container" id="js-tricks-container"></div>
+        <div class="container">
+            <div class="row" id="js-tricks-loader">
+                <div class="col-12">
+                    <div class="sk-folding-cube" style="margin: 0 auto">
+                        <div class="sk-cube1 sk-cube"></div>
+                        <div class="sk-cube2 sk-cube"></div>
+                        <div class="sk-cube4 sk-cube"></div>
+                        <div class="sk-cube3 sk-cube"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row" id="js-tricks-load-more">
-            <div class="col-12">
-                <a href="{{ path('trick.index') }}"
-                   id="js-tricks-load-more-btn" class="btn btn-info" style="margin: 0 auto">
-                    Charger plus...
-                </a>
-            </div>
+            <div class="row" id="js-tricks-load-more">
+                <div>
+                    <a href="{{ path('trick.index') }}"
+                       id="js-tricks-load-more-btn" class="btn btn-outline-dark">
+                        <i class="fas fa-spinner"></i>
+                    </a>
+                </div>
 
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -61,7 +60,7 @@
             $.get({
                 url: '/api/tricks/' + page,
                 async: true,
-                beforeSend: function() {
+                beforeSend: function () {
                     isLoading = true;
                     $loaderContainer.toggle(true);
                 },
@@ -91,11 +90,11 @@
         }
 
         function detectLoadMore() {
-           /* $window.scroll(function() {
-                if($window.scrollTop() + $window.height() === $document.height()) {
-                    load(nextPage);
-                }
-            }); */
+            /* $window.scroll(function() {
+                 if($window.scrollTop() + $window.height() === $document.height()) {
+                     load(nextPage);
+                 }
+             }); */
 
             $loadBtn.on("click", function (event) {
                 event.preventDefault();
