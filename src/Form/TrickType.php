@@ -38,20 +38,19 @@ class TrickType extends AbstractType
                     'data_class' => null
                 ]
             )
-            ->add('video_media', CollectionType::class, [
+            ->add('videoMedia', CollectionType::class, [
                 'entry_type' => VideoMediaType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
-                'prototype' => true,
-                'by_reference' => false,
-                'required' => false
+                'prototype' => true
             ])
 
-            ->add('image_media', CollectionType::class, [
-                'entry_type' => FileType::class,
+            ->add('imageMedia', CollectionType::class, [
+                'entry_type' => ImageMediaType::class,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'prototype' => true
             ])
         ;
     }

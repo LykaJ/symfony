@@ -76,14 +76,18 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", fetch="EXTRA_LAZY")
+     * @var UploadedFile
+     * @Assert\File(
+     *     maxSize="300k",
+     *     maxSizeMessage="Le fichier est trop volumineux (0.53 MB). Sa taille ne doit pas dépasser 0.3 MB."
+     * )
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $imageMedia;
 
 
-
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $videoMedia;
 
@@ -195,7 +199,7 @@ class Trick
      * @param string $image
      * @return Trick
      */
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
@@ -215,7 +219,7 @@ class Trick
      * @return Trick
      * @throws \Exception
      */
-    public function setImageUpload(UploadedFile $uploadedImage): self
+    public function setImageUpload(?UploadedFile $uploadedImage): self
     {
         $this->uploadedImage = $uploadedImage;
         $this->edition_date = new \DateTime('now');
@@ -274,6 +278,10 @@ class Trick
         return $this->imageMedia;
     }
 
+    /**
+     * @param ImageMedia $imageMedium
+     * @return Trick
+     */
     public function addImageMedium(ImageMedia $imageMedium): self
     {
         if (!$this->imageMedia->contains($imageMedium)) {
@@ -284,6 +292,10 @@ class Trick
         return $this;
     }
 
+    /**
+     * @param ImageMedia $imageMedium
+     * @return Trick
+     */
     public function removeImageMedium(ImageMedia $imageMedium): self
     {
         if ($this->imageMedia->contains($imageMedium)) {
@@ -305,6 +317,10 @@ class Trick
         return $this->videoMedia;
     }
 
+    /**
+     * @param VideoMedia $videoMedium
+     * @return Trick
+     */
     public function addVideoMedium(VideoMedia $videoMedium): self
     {
         if (!$this->videoMedia->contains($videoMedium)) {
@@ -315,6 +331,10 @@ class Trick
         return $this;
     }
 
+    /**
+     * @param VideoMedia $videoMedium
+     * @return Trick
+     */
     public function removeVideoMedium(VideoMedia $videoMedium): self
     {
         if ($this->videoMedia->contains($videoMedium)) {

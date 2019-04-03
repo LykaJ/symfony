@@ -1,34 +1,145 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+html {
+    height: 100%;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
 body {
     background-color: #333;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    height: 100%;
+    position: relative;
 }
 
-.scrolling-box {
-    background-color: #eaeaea;
-    display: block;
-    height: 100%;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+* {
+    box-sizing: border-box;
+}
+
+/* region Homepage */
+
+#section-1 {
+
+    background-image: url("../images/hero.jpg");
+    /* Set a specific height */
+    min-height: 600px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Audiowide', cursive;
     text-align: center;
+    padding-top: 250px;
+}
+
+.section-1 h1 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 4em;
+    background-color: rgba(110,195,228,0.50);
+    border-top: #ffffff 3px solid;
+    border-bottom: #ffffff 3px solid;
+    text-shadow: 1px 1px 2px grey;
+}
+
+#section-2 {
+    background-size: 100%;
+    text-align: center;
+    background-attachment: fixed;
+    min-height: 600px;
+}
+
+#section-2 h2 {
+    font-family: 'Roboto', cursive;
+    font-size: 50px;
+    color: #3f4e5e;
+    padding-top: 20px;
+}
+
+/* endregion */
+
+/* region Comments */
+#comments-container {
+    margin: auto;
+    width: 50%;
+    color: #3f4e5e;
+    font-family: 'Roboto', sans-serif;
+}
+
+#comment {
+    background-color: lightgray;
+    border-radius: 30px;
+    line-height: normal;
+    margin-top: 2px;
+    padding-top: 15px;
+    height: fit-content;
+}
+/* endregion*/
+
+/* region Trick Cards */
+
+.card-body {
+    height: 400px;
+    box-shadow: 2px 3px 4px grey;
+}
+
+.card-img {
     width: 100%;
+    height: auto;
+    margin: 0;
 }
 
-section {
+.card-title h3 {
+    padding-top: 5px;
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
+    color: #3f4e5e;
+}
+/* endregion */
+
+/* region Show Trick */
+.trick-header {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    background-image: url("../images/trick-header.jpg");
+    min-height: 300px;
+
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 50px;
+    border-bottom: #999999 3px solid;
+
+    font-family: 'Audiowide', cursive;
+    color: white;
+    text-align: left;
+    padding-top: 100px;
 }
 
-.comment {
-    background-color: aliceblue;
-    padding: 5px;
-    margin: 5px;
-    border-bottom: 1px solid #5eb5e0;
-    border-left: 1px solid #5eb5e0;
+.trick-show {
+    padding: 0;
+    width: 100%;
+    height: auto;
 }
+
+.trick-show h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    color: #3f4e5e;
+    padding-top: 10px;
+}
+
+/* endregion */
 
 /* region Loader */
 .sk-folding-cube {
@@ -120,3 +231,72 @@ section {
 }
 
 /* endregion */
+
+/* region Scroll */
+
+/* endregion */
+
+/* region Tricks List */
+#tricks-list {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#tricks-list h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #3f4e5e;
+}
+
+
+.trick-add-button a{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#js-tricks-load-more {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+/* endregion */
+
+/* region Login form */
+.login-form {
+    width: 70%;
+    margin-left: 15%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: lightgray 2px solid;
+}
+
+/*endregion */
+
+/* region Footer */
+.footer {
+    height: auto;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    padding-top: 10px;
+    background-color: #f8f9fa;
+}
+
+.footer ul{
+    list-style: none;
+    padding-inline-start: 0px;
+}
+
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+}
+
+#main{
+    position: relative;
+    padding-bottom: 100px;
+}
+/* endregion*/
