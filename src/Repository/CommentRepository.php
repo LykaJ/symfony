@@ -18,7 +18,6 @@ class CommentRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Comment::class);
-        $trick = new Trick();
     }
 
 
@@ -45,12 +44,15 @@ class CommentRepository extends ServiceEntityRepository
         }
     }
 
-    public function getCommentsByLimit($first_result, $max_results = 10)
+    public function getCommentsByLimit($trick, $first_result, $max_results = 10)
     {
         return $this->createQueryBuilder('c')
             ->select('c')
+            ->where('c.trick = :trick')
+            ->setParameter('trick', $trick)
             ->setFirstResult($first_result)
             ->setMaxResults($max_results)
+            ->orderBy('c.creation_date', 'DESC')
             ->getQuery()
             ->getResult();
 

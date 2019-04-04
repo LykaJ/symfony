@@ -65,7 +65,6 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-            $imageMedia = new ImageMedia();
             $uploads_directory = $this->getParameter('media_directory');
             $files = $request->files->get('trick')['imageMedia'];
 
@@ -81,7 +80,6 @@ class AdminTrickController extends AbstractController
                 );
             }
 
-                $imageMedia->setName($fileName);
 
 
 

@@ -42,6 +42,88 @@
         {% else %}
             <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
         {% endif %}
-       {{ include('comments/_list.html.twig') }}
+       <div id="js-comments-container"></div>
+        <div class="row" id="js-comments-load-more">
+            <div>
+                <a href="{{ path('trick.show', {id: trick.id, slug: trick.slug}) }}"
+                   id="js-comments-load-more-btn" class="btn btn-outline-primary mb-4">
+                    Afficher plus de commentaires
+                </a>
+            </div>
+
+        </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        var nextPage = null;
+        var isLoading = false;
+
+        var $window = $(window);
+        var $document = $(document);
+        var $container = $("#js-comments-container");
+      //  var $loaderContainer = $("#js-tricks-loader");
+        var $loadBtnContainer = $("#js-comments-load-more");
+        var $loadBtn = $("#js-comments-load-more-btn");
+
+        function load(page) {
+            if (page == null || isLoading) {
+                return
+            }
+
+            $.get({
+                url: '/api/trick/{{ trick.slug }}-{{ trick.id }}/' + page,
+                async: true,
+                beforeSend: function () {
+                    isLoading = true;
+                  //  $loaderContainer.toggle(true);
+                },
+                success: function (data) {
+                    nextPage = data.nextPage;
+
+                    $loadBtnContainer.toggle(nextPage !== null);
+                    $container.append(data.content);
+                    displayNewContent();
+                },
+                complete: function () {
+                   // $loaderContainer.toggle(false);
+                    isLoading = false;
+                }
+            });
+        }
+
+        function displayNewContent() {
+            var $lastRow = $container.find(".row").last();
+
+            $lastRow.children().each(function (index) {
+                $(this)
+                    .css({"top": "100px", "display": "block", "opacity": 0})
+                    .delay(100 * index)
+                    .animate({"top": "0", "opacity": 1}, 200)
+            });
+        }
+
+        function detectLoadMore() {
+            /* $window.scroll(function() {
+                 if($window.scrollTop() + $window.height() === $document.height()) {
+                     load(nextPage);
+                 }
+             }); */
+
+            $loadBtn.on("click", function (event) {
+                event.preventDefault();
+                load(nextPage);
+            });
+        }
+
+        $document.ready(function () {
+            $loadBtnContainer.toggle(false);
+           // $loaderContainer.toggle(false);
+
+            detectLoadMore();
+            load(1);
+        });
+    </script>
 {% endblock %}

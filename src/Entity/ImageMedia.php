@@ -59,8 +59,10 @@ class ImageMedia
         return $this->file;
     }
 
+
     /**
-     * @param UploadedFile $file
+     * @param UploadedFile|null $file
+     * @return ImageMedia
      */
     public function setFile(?UploadedFile $file): self
     {

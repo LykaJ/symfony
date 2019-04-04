@@ -19,7 +19,7 @@ class TricksController extends AbstractController
 {
 
     const LIMIT = 8;
-    const CMTLIMIT = 2;
+    const CMTLIMIT = 10;
     /**
      * @var TrickRepository
      */
@@ -100,7 +100,7 @@ class TricksController extends AbstractController
             ]);
         }
 
-        $comments = $commentRepository->findByTrick($trick);
+        $comments = $commentRepository->findByOrder();
 
 
         return $this->render('tricks/show.html.twig', [
@@ -119,11 +119,11 @@ class TricksController extends AbstractController
      * @param int $page
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function paginate(Trick $trick, CommentRepository $commentRepository, $page = 1)
+  public function paginate(Trick $trick, CommentRepository $commentRepository, $page = 1)
     {
         $offset = ($page - 1) * self::CMTLIMIT;
         $totalCommentCount = $commentRepository->countComments($trick);
-        $comments = $commentRepository->getCommentsByLimit($offset, self::CMTLIMIT);
+        $comments = $commentRepository->getCommentsByLimit($trick, $offset, self::CMTLIMIT);
         $commentCount = count($comments);
         $nextPage = $commentCount + ($page - 1) * self::CMTLIMIT < $totalCommentCount ? $page + 1 : null;
 

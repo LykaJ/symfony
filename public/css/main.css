@@ -82,6 +82,10 @@ body {
     padding-top: 15px;
     height: fit-content;
 }
+
+#js-comments-load-more-btn {
+    justify-content: center;
+}
 /* endregion*/
 
 /* region Trick Cards */
