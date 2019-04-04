@@ -29,6 +29,29 @@ class CommentRepository extends ServiceEntityRepository
     ;
     }
 
+    public function countComments()
+    {
+        try {
+            return intval($this->createQueryBuilder('c')
+                ->select('count(c)')
+                ->getQuery()
+                ->getSingleScalarResult());
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    public function getCommentsByLimit($first_result, $max_results = 10)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->setFirstResult($first_result)
+            ->setMaxResults($max_results)
+            ->getQuery()
+            ->getResult();
+
+    }
+
 
     // /**
     //  * @return Comment[] Returns an array of Comment objects

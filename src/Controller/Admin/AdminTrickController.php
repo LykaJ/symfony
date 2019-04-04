@@ -49,7 +49,7 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function new(Request $request, EventDispatcherInterface $event_dispatcher)
+    public function create(Request $request, EventDispatcherInterface $event_dispatcher)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -65,7 +65,7 @@ class AdminTrickController extends AbstractController
             }
 
             $uploads_directory = $this->getParameter('media_directory');
-            $files = $request->files->get('trick')['imageMedia'];
+            $files = $trick->getImageMedia();
 
             foreach ($files as $file)
             {

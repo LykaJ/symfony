@@ -41,7 +41,7 @@ INSERT INTO `category` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comment` (
@@ -53,17 +53,17 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `comment`
+-- Dumping data for table `comments`
 --
 
 INSERT INTO `comment` (`id`, `trick_id`, `author_id`, `content`, `creation_date`) VALUES
-(1, 18, 4, 'First comment', '2019-03-12 09:59:05'),
+(1, 18, 4, 'First comments', '2019-03-12 09:59:05'),
 (2, 18, 4, 'Comment', '2019-03-12 12:56:31'),
 (3, 18, 4, 'Comment', '2019-03-12 12:58:18'),
 (4, 18, 4, 'Comment', '2019-03-12 12:58:51'),
 (5, 20, 4, 'hey!', '2019-03-12 13:00:09'),
-(8, 18, 9, 'comment', '2019-03-13 13:29:10'),
-(9, 23, 9, 'test comment', '2019-03-13 13:56:10'),
+(8, 18, 9, 'comments', '2019-03-13 13:29:10'),
+(9, 23, 9, 'test comments', '2019-03-13 13:56:10'),
 (10, 20, 9, 'Nice!', '2019-03-19 15:04:36');
 
 -- --------------------------------------------------------
@@ -179,7 +179,7 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `comment`
+-- Indexes for table `comments`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`),
@@ -231,7 +231,7 @@ ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `comment`
+-- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
@@ -265,7 +265,7 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `comment`
+-- Constraints for table `comments`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `FK_9474526CB281BE2E` FOREIGN KEY (`trick_id`) REFERENCES `trick` (`id`),

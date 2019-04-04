@@ -38,28 +38,10 @@
 
         {% if app.user %}
             <p><strong>Auteur : {{ app.user.realName }}</strong></p>
-            {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
+            {{ include('comments/_form.html.twig', {form: form, button: 'Créer'}) }}
         {% else %}
             <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
         {% endif %}
-        <div class="mt-3">
-            {% for comment in trick.comments|sort|reverse %}
-                <div class="row">
-                    <div class="col-md-2 col-sm-6">
-                        {% if comment.author.picture != null %}
-                            <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
-                        {% else %}
-                            <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
-                        {% endif %}
-                    </div>
-                    <div class="col-md-10 col-sm-6" id="comment">
-                        <p><strong>{{ comment.author.realName }} :</strong> {{ comment.content }}</p>
-                    </div>
-                    <div class="col-md-10 offset-md-2">
-                        <p>(<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+       {{ include('comments/_list.html.twig') }}
     </section>
 {% endblock %}
