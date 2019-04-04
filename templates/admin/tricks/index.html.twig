@@ -3,39 +3,40 @@
 
 {% block body %}
     <div class="container">
-        <h1>Gérer les tricks</h1>
 
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Titre</th>
-                <th>Catégorie</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for trick in tricks %}
-            <tr>
-                <td>{{ trick.title }}</td>
-                <td>{{ trick.category.name }}</td>
-                <td>
-                    <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn btn-secondary">Editer</a>
-                    <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
-                        <button class="btn btn-danger">Supprimer</button>
-                    </form>
-                </td>
-            </tr>
+        <div class="tricks-admin">
+            <h1>Gérer les tricks</h1>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
             {% endfor %}
-            </tbody>
-        </table>
-        <div class="text-right">
-            <a href="{{ path('admin.tricks.new') }}" class="btn btn-primary">Ajouter un trick</a>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Catégorie</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trick in tricks %}
+                    <tr>
+                        <td>{{ trick.title }}</td>
+                        <td>{{ trick.category.name }}</td>
+                        <td>
+                            <a href="{{ path('admin.tricks.edit', {id: trick.id}) }}" class="btn btn-secondary"><i class="fas fa-pen fa-sm"></i></a>
+                            <form method="post" action="{{ path('admin.tricks.delete', {id: trick.id}) }}" style="display: inline-block" onsubmit="return confirm('Confirmez-vous la suppression ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                                <button class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-right mb-4">
+                <a href="{{ path('admin.tricks.new') }}" class="btn btn-primary">Nouveau trick <i class="fas fa-plus"></i></a>
+            </div>
         </div>
     </div>
 

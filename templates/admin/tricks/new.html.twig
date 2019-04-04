@@ -3,7 +3,9 @@
 {% block body %}
     <div class="container">
         <h1>Ajouter un trick</h1>
-        {{  include('admin/tricks/_form.html.twig', {form: form, button: 'Créer'}) }}
+        <div class="trick-form">
+            {{  include('admin/tricks/_form.html.twig', {form: form, button: 'Créer'}) }}
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}

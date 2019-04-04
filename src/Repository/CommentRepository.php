@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -27,6 +28,34 @@ class CommentRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult()
     ;
+    }
+
+    public function countComments($trick)
+    {
+        try {
+            return intval($this->createQueryBuilder('c')
+                ->select('count(c)')
+                ->where('c.trick = :trick')
+                ->setParameter('trick', $trick)
+                ->getQuery()
+                ->getSingleScalarResult());
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    public function getCommentsByLimit($trick, $first_result, $max_results = 10)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.trick = :trick')
+            ->setParameter('trick', $trick)
+            ->setFirstResult($first_result)
+            ->setMaxResults($max_results)
+            ->orderBy('c.creation_date', 'DESC')
+            ->getQuery()
+            ->getResult();
+
     }
 
 

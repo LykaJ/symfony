@@ -38,28 +38,92 @@
 
         {% if app.user %}
             <p><strong>Auteur : {{ app.user.realName }}</strong></p>
-            {{ include('comment/_form.html.twig', {form: form, button: 'Créer'}) }}
+            {{ include('comments/_form.html.twig', {form: form, button: 'Créer'}) }}
         {% else %}
             <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
         {% endif %}
-        <div class="mt-3">
-            {% for comment in trick.comments|sort|reverse %}
-                <div class="row">
-                    <div class="col-md-2 col-sm-6">
-                        {% if comment.author.picture != null %}
-                            <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
-                        {% else %}
-                            <img src="{{ asset('uploads/images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
-                        {% endif %}
-                    </div>
-                    <div class="col-md-10 col-sm-6" id="comment">
-                        <p><strong>{{ comment.author.realName }} :</strong> {{ comment.content }}</p>
-                    </div>
-                    <div class="col-md-10 offset-md-2">
-                        <p>(<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</p>
-                    </div>
-                </div>
-            {% endfor %}
+       <div id="js-comments-container"></div>
+        <div class="row" id="js-comments-load-more">
+            <div>
+                <a href="{{ path('trick.show', {id: trick.id, slug: trick.slug}) }}"
+                   id="js-comments-load-more-btn" class="btn btn-outline-primary mb-4">
+                    Afficher plus de commentaires
+                </a>
+            </div>
+
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        var nextPage = null;
+        var isLoading = false;
+
+        var $window = $(window);
+        var $document = $(document);
+        var $container = $("#js-comments-container");
+      //  var $loaderContainer = $("#js-tricks-loader");
+        var $loadBtnContainer = $("#js-comments-load-more");
+        var $loadBtn = $("#js-comments-load-more-btn");
+
+        function load(page) {
+            if (page == null || isLoading) {
+                return
+            }
+
+            $.get({
+                url: '/api/trick/{{ trick.slug }}-{{ trick.id }}/' + page,
+                async: true,
+                beforeSend: function () {
+                    isLoading = true;
+                  //  $loaderContainer.toggle(true);
+                },
+                success: function (data) {
+                    nextPage = data.nextPage;
+
+                    $loadBtnContainer.toggle(nextPage !== null);
+                    $container.append(data.content);
+                    displayNewContent();
+                },
+                complete: function () {
+                   // $loaderContainer.toggle(false);
+                    isLoading = false;
+                }
+            });
+        }
+
+        function displayNewContent() {
+            var $lastRow = $container.find(".row").last();
+
+            $lastRow.children().each(function (index) {
+                $(this)
+                    .css({"top": "100px", "display": "block", "opacity": 0})
+                    .delay(100 * index)
+                    .animate({"top": "0", "opacity": 1}, 200)
+            });
+        }
+
+        function detectLoadMore() {
+            /* $window.scroll(function() {
+                 if($window.scrollTop() + $window.height() === $document.height()) {
+                     load(nextPage);
+                 }
+             }); */
+
+            $loadBtn.on("click", function (event) {
+                event.preventDefault();
+                load(nextPage);
+            });
+        }
+
+        $document.ready(function () {
+            $loadBtnContainer.toggle(false);
+           // $loaderContainer.toggle(false);
+
+            detectLoadMore();
+            load(1);
+        });
+    </script>
 {% endblock %}

@@ -29,8 +29,10 @@ class ImageMedia
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="imageMedia")
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
+
 
     public function getId(): ?int
     {
@@ -50,19 +52,23 @@ class ImageMedia
     }
 
     /**
-     * @return UploadedFile
+     * @return UploadedFile|null
      */
     public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
+
     /**
-     * @param UploadedFile $file
+     * @param UploadedFile|null $file
+     * @return ImageMedia
      */
     public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
+
+        return $this;
     }
 
 
