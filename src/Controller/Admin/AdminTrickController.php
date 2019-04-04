@@ -12,6 +12,7 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,7 +46,7 @@ class AdminTrickController extends AbstractController
     /**
      * @Route("/admin/create", name="admin.tricks.new")
      * @param Request $request
-     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+     * @param EventDispatcherInterface $event_dispatcher
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
@@ -64,19 +65,26 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
+            $imageMedia = new ImageMedia();
             $uploads_directory = $this->getParameter('media_directory');
-            $files = $trick->getImageMedia();
+            $files = $request->files->get('trick')['imageMedia'];
+
+            dump($files);
 
             foreach ($files as $file)
             {
                 $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
                 // Move the file to the directory where brochures are stored
                 $file->move(
                     $uploads_directory,
                     $fileName
                 );
             }
+
+                $imageMedia->setName($fileName);
+
+
+
 
             $this->em->persist($trick);
             $this->em->flush();

@@ -100,8 +100,8 @@ class TricksController extends AbstractController
             ]);
         }
 
+        $comments = $commentRepository->findByTrick($trick);
 
-        $comments = $commentRepository->findByOrder();
 
         return $this->render('tricks/show.html.twig', [
             'trick' => $trick,
@@ -122,10 +122,11 @@ class TricksController extends AbstractController
     public function paginate(Trick $trick, CommentRepository $commentRepository, $page = 1)
     {
         $offset = ($page - 1) * self::CMTLIMIT;
-        $totalCommentCount = $commentRepository->countComments();
+        $totalCommentCount = $commentRepository->countComments($trick);
         $comments = $commentRepository->getCommentsByLimit($offset, self::CMTLIMIT);
         $commentCount = count($comments);
         $nextPage = $commentCount + ($page - 1) * self::CMTLIMIT < $totalCommentCount ? $page + 1 : null;
+
 
         $data = [
             'nextPage' => $nextPage,

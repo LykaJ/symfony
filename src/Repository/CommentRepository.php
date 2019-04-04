@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,7 @@ class CommentRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Comment::class);
+        $trick = new Trick();
     }
 
 
@@ -29,11 +31,13 @@ class CommentRepository extends ServiceEntityRepository
     ;
     }
 
-    public function countComments()
+    public function countComments($trick)
     {
         try {
             return intval($this->createQueryBuilder('c')
                 ->select('count(c)')
+                ->where('c.trick = :trick')
+                ->setParameter('trick', $trick)
                 ->getQuery()
                 ->getSingleScalarResult());
         } catch (\Exception $e) {
