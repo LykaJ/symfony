@@ -76,33 +76,48 @@ class Trick
     private $comments;
 
     /**
-     * @var UploadedFile
-     * @Assert\File(
-     *     maxSize="300k",
-     *     maxSizeMessage="Le fichier est trop volumineux (0.53 MB). Sa taille ne doit pas dépasser 0.3 MB."
-     * )
      * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    private $imageMedia;
+    private $mediaImages;
 
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    private $videoMedia;
+    private $mediaVideos;
 
     /**
      * Trick constructor.
      * @throws \Exception
      */
-    public function __construct()
+    public function __construct(
+        string $title,
+        string $content,
+        $category,
+        $creation_date,
+        $edition_date,
+        string $author,
+        $mediaVideos,
+        $uploadedImage,
+        $mediaImages
+    )
     {
+        $this->title = $title;
+        $this->content = $content;
+        $this->category = $category;
+        $this->creation_date = $creation_date;
+        $this->edition_date = $edition_date;
+        $this->author = $author;
+        $this->mediaVideos = $mediaVideos;
+        $this->uploadedImage = $uploadedImage;
+        $this->mediaVideos = $mediaImages;
+        /*
         $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
         $this->imageMedia = new ArrayCollection();
-        $this->videoMedia = new ArrayCollection();
+        $this->videoMedia = new ArrayCollection(); */
     }
 
     public function getId(): ?int
@@ -273,9 +288,9 @@ class Trick
     /**
      * @return Collection|ImageMedia[]
      */
-    public function getImageMedia(): Collection
+    public function getMediaImages(): Collection
     {
-        return $this->imageMedia;
+        return $this->mediaImages;
     }
 
     /**
@@ -284,8 +299,8 @@ class Trick
      */
     public function addImageMedium(ImageMedia $imageMedium): self
     {
-        if (!$this->imageMedia->contains($imageMedium)) {
-            $this->imageMedia[] = $imageMedium;
+        if (!$this->mediaImages->contains($imageMedium)) {
+            $this->mediaImages[] = $imageMedium;
             $imageMedium->setTrick($this);
         }
 
@@ -298,8 +313,8 @@ class Trick
      */
     public function removeImageMedium(ImageMedia $imageMedium): self
     {
-        if ($this->imageMedia->contains($imageMedium)) {
-            $this->imageMedia->removeElement($imageMedium);
+        if ($this->mediaImages->contains($imageMedium)) {
+            $this->mediaImages->removeElement($imageMedium);
             // set the owning side to null (unless already changed)
             if ($imageMedium->getTrick() === $this) {
                 $imageMedium->setTrick(null);
@@ -312,9 +327,9 @@ class Trick
     /**
      * @return Collection|VideoMedia[]
      */
-    public function getVideoMedia(): Collection
+    public function getMediaVideos(): Collection
     {
-        return $this->videoMedia;
+        return $this->mediaVideos;
     }
 
     /**
@@ -323,8 +338,8 @@ class Trick
      */
     public function addVideoMedium(VideoMedia $videoMedium): self
     {
-        if (!$this->videoMedia->contains($videoMedium)) {
-            $this->videoMedia[] = $videoMedium;
+        if (!$this->mediaVideos->contains($videoMedium)) {
+            $this->mediaVideos[] = $videoMedium;
             $videoMedium->setTrick($this);
         }
 
@@ -337,8 +352,8 @@ class Trick
      */
     public function removeVideoMedium(VideoMedia $videoMedium): self
     {
-        if ($this->videoMedia->contains($videoMedium)) {
-            $this->videoMedia->removeElement($videoMedium);
+        if ($this->mediaVideos->contains($videoMedium)) {
+            $this->mediaVideos->removeElement($videoMedium);
             // set the owning side to null (unless already changed)
             if ($videoMedium->getTrick() === $this) {
                 $videoMedium->setTrick(null);
@@ -362,8 +377,8 @@ class Trick
         list(
             $this->id,
             $this->category,
-            $this->imageMedia,
-            $this->videoMedia
+            $this->mediaImages,
+            $this->mediaVideos
             ) =  unserialize($serialized, ['allowed_classes' => false]);
     }
 }

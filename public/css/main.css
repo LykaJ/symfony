@@ -316,7 +316,7 @@ body {
 /* endregion*/
 
 /* region Top button */
-#myBtnTop {
+.scroll-top {
     display: none;
     position: fixed;
     bottom: 20px;
@@ -325,7 +325,8 @@ body {
     margin-bottom: 20px;
 }
 
-#myBtnBottom {
+.scroll-bottom {
+    display: none;
     position: fixed;
     top: 70px;
     right: 10px;

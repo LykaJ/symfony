@@ -3,6 +3,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Builder\TrickBuilder;
 use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
@@ -50,13 +51,14 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function create(Request $request, EventDispatcherInterface $event_dispatcher)
+    public function create(Request $request, EventDispatcherInterface $event_dispatcher, TrickBuilder $trickBuilder)
     {
-        $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
+        $form = $this->createForm(TrickType::class)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            $trick = $trickBuilder->build($data)->getTrick();
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
 
             $currentUser = $this->get('security.token_storage')->getToken()->getUser();
@@ -65,7 +67,9 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-            $uploads_directory = $this->getParameter('media_directory');
+            dd($trick);
+
+           /* $uploads_directory = $this->getParameter('media_directory');
             $files = $request->files->get('trick')['imageMedia'];
 
             dump($files);
@@ -78,10 +82,7 @@ class AdminTrickController extends AbstractController
                     $uploads_directory,
                     $fileName
                 );
-            }
-
-
-
+            } */
 
 
             $this->em->persist($trick);
@@ -91,11 +92,12 @@ class AdminTrickController extends AbstractController
             if (!$form->isSubmitted() && !$form->isValid()) {
                 $this->addFlash('error', 'Le trick n\'a pas pu être créé');
             }
+
             return $this->redirectToRoute('trick.index');
         }
 
         return $this->render('admin/tricks/new.html.twig', [
-            'trick' => $trick,
+            #'trick' => $trick,
             'form' => $form->createView()
         ]);
     }

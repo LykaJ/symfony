@@ -15,7 +15,7 @@
                 <a href="{{ path('admin.tricks.new') }}" class="btn btn-outline-primary">Nouveau trick <i class="fas fa-plus"></i></a>
             </div>
         {% endif %}
-        <button onclick="topFunction()" id="myBtnTop" title="Go to top" class="btn btn-info"><i class="fas fa-chevron-up"></i></button>
+        <button onclick="topFunction()" id="myBtnTop" title="Go to top" class="scroll-top btn btn-info"><i class="fas fa-chevron-up"></i></button>
         <div class="container" id="js-tricks-container"></div>
         <div class="container">
             <div class="row" id="js-tricks-loader">
@@ -38,7 +38,7 @@
 
             </div>
         </div>
-        <button onclick="scrollBottom()" id="myBtnBottom" title="Go to bottom" class="btn btn-info"><i class="fas fa-chevron-down"></i></button>
+        <button onclick="scrollBottom()" title="Go to bottom" class="scroll-bottom btn btn-info"><i class="fas fa-chevron-down"></i></button>
     </div>
 {% endblock %}
 
@@ -114,6 +114,7 @@
         });
 
 
+
         window.onscroll = function() {scrollFunction()};
 
         function scrollFunction() {
@@ -133,8 +134,15 @@
         function scrollBottom()
         {
             window.scrollTo(0,document.body.scrollHeight);
-        }
 
+            if (document.body.scrollHeight > 20 || document.documentElement.scrollHeight > 20)
+            {
+               document.getElementById("myBtnBottom").style.display = "block";
+            } else {
+                document.getElementById("myBtnBottom").style.display = "none";
+            }
+
+        }
 
     </script>
 {% endblock %}
