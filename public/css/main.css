@@ -316,10 +316,18 @@ body {
 /* endregion*/
 
 /* region Top button */
-.myBtn {
+#myBtnTop {
     display: none;
     position: fixed;
     bottom: 20px;
+    right: 10px;
+    z-index: 99;
+    margin-bottom: 20px;
+}
+
+#myBtnBottom {
+    position: fixed;
+    top: 70px;
     right: 10px;
     z-index: 99;
     margin-bottom: 20px;
