@@ -37,10 +37,9 @@ class TrickType extends AbstractType
                         ->setParameter('id', 0);
                 },
             ])
-            ->add('uploadedImage', FileType::class, [
+            ->add('uploadedImage', UploadedImageType::class, [
                     'label' => 'Image de l\'article',
                     'required' => false,
-                    'data_class' => null
                 ]
             )
             ->add('mediaVideos', CollectionType::class, [
@@ -73,7 +72,11 @@ class TrickType extends AbstractType
             'empty_data' => function(FormInterface $form) {
                 return new TrickDTO(
                   $form->get('title')->getData(),
-                  $form->get('content')->getData()
+                  $form->get('content')->getData(),
+                  $form->get('uploadedImage')->getData(),
+                  $form->get('category')->getData(),
+                  $form->get('mediaVideos')->getData(),
+                  $form->get('mediaImages')->getData()
                 );
             }
         ]);

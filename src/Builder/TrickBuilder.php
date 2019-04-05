@@ -11,11 +11,18 @@ namespace App\Builder;
 
 use App\Dto\TrickDTO;
 use App\Entity\Trick;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class TrickBuilder
 {
     private $trick;
+    private $imageBuilder;
+    private $videoBuilder;
+
+    public function __construct(ImageMediaBuilder $imageBuilder, VideoMediaBuilder $videoBuilder)
+    {
+        $this->imageBuilder = $imageBuilder;
+        $this->videoBuilder = $videoBuilder;
+    }
 
     public function build(TrickDTO $trickDTO)
     {
@@ -23,11 +30,9 @@ class TrickBuilder
             $trickDTO->title,
             $trickDTO->content,
             $trickDTO->category,
-            $trickDTO->creation_date = new \DateTime('now'),
-            $trickDTO->author,
-            $trickDTO->mediaVideos,
-            $trickDTO->uploadedImage,
-            $trickDTO->mediaImages
+            '',
+            $this->videoBuilder->create($trickDTO->mediaVideos)->getMediaVideos(),
+            $this->imageBuilder->create($trickDTO->mediaImages)->getMediaImages()
         );
 
         return $this;

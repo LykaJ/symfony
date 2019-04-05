@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\ImageMedia;
+use App\Dto\ImageMediaDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,9 +15,6 @@ class ImageMediaType extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'label' => false,
-                'multiple' => true,
-                'required' => false,
-                'mapped' => false,
             ])
         ;
     }
@@ -25,7 +22,7 @@ class ImageMediaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ImageMedia::class,
+            'data_class' => ImageMediaDTO::class,
         ]);
     }
 }
