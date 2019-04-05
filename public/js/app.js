@@ -1,6 +1,6 @@
  $(document).ready(function() {
         // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-        var $container = $('div#trick_imageMedia');
+        var $container = $('div#trick_mediaImages');
 
         // On ajoute un lien pour ajouter une nouvelle catégorie
         var $addLink = $('<a href="#" id="add_image" class="btn btn-primary mb-3">Ajouter une image</a>');
@@ -63,7 +63,7 @@
 
  $(document).ready(function() {
      // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-     var $container = $('div#trick_videoMedia');
+     var $container = $('div#trick_mediaVideos');
 
      // On ajoute un lien pour ajouter une nouvelle catégorie
      var $addLink = $('<a href="#" id="add_image" class="btn btn-primary mb-3">Ajouter une vidéo</a>');

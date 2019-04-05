@@ -22,7 +22,7 @@ class VideoMedia
     private $path;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="videoMedia")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="mediaVideos")
      */
     private $trick;
 

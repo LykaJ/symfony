@@ -95,7 +95,6 @@ class Trick
         string $content,
         $category,
         $creation_date,
-        $edition_date,
         string $author,
         $mediaVideos,
         $uploadedImage,
@@ -106,7 +105,6 @@ class Trick
         $this->content = $content;
         $this->category = $category;
         $this->creation_date = $creation_date;
-        $this->edition_date = $edition_date;
         $this->author = $author;
         $this->mediaVideos = $mediaVideos;
         $this->uploadedImage = $uploadedImage;

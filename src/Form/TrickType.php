@@ -43,7 +43,7 @@ class TrickType extends AbstractType
                     'data_class' => null
                 ]
             )
-           /* ->add('mediaVideos', CollectionType::class, [
+            ->add('mediaVideos', CollectionType::class, [
                 'entry_type' => VideoMediaType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
@@ -58,7 +58,7 @@ class TrickType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'by_reference' => false,
-            ])*/
+            ])
         ;
     }
 

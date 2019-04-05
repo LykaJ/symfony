@@ -20,10 +20,8 @@ class TrickDTO
     public $content;
     public $category;
     public $creation_date;
-    public $edition_date;
     public $uploadedImage;
     public $author;
-    public $comments;
     public $mediaImages;
     public $mediaVideos;
 
@@ -33,9 +31,7 @@ class TrickDTO
         ?string $content = '',
         ?Category $category = null,
         ?\DateTimeInterface $creation_date = null,
-        ?\DateTimeInterface $edition_date = null,
         ?string $author = '',
-        ?string $comments = '',
         ?Collection $mediaVideos = null,
         ?UploadedFile $uploadedImage = null,
         ?UploadedFile $mediaImages = null
@@ -45,9 +41,7 @@ class TrickDTO
         $this->content = $content;
         $this->category = $category;
         $this->creation_date = $creation_date;
-        $this->edition_date = $edition_date;
         $this->author = $author;
-        $this->comments = $comments;
         $this->mediaImages = $mediaVideos;
         $this->uploadedImage = $uploadedImage;
         $this->mediaImages = $mediaImages;
