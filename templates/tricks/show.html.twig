@@ -26,7 +26,10 @@
                     <img src="{{ asset('images/default.png') }}" alt="card-img-top" class="img-fluid">
                 {% endif %}
                 <p>{{ trick.content }}</p>
-                <p>{{ trick.creationDate|date('d/m/Y') }}</p>
+                <p>Publié le {{ trick.creationDate|date('d/m/Y') }}
+                {% if trick.editionDate != null %}
+                    et modifié le {{ trick.editionDate|date('d/m/Y') }}</p>
+                {% endif %}
                 <div class="badge badge-pill badge-info">{{ trick.category.name }}</div>
             </div>
         </div>
@@ -37,8 +40,7 @@
         <h2>Commentaires</h2>
 
         {% if app.user %}
-            <p><strong>Auteur : {{ app.user.realName }}</strong></p>
-            {{ include('comments/_form.html.twig', {form: form, button: 'Créer'}) }}
+            {{ include('comments/_form.html.twig', {form: form, button: 'Laisser un commentaire'}) }}
         {% else %}
             <p>Vous ne pouvez pas commenter si vous n'êtes pas connecté(e).</p>
         {% endif %}

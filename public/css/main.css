@@ -314,3 +314,14 @@ body {
     padding-bottom: 100px;
 }
 /* endregion*/
+
+/* region Top button */
+.myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 99;
+    margin-bottom: 20px;
+}
+/* endregion*/
