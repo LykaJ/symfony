@@ -19,7 +19,7 @@ class TricksController extends AbstractController
 {
 
     const LIMIT = 8;
-    const CMTLIMIT = 10;
+    const CMTLIMIT = 5;
     /**
      * @var TrickRepository
      */

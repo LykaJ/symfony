@@ -16,7 +16,7 @@ class PasswordResetController extends AbstractController
     /**
      * @Route("/forgotten_password", name="forgotten_password")
      */
-    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    public function forgottenPassword(Request $request, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         if ($request->isMethod('POST')) {
 
@@ -85,7 +85,7 @@ class PasswordResetController extends AbstractController
             $this->addFlash('success', 'Le mot de passe a été réinitialisé');
 
             return $this->redirectToRoute('login');
-        }else {
+        } else {
 
             return $this->render('security/password_reset.html.twig', ['token' => $token]);
         }

@@ -28,7 +28,7 @@ class ImageMedia
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="imageMedia")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="mediaImages")
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
