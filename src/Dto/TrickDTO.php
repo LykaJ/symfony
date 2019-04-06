@@ -19,31 +19,25 @@ class TrickDTO
     public $title;
     public $content;
     public $category;
-    public $creation_date;
     public $uploadedImage;
-    public $author;
-    public $mediaImages;
     public $mediaVideos;
+    public $mediaImages;
 
 
     public function __construct(
-        ?string $title = '',
-        ?string $content = '',
-        ?Category $category = null,
-        ?\DateTimeInterface $creation_date = null,
-        ?string $author = '',
-        ?Collection $mediaVideos = null,
-        ?UploadedFile $uploadedImage = null,
-        ?UploadedFile $mediaImages = null
+        string $title,
+        string $content,
+        UploadedImageDTO $uploadedImage,
+        Category $category = null,
+        array $mediaVideos = null,
+        array $mediaImages = null
 )
     {
         $this->title = $title;
         $this->content = $content;
-        $this->category = $category;
-        $this->creation_date = $creation_date;
-        $this->author = $author;
-        $this->mediaImages = $mediaVideos;
         $this->uploadedImage = $uploadedImage;
+        $this->category = $category;
+        $this->mediaVideos = $mediaVideos;
         $this->mediaImages = $mediaImages;
     }
 }
