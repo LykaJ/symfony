@@ -108,7 +108,7 @@ class Trick
         $this->author = $author;
         $this->mediaVideos = $mediaVideos;
         $this->uploadedImage = $uploadedImage;
-        $this->mediaVideos = $mediaImages;
+        $this->mediaImages = $mediaImages;
         /*
         $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();
