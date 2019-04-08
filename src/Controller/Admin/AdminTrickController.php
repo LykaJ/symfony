@@ -1,22 +1,22 @@
 <?php
 
-
 namespace App\Controller\Admin;
 
-use App\Builder\TrickBuilder;
 use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
+use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\MediaImagesUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
 
 class AdminTrickController extends AbstractController
 {
@@ -36,13 +36,11 @@ class AdminTrickController extends AbstractController
      * @Route("/admin", name="admin.tricks.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-
     public function index()
     {
         $tricks = $this->repository->findAll();
         return $this->render('admin/tricks/index.html.twig', compact('tricks'));
     }
-
 
     /**
      * @Route("/admin/create", name="admin.tricks.new")
@@ -51,53 +49,40 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function create(Request $request, EventDispatcherInterface $event_dispatcher, TrickBuilder $trickBuilder)
+    public function create(Request $request, EventDispatcherInterface $event_dispatcher, MediaImagesUploader $mediaImagesUploader)
     {
-        $form = $this->createForm(TrickType::class)->handleRequest($request);
-
+        $trick = new Trick();
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $data = $form->getData();
-            $trick = $trickBuilder->build($data)->getTrick();
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
             $currentUser = $this->get('security.token_storage')->getToken()->getUser();
-
             if ($currentUser instanceof User) {
                 $trick->setAuthor($currentUser);
             }
 
-            dd($trick);
-
-           /* $uploads_directory = $this->getParameter('media_directory');
-            $files = $request->files->get('trick')['imageMedia'];
-
-            dump($files);
-
-            foreach ($files as $file)
+            if ($form->get('mediaVideos') != null)
             {
-                $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                // Move the file to the directory where brochures are stored
-                $file->move(
-                    $uploads_directory,
-                    $fileName
-                );
-            } */
-
+                foreach ($form->get('mediaVideos') as $k => $form_video)
+                {
+                    $uploadedVideo = $form_video->get('path')->getData();
+                    $mediaVideo = $trick->getMediaVideos()[$k];
+                    $mediaVideo->setPath($uploadedVideo);
+                    $mediaVideo->setTrick($trick);
+                }
+            }
 
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
-
             if (!$form->isSubmitted() && !$form->isValid()) {
                 $this->addFlash('error', 'Le trick n\'a pas pu être créé');
             }
-
             return $this->redirectToRoute('trick.index');
         }
-
         return $this->render('admin/tricks/new.html.twig', [
-            #'trick' => $trick,
+            'trick' => $trick,
             'form' => $form->createView()
         ]);
     }
@@ -113,21 +98,17 @@ class AdminTrickController extends AbstractController
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
-
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
             return $this->redirectToRoute('trick.index');
         }
-
         return $this->render('admin/tricks/edit.html.twig', [
             'trick' => $trick,
             'form' => $form->createView()
         ]);
     }
-
 
     /**
      * @Route("/admin/{id}", name="admin.tricks.delete", methods="DELETE")
@@ -139,14 +120,12 @@ class AdminTrickController extends AbstractController
     {
         $form = $this->createDeleteForm($trick);
         $form->handleRequest($request);
-
         if ($trick) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($trick);
             $em->flush();
             $this->addFlash('success', 'Le trick a bien été supprimé');
         }
-
         return $this->redirectToRoute('trick.index');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Dto\VideoMediaDTO;
 use App\Entity\VideoMedia;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -14,7 +15,8 @@ class VideoMediaType extends AbstractType
     {
         $builder
             ->add('path', UrlType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
         ;
     }

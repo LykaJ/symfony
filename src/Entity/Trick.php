@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
  * @UniqueEntity("title")
@@ -24,32 +23,26 @@ class Trick
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-
     /**
      * @ORM\Column(type="text")
      */
     private $content;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks", fetch="EXTRA_LAZY")
      */
     private $category;
-
     /**
      * @ORM\Column(type="datetime")
      */
     private $creation_date;
-
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $edition_date;
-
     /**
      * @ORM\Column(type="string", nullable=true)
      */
@@ -63,59 +56,37 @@ class Trick
      * )
      */
     private $uploadedImage;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $comments;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    private $mediaImages;
-
-
+    public $mediaImages;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    private $mediaVideos;
+    public $mediaVideos;
+
 
     /**
      * Trick constructor.
      * @throws \Exception
      */
-    public function __construct(
-        string $title,
-        string $content,
-        $category,
-        $creation_date,
-        string $author,
-        $mediaVideos,
-        $uploadedImage,
-        $mediaImages
-    )
+    public function __construct()
     {
-        $this->title = $title;
-        $this->content = $content;
-        $this->category = $category;
-        $this->creation_date = $creation_date;
-        $this->author = $author;
-        $this->mediaVideos = $mediaVideos;
-        $this->uploadedImage = $uploadedImage;
-        $this->mediaVideos = $mediaImages;
-        /*
         $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
-        $this->imageMedia = new ArrayCollection();
-        $this->videoMedia = new ArrayCollection(); */
+        $this->mediaImages = new ArrayCollection();
+        $this->mediaVideos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,7 +102,6 @@ class Trick
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -148,7 +118,6 @@ class Trick
     public function setContent(string $content): self
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -167,7 +136,6 @@ class Trick
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
         return $this;
     }
 
@@ -179,7 +147,6 @@ class Trick
     public function setCreationDate(DateTimeInterface $creation_date): self
     {
         $this->creation_date = $creation_date;
-
         return $this;
     }
 
@@ -196,7 +163,6 @@ class Trick
     public function setEditionDate(?DateTimeInterface $edition_date): self
     {
         $this->edition_date = $edition_date;
-
         return $this;
     }
 
@@ -215,7 +181,6 @@ class Trick
     public function setImage(?string $image): self
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -236,7 +201,6 @@ class Trick
     {
         $this->uploadedImage = $uploadedImage;
         $this->edition_date = new \DateTime('now');
-
         return $this;
     }
 
@@ -248,7 +212,6 @@ class Trick
     public function setAuthor(User $author): self
     {
         $this->author = $author;
-
         return $this;
     }
 
@@ -266,7 +229,6 @@ class Trick
             $this->comments[] = $comment;
             $comment->setTrick($this);
         }
-
         return $this;
     }
 
@@ -279,17 +241,17 @@ class Trick
                 $comment->setTrick(null);
             }
         }
-
         return $this;
     }
 
     /**
      * @return Collection|ImageMedia[]
      */
-    public function getMediaImages(): Collection
+    public function getMediaImages(): ?Collection
     {
         return $this->mediaImages;
     }
+
 
     /**
      * @param ImageMedia $imageMedium
@@ -301,7 +263,6 @@ class Trick
             $this->mediaImages[] = $imageMedium;
             $imageMedium->setTrick($this);
         }
-
         return $this;
     }
 
@@ -318,17 +279,17 @@ class Trick
                 $imageMedium->setTrick(null);
             }
         }
-
         return $this;
     }
 
     /**
      * @return Collection|VideoMedia[]
      */
-    public function getMediaVideos(): Collection
+    public function getMediaVideos(): ?Collection
     {
         return $this->mediaVideos;
     }
+
 
     /**
      * @param VideoMedia $videoMedium
@@ -340,9 +301,9 @@ class Trick
             $this->mediaVideos[] = $videoMedium;
             $videoMedium->setTrick($this);
         }
-
         return $this;
     }
+
 
     /**
      * @param VideoMedia $videoMedium
@@ -357,7 +318,6 @@ class Trick
                 $videoMedium->setTrick(null);
             }
         }
-
         return $this;
     }
 
@@ -377,6 +337,6 @@ class Trick
             $this->category,
             $this->mediaImages,
             $this->mediaVideos
-            ) =  unserialize($serialized, ['allowed_classes' => false]);
+            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
