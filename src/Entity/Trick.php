@@ -92,7 +92,11 @@ class Trick
      * @param string $title
      * @param string $content
      * @param Category $category
+<<<<<<< HEAD
      * @param UploadedFile $uploadedImage
+=======
+     * @param $uploadedImage
+>>>>>>> 67f7b8d6cbd6fbb10d0a2187e567292eb3267856
      * @param array $mediaVideos
      * @param array $mediaImages
      *
@@ -102,7 +106,11 @@ class Trick
         string $title,
         string $content,
         Category $category,
+<<<<<<< HEAD
         UploadedFile $uploadedImage,
+=======
+        string $uploadedImage,
+>>>>>>> 67f7b8d6cbd6fbb10d0a2187e567292eb3267856
         array $mediaVideos = [],
         array $mediaImages = []
     )

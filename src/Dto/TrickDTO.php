@@ -27,7 +27,11 @@ class TrickDTO
     public function __construct(
         string $title,
         string $content,
+<<<<<<< HEAD
         UploadedFile $uploadedImage = null,
+=======
+        UploadedImageDTO $uploadedImage,
+>>>>>>> 67f7b8d6cbd6fbb10d0a2187e567292eb3267856
         Category $category = null,
         array $mediaVideos = null,
         array $mediaImages = null
