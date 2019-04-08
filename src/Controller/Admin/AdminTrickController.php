@@ -59,13 +59,13 @@ class AdminTrickController extends AbstractController
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
 
 
-            dd($trick);
             $currentUser = $this->get('security.token_storage')->getToken()->getUser();
 
             if ($currentUser instanceof User) {
                 $trick->setAuthor($currentUser);
             }
 
+            /*
             $uploads_directory = $this->getParameter('media_directory');
             $files = $request->files->get('trick')['imageMedia'];
 
@@ -80,7 +80,7 @@ class AdminTrickController extends AbstractController
                     $fileName
                 );
             }
-
+            */
 
 
 
