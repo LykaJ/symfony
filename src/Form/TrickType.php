@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Form;
-use App\Dto\TrickDTO;
 use App\Entity\Category;
 use App\Entity\Trick;
 use App\Repository\CategoryRepository;
@@ -12,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 class TrickType extends AbstractType
 {
@@ -36,9 +33,10 @@ class TrickType extends AbstractType
                         ->setParameter('id', 0);
                 },
             ])
-            ->add('uploadedImage', FileType::class, [
+            ->add('imageUpload', FileType::class, [
                     'label' => 'Image de l\'article',
                     'required' => false,
+                    'data_class' => null
                 ]
             )
             ->add('mediaVideos', CollectionType::class, [
@@ -64,18 +62,8 @@ class TrickType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => TrickDTO::class,
+            'data_class' => Trick::class,
             'translation_domain' => 'forms',
-            'empty_data' => function(FormInterface $form) {
-                return new TrickDTO(
-                    $form->get('title')->getData(),
-                    $form->get('content')->getData(),
-                    $form->get('uploadedImage')->getData(),
-                    $form->get('category')->getData(),
-                    $form->get('mediaVideos')->getData(),
-                    $form->get('mediaImages')->getData()
-                );
-            }
         ]);
     }
 }

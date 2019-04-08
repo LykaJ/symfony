@@ -2,7 +2,6 @@
 
 namespace App\Event;
 
-
 use App\Entity\Trick;
 use Symfony\Component\EventDispatcher\Event;
 

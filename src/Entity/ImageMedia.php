@@ -16,23 +16,19 @@ class ImageMedia
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
-
     /**
-     * @var UploadedFile
+     * @var string
      */
     private $file;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="mediaImages")
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
-
 
     public function getId(): ?int
     {
@@ -47,30 +43,26 @@ class ImageMedia
     public function setName(?string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
     /**
-     * @return UploadedFile|null
+     * @return string|null
      */
-    public function getFile(): ?UploadedFile
+    public function getFile(): ?string
     {
         return $this->file;
     }
 
-
     /**
-     * @param UploadedFile|null $file
+     * @param string|null $file
      * @return ImageMedia
      */
-    public function setFile(?UploadedFile $file): self
+    public function setFile(?string $file): self
     {
         $this->file = $file;
-
         return $this;
     }
-
 
     public function getTrick(): ?Trick
     {
@@ -80,7 +72,6 @@ class ImageMedia
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
-
         return $this;
     }
 }
