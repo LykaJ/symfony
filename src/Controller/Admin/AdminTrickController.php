@@ -14,7 +14,6 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -68,25 +67,8 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-            dd($trick);
-
-
             $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
-           /* $uploads_directory = $this->getParameter('media_directory');
-            $files = $request->files->get('trick')['imageMedia'];
-
-            dump($files);
-
-            foreach ($files as $file)
-            {
-                $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                // Move the file to the directory where brochures are stored
-                $file->move(
-                    $uploads_directory,
-                    $fileName
-                );
-            } */
-
+            dd($form);
 
             $this->em->persist($trick);
             $this->em->flush();
@@ -119,6 +101,7 @@ class AdminTrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');

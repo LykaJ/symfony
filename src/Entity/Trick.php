@@ -89,7 +89,7 @@ class Trick
     /**
      * Trick constructor.
      *
-     *  @param string $title
+     * @param string $title
      * @param string $content
      * @param Category $category
      * @param UploadedFile $uploadedImage
@@ -102,7 +102,7 @@ class Trick
         string $title,
         string $content,
         Category $category,
-        UploadedFile $uploadedImage,
+        ?UploadedFile $uploadedImage,
         array $mediaVideos = [],
         array $mediaImages = []
     )
