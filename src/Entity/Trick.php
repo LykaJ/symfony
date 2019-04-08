@@ -89,7 +89,7 @@ class Trick
     /**
      * Trick constructor.
      *
-     * @param string $title
+     *  @param string $title
      * @param string $content
      * @param Category $category
      * @param UploadedFile $uploadedImage
@@ -110,11 +110,10 @@ class Trick
         $this->title = $title;
         $this->content = $content;
         $this->category = $category;
-        $this->creation_date = $creation_date;
-        $this->author = $author;
+        $this->creation_date = new \DateTime();
         $this->mediaVideos = $mediaVideos;
         $this->uploadedImage = $uploadedImage;
-        $this->mediaVideos = $mediaImages;
+        $this->mediaImages = $mediaImages;
         /*
         $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();

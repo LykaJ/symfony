@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Form;
 
+namespace App\Form;
 use App\Dto\TrickDTO;
 use App\Entity\Category;
 use App\Entity\Trick;
 use App\Repository\CategoryRepository;
-use PhpParser\Node\Scalar\MagicConst\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -15,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 class TrickType extends AbstractType
 {
     /**
@@ -29,7 +27,7 @@ class TrickType extends AbstractType
                 'mapped' => false,
             ])
             ->add('content')
-           ->add('category', EntityType::class, [
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'query_builder' => function (CategoryRepository $repo) {
@@ -50,7 +48,6 @@ class TrickType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true
             ])
-
             ->add('mediaImages', CollectionType::class, [
                 'entry_type' => ImageMediaType::class,
                 'entry_options' => ['label' => false],
@@ -61,7 +58,6 @@ class TrickType extends AbstractType
             ])
         ;
     }
-
     /**
      * @param OptionsResolver $resolver
      */
@@ -72,13 +68,12 @@ class TrickType extends AbstractType
             'translation_domain' => 'forms',
             'empty_data' => function(FormInterface $form) {
                 return new TrickDTO(
-                  $form->get('title')->getData(),
-                  $form->get('content')->getData(),
-                  $form->get('uploadedImage')->getData(),
-                  $form->get('category')->getData(),
-                  $form->get('mediaVideos')->getData(),
-                  $form->get('mediaImages')->getData()
-
+                    $form->get('title')->getData(),
+                    $form->get('content')->getData(),
+                    $form->get('uploadedImage')->getData(),
+                    $form->get('category')->getData(),
+                    $form->get('mediaVideos')->getData(),
+                    $form->get('mediaImages')->getData()
                 );
             }
         ]);

@@ -15,26 +15,21 @@ use App\Entity\VideoMedia;
 class VideoMediaBuilder
 {
     private $mediaVideos = [];
-
     public function create(array $mediaVideosDTO)
     {
         foreach ($mediaVideosDTO as $mediaVideoDTO) {
             $this->mediaVideos[] = $this->createVideoMedia($mediaVideoDTO);
         }
-
         return $this;
     }
-
     public function getMediaVideos()
     {
         return $this->mediaVideos;
     }
-
     private function createVideoMedia(VideoMediaDTO $video_media_DTO)
     {
         $videoMedia = new VideoMedia();
         $videoMedia->setPath($video_media_DTO->url);
-
         return $videoMedia;
     }
 }
