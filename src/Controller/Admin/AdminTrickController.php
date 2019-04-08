@@ -6,6 +6,7 @@ use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
+use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use App\Service\MediaImagesUploader;
@@ -54,26 +55,26 @@ class AdminTrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
             $currentUser = $this->get('security.token_storage')->getToken()->getUser();
             if ($currentUser instanceof User) {
                 $trick->setAuthor($currentUser);
             }
 
-            $this->em->persist($trick);
-
-            if ($form->get('mediaImages') != null) {
+           /* if ($form->get('mediaImages') != null) {
                 foreach ($form->get('mediaImages') as $k => $form_photo) {
                     $uploadedFile = $form_photo->get('file')->getData();
                     if ($uploadedFile instanceof UploadedFile) {
                         $fileName = $mediaImagesUploader->upload($uploadedFile);
                         $photo = $trick->getMediaImages()[$k];
                         $photo->setName($fileName);
-                        $this->em->persist($photo);
                     }
                 }
-            }
+            } */
 
+
+            $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
             if (!$form->isSubmitted() && !$form->isValid()) {

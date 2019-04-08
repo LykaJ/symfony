@@ -4,8 +4,9 @@ namespace App\EventSubscriber;
 
 use App\Event\MediaImagesUploadEvent;
 use App\Service\MediaImagesUploader;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class MediaImagesSubscriber
+class MediaImagesSubscriber implements EventSubscriberInterface
 {
     private $uploader;
 
@@ -20,6 +21,7 @@ class MediaImagesSubscriber
         return [
             MediaImagesUploadEvent::IMAGE_UPLOAD => [
                 ['upload', 10],
+                ['uploadImageMedia', 10],
                // ['remove', 20],
             ],
         ];
