@@ -62,17 +62,16 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-           /* if ($form->get('mediaImages') != null) {
-                foreach ($form->get('mediaImages') as $k => $form_photo) {
-                    $uploadedFile = $form_photo->get('file')->getData();
-                    if ($uploadedFile instanceof UploadedFile) {
-                        $fileName = $mediaImagesUploader->upload($uploadedFile);
-                        $photo = $trick->getMediaImages()[$k];
-                        $photo->setName($fileName);
-                    }
+            if ($form->get('mediaVideos') != null)
+            {
+                foreach ($form->get('mediaVideos') as $k => $form_video)
+                {
+                    $uploadedVideo = $form_video->get('path')->getData();
+                    $mediaVideo = $trick->getMediaVideos()[$k];
+                    $mediaVideo->setPath($uploadedVideo);
+                    $mediaVideo->setTrick($trick);
                 }
-            } */
-
+            }
 
             $this->em->persist($trick);
             $this->em->flush();
