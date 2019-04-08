@@ -70,8 +70,8 @@ class AdminTrickController extends AbstractController
 
             dd($trick);
 
-            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
+            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
            /* $uploads_directory = $this->getParameter('media_directory');
             $files = $request->files->get('trick')['imageMedia'];
 

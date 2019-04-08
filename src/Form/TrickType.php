@@ -38,7 +38,7 @@ class TrickType extends AbstractType
                         ->setParameter('id', 0);
                 },
             ])
-            ->add('uploadedImage', UploadedImageType::class, [
+            ->add('uploadedImage', FileType::class, [
                     'label' => 'Image de l\'article',
                     'required' => false,
                 ]
@@ -78,6 +78,7 @@ class TrickType extends AbstractType
                   $form->get('category')->getData(),
                   $form->get('mediaVideos')->getData(),
                   $form->get('mediaImages')->getData()
+
                 );
             }
         ]);

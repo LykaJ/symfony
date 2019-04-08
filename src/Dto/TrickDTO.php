@@ -27,11 +27,8 @@ class TrickDTO
     public function __construct(
         string $title,
         string $content,
-<<<<<<< HEAD
+
         UploadedFile $uploadedImage = null,
-=======
-        UploadedImageDTO $uploadedImage,
->>>>>>> 67f7b8d6cbd6fbb10d0a2187e567292eb3267856
         Category $category = null,
         array $mediaVideos = null,
         array $mediaImages = null
@@ -39,9 +36,11 @@ class TrickDTO
     {
         $this->title = $title;
         $this->content = $content;
-        $this->uploadedImage = $uploadedImage;
         $this->category = $category;
-        $this->mediaVideos = $mediaVideos;
+        $this->creation_date = $creation_date;
+        $this->author = $author;
+        $this->mediaImages = $mediaVideos;
+        $this->uploadedImage = $uploadedImage;
         $this->mediaImages = $mediaImages;
     }
 }

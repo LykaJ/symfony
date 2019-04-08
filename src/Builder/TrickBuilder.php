@@ -30,11 +30,7 @@ class TrickBuilder
             $trickDTO->title,
             $trickDTO->content,
             $trickDTO->category,
-<<<<<<< HEAD
             $trickDTO->uploadedImage,
-=======
-            '',
->>>>>>> 67f7b8d6cbd6fbb10d0a2187e567292eb3267856
             $this->videoBuilder->create($trickDTO->mediaVideos)->getMediaVideos(),
             $this->imageBuilder->create($trickDTO->mediaImages)->getMediaImages()
         );
