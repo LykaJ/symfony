@@ -9,6 +9,7 @@ use App\Event\AdminUploadTrickImageEvent;
 use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\MediaImagesUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -43,8 +44,8 @@ class AdminTrickController extends AbstractController
      * @Route("/admin/create", name="admin.tricks.new")
      * @param Request $request
      * @param EventDispatcherInterface $event_dispatcher
+     * @param MediaImagesUploader $mediaImagesUploader
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
      */
     public function create(Request $request, EventDispatcherInterface $event_dispatcher)
     {
@@ -52,9 +53,9 @@ class AdminTrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
-
             $currentUser = $this->get('security.token_storage')->getToken()->getUser();
             if ($currentUser instanceof User) {
                 $trick->setAuthor($currentUser);
@@ -71,9 +72,8 @@ class AdminTrickController extends AbstractController
                 }
             }
 
-
-
             $this->em->persist($trick);
+
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
             if (!$form->isSubmitted() && !$form->isValid()) {

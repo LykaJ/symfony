@@ -47,7 +47,6 @@ class Trick
      * @ORM\Column(type="string", nullable=true)
      */
     private $image;
-
     /**
      * @var UploadedFile
      * @Assert\File(
@@ -68,7 +67,9 @@ class Trick
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
+
     public $mediaImages;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
@@ -77,7 +78,6 @@ class Trick
 
     /**
      * Trick constructor.
-     * @throws \Exception
      */
     public function __construct()
     {
@@ -249,7 +249,7 @@ class Trick
      */
     public function getMediaImages(): ?Collection
     {
-        return $this->mediaImages;
+        return $this->imageMedia;
     }
 
 

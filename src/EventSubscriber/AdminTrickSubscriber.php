@@ -20,9 +20,20 @@ class AdminTrickSubscriber implements EventSubscriberInterface
         return [
             AdminUploadTrickImageEvent::NAME => [
                 ['upload', 10],
+                ['uploadImageMedia', 10],
                 ['remove', 20],
             ],
         ];
+    }
+
+    public function uploadImageMedia(AdminUploadTrickImageEvent $event)
+    {
+        $trick = $event->getTrick();
+
+        foreach ($trick->getImageMedia() as $image_media) {
+
+            $image_media->setName($this->uploader->upload($image_media->getFile()));
+        }
     }
 
     public function upload(AdminUploadTrickImageEvent $event)

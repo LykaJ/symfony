@@ -22,6 +22,7 @@ class MediaImagesSubscriber implements EventSubscriberInterface
             MediaImagesUploadEvent::IMAGE_UPLOAD => [
                 ['upload', 10],
                 ['uploadImageMedia', 10],
+
                // ['remove', 20],
             ],
         ];
