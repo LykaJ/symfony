@@ -67,7 +67,7 @@ class Trick
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    public $mediaImages;
+    public $imageMedia;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
@@ -83,7 +83,7 @@ class Trick
         $this->edition_date = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
-        $this->mediaImages = new ArrayCollection();
+        $this->imageMedia = new ArrayCollection();
         $this->mediaVideos = new ArrayCollection();
     }
 
@@ -245,11 +245,10 @@ class Trick
     /**
      * @return Collection|ImageMedia[]
      */
-    public function getMediaImages(): Collection
+    public function getImageMedia(): Collection
     {
-        return $this->mediaImages;
+        return $this->imageMedia;
     }
-
 
     /**
      * @param ImageMedia $imageMedium
@@ -257,10 +256,11 @@ class Trick
      */
     public function addImageMedium(ImageMedia $imageMedium): self
     {
-        if (!$this->mediaImages->contains($imageMedium)) {
-            $this->mediaImages[] = $imageMedium;
+        if (!$this->imageMedia->contains($imageMedium)) {
+            $this->imageMedia[] = $imageMedium;
             $imageMedium->setTrick($this);
         }
+
         return $this;
     }
 
@@ -270,13 +270,14 @@ class Trick
      */
     public function removeImageMedium(ImageMedia $imageMedium): self
     {
-        if ($this->mediaImages->contains($imageMedium)) {
-            $this->mediaImages->removeElement($imageMedium);
+        if ($this->imageMedia->contains($imageMedium)) {
+            $this->imageMedia->removeElement($imageMedium);
             // set the owning side to null (unless already changed)
             if ($imageMedium->getTrick() === $this) {
                 $imageMedium->setTrick(null);
             }
         }
+
         return $this;
     }
 

@@ -47,10 +47,10 @@ class AdminTrickController extends AbstractController
      * @param MediaImagesUploader $mediaImagesUploader
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request, EventDispatcherInterface $event_dispatcher, MediaImagesUploader $mediaImagesUploader)
+    public function create(Request $request, EventDispatcherInterface $event_dispatcher)
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class)->handleRequest($request);
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -61,30 +61,6 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-            if ($form->get('mediaImages') != null) {
-                foreach ($form->get('mediaImages') as $k => $form_photo) {
-                    $uploadedFile = $form_photo->get('file')->getData();
-                    if ($uploadedFile instanceof UploadedFile) {
-                        $fileName = $mediaImagesUploader->upload($uploadedFile);
-                        dd($trick->getMediaImages());
-                        $photo = $trick->getMediaImages()[$k];
-                        $photo->setFile($fileName);
-                    }
-                }
-            }
-
-            /* $uploads_directory = $this->getParameter('media_directory');
-             $files = $request->files->get('trick')['imageMedia'];
-             dump($files);
-             foreach ($files as $file)
-             {
-                 $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                 // Move the file to the directory where brochures are stored
-                 $file->move(
-                     $uploads_directory,
-                     $fileName
-                 );
-             } */
             $this->em->persist($trick);
 
             $this->em->flush();
@@ -95,7 +71,7 @@ class AdminTrickController extends AbstractController
             return $this->redirectToRoute('trick.index');
         }
         return $this->render('admin/tricks/new.html.twig', [
-            #'trick' => $trick,
+            'trick' => $trick,
             'form' => $form->createView()
         ]);
     }

@@ -21,11 +21,11 @@ class ImageMedia
      */
     private $name;
     /**
-     * @var string
+     * @var UploadedFile
      */
     private $file;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="mediaImages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="imageMedia")
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
@@ -47,18 +47,18 @@ class ImageMedia
     }
 
     /**
-     * @return string|null
+     * @return UploadedFile|null
      */
-    public function getFile(): ?string
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
     /**
-     * @param string|null $file
+     * @param UploadedFile|null $file
      * @return ImageMedia
      */
-    public function setFile(?string $file): self
+    public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
         return $this;
