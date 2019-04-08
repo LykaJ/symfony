@@ -53,12 +53,13 @@ class AdminTrickController extends AbstractController
     public function create(Request $request, EventDispatcherInterface $event_dispatcher)
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
 
+
+            dd($trick);
             $currentUser = $this->get('security.token_storage')->getToken()->getUser();
 
             if ($currentUser instanceof User) {

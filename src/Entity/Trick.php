@@ -76,11 +76,6 @@ class Trick
     private $comments;
 
     /**
-     * @var UploadedFile
-     * @Assert\File(
-     *     maxSize="300k",
-     *     maxSizeMessage="Le fichier est trop volumineux (0.53 MB). Sa taille ne doit pas dépasser 0.3 MB."
-     * )
      * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $imageMedia;
