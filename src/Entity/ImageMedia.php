@@ -21,7 +21,7 @@ class ImageMedia
      */
     private $name;
     /**
-     * @var string
+     * @var UploadedFile
      */
     private $file;
     /**
@@ -47,18 +47,18 @@ class ImageMedia
     }
 
     /**
-     * @return string|null
+     * @return UploadedFile|null
      */
-    public function getFile(): ?string
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
     /**
-     * @param string|null $file
+     * @param UploadedFile|null $file
      * @return ImageMedia
      */
-    public function setFile(?string $file): self
+    public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
         return $this;

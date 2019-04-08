@@ -47,6 +47,7 @@ class Trick
      * @ORM\Column(type="string", nullable=true)
      */
     private $image;
+
     /**
      * @var UploadedFile
      * @Assert\File(
@@ -76,6 +77,7 @@ class Trick
 
     /**
      * Trick constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
@@ -245,7 +247,7 @@ class Trick
     /**
      * @return Collection|ImageMedia[]
      */
-    public function getMediaImages(): Collection
+    public function getMediaImages(): ?Collection
     {
         return $this->mediaImages;
     }
@@ -283,7 +285,7 @@ class Trick
     /**
      * @return Collection|VideoMedia[]
      */
-    public function getMediaVideos(): Collection
+    public function getMediaVideos(): ?Collection
     {
         return $this->mediaVideos;
     }

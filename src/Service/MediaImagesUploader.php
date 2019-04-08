@@ -1,7 +1,6 @@
 <?php
 namespace App\Service;
 
-use App\Entity\Trick;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -31,12 +30,6 @@ class MediaImagesUploader
 
     }
 
-    public function getTrick(Trick $trick)
-    {
-        $this->trick = $trick;
-
-        return $trick;
-    }
 
     public function getMediaDirectory()
     {

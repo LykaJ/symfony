@@ -14,13 +14,11 @@ class ImageMediaType extends AbstractType
     {
         $builder
             ->add('file', FileType::class, [
-                'data_class' => null,
-                'required' => false,
                 'label' => false,
-                'mapped' => false,
-            ]);
+                'required' => false
+            ])
+        ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

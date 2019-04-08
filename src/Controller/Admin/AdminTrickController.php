@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Builder\TrickBuilder;
+use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
@@ -12,6 +12,7 @@ use App\Service\MediaImagesUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,48 +45,34 @@ class AdminTrickController extends AbstractController
      * @Route("/admin/create", name="admin.tricks.new")
      * @param Request $request
      * @param EventDispatcherInterface $event_dispatcher
-     * @param MediaImagesUploader $mediaImagesUploader
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function create(Request $request, EventDispatcherInterface $event_dispatcher, MediaImagesUploader $mediaImagesUploader)
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class)->handleRequest($request);
-
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
-            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
 
+            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
             if ($currentUser instanceof User) {
                 $trick->setAuthor($currentUser);
             }
+
+            $this->em->persist($trick);
 
             if ($form->get('mediaImages') != null) {
                 foreach ($form->get('mediaImages') as $k => $form_photo) {
                     $uploadedFile = $form_photo->get('file')->getData();
                     if ($uploadedFile instanceof UploadedFile) {
                         $fileName = $mediaImagesUploader->upload($uploadedFile);
-                        dd($trick->getMediaImages());
                         $photo = $trick->getMediaImages()[$k];
-                        $photo->setFile($fileName);
+                        $photo->setName($fileName);
+                        $this->em->persist($photo);
                     }
                 }
             }
-
-            /* $uploads_directory = $this->getParameter('media_directory');
-             $files = $request->files->get('trick')['imageMedia'];
-             dump($files);
-             foreach ($files as $file)
-             {
-                 $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                 // Move the file to the directory where brochures are stored
-                 $file->move(
-                     $uploads_directory,
-                     $fileName
-                 );
-             } */
-            $this->em->persist($trick);
 
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
@@ -95,7 +82,7 @@ class AdminTrickController extends AbstractController
             return $this->redirectToRoute('trick.index');
         }
         return $this->render('admin/tricks/new.html.twig', [
-            #'trick' => $trick,
+            'trick' => $trick,
             'form' => $form->createView()
         ]);
     }
