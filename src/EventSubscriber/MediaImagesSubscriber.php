@@ -46,7 +46,7 @@ class MediaImagesSubscriber implements EventSubscriberInterface
     public function remove(MediaImagesUploadEvent $event)
     {
         $trick = $event->getTrick();
-        $file = $trick->getImage();
+        $file = $trick->getMediaImages();
 
         if(isset($file))
         {
