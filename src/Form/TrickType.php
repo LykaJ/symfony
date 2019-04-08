@@ -6,6 +6,7 @@ use App\Dto\TrickDTO;
 use App\Entity\Category;
 use App\Entity\Trick;
 use App\Repository\CategoryRepository;
+use PhpParser\Node\Scalar\MagicConst\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -40,7 +41,6 @@ class TrickType extends AbstractType
             ->add('uploadedImage', FileType::class, [
                     'label' => 'Image de l\'article',
                     'required' => false,
-                    'data_class' => null
                 ]
             )
             ->add('mediaVideos', CollectionType::class, [
@@ -73,7 +73,11 @@ class TrickType extends AbstractType
             'empty_data' => function(FormInterface $form) {
                 return new TrickDTO(
                   $form->get('title')->getData(),
-                  $form->get('content')->getData()
+                  $form->get('content')->getData(),
+                  $form->get('uploadedImage')->getData(),
+                  $form->get('category')->getData(),
+                  $form->get('mediaVideos')->getData(),
+                  $form->get('mediaImages')->getData()
                 );
             }
         ]);

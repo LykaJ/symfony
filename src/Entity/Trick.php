@@ -88,24 +88,29 @@ class Trick
 
     /**
      * Trick constructor.
+     *
+     * @param string $title
+     * @param string $content
+     * @param Category $category
+     * @param UploadedFile $uploadedImage
+     * @param array $mediaVideos
+     * @param array $mediaImages
+     *
      * @throws \Exception
      */
     public function __construct(
         string $title,
         string $content,
-        $category,
-        $creation_date,
-        string $author,
-        $mediaVideos,
-        $uploadedImage,
-        $mediaImages
+        Category $category,
+        UploadedFile $uploadedImage,
+        array $mediaVideos = [],
+        array $mediaImages = []
     )
     {
         $this->title = $title;
         $this->content = $content;
         $this->category = $category;
-        $this->creation_date = $creation_date;
-        $this->author = $author;
+        $this->creation_date = new \DateTime();
         $this->mediaVideos = $mediaVideos;
         $this->uploadedImage = $uploadedImage;
         $this->mediaImages = $mediaImages;

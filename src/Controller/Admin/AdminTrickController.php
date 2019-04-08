@@ -8,6 +8,7 @@ use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
+use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -68,6 +69,8 @@ class AdminTrickController extends AbstractController
             }
 
             dd($trick);
+
+            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
            /* $uploads_directory = $this->getParameter('media_directory');
             $files = $request->files->get('trick')['imageMedia'];
