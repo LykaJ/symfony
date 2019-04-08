@@ -32,10 +32,26 @@
                 {% endif %}
                 <div class="badge badge-pill badge-info">{{ trick.category.name }}</div>
 
-               {# <div class="col-12">
-                    {{ trick.mediaImages }}
-                    {{ trick.mediaVideos }}
-                </div>#}
+                <div class="col-12 mt-5">
+                    {% if trick.mediaImages %}
+                        {%  for mediaImage in trick.mediaImages %}
+                            <img src="{{ asset('uploads/media/') ~ mediaImage.name }}" alt="image media" style="width: 250px; height: auto">
+                        {% endfor %}
+                        {% else %}
+                        <p>Ce trick n'a pas d'images</p>
+                    {%  endif %}
+                    {% if trick.mediaVideos %}
+                        {%  for mediaVideo in trick.mediaVideos %}
+                            <iframe id="ytplayer" type="text/html" width="640" height="360"
+                                    src="{{ mediaVideo.path }}"
+                                    frameborder="0"></iframe>
+                        {% endfor %}
+                    {% else %}
+                        <p>Ce trick n'a pas de vidéos</p>
+                    {%  endif %}
+                </div>
+
+
             </div>
         </div>
         <hr/>

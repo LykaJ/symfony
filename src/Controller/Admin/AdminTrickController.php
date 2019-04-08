@@ -2,19 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\ImageMedia;
+
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
 use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
-use App\Service\MediaImagesUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,10 +46,11 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function create(Request $request, EventDispatcherInterface $event_dispatcher, MediaImagesUploader $mediaImagesUploader)
+    public function create(Request $request, EventDispatcherInterface $event_dispatcher)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
@@ -72,6 +70,8 @@ class AdminTrickController extends AbstractController
                     $mediaVideo->setTrick($trick);
                 }
             }
+
+
 
             $this->em->persist($trick);
             $this->em->flush();
@@ -100,6 +100,19 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
+
+            if ($form->get('mediaVideos') != null)
+            {
+                foreach ($form->get('mediaVideos') as $k => $form_video)
+                {
+                    $uploadedVideo = $form_video->get('path')->getData();
+                    $mediaVideo = $trick->getMediaVideos()[$k];
+                    $mediaVideo->setPath($uploadedVideo);
+                    $mediaVideo->setTrick($trick);
+                }
+            }
+
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
             return $this->redirectToRoute('trick.index');
