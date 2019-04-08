@@ -108,7 +108,8 @@ class Trick
         $this->author = $author;
         $this->mediaVideos = $mediaVideos;
         $this->uploadedImage = $uploadedImage;
-        $this->mediaVideos = $mediaImages;
+        $this->mediaVideos = $mediaVideos;
+        $this->mediaImages = $mediaImages;
         /*
         $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();
@@ -286,7 +287,7 @@ class Trick
     /**
      * @return Collection|ImageMedia[]
      */
-    public function getMediaImages(): Collection
+    public function getMediaImages(): array
     {
         return $this->mediaImages;
     }

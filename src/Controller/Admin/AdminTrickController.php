@@ -10,10 +10,12 @@ use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -51,7 +53,7 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function create(Request $request, EventDispatcherInterface $event_dispatcher, TrickBuilder $trickBuilder)
+    public function create(Request $request, EventDispatcherInterface $event_dispatcher, TrickBuilder $trickBuilder, FileUploader $file_uploader)
     {
         $form = $this->createForm(TrickType::class)->handleRequest($request);
 
@@ -65,6 +67,17 @@ class AdminTrickController extends AbstractController
 
             if ($currentUser instanceof User) {
                 $trick->setAuthor($currentUser);
+            }
+
+            if($form->get('mediaImages') != null) {
+                foreach ( $form->get( 'mediaImages' ) as $k => $form_photo ) {
+                    $uploadedFile = $form_photo->get( 'file' )->getData();
+                    if ($uploadedFile instanceof UploadedFile) {
+                        $fileName = $file_uploader->upload( $uploadedFile );
+                        $photo    = $trick->getMediaImages()[ $k ];
+                        $photo->setFile( $fileName );
+                    }
+                }
             }
 
             dd($trick);

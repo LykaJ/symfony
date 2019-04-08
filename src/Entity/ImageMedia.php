@@ -23,7 +23,7 @@ class ImageMedia
     private $name;
 
     /**
-     * @var UploadedFile
+     * @var string
      */
     private $file;
 
@@ -52,19 +52,19 @@ class ImageMedia
     }
 
     /**
-     * @return UploadedFile|null
+     * @return string|null
      */
-    public function getFile(): ?UploadedFile
+    public function getFile(): ?string
     {
         return $this->file;
     }
 
 
     /**
-     * @param UploadedFile|null $file
+     * @param string|null $file
      * @return ImageMedia
      */
-    public function setFile(?UploadedFile $file): self
+    public function setFile(?string $file): self
     {
         $this->file = $file;
 
