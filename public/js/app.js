@@ -1,4 +1,5 @@
- $(document).ready(function() {
+//FORM ADD MEDIA IMAGES
+$(document).ready(function() {
         // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
         var $container = $("div#trick_mediaImages");
 
@@ -62,6 +63,7 @@
 
     });
 
+//FORM ADD MEDIA VIDEO
  $(document).ready(function() {
      // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
      var $container = $("div#trick_mediaVideos");
@@ -127,4 +129,6 @@
 
 
  });
+
+
 
