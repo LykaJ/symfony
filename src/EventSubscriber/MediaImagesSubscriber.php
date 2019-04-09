@@ -20,9 +20,8 @@ class MediaImagesSubscriber implements EventSubscriberInterface
         // return the subscribed events, their methods and priorities
         return [
             MediaImagesUploadEvent::IMAGE_UPLOAD => [
-                ['upload', 10],
                 ['uploadImageMedia', 10],
-               // ['remove', 20],
+                ['remove', 20],
             ],
         ];
     }
@@ -36,17 +35,14 @@ class MediaImagesSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function upload(MediaImagesUploadEvent $event)
-    {
-        $trick = $event->getTrick();
-        $trick->setImage($this->uploader->upload($trick->getImageUpload()));
-
-    }
-
     public function remove(MediaImagesUploadEvent $event)
     {
         $trick = $event->getTrick();
-        $file = $trick->getMediaImages();
+
+        foreach ($trick->getMediaImages() as $image_media)
+        {
+            $file = $image_media->getName();
+        }
 
         if(isset($file))
         {
