@@ -110,9 +110,9 @@ class AdminTrickController extends AbstractController
             if ($form->get('mediaImages') != null)
             {
                 $trick->getMediaImages();
+                $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
             }
 
-            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
             if ($form->get('mediaVideos') != null)
             {

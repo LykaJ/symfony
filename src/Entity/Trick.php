@@ -32,7 +32,7 @@ class Trick
      */
     private $content;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks", fetch="EXTRA_LAZY")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
     private $category;
     /**
@@ -57,20 +57,20 @@ class Trick
      */
     private $uploadedImage;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks", fetch="EXTRA_LAZY")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true, fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true, orphanRemoval=true)
      */
     private $comments;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, orphanRemoval=true)
      */
     public $mediaImages;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, orphanRemoval=true)
      */
     public $mediaVideos;
 
