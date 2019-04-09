@@ -147,7 +147,7 @@ body {
 
 /* region Loader */
 .sk-folding-cube {
-    margin: 20px auto;
+    margin: 50px auto;
     width: 40px;
     height: 40px;
     position: relative;
@@ -342,6 +342,12 @@ body {
 
 .images {
     margin-top: 10px;
+}
+
+.help-video {
+    color: grey;
+    font-style: italic;
+    font-size: 11pt;
 }
 
 /* region carousel */
