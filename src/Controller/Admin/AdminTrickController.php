@@ -40,7 +40,7 @@ class AdminTrickController extends AbstractController
     }
 
     /**
-     * @Route("/admin/create", name="admin.tricks.new")
+     * @Route("/tricks/new", name="admin.tricks.new")
      * @param Request $request
      * @param EventDispatcherInterface $event_dispatcher
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -86,7 +86,7 @@ class AdminTrickController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="admin.tricks.edit", methods="GET|POST")
+     * @Route("/tricks/{id}/edit", name="admin.tricks.edit", methods="GET|POST")
      * @param Trick $trick
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -134,7 +134,7 @@ class AdminTrickController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="admin.tricks.delete", methods="DELETE")
+     * @Route("/tricks/{id}", name="admin.tricks.delete", methods="DELETE")
      * @param Request $request
      * @param Trick $trick
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
