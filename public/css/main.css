@@ -147,7 +147,7 @@ body {
 
 /* region Loader */
 .sk-folding-cube {
-    margin: 20px auto;
+    margin: 50px auto;
     width: 40px;
     height: 40px;
     position: relative;
@@ -334,3 +334,56 @@ body {
     margin-bottom: 20px;
 }
 /* endregion*/
+
+.youtube-videos {
+    margin-top: 5px;
+    width: auto;
+}
+
+.images {
+    margin-top: 10px;
+}
+
+.help-video {
+    color: grey;
+    font-style: italic;
+    font-size: 11pt;
+}
+
+/* region carousel */
+.carousel-item {
+    margin-top: 20px;
+    height: 350px;
+    width: auto;
+    overflow: hidden;
+}
+
+
+@media (min-width: 576px) {
+    .carousel {
+        width: 300px;
+        object-fit: none;
+        object-position: center;
+        margin: 20px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { .carousel {
+    width: 500px;
+    object-fit: none;
+    object-position: center;
+    margin: 20px;
+} }
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    .carousel {
+        width: 700px;
+        object-fit: none;
+        object-position: center;
+        margin: 20px;
+    }
+}
+
+/* endregion */

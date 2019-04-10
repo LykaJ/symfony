@@ -71,8 +71,6 @@ class AdminTrickController extends AbstractController
                 }
             }
 
-
-
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
@@ -99,8 +97,20 @@ class AdminTrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
-            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
+
+            if($form->get('imageUpload') != null)
+            {
+                $trick->getImageUpload();
+            } else {
+                $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+            }
+
+            if ($form->get('mediaImages') != null)
+            {
+                $trick->getMediaImages();
+                $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
+            }
+
 
             if ($form->get('mediaVideos') != null)
             {

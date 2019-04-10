@@ -33,12 +33,22 @@ class TricksController extends AbstractController
     /**
      * @Route(path="/tricks", name="trick.index")
      * @return Response
+     * @throws \Exception
      */
     public function index(): Response
     {
+
+        $trick = new Trick();
+
+        if (!$trick)
+        {
+            throw $this->createNotFoundException('The trick does not exist');
+        }
+
         return $this->render('tricks/trick.html.twig', [
             'current_menu' => 'tricks'
         ]);
+
     }
 
     /**
@@ -75,6 +85,11 @@ class TricksController extends AbstractController
     public function show(Trick $trick, string $slug, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
 
     {
+        if (!$trick)
+        {
+            throw $this->createNotFoundException('The trick does not exist');
+        }
+
         if ($trick->getSlug() !== $slug) {
             return $this->redirectToRoute('trick.show', [
                 'id' => $trick->getId(),

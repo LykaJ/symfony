@@ -50,11 +50,12 @@ class SecurityController extends AbstractController
         {
             $event_dispatcher->dispatch(UploadUserPictureEvent::NAME, new UploadUserPictureEvent($user));
             $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setRole('ROLE_USER');
             $user->setPassword($hash);
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('trick.index');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('security/signup.html.twig', [
