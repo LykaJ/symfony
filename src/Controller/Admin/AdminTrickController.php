@@ -71,8 +71,6 @@ class AdminTrickController extends AbstractController
                 }
             }
 
-
-
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
