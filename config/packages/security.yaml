@@ -32,7 +32,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/reset_password, allow_if: "is_anonymous() and !is_authenticated()" }
+        - { path: ^/reset_password, allow_if: "has_role('ROLE_USER') and !is_authenticated()" }
         # - { path: ^/profile, roles: ROLE_USER }
 
     encoders:
