@@ -19,7 +19,7 @@ https://alicia-tricks.gm-dev.fr/
   d. **APP_DEBUG=0** remove this line <br/>
 4. Start the server by typing this line in your terminal *php bin/console server:start*
 5. Follow this link: http://127.0.0.1:8000/ (the link may differ depending on your configuration.)
-6. Run the following command to add the fixtures: `php bin/console doctrine:fixtures:load --append`
+6. Run the following command to add the fixtures: `php bin/console doctrine:fixtures:load`
 7. Navigate through the website.
 
  
