@@ -73,18 +73,20 @@ class PasswordResetController extends AbstractController
             $user = $entityManager->getRepository(User::class)->findOneByToken($token);
             /* @var $user User */
 
-            if ($user === null) {
+            if ($token != $user->getResetToken() && $user === null )
+            {
                 $this->addFlash('danger', 'Token Inconnu');
                 return $this->redirectToRoute('trick.index');
+            } else {
+
+                $user->setResetToken(null);
+                $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Le mot de passe a été réinitialisé');
+                return $this->redirectToRoute('login');
             }
 
-            $user->setResetToken(null);
-            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Le mot de passe a été réinitialisé');
-
-            return $this->redirectToRoute('login');
         } else {
 
             return $this->render('security/password_reset.html.twig', ['token' => $token]);

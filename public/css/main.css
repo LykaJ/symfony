@@ -92,8 +92,9 @@ body {
 /* region Trick Cards */
 
 .card-body {
-    height: 400px;
+    height: fit-content;
     box-shadow: 2px 3px 4px grey;
+    padding: 0px !important;
 }
 
 .card-img {
