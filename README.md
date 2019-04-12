@@ -14,9 +14,10 @@
   b. **MAILER_URL=** edit to match your email server <br/>
   c. **APP_ENV=** edit as such APP_ENV=dev <br/>
   d. **APP_DEBUG=0** remove this line <br/>
-4. Start the server by typing this line in your terminal *php bin/console server:start*
-5. Follow this link: http://127.0.0.1:8000/ (the link may differ depending on your configuration.)
-6. Run the following command to add the fixtures: `php bin/console doctrine:fixtures:load`
-7. Navigate through the website.
+4. Install dependencies with `composer install`.
+5. Start the server by typing this line in your terminal *php bin/console server:start*
+6. Follow this link: http://127.0.0.1:8000/ (the link may differ depending on your configuration.)
+7. Run the following command to add the fixtures: `php bin/console doctrine:fixtures:load`
+8. Navigate through the website.
 
  
