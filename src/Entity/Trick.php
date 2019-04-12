@@ -66,11 +66,11 @@ class Trick
      */
     private $comments;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     public $mediaImages;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     public $mediaVideos;
 
@@ -251,7 +251,6 @@ class Trick
     {
         return $this->mediaImages;
     }
-
 
     /**
      * @param ImageMedia $imageMedium

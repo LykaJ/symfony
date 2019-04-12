@@ -48,14 +48,14 @@
                         {% if trick.mediaImages %}
                             {% for mediaImage in trick.mediaImages %}
                                 <div class="carousel-item">
-                                    <img class="d-block w-100 img-responsive" src="{{ asset('uploads/media/') ~ mediaImage.name }}"
+                                    <img class="d-block w-100 img-responsive"
+                                         src="{{ asset('uploads/media/') ~ mediaImage.name }}"
                                          alt="image media">
                                 </div>
                             {% endfor %}
                         {% else %}
                             <p>Ce trick n'a pas d'images</p>
                         {% endif %}
-
                     </div>
                     <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -67,19 +67,17 @@
                     </a>
                 </div>
 
-                <div class="youtube-videos col-12">
-                    {% if trick.mediaVideos %}
-                        {% for mediaVideo in trick.mediaVideos %}
-
+                {% if trick.mediaVideos %}
+                    {% for mediaVideo in trick.mediaVideos %}
+                        <div class="youtube-videos col-12">
                             <iframe id="ytplayer"
                                     src="{{ mediaVideo.path }}"
                                     frameborder="0"></iframe>
-
-                        {% endfor %}
-                    {% else %}
-                        <p>Ce trick n'a pas de vidéos</p>
-                    {% endif %}
-                </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Ce trick n'a pas de vidéos</p>
+                {% endif %}
             </div>
         </div>
 
@@ -121,6 +119,7 @@
         //  var $loaderContainer = $("#js-tricks-loader");
         var $loadBtnContainer = $("#js-comments-load-more");
         var $loadBtn = $("#js-comments-load-more-btn");
+
         function load(page) {
             if (page == null || isLoading) {
                 return
@@ -144,6 +143,7 @@
                 }
             });
         }
+
         function displayNewContent() {
             var $lastRow = $container.find(".row").last();
             $lastRow.children().each(function (index) {
@@ -153,6 +153,7 @@
                     .animate({"top": "0", "opacity": 1}, 200)
             });
         }
+
         function detectLoadMore() {
             /* $window.scroll(function() {
                  if($window.scrollTop() + $window.height() === $document.height()) {
@@ -164,6 +165,7 @@
                 load(nextPage);
             });
         }
+
         $document.ready(function () {
             $loadBtnContainer.toggle(false);
             // $loaderContainer.toggle(false);

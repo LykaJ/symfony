@@ -19,6 +19,7 @@ services:
             $targetDirectory: '%images_directory%'
             $mediaDirectory: '%media_directory%'
 
+
     get_set_method_normalizer:
         class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
         public: false

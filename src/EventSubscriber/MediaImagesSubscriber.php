@@ -30,8 +30,10 @@ class MediaImagesSubscriber implements EventSubscriberInterface
     {
         $trick = $event->getTrick();
         foreach ($trick->getMediaImages() as $image_media) {
-            $image_media->setName($this->uploader->upload($image_media->getFile()));
-            $image_media->setTrick($trick);
+            if (($image_media->getName() === null)) {
+                $image_media->setName($this->uploader->upload($image_media->getFile()));
+                $image_media->setTrick($trick);
+            }
         }
     }
 

@@ -18,7 +18,7 @@ class UploadUserSubscriber implements EventSubscriberInterface
     {
         // return the subscribed events, their methods and priorities
         return [
-            UploadUserPictureEvent::NAME => [
+            UploadUserPictureEvent::USER => [
                 ['upload', 10],
                 ['remove', 20],
             ],

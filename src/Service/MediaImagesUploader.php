@@ -13,6 +13,10 @@ class MediaImagesUploader
         $this->mediaDirectory = $mediaDirectory;
     }
 
+    /**
+     * @param UploadedFile|null $file
+     * @return string
+     */
     public function upload(?UploadedFile $file)
     {
         if ($file !== null)
@@ -27,7 +31,6 @@ class MediaImagesUploader
 
             return $fileName;
         }
-
     }
 
 

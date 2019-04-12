@@ -48,7 +48,7 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $event_dispatcher->dispatch(UploadUserPictureEvent::NAME, new UploadUserPictureEvent($user));
+            $event_dispatcher->dispatch(UploadUserPictureEvent::USER, new UploadUserPictureEvent($user));
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setRole('ROLE_USER');
             $user->setPassword($hash);
