@@ -1,3 +1,4 @@
+
 var $collectionHolder;
 
 var $addLink = $('<a href="#" class="add_media_image btn btn-primary">Ajouter une image</a>');
@@ -51,3 +52,4 @@ function addFormDeleteLink($tagFormDiv) {
         $tagFormDiv.remove();
     });
 }
+

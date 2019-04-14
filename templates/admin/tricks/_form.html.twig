@@ -12,12 +12,13 @@
     <div class="col-md-4">{{ form_row(form.imageUpload) }}</div>
 </div>
 
-
 <div class="row" id="js-trick-add-media">
-    <div class="col-md-4" id="js-trick-images">{{ form_row(form.mediaImages) }}</div>
+    <div class="col-md-4" id="js-trick-images">
+        {{ form_row(form.mediaImages) }}
+    </div>
     <div style="display: none" id="js-tricks-images-names">
         {% for mediaImage in trick.mediaImages %}
-            <span>{{ mediaImage.name }}</span>
+            <div class="col-2" id="{{ mediaImage.id }}"> <span>{{ mediaImage.name }}</span></div>
         {% endfor %}
     </div>
     <div class="col-md-4" id="js-trick-videos">{{ form_row(form.mediaVideos) }}</div>
