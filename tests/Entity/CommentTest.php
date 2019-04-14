@@ -33,7 +33,7 @@ class CommentTest extends TestCase
         $date = new \DateTime('2019-03-11 17:14:15');
         $comment->setCreationDate($date);
 
-        $this->assertInstanceOf(\DateTime::class, $date);
+        $this->assertSame($date, $comment->getCreationDate());
     }
 
     /**
@@ -45,7 +45,7 @@ class CommentTest extends TestCase
         $trick = new Trick();
         $comment->setTrick($trick);
 
-        $this->assertInstanceOf(Trick::class, $trick);
+        $this->assertSame($trick, $comment->getTrick());
     }
 
     /**
@@ -58,6 +58,6 @@ class CommentTest extends TestCase
 
         $comment->setAuthor($user);
 
-        $this->assertInstanceOf(User::class, $user);
+        $this->assertSame($user, $comment->getAuthor());
     }
 }
