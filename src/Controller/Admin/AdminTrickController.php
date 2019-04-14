@@ -108,41 +108,37 @@ class AdminTrickController extends AbstractController
                 $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             }
 
-            $uploadedImages = $form->get('mediaImages');
-            if ($uploadedImages != null)
-            {
-
-                foreach ($uploadedImages as $uploadedImage)
-                {
-                    if ($uploadedImage->getName() === null)
-                    {
-                        $fileName = $mediaImagesUploader->upload($uploadedImage);
-                        $uploadedImage->setFile($fileName);
-                        $uploadedImage->setTrick($trick);
-                    }
-                }
-            }
             $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
-            if ($form->get('mediaVideos') != null)
-            {
-                foreach ($form->get('mediaVideos') as $k => $form_video)
-                {
+            /*if ($trick->getMediaImages() != null && $uploadedImages != null) {
+                foreach ($trick->getMediaImages() as $mediaImage) {
+                    if ($mediaImage->getName() != null) {
+                        /*$fileName = $mediaImage->getName();
+                        $mediaImage->setName($fileName);
+                        $mediaImage->getTrick();
+                    } elseif ($uploadedImages->getName() != null) {
+                        $uploadedImages = $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
+                    }
+                }
+            }*/
+
+            //dd($trick);
+            if ($form->get('mediaVideos') != null) {
+                foreach ($form->get('mediaVideos') as $k => $form_video) {
                     $uploadedVideo = $form_video->get('path')->getData();
                     $mediaVideo = $trick->getMediaVideos()[$k];
                     $mediaVideo->setPath($uploadedVideo);
                     $mediaVideo->setTrick($trick);
                 }
             }
-
             $this->em->flush();
-                $this->addFlash('success', 'Le trick a bien été modifié');
-                return $this->redirectToRoute('trick.index');
-            }
-            return $this->render('admin/tricks/edit.html.twig', [
-                'trick' => $trick,
-                'form' => $form->createView()]);
+            $this->addFlash('success', 'Le trick a bien été modifié');
+            return $this->redirectToRoute('trick.index');
         }
+        return $this->render('admin/tricks/edit.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView()]);
+    }
 
 
     /**
