@@ -3,15 +3,19 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
 use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\MediaImagesUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
