@@ -94,7 +94,7 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher, MediaImagesUploader $mediaImagesUploader)
+    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher)
     {
 
         $form = $this->createForm(TrickType::class, $trick);
