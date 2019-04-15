@@ -74,7 +74,7 @@ class PasswordResetController extends AbstractController
             /* @var $user User */
 
             if ($user === null) {
-                $this->addFlash('danger', 'Token Inconnu');
+                $this->addFlash('error', 'Token Inconnu');
                 return $this->redirectToRoute('trick.index');
             }
 

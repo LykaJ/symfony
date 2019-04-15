@@ -4,7 +4,6 @@
 
 {% block body %}
     <div class="container">
-
         {% if error %}
             <div class="alert alert-danger">
                 {{ error.messageKey | trans(error.messagedata, 'security') }}
@@ -31,6 +30,5 @@
                 </div>
             </form>
         </div>
-
     </div>
 {% endblock %}

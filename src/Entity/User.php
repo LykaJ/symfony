@@ -239,7 +239,7 @@ class User implements UserInterface,\Serializable
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array($this->role);
     }
 
     /**

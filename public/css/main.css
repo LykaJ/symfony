@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Audiowide');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 html {
     height: 100%;
@@ -43,7 +44,7 @@ body {
 .section-1 h1 {
     color: #ffffff;
     margin: 0;
-    font-size: 4em;
+    font-size: 3em;
     background-color: rgba(110,195,228,0.50);
     border-top: #ffffff 3px solid;
     border-bottom: #ffffff 3px solid;
@@ -58,7 +59,7 @@ body {
 }
 
 #section-2 h2 {
-    font-family: 'Roboto', cursive;
+    font-family: 'Roboto', sans-serif;
     font-size: 50px;
     color: #3f4e5e;
     padding-top: 20px;
@@ -91,8 +92,9 @@ body {
 /* region Trick Cards */
 
 .card-body {
-    height: 400px;
+    height: fit-content;
     box-shadow: 2px 3px 4px grey;
+    padding: 0px !important;
 }
 
 .card-img {

@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\Event;
 class UploadUserPictureEvent extends Event
 
 {
-    const NAME = 'user.picture.upload';
+    const USER = 'user.picture.upload';
 
     private $user;
 

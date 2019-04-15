@@ -3,15 +3,19 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\ImageMedia;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
 use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\MediaImagesUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -40,7 +44,7 @@ class AdminTrickController extends AbstractController
     }
 
     /**
-     * @Route("/admin/create", name="admin.tricks.new")
+     * @Route("/tricks/new", name="admin.tricks.new")
      * @param Request $request
      * @param EventDispatcherInterface $event_dispatcher
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -60,10 +64,8 @@ class AdminTrickController extends AbstractController
                 $trick->setAuthor($currentUser);
             }
 
-            if ($form->get('mediaVideos') != null)
-            {
-                foreach ($form->get('mediaVideos') as $k => $form_video)
-                {
+            if ($form->get('mediaVideos') != null) {
+                foreach ($form->get('mediaVideos') as $k => $form_video) {
                     $uploadedVideo = $form_video->get('path')->getData();
                     $mediaVideo = $trick->getMediaVideos()[$k];
                     $mediaVideo->setPath($uploadedVideo);
@@ -86,60 +88,67 @@ class AdminTrickController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="admin.tricks.edit", methods="GET|POST")
+     * @Route("/tricks/{id}/edit", name="admin.tricks.edit", methods="GET|POST")
      * @param Trick $trick
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher)
+    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher, MediaImagesUploader $mediaImagesUploader)
     {
+
         $form = $this->createForm(TrickType::class, $trick);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if($form->get('imageUpload') != null)
-            {
+            if ($form->get('imageUpload') != null) {
                 $trick->getImageUpload();
             } else {
                 $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             }
 
-            if ($form->get('mediaImages') != null)
-            {
-                $trick->getMediaImages();
-                $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
-            }
+            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
+            /*if ($trick->getMediaImages() != null && $uploadedImages != null) {
+                foreach ($trick->getMediaImages() as $mediaImage) {
+                    if ($mediaImage->getName() != null) {
+                        /*$fileName = $mediaImage->getName();
+                        $mediaImage->setName($fileName);
+                        $mediaImage->getTrick();
+                    } elseif ($uploadedImages->getName() != null) {
+                        $uploadedImages = $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
+                    }
+                }
+            }*/
 
-            if ($form->get('mediaVideos') != null)
-            {
-                foreach ($form->get('mediaVideos') as $k => $form_video)
-                {
+            //dd($trick);
+            if ($form->get('mediaVideos') != null) {
+                foreach ($form->get('mediaVideos') as $k => $form_video) {
                     $uploadedVideo = $form_video->get('path')->getData();
                     $mediaVideo = $trick->getMediaVideos()[$k];
                     $mediaVideo->setPath($uploadedVideo);
                     $mediaVideo->setTrick($trick);
                 }
             }
-
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
             return $this->redirectToRoute('trick.index');
         }
         return $this->render('admin/tricks/edit.html.twig', [
             'trick' => $trick,
-            'form' => $form->createView()
-        ]);
+            'form' => $form->createView()]);
     }
 
+
     /**
-     * @Route("/admin/{id}", name="admin.tricks.delete", methods="DELETE")
+     * @Route("/tricks/{id}", name="admin.tricks.delete", methods="DELETE")
      * @param Request $request
      * @param Trick $trick
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, Trick $trick)
+    public
+    function deleteAction(Request $request, Trick $trick)
     {
         $form = $this->createDeleteForm($trick);
         $form->handleRequest($request);
@@ -156,7 +165,8 @@ class AdminTrickController extends AbstractController
      * @param Trick $trick
      * @return mixed
      */
-    private function createDeleteForm(Trick $trick)
+    private
+    function createDeleteForm(Trick $trick)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin.tricks.delete', array('id' => $trick->getId())))

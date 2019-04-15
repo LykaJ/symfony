@@ -14,9 +14,9 @@ class ImageMediaType extends AbstractType
     {
         $builder
             ->add('file', FileType::class, [
-                'label' => false,
                 'required' => false,
-                //'multiple' => true
+                'multiple' => false,
+                'label' => false
             ])
         ;
     }

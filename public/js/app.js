@@ -1,134 +1,55 @@
-//FORM ADD MEDIA IMAGES
-$(document).ready(function() {
-        // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-        var $container = $("div#trick_mediaImages");
 
-        // On ajoute un lien pour ajouter une nouvelle catégorie
-        var $addLink = $('<a href="#" id="add_image" class="btn btn-primary mb-3">Ajouter une image</a>');
-        $container.append($addLink);
+var $collectionHolder;
 
-        // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-        $addLink.click(function(e) {
-            addCategory($container);
-            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-            return false;
-        });
+var $addLink = $('<a href="#" class="add_media_image btn btn-primary">Ajouter une image</a>');
+var $newLink = $('<div></div>').append($addLink);
 
-     // La fonction qui ajoute un formulaire Categorie
-     function addCategory($container) {
-         // Dans le contenu de l'attribut « data-prototype », on remplace :
-         // - le texte "__name__label__" qu'il contient par le label du champ
-         // - le texte "__name__" qu'il contient par le numéro du champ
-         var $prototype = $($container.attr("data-prototype").replace(/__name__label__/g, 'Image ' + (index+1))
-             .replace(/__name__/g, index));
+jQuery(document).ready(function() {
 
-         // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-         addDeleteLink($prototype);
+    $collectionHolder = $('#trick_mediaImages');
+    $collectionHolderVideos = $('#trick_mediaVideos');
 
-         // On ajoute le prototype modifié à la fin de la balise <div>
-         $container.append($prototype);
-
-         // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-         index++;
-     }
-
-     // La fonction qui ajoute un lien de suppression d'une catégorie
-     function addDeleteLink($prototype) {
-         // Création du lien
-         $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
-
-         // Ajout du lien
-         $prototype.append($deleteLink);
-
-         // Ajout du listener sur le clic du lien
-         $deleteLink.click(function(e) {
-             $prototype.remove();
-             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-             return false;
-         });
-     }
-
-        // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-        var index = $container.find(":input").length;
-
-        // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
-        if (index === 0) {
-            addCategory($container);
-        } else {
-            // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
-            $container.children("div").each(function() {
-                addDeleteLink($(this));
-            });
-        }
-
+    $collectionHolder.find('li').each(function() {
+        addFormDeleteLink($(this));
     });
 
-//FORM ADD MEDIA VIDEO
- $(document).ready(function() {
-     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-     var $container = $("div#trick_mediaVideos");
+    $collectionHolder.append($newLink);
 
-     // On ajoute un lien pour ajouter une nouvelle catégorie
-     var $addLink = $('<a href="#" id="add_image" class="btn btn-primary mb-3">Ajouter une vidéo</a>');
-     $container.append($addLink);
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-     // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-     $addLink.click(function(e) {
-         addCategory($container);
-         e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-         return false;
-     });
+    $addLink.on('click', function(e) {
+        e.preventDefault();
 
-     // La fonction qui ajoute un formulaire Categorie
-     function addCategory($container) {
-         // Dans le contenu de l'attribut « data-prototype », on remplace :
-         // - le texte "__name__label__" qu'il contient par le label du champ
-         // - le texte "__name__" qu'il contient par le numéro du champ
-         var $prototype = $($container.attr("data-prototype").replace(/__name__label__/g, 'Video' + (index+1))
-             .replace(/__name__/g, index));
+        addFileForm($collectionHolder, $newLink);
+    });
+});
 
-         // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-         addDeleteLink($prototype);
+function addFileForm($collectionHolder, $newLink) {
+    var prototype = $collectionHolder.data('prototype');
 
-         // On ajoute le prototype modifié à la fin de la balise <div>
-         $container.append($prototype);
+    var index = $collectionHolder.data('index');
 
-         // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-         index++;
-     }
+    var newForm = prototype;
 
-     // La fonction qui ajoute un lien de suppression d'une catégorie
-     function addDeleteLink($prototype) {
-         // Création du lien
-         $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+    newForm = newForm.replace(/__name__/g, index);
 
-         // Ajout du lien
-         $prototype.append($deleteLink);
+    $collectionHolder.data('index', index + 1);
 
-         // Ajout du listener sur le clic du lien
-         $deleteLink.click(function(e) {
-             $prototype.remove();
-             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-             return false;
-         });
-     }
+    var $newFormDiv = $('<div></div>').append(newForm);
+    $newLink.before($newFormDiv);
 
-     // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-     var index = $container.find(":input").length;
+    addFormDeleteLink($newFormDiv);
+}
 
+function addFormDeleteLink($tagFormDiv) {
+    var $removeFormA = $('<a href="#" class="btn btn-danger mb-3">Supprimer</a>');
+    $tagFormDiv.append($removeFormA);
 
-     // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
-     if (index === 0) {
-         addCategory($container);
-     } else {
-         // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
-         $container.children("div").each(function() {
-             addDeleteLink($(this));
-         });
-     }
+    $removeFormA.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
 
-
- });
-
-
+        $tagFormDiv.remove();
+    });
+}
 
