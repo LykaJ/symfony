@@ -44,7 +44,7 @@ class PasswordResetController extends AbstractController
             $url = $this->generateUrl('reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom(['webdesigner.form@gmail.com' => 'SnowTricks']) // recheck comments faire
+                ->setFrom(['webdesigner.form@gmail.com' => 'SnowTricks'])// recheck comments faire
                 ->setTo($user->getEmail())
                 ->setBody(
                     "Cliquez sur ce lien pour réinitialiser votre mot de passe : " . $url,
@@ -71,6 +71,7 @@ class PasswordResetController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $user = $entityManager->getRepository(User::class)->findOneByToken($token);
+
             /* @var $user User */
 
             if ($user === null) {
