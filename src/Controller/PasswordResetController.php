@@ -83,12 +83,19 @@ class PasswordResetController extends AbstractController
 
         if ($request->isMethod('POST')) {
 
-            $userToken->setResetToken(null);
-            $userToken->setPassword($passwordEncoder->encodePassword($userToken, $request->request->get('password')));
-            $entityManager->flush();
+            if ($request->get('password') === $request->get('confirm_password'))
+            {
+                $userToken->setResetToken(null);
+                $userToken->setPassword($passwordEncoder->encodePassword($userToken, $request->request->get('password')));
+                $entityManager->flush();
+                $this->addFlash('success', 'Le mot de passe a été réinitialisé');
+                return $this->redirectToRoute('login');
+            } else {
+                $this->addFlash('error', 'Les mots de passe ne sont pas identiques');
+                return $this->render('security/password_reset.html.twig', ['token' => $token]);
+            }
 
-            $this->addFlash('success', 'Le mot de passe a été réinitialisé');
-            return $this->redirectToRoute('login');
+
         } else {
             return $this->render('security/password_reset.html.twig', ['token' => $token]);
         }
