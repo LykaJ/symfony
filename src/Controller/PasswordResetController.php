@@ -68,11 +68,11 @@ class PasswordResetController extends AbstractController
      */
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, ObjectManager $entityManager)
     {
-        $userToken = $userRepository->findOneBy(
+        $user_token = $userRepository->findOneBy(
             array('token' => $request->get('token'))
         );
 
-        if (!$userToken) {
+        if (!$user_token) {
 
             $this->addFlash(
                 'error',
@@ -85,9 +85,10 @@ class PasswordResetController extends AbstractController
 
             if ($request->get('password') === $request->get('confirm_password'))
             {
-                $userToken->setResetToken(null);
-                $userToken->setPassword($passwordEncoder->encodePassword($userToken, $request->request->get('password')));
+                $user_token->setResetToken(null);
+                $user_token->setPassword($passwordEncoder->encodePassword($user_token, $request->request->get('password')));
                 $entityManager->flush();
+
                 $this->addFlash('success', 'Le mot de passe a été réinitialisé');
                 return $this->redirectToRoute('login');
             } else {
