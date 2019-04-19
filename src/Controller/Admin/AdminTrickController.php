@@ -52,6 +52,15 @@ class AdminTrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $mediaImages = $form->get('mediaImages')->getData();
+
+
+            if (!is_object($mediaImages) && empty($mediaImages))
+            {
+                $this->addFlash('error', 'Tous les champs ne sont pas remplis');
+            }
+
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
@@ -98,7 +107,6 @@ class AdminTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
 
             if ($form->get('imageUpload') != null) {
                 $trick->getImageUpload();

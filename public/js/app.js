@@ -14,14 +14,13 @@ let ready = jQuery(document).ready(function() {
 
     $collectionHolder = $('#trick_mediaImages');
 
-    var x = $("#trick_mediaImages>input").length;
 
     $('.custom-file-input').each(function () {
         $('.custom-file-input').change(function(event) {
             var inputFile = event.currentTarget;
             $(inputFile).parent()
                 .find('.custom-file-label')
-                .html(inputFile.files.item(x++).name);
+                .html(inputFile.files.length.name);
         });
     });
 
