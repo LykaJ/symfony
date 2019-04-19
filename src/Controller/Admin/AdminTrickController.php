@@ -99,6 +99,7 @@ class AdminTrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             if ($form->get('imageUpload') != null) {
                 $trick->getImageUpload();
             } else {

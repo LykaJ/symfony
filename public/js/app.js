@@ -1,16 +1,18 @@
 var $collectionHolder;
-var $collectionHolderVideos;
 
 var $addLink = $('<a href="#" class="add_media_image btn btn-primary">Ajouter une image</a>');
 var $newLink = $('<div></div>').append($addLink);
 
-var $addVideo = $('<a href="#" class="add_media_video btn btn-primary">Ajouter une vidéo</a>');
+
+var $collectionHolderVideo;
+
+var $addVideo = $('<a href="#" class="add_media_image btn btn-primary">Ajouter une vidéo</a>');
 var $newVideo = $('<div></div>').append($addVideo);
+
 
 let ready = jQuery(document).ready(function() {
 
     $collectionHolder = $('#trick_mediaImages');
-    $collectionHolderVideos = $('#trick_mediaVideos');
 
     var x = $("#trick_mediaImages>input").length;
 
@@ -38,20 +40,21 @@ let ready = jQuery(document).ready(function() {
         addFileForm($collectionHolder, $newLink);
     });
 
-    ////
+    $collectionHolderVideo = $('#trick_mediaVideos');
 
-    $collectionHolderVideos.find('li').each(function() {
-        addFormDeleteVideo($(this));
+
+    $collectionHolderVideo.find('li').each(function() {
+        addFormDeleteLink($(this));
     });
 
-    $collectionHolderVideos.append($newVideo);
+    $collectionHolderVideo.append($newVideo);
 
-    $collectionHolderVideos.data('index', $collectionHolderVideos.find(':input').length);
+    $collectionHolderVideo.data('index', $collectionHolderVideo.find(':input').length);
 
     $addVideo.on('click', function(e) {
         e.preventDefault();
 
-        addVideoForm()($collectionHolderVideos, $newVideo);
+        addVideoForm($collectionHolderVideo, $newVideo);
     });
 });
 
@@ -85,22 +88,21 @@ function addFormDeleteLink($tagFormDiv) {
     });
 }
 
-///
 
 
-function addVideoForm($collectionHolderVideos, $newLink) {
-    var prototype = $collectionHolderVideos.data('prototype');
+function addVideoForm($collectionHolderVideo, $newVideo) {
+    var prototype = $collectionHolderVideo.data('prototype');
 
-    var index = $collectionHolderVideos.data('index');
+    var index = $collectionHolderVideo.data('index');
 
     var newForm = prototype;
 
     newForm = newForm.replace(/__name__/g, index);
 
-    $collectionHolderVideos.data('index', index + 1);
+    $collectionHolderVideo.data('index', index + 1);
 
     var $newFormDiv = $('<div></div>').append(newForm);
-    $newLink.before($newFormDiv);
+    $newVideo.before($newFormDiv);
 
     addFormDeleteVideo($newFormDiv);
 }
@@ -116,3 +118,4 @@ function addFormDeleteVideo($tagFormDiv) {
         $tagFormDiv.remove();
     });
 }
+

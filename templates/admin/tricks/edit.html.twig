@@ -8,3 +8,11 @@
         </div>
     </div>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+        $('#trick_mediaImages').find('.form-group').hide();
+
+    </script>
+{% endblock %}
