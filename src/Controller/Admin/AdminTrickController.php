@@ -57,8 +57,7 @@ class AdminTrickController extends AbstractController
             $mediaImages = $form->get('mediaImages')->getData();
 
 
-            if (!is_object($mediaImages) && empty($mediaImages))
-            {
+            if (!is_object($mediaImages) && empty($mediaImages)) {
                 $this->addFlash('error', 'Tous les champs ne sont pas remplis');
             }
 
@@ -177,26 +176,5 @@ class AdminTrickController extends AbstractController
             ->setAction($this->generateUrl('admin.tricks.delete', array('id' => $trick->getId())))
             ->setMethod('DELETE')
             ->getForm();
-    }
-
-    /**
-     * @Route("/trick/{id}/{imageId}/delete", name="image.delete")
-     * @param Trick $trick
-     * @param Request $request
-     * @param ObjectManager $objectManager
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function removeImage(Trick $trick, Request $request, ObjectManager $objectManager)
-    {
-        if ($trick->getMediaImages() != null)
-        {
-            foreach ($trick->getMediaImages() as $mediaImage)
-            {
-                dd($mediaImage);
-                $objectManager->remove($mediaImage);
-                $objectManager->flush();
-                $this->addFlash('success', 'L\'image a bien été supprimée');
-            }
-        } return $this->redirectToRoute('admin.tricks.edit', ['id' => $trick->getId()]);
     }
 }

@@ -9,8 +9,38 @@ var $collectionHolderVideo;
 var $addVideo = $('<a href="#" class="add_media_image btn btn-primary">Ajouter une vidéo</a>');
 var $newVideo = $('<div></div>').append($addVideo);
 
+var $imagesContainer = $('#js-tricks-images');
+var $images = $imagesContainer.children();
 
-let ready = jQuery(document).ready(function() {
+$imagesContainer.remove();
+
+$("#trick_mediaImages").children().each(function(index) {
+    var $that = $(this); // fieldset
+
+    $that.children().each(function() {
+        $(this).hide()
+    });
+
+    $that.append($images[index]);
+
+    $btn = $('<a href="#" class="btn btn-danger"><i class="fas fa-times"></i></a>');
+
+    $btn.click(function(e) {
+        e.preventDefault();
+
+        $that.remove();
+    });
+
+    $that.append($btn);
+});
+
+$('.custom-file-input').click(function (event) {
+   var file = event.currentTarget;
+   file.remove();
+});
+
+
+let ready = $(document).ready(function() {
 
     $collectionHolder = $('#trick_mediaImages');
 
@@ -33,7 +63,7 @@ let ready = jQuery(document).ready(function() {
 
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-    $addLink.on('click', function(e) {
+    $addLink.click(function(e) {
         e.preventDefault();
 
         addFileForm($collectionHolder, $newLink);
@@ -50,7 +80,7 @@ let ready = jQuery(document).ready(function() {
 
     $collectionHolderVideo.data('index', $collectionHolderVideo.find(':input').length);
 
-    $addVideo.on('click', function(e) {
+    $addVideo.click(function(e) {
         e.preventDefault();
 
         addVideoForm($collectionHolderVideo, $newVideo);

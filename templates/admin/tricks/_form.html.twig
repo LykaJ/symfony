@@ -16,11 +16,12 @@
     <div class="col-md-4" id="js-trick-images">
         {{ form_row(form.mediaImages) }}
     </div>
-    {#<div style="display: none" id="js-tricks-images-names">
+    <div style="display: none" id="js-tricks-images">
         {% for mediaImage in trick.mediaImages %}
-            <div class="col-2" id="{{ mediaImage.id }}"> <span>{{ mediaImage.name }}</span></div>
+            <img class="d-block w-100 img-responsive" src="{{ asset('uploads/media/') ~ mediaImage.name }}"
+                 alt="image media">
         {% endfor %}
-    </div>#}
+    </div>
     <div class="col-md-4" id="js-trick-videos">{{ form_row(form.mediaVideos) }}</div>
     <div class="col-md-4">
         <p class="help-video">Pour ajouter une vidéo :</p>
@@ -31,22 +32,6 @@
             <li>Copiez le lien de la vidéo et collez-le dans le champ.</li>
         </ol>
     </div>
-    <div>
-        {% if trick.mediaImages %}
-        <div class="col-md-4 mb-3">
-            {% for mediaImage in trick.mediaImages %}
-                <div>
-                    <a href="{{ path('image.delete', {id: trick.id, imageId: mediaImage.id}) }}" id="removeButton" class="btn btn-danger">
-                        <i class="fas fa-times"></i>
-                        <img id="js-media-image" class="d-block w-100 img-responsive" src="{{ asset('uploads/media/') ~ mediaImage.name }}"
-                             alt="image media">
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-    </div>
-
 </div>
 
 
