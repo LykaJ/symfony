@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
 use App\Event\MediaImagesUploadEvent;
 use App\Form\TrickType;
+use App\Repository\ImageMediaRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -153,8 +154,7 @@ class AdminTrickController extends AbstractController
      * @param Trick $trick
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public
-    function deleteAction(Request $request, Trick $trick)
+    public function deleteAction(Request $request, Trick $trick)
     {
         $form = $this->createDeleteForm($trick);
         $form->handleRequest($request);
@@ -171,12 +171,32 @@ class AdminTrickController extends AbstractController
      * @param Trick $trick
      * @return mixed
      */
-    private
-    function createDeleteForm(Trick $trick)
+    private function createDeleteForm(Trick $trick)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin.tricks.delete', array('id' => $trick->getId())))
             ->setMethod('DELETE')
             ->getForm();
+    }
+
+    /**
+     * @Route("/trick/{id}/{imageId}/delete", name="image.delete")
+     * @param Trick $trick
+     * @param Request $request
+     * @param ObjectManager $objectManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeImage(Trick $trick, Request $request, ObjectManager $objectManager)
+    {
+        if ($trick->getMediaImages() != null)
+        {
+            foreach ($trick->getMediaImages() as $mediaImage)
+            {
+                dd($mediaImage);
+                $objectManager->remove($mediaImage);
+                $objectManager->flush();
+                $this->addFlash('success', 'L\'image a bien été supprimée');
+            }
+        } return $this->redirectToRoute('admin.tricks.edit', ['id' => $trick->getId()]);
     }
 }

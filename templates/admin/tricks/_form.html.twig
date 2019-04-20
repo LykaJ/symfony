@@ -35,8 +35,13 @@
         {% if trick.mediaImages %}
         <div class="col-md-4 mb-3">
             {% for mediaImage in trick.mediaImages %}
-                <img class="d-block w-100 img-responsive" src="{{ asset('uploads/media/') ~ mediaImage.name }}"
-                     alt="image media">
+                <div>
+                    <a href="{{ path('image.delete', {id: trick.id, imageId: mediaImage.id}) }}" id="removeButton" class="btn btn-danger">
+                        <i class="fas fa-times"></i>
+                        <img id="js-media-image" class="d-block w-100 img-responsive" src="{{ asset('uploads/media/') ~ mediaImage.name }}"
+                             alt="image media">
+                    </a>
+                </div>
             {% endfor %}
         </div>
         {% endif %}
