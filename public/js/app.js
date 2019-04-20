@@ -34,12 +34,6 @@ $("#trick_mediaImages").children().each(function(index) {
     $that.append($btn);
 });
 
-$('.custom-file-input').click(function (event) {
-   var file = event.currentTarget;
-   file.remove();
-});
-
-
 let ready = $(document).ready(function() {
 
     $collectionHolder = $('#trick_mediaImages');

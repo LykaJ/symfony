@@ -22,6 +22,7 @@ class UploadedImageType extends AbstractType
                 'accept' => '.jpg, .jpeg, .png',
             ],
             'label' => false,
+            'required' => true
         ]);
     }
 
