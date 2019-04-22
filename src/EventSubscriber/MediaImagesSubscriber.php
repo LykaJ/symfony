@@ -21,7 +21,6 @@ class MediaImagesSubscriber implements EventSubscriberInterface
         return [
             MediaImagesUploadEvent::IMAGE_UPLOAD => [
                 ['uploadImageMedia', 10],
-                ['remove', 20],
             ],
         ];
     }
@@ -38,20 +37,4 @@ class MediaImagesSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function remove(MediaImagesUploadEvent $event)
-    {
-        $trick = $event->getTrick();
-
-        foreach ($trick->getMediaImages() as $image_media)
-        {
-            $file = $image_media->getName();
-        }
-
-        if(isset($file))
-        {
-            $file_path = $this->uploader->getMediaDirectory().'/'.$file;
-            if(file_exists($file_path)) unlink($file_path);
-        }
-
-    }
 }
