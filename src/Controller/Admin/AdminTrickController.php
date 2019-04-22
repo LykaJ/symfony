@@ -102,6 +102,7 @@ class AdminTrickController extends AbstractController
     {
 
         $form = $this->createForm(TrickType::class, $trick);
+        $form->remove('imageUpload');
 
         $form->handleRequest($request);
 
