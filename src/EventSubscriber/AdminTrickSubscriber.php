@@ -20,7 +20,6 @@ class AdminTrickSubscriber implements EventSubscriberInterface
         return [
             AdminUploadTrickImageEvent::NAME => [
                 ['upload', 10],
-                ['remove', 20],
             ],
         ];
     }
@@ -29,7 +28,6 @@ class AdminTrickSubscriber implements EventSubscriberInterface
     {
        $trick = $event->getTrick();
        $trick->setImage($this->uploader->upload($trick->getImageUpload()));
-
     }
 
     public function remove(AdminUploadTrickImageEvent $event)

@@ -8,13 +8,13 @@ use App\Entity\Trick;
 use App\Entity\User;
 use App\Event\AdminUploadTrickImageEvent;
 use App\Event\MediaImagesUploadEvent;
+use App\EventSubscriber\MediaImagesSubscriber;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use App\Service\MediaImagesUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,6 +56,14 @@ class AdminTrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $mediaImages = $form->get('mediaImages')->getData();
+
+
+            if (!is_object($mediaImages) && empty($mediaImages)) {
+                $this->addFlash('error', 'Tous les champs ne sont pas remplis');
+            }
+
             $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
@@ -94,35 +102,32 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher)
+    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher, MediaImagesSubscriber $subscriber)
     {
 
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($form->get('imageUpload') != null) {
-                $trick->getImageUpload();
-            } else {
+            $newImage = $form->get('imageUpload');
+
+            if ($newImage != null) {
+                $trick->getImage();
+
+            } elseif ($newImage !== $trick->getImage())
+            {
+                $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+                dump($trick->getImage());
+                dd($newImage);
+            }
+            else {
                 $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             }
 
             $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
-            /*if ($trick->getMediaImages() != null && $uploadedImages != null) {
-                foreach ($trick->getMediaImages() as $mediaImage) {
-                    if ($mediaImage->getName() != null) {
-                        /*$fileName = $mediaImage->getName();
-                        $mediaImage->setName($fileName);
-                        $mediaImage->getTrick();
-                    } elseif ($uploadedImages->getName() != null) {
-                        $uploadedImages = $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
-                    }
-                }
-            }*/
-
-            //dd($trick);
             if ($form->get('mediaVideos') != null) {
                 foreach ($form->get('mediaVideos') as $k => $form_video) {
                     $uploadedVideo = $form_video->get('path')->getData();
@@ -147,8 +152,7 @@ class AdminTrickController extends AbstractController
      * @param Trick $trick
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public
-    function deleteAction(Request $request, Trick $trick)
+    public function deleteAction(Request $request, Trick $trick)
     {
         $form = $this->createDeleteForm($trick);
         $form->handleRequest($request);
@@ -165,8 +169,7 @@ class AdminTrickController extends AbstractController
      * @param Trick $trick
      * @return mixed
      */
-    private
-    function createDeleteForm(Trick $trick)
+    private function createDeleteForm(Trick $trick)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin.tricks.delete', array('id' => $trick->getId())))

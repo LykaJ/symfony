@@ -3,8 +3,17 @@
 {% block body %}
     <div class="container">
         <h1>Editer le trick</h1>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
         <div class="trick-form">
             {{  include('admin/tricks/_form.html.twig', {form: form, button: 'Editer'}) }}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
 {% endblock %}
