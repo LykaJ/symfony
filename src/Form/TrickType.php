@@ -55,6 +55,7 @@ class TrickType extends AbstractType
             ])
         ;
     }
+
     /**
      * @param OptionsResolver $resolver
      */
