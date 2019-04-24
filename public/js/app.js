@@ -18,7 +18,7 @@ $("#trick_mediaImages").children().each(function(index) {
     var $that = $(this); // fieldset
 
     $that.children().each(function() {
-        $(this).hide()
+        $(this).hide();
     });
 
     $that.append($images[index]);
