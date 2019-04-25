@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentType;
+
+use App\Repository\CommentRepository;
+
 use App\Repository\TrickRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,11 +42,19 @@ class TricksController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/tricks/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @param Trick $trick
+     * @param string $slug
+     * @param Request $request
+     * @param ObjectManager $em
      * @return Response
+     * @throws \Exception
      */
-    public function show(Trick $trick, string $slug): Response
+
+    public function show(Trick $trick, string $slug, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
+
     {
        if($trick->getSlug() !== $slug)
        {
@@ -49,9 +63,35 @@ class TricksController extends AbstractController
                'slug' => $trick->getSlug()
            ], 301);
        }
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user= $this->get('security.token_storage')->getToken()->getUser();
+            $comment->setCreationDate(new \DateTime('now'))
+                    ->setTrick($trick)
+                    ->setAuthor($user);
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('trick.show', [
+                'id' => $trick->getId(),
+                'slug' => $trick->getSlug()
+                ]);
+        }
+
+
+        $comments = $commentRepository->findByOrder();
+
         return $this->render('tricks/show.html.twig', [
             'trick' => $trick,
-            'current_menu' => 'tricks'
+            'current_menu' => 'tricks',
+            'comments' => $comments,
+            'form' => $form->createView()
+
+
         ]);
     }
 

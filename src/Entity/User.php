@@ -2,11 +2,19 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet identifiant est déjà utilisé"
+ * )
  */
 class User implements UserInterface,\Serializable
 {
@@ -29,11 +37,13 @@ class User implements UserInterface,\Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="4", minMessage="Votre mot de passe doit contenir au moins 4 caractères")
      */
     private $password;
 
@@ -52,10 +62,37 @@ class User implements UserInterface,\Serializable
      */
     private $picture_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Trick", mappedBy="author", cascade={"persist", "remove"})
+     */
+    private $trick;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author")
+     */
+    private $comments;
+
+    /**
+
+     * @Assert\EqualTo(propertyPath="password", message="Les mots de passe ne correspondent pas")
+     */
+    private $confirm_password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
+
+    /**
+
+     * User constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->signup_date = new \DateTime();
         $this->last_login = new \DateTime();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +184,18 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirm_password;
+    }
+
+    public function setConfirmPassword(string $confirm_password): self
+    {
+     $this->confirm_password = $confirm_password;
+     return $this;
+    }
+
+
     /**
      * Returns the roles granted to the user.
      *
@@ -186,7 +235,7 @@ class User implements UserInterface,\Serializable
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+
     }
 
     /**
@@ -200,7 +249,7 @@ class User implements UserInterface,\Serializable
         return serialize([
             $this->id,
             $this->username,
-            $this->password
+            $this->password,
         ]);
     }
 
@@ -220,5 +269,65 @@ class User implements UserInterface,\Serializable
             $this->username,
             $this->password
         ) =  unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(Trick $trick): self
+    {
+        $this->trick = $trick;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $trick->getAuthor()) {
+            $trick->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+
+        return $this;
     }
 }

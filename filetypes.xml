@@ -3,6 +3,8 @@
     <extensionMap>
       <mapping pattern="Event" type="PHP" />
       <mapping ext="template" type="PHP" />
+      <mapping pattern="FileUploader" type="PLAIN_TEXT" />
+      <mapping pattern="FileUploader.php" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>

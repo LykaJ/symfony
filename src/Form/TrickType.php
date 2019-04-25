@@ -7,6 +7,7 @@ use App\Entity\Trick;
 use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +24,7 @@ class TrickType extends AbstractType
             ->add('title')
             ->add('content')
             ->add('category', EntityType::class, [
-                'class'     => Category::class,
+                'class' => Category::class,
                 'choice_label' => 'name',
                 'query_builder' => function (CategoryRepository $repo) {
                     return $repo->createQueryBuilder('c')
@@ -31,12 +32,19 @@ class TrickType extends AbstractType
                         ->setParameter('id', 0);
                 },
             ])
-            ->add('image', FileType::class, [
+            ->add('imageUpload', FileType::class, [
                     'label' => 'Image de l\'article',
                     'required' => false,
                     'data_class' => null
                 ]
             )
+            ->add('media', CollectionType::class, [
+                'entry_type' => MediaType::class,
+                'label' => 'URL de la vidéo',
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false
+            ])
         ;
     }
 

@@ -5,6 +5,12 @@
 
 <div class="container">
     <h1> Liste des tricks</h1>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
     <div class="row">
         {% for trick in tricks %}
             {% include('/tricks/_list.html.twig') %}

@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -35,7 +37,6 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
-
     private $category;
 
     /**
@@ -50,9 +51,30 @@ class Trick
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(message="Ajoutez une image")
      */
     private $image;
+
+    /**
+     * @var UploadedFile
+     */
+    private $uploadedImage;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="trick")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick", cascade={"persist", "remove"})
+     */
+    private $media;
 
     /**
      * Trick constructor.
@@ -60,10 +82,15 @@ class Trick
      */
     public function __construct()
     {
-        $this->creation_date = new \DateTime();
+        $this->creation_date = new \DateTime;
         $this->edition_date = new \DateTime();
+        $this->comments = new ArrayCollection();
+        $this->media = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
        return $this->category;
@@ -151,25 +178,123 @@ class Trick
         return $this;
     }
 
-    public function getImage()
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
     /**
-     * @param $image
-     * @return $this
-     * @throws \Exception
+     * @param string $image
+     * @return Trick
      */
-    public function setImage($image)
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
-        if($this->image instanceof UploadedFile)
-        {
-            $this->edition_date = new \DateTime('now');
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile|null
+     */
+    public function getImageUpload(): ?UploadedFile
+    {
+        return $this->uploadedImage;
+    }
+
+    /**
+     * @param UploadedFile $uploadedImage
+     * @return Trick
+     * @throws \Exception
+     */
+    public function setImageUpload(UploadedFile $uploadedImage): self
+    {
+        $this->uploadedImage = $uploadedImage;
+        $this->edition_date = new \DateTime('now');
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTrick($this);
         }
 
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function setMedia(array $medias) {
+        foreach($medias as $media) {
+         $this->addMedium($media);
+        }
+    }
+
+
+    public function addMedium(Media $medium): self
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media[] = $medium;
+            $medium->setPath($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): self
+    {
+        if ($this->media->contains($medium)) {
+            $this->media->removeElement($medium);
+            // set the owning side to null (unless already changed)
+            if ($medium->getPath() === $this) {
+                $medium->setPath(null);
+            }
+        }
         return $this;
     }
 }

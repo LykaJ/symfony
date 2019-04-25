@@ -4,10 +4,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Trick;
+use App\Entity\User;
+use App\Event\AdminUploadTrickImageEvent;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -33,8 +36,8 @@ class AdminTrickController extends AbstractController
 
     public function index()
     {
-       $tricks = $this->repository->findAll();
-       return $this->render ('admin/tricks/index.html.twig', compact ('tricks'));
+        $tricks = $this->repository->findAll();
+        return $this->render('admin/tricks/index.html.twig', compact('tricks'));
     }
 
 
@@ -45,20 +48,32 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function new(Request $request)
+    public function new(Request $request, EventDispatcherInterface $event_dispatcher)
     {
         $trick = new Trick();
-        $form = $this->createForm (TrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+
+            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
+            if ($currentUser instanceof User) {
+                $trick->setAuthor($currentUser);
+            }
+
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
-            return $this->redirectToRoute('admin.tricks.index');
+
+            if (!$form->isSubmitted() && !$form->isValid()) {
+                $this->addFlash('error', 'Le trick n\'a pas pu être créé');
+            }
+            return $this->redirectToRoute('trick.index');
         }
 
-        return $this->render ('admin/tricks/new.html.twig', [
+        return $this->render('admin/tricks/new.html.twig', [
             'trick' => $trick,
             'form' => $form->createView()
         ]);
@@ -71,37 +86,55 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function edit(Trick $trick, Request $request)
+    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher)
     {
-        $form = $this->createForm (TrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             $this->em->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
-            return $this->redirectToRoute('admin.tricks.index');
+            return $this->redirectToRoute('trick.index');
         }
 
-       return $this->render ('admin/tricks/edit.html.twig', [
-           'trick' => $trick,
-           'form' => $form->createView()
-       ]);
+        return $this->render('admin/tricks/edit.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView()
+        ]);
     }
+
 
     /**
      * @Route("/admin/{id}", name="admin.tricks.delete", methods="DELETE")
-     * @param Trick $trick
      * @param Request $request
+     * @param Trick $trick
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Trick $trick, Request $request)
+    public function deleteAction(Request $request, Trick $trick)
     {
-        if($this->isCsrfTokenValid('delete' . $trick->getId(), $request->get('_token'))){
-            $this->em->remove($trick);
-            $this->em->flush();
+        $form = $this->createDeleteForm($trick);
+        $form->handleRequest($request);
+
+        if ($trick) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($trick);
+            $em->flush();
             $this->addFlash('success', 'Le trick a bien été supprimé');
         }
-        return $this->redirectToRoute('admin.tricks.index');
+
+        return $this->redirectToRoute('trick.index');
+    }
+
+    /**
+     * @param Trick $trick
+     * @return mixed
+     */
+    private function createDeleteForm(Trick $trick)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin.tricks.delete', array('id' => $trick->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 }

@@ -17,13 +17,17 @@ class UserFixtures extends Fixture
          $this->encoder = $encoder;
     }
 
+    /**
+     * @param ObjectManager $manager
+     * @throws \Exception
+     */
     public function load(ObjectManager $manager)
     {
         $user = new User();
-        $user->setUsername('demo');
-        $user->setRealName('Jack Sparrow');
-        $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-        $user->setEmail('pirate@carabiean.com');
+        $user->setUsername('admin');
+        $user->setRealName('Admin');
+        $user->setPassword($this->encoder->encodePassword($user, 'admin'));
+        $user->setEmail('admin@email.com');
         $manager->persist($user);
         $manager->flush();
     }
