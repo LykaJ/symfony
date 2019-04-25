@@ -3,8 +3,9 @@
     <extensionMap>
       <mapping pattern="Event" type="PHP" />
       <mapping ext="template" type="PHP" />
-      <mapping pattern="FileUploader" type="PLAIN_TEXT" />
-      <mapping pattern="FileUploader.php" type="PLAIN_TEXT" />
+      <mapping pattern="EventSubscirber/UploadImageSubscriber.php" type="tsconfig" />
+      <removed_mapping pattern="FileUploader" approved="true" type="PLAIN_TEXT" />
+      <removed_mapping pattern="FileUploader.php" approved="true" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
