@@ -34,7 +34,7 @@ class User implements UserInterface,\Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $real_name;
+    private $realName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -51,12 +51,12 @@ class User implements UserInterface,\Serializable
     /**
      * @ORM\Column(type="datetime")
      */
-    private $signup_date;
+    private $signupDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $last_login;
+    private $lastLogin;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -86,7 +86,7 @@ class User implements UserInterface,\Serializable
 
      * @Assert\EqualTo(propertyPath="password", message="Les mots de passe ne correspondent pas")
      */
-    private $confirm_password;
+    private $confirmPassword;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -105,8 +105,8 @@ class User implements UserInterface,\Serializable
      */
     public function __construct()
     {
-        $this->signup_date = new \DateTime();
-        $this->last_login = new \DateTime();
+        $this->signupDate = new \DateTime();
+        $this->lastLogin = new \DateTime();
         $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -130,12 +130,12 @@ class User implements UserInterface,\Serializable
 
     public function getRealName(): ?string
     {
-        return $this->real_name;
+        return $this->realName;
     }
 
-    public function setRealName(string $real_name): self
+    public function setRealName(string $realName): self
     {
-        $this->real_name = $real_name;
+        $this->realName = $realName;
 
         return $this;
     }
@@ -166,24 +166,24 @@ class User implements UserInterface,\Serializable
 
     public function getSignupDate(): \DateTimeInterface
     {
-        return $this->signup_date;
+        return $this->signupDate;
     }
 
-    public function setSignupDate(\DateTimeInterface $signup_date): self
+    public function setSignupDate(\DateTimeInterface $signupDate): self
     {
-        $this->signup_date = $signup_date;
+        $this->signupDate = $signupDate;
 
         return $this;
     }
 
     public function getLastLogin(): ?\DateTimeInterface
     {
-        return $this->last_login;
+        return $this->lastLogin;
     }
 
-    public function setLastLogin(?\DateTimeInterface $last_login): self
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
     {
-        $this->last_login = $last_login;
+        $this->lastLogin = $lastLogin;
 
         return $this;
     }
@@ -213,12 +213,12 @@ class User implements UserInterface,\Serializable
 
     public function getConfirmPassword(): ?string
     {
-        return $this->confirm_password;
+        return $this->confirmPassword;
     }
 
-    public function setConfirmPassword(string $confirm_password): self
+    public function setConfirmPassword(string $confirmPassword): self
     {
-     $this->confirm_password = $confirm_password;
+     $this->confirmPassword = $confirmPassword;
      return $this;
     }
 
