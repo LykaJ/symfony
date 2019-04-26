@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\Category;
 use App\Entity\Trick;
 use App\Repository\CategoryRepository;
+use App\Repository\ImageMediaRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 class TrickType extends AbstractType
 {
     /**
@@ -34,16 +34,24 @@ class TrickType extends AbstractType
             ])
             ->add('imageUpload', FileType::class, [
                     'label' => 'Image de l\'article',
-                    'required' => false,
+                    'required' => true,
                     'data_class' => null
                 ]
             )
-            ->add('media', CollectionType::class, [
-                'entry_type' => MediaType::class,
-                'label' => 'URL de la vidéo',
+            ->add('mediaVideos', CollectionType::class, [
+                'entry_type' => VideoMediaType::class,
+                'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false
+                'prototype' => true,
+            ])
+            ->add('mediaImages', CollectionType::class, [
+                'entry_type' => ImageMediaType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                //'by_reference' => false
             ])
         ;
     }
@@ -55,7 +63,7 @@ class TrickType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Trick::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
         ]);
     }
 }

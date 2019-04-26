@@ -1,4 +1,6 @@
 {{ form_start(form) }}
+{{ form_errors(form) }}
+
 <div class="row">
     <div class="col-md-12">{{ form_row(form.title) }}</div>
 </div>
@@ -8,8 +10,34 @@
 <div class="row">
     <div class="col-md-4">{{ form_row(form.category) }}</div>
     <div class="col-md-4">{{ form_row(form.imageUpload) }}</div>
-    <div class="col-md-4">{{ form_row(form.media) }}</div>
 </div>
+
+<div class="row" id="js-trick-add-media">
+    <div class="col-md-4" id="js-trick-images">
+        {{ form_row(form.mediaImages) }}
+    </div>
+    <div style="display: none" id="js-tricks-images">
+        {% for mediaImage in trick.mediaImages %}
+            <img class="d-block w-100 img-responsive" src="{{ asset('uploads/media/') ~ mediaImage.name }}"
+                 alt="image media">
+        {% endfor %}
+    </div>
+    <div class="col-md-4" id="js-trick-videos">{{ form_row(form.mediaVideos) }}</div>
+    <div class="col-md-4">
+        <p class="help-video">Pour ajouter une vidéo :</p>
+        <ol class="help-video">
+            <li>Sélectionnez votre vidéo sur l'hébergeur de votre choix.</li>
+            <li>Cliquez sur le lien <strong>Partager</strong></li>
+            <li>Sélectionnez <strong>Intégrer</strong>.</li>
+            <li>Copiez le lien de la vidéo et collez-le dans le champ.</li>
+        </ol>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 {{ form_rest(form) }}
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }}
+

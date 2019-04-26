@@ -5,7 +5,7 @@ framework:
     #http_method_override: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
-    # Remove or comment this section to explicitly disable session support.
+    # Remove or comments this section to explicitly disable session support.
     session:
         name: st-id
         handler_id: ~
@@ -16,3 +16,6 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    serializer:
+        name_converter: 'serializer.name_converter.camel_case_to_snake_case'

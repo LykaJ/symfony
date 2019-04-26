@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html {
+    height: 100%;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+body {
+    background-color: #333;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* region Homepage */
+
+#section-1 {
+
+    background-image: url("../images/hero.jpg");
+    /* Set a specific height */
+    min-height: 600px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Audiowide', cursive;
+    text-align: center;
+    padding-top: 250px;
+}
+
+.section-1 h1 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 3em;
+    background-color: rgba(110,195,228,0.50);
+    border-top: #ffffff 3px solid;
+    border-bottom: #ffffff 3px solid;
+    text-shadow: 1px 1px 2px grey;
+}
+
+#section-2 {
+    background-size: 100%;
+    text-align: center;
+    background-attachment: fixed;
+    min-height: 600px;
+}
+
+#section-2 h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    color: #3f4e5e;
+    padding-top: 20px;
+}
+
+/* endregion */
+
+/* region Comments */
+#comments-container {
+    margin: auto;
+    width: 50%;
+    color: #3f4e5e;
+    font-family: 'Roboto', sans-serif;
+}
+
+#comment {
+    background-color: lightgray;
+    border-radius: 30px;
+    line-height: normal;
+    margin-top: 2px;
+    padding-top: 15px;
+    height: fit-content;
+}
+
+#js-comments-load-more-btn {
+    justify-content: center;
+}
+/* endregion*/
+
+/* region Trick Cards */
+
+.card-body {
+    height: fit-content;
+    box-shadow: 2px 3px 4px grey;
+    padding: 0px !important;
+}
+
+.card-img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+.card-title h3 {
+    padding-top: 5px;
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
+    color: #3f4e5e;
+}
+/* endregion */
+
+/* region Show Trick */
+.trick-header {
+    display: flex;
+    background-image: url("../images/trick-header.jpg");
+    min-height: 300px;
+
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 50px;
+    border-bottom: #999999 3px solid;
+
+    font-family: 'Audiowide', cursive;
+    color: white;
+    text-align: left;
+    padding-top: 100px;
+}
+
+.trick-show {
+    padding: 0;
+    width: 100%;
+    height: auto;
+}
+
+.trick-show h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    color: #3f4e5e;
+    padding-top: 10px;
+}
+
+/* endregion */
+
+/* region Loader */
+.sk-folding-cube {
+    margin: 50px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+.sk-folding-cube .sk-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+    animation: sk-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+}
+.sk-folding-cube .sk-cube2 {
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+    transform: scale(1.1) rotateZ(90deg);
+}
+.sk-folding-cube .sk-cube3 {
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+    transform: scale(1.1) rotateZ(180deg);
+}
+.sk-folding-cube .sk-cube4 {
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+    transform: scale(1.1) rotateZ(270deg);
+}
+.sk-folding-cube .sk-cube2:before {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+.sk-folding-cube .sk-cube3:before {
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
+.sk-folding-cube .sk-cube4:before {
+    -webkit-animation-delay: 0.9s;
+    animation-delay: 0.9s;
+}
+@-webkit-keyframes sk-foldCubeAngle {
+    0%, 10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0;
+    } 25%, 75% {
+          -webkit-transform: perspective(140px) rotateX(0deg);
+          transform: perspective(140px) rotateX(0deg);
+          opacity: 1;
+      } 90%, 100% {
+            -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+            opacity: 0;
+        }
+}
+
+@keyframes sk-foldCubeAngle {
+    0%, 10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0;
+    } 25%, 75% {
+          -webkit-transform: perspective(140px) rotateX(0deg);
+          transform: perspective(140px) rotateX(0deg);
+          opacity: 1;
+      } 90%, 100% {
+            -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+            opacity: 0;
+        }
+}
+
+/* endregion */
+
+/* region Trick form */
+.trick-form {
+    margin-bottom: 20px;
+}
+/* endregion */
+
+/* region Tricks List */
+#tricks-list {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#tricks-list h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #3f4e5e;
+}
+
+
+.trick-add-button a{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#js-tricks-load-more {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+/* endregion */
+
+/* region Admin */
+.tricks-admin h1{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #3f4e5e;
+}
+/* endregion*/
+
+/* region Login form */
+.login-form {
+    width: 70%;
+    margin-left: 15%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: lightgray 2px solid;
+}
+
+/*endregion */
+
+/* region Footer */
+.footer {
+    height: auto;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    padding-top: 10px;
+    background-color: #f8f9fa;
+}
+
+.footer ul{
+    list-style: none;
+    padding-inline-start: 0px;
+}
+
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+}
+
+#main{
+    position: relative;
+    padding-bottom: 100px;
+}
+/* endregion*/
+
+/* region Top button */
+.scroll-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 99;
+    margin-bottom: 20px;
+}
+
+.scroll-bottom {
+    display: none;
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    z-index: 99;
+    margin-bottom: 20px;
+}
+/* endregion*/
+
+.youtube-videos {
+    margin-top: 5px;
+    width: auto;
+}
+
+.images {
+    margin-top: 10px;
+}
+
+.help-video {
+    color: grey;
+    font-style: italic;
+    font-size: 11pt;
+}
+
+/* region carousel */
+.carousel-item {
+    margin-top: 20px;
+    height: 350px;
+    width: auto;
+    overflow: hidden;
+}
+
+.w-100 {
+    width: 100%;
+    height: 90%;
+}
+
+
+@media (min-width: 576px) {
+    .carousel {
+        width: 300px;
+        object-fit: none;
+        object-position: center;
+        margin: 20px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { .carousel {
+    width: 500px;
+    object-fit: none;
+    object-position: center;
+    margin: 20px;
+} }
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    .carousel {
+        width: 700px;
+        object-fit: none;
+        object-position: center;
+        margin: 20px;
+    }
+}
+
+/* endregion */

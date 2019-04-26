@@ -1,10 +1,13 @@
-# New tric form
+# New trick form
 Title: Titre
 Content: Contenu
 Category: Catégorie
+Media images: Importer des images
+Media videos: Ajouter des vidéos
 
 # Registration form
 Username: Identifiant
 Real name: Nom civil
 Password: Mot de passe
 Confirm password: Confirmer le mot de passe
+Picture upload: Télécharger une image

@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+<div class="row">
+    <label for="username" class="col-md-6">{{ form_row(form.author) }}</label>
+</div>
+<div class="row">
+    <div class="col-12">{{ form_row(form.content) }}</div>
+</div>
+{{ form_rest(form) }}
+<button class="btn btn-primary mb-5">{{ button|default('Laisser un commentaire') }}</button>
+{{ form_end(form) }}

@@ -2,19 +2,147 @@
 {% block title 'Liste des tricks' %}
 
 {% block body %}
-
-<div class="container">
-    <h1> Liste des tricks</h1>
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endfor %}
-    <div class="row">
-        {% for trick in tricks %}
-            {% include('/tricks/_list.html.twig') %}
+    <div class="container-fluid" id="tricks-list">
+        <h1>Liste des tricks</h1>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
         {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        {% if app.user %}
+            <div class="trick-add-button">
+                <a href="{{ path('admin.tricks.new') }}" class="btn btn-outline-primary">Nouveau trick <i class="fas fa-plus"></i></a>
+            </div>
+        {% endif %}
+        <button onclick="topFunction()" id="myBtnTop" title="Go to top" class="scroll-top btn btn-info"><i class="fas fa-chevron-up"></i></button>
+        <div class="container" id="js-tricks-container"></div>
+        <div class="container">
+            <div class="row" id="js-tricks-loader">
+                <div class="col-12">
+                    <div class="sk-folding-cube" style="margin: 0 auto">
+                        <div class="sk-cube1 sk-cube"></div>
+                        <div class="sk-cube2 sk-cube"></div>
+                        <div class="sk-cube4 sk-cube"></div>
+                        <div class="sk-cube3 sk-cube"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="js-tricks-load-more">
+                <div>
+                    <a href="{{ path('trick.index') }}"
+                       id="js-tricks-load-more-btn" class="btn btn-outline-dark">
+                       Charger plus
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <button onclick="scrollBottom()" title="Go to bottom" class="scroll-bottom btn btn-info"><i class="fas fa-chevron-down"></i></button>
     </div>
-</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        var nextPage = null;
+        var isLoading = false;
+
+        var $window = $(window);
+        var $document = $(document);
+        var $container = $("#js-tricks-container");
+        var $loaderContainer = $("#js-tricks-loader");
+        var $loadBtnContainer = $("#js-tricks-load-more");
+        var $loadBtn = $("#js-tricks-load-more-btn");
+
+        function load(page) {
+            if (page == null || isLoading) {
+                return
+            }
+
+            $.get({
+                url: '/api/tricks/' + page,
+                async: true,
+                beforeSend: function () {
+                    isLoading = true;
+                    $loaderContainer.toggle(true);
+                },
+                success: function (data) {
+                    nextPage = data.nextPage;
+
+                    $loadBtnContainer.toggle(nextPage !== null);
+                    $container.append(data.content);
+                    displayNewContent();
+                },
+                complete: function () {
+                    $loaderContainer.toggle(false);
+                    isLoading = false;
+                }
+            });
+        }
+
+        function displayNewContent() {
+            var $lastRow = $container.find(".row").last();
+
+            $lastRow.children().each(function (index) {
+                $(this)
+                    .css({"top": "100px", "display": "block", "opacity": 0})
+                    .delay(100 * index)
+                    .animate({"top": "0", "opacity": 1}, 200)
+            });
+        }
+
+        function detectLoadMore() {
+            /* $window.scroll(function() {
+                 if($window.scrollTop() + $window.height() === $document.height()) {
+                     load(nextPage);
+                 }
+             }); */
+
+            $loadBtn.on("click", function (event) {
+                event.preventDefault();
+                load(nextPage);
+            });
+        }
+
+        $document.ready(function () {
+            $loadBtnContainer.toggle(false);
+            $loaderContainer.toggle(false);
+
+            detectLoadMore();
+            load(1);
+        });
+
+
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtnTop").style.display = "block";
+            } else {
+                document.getElementById("myBtnTop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        function scrollBottom()
+        {
+            window.scrollTo(0,document.body.scrollHeight);
+
+            if (document.body.scrollHeight > 20 || document.documentElement.scrollHeight > 20)
+            {
+               document.getElementById("myBtnBottom").style.display = "block";
+            } else {
+                document.getElementById("myBtnBottom").style.display = "none";
+            }
+
+        }
+
+    </script>
 {% endblock %}

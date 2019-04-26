@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -43,7 +44,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="4", minMessage="Votre mot de passe doit contenir au moins 4 caractères")
+     * @Assert\Length(min="6", minMessage="Votre mot de passe doit contenir au moins 6 caractères")
      */
     private $password;
 
@@ -53,19 +54,28 @@ class User implements UserInterface,\Serializable
     private $signup_date;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $last_login;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $picture_id;
+    private $picture;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Trick", mappedBy="author", cascade={"persist", "remove"})
+     * @var UploadedFile
+     * @Assert\File(
+     *     maxSize = "200k",
+     *     maxSizeMessage = "Le fichier est trop volumineux. Sa taille ne doit pas dépasser 200k."
+     * )
      */
-    private $trick;
+    private $uploadedPicture;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="author", cascade={"persist", "remove"})
+     */
+    private $tricks;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author")
@@ -79,12 +89,17 @@ class User implements UserInterface,\Serializable
     private $confirm_password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $roles;
+    private $role;
 
     /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
 
+    /**
      * User constructor.
      * @throws \Exception
      */
@@ -92,6 +107,7 @@ class User implements UserInterface,\Serializable
     {
         $this->signup_date = new \DateTime();
         $this->last_login = new \DateTime();
+        $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -148,7 +164,7 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
-    public function getSignupDate(): ?\DateTimeInterface
+    public function getSignupDate(): \DateTimeInterface
     {
         return $this->signup_date;
     }
@@ -165,22 +181,33 @@ class User implements UserInterface,\Serializable
         return $this->last_login;
     }
 
-    public function setLastLogin(\DateTimeInterface $last_login): self
+    public function setLastLogin(?\DateTimeInterface $last_login): self
     {
         $this->last_login = $last_login;
 
         return $this;
     }
 
-    public function getPictureId(): ?int
+    public function getPicture(): ?string
     {
-        return $this->picture_id;
+        return $this->picture;
     }
 
-    public function setPictureId(int $picture_id): self
+    public function setPicture(?string $picture): self
     {
-        $this->picture_id = $picture_id;
+        $this->picture = $picture;
 
+        return $this;
+    }
+
+    public function getPictureUpload(): ?UploadedFile
+    {
+        return $this->uploadedPicture;
+    }
+
+    public function setPictureUpload(?UploadedFile $uploadedPicture): self
+    {
+        $this->uploadedPicture = $uploadedPicture;
         return $this;
     }
 
@@ -212,7 +239,7 @@ class User implements UserInterface,\Serializable
      */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return array($this->role);
     }
 
     /**
@@ -271,18 +298,20 @@ class User implements UserInterface,\Serializable
         ) =  unserialize($serialized, ['allowed_classes' => false]);
     }
 
-    public function getTrick(): ?Trick
+    public function getTricks(): Collection
     {
-        return $this->trick;
+        return $this->tricks;
     }
 
-    public function setTrick(Trick $trick): self
+    public function setTricks(Collection $tricks): self
     {
-        $this->trick = $trick;
+        $this->tricks = $tricks;
 
         // set the owning side of the relation if necessary
-        if ($this !== $trick->getAuthor()) {
-            $trick->setAuthor($this);
+        foreach($tricks as $trick) {
+            if ($this !== $trick->getAuthor()) {
+                $trick->setAuthor($this);
+            }
         }
 
         return $this;
@@ -329,5 +358,21 @@ class User implements UserInterface,\Serializable
         $this->role = $role;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string|null $token
+     */
+    public function setResetToken(?string $token): void
+    {
+        $this->token = $token;
     }
 }

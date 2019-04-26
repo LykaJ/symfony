@@ -1,0 +1,19 @@
+<div class="mt-3">
+    {% for comment in comments %}
+        <div class="row">
+            <div class="col-md-2 col-sm-6">
+                {% if comment.author.picture != null %}
+                    <img src="{{ asset('uploads/images/' ~ comment.author.picture) }}" alt="user picture" class="rounded-circle" width="50">
+                {% else %}
+                    <img src="{{ asset('images/user.png') }}" alt="user picture" class="rounded-circle" width="50">
+                {% endif %}
+            </div>
+            <div class="col-md-10 col-sm-6" id="comment">
+                <p><strong>{{ comment.author.realName }} :</strong> {{ comment.content }}</p>
+            </div>
+            <div class="col-md-10 offset-md-2">
+                <p>(<small>{{ comment.creationDate|date('d/m/Y') }}</small>)</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>

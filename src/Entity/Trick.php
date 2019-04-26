@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -23,32 +23,26 @@ class Trick
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-
     /**
      * @ORM\Column(type="text")
      */
     private $content;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
     private $category;
-
     /**
      * @ORM\Column(type="datetime")
      */
     private $creation_date;
-
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $edition_date;
-
     /**
      * @ORM\Column(type="string", nullable=true)
      */
@@ -56,25 +50,30 @@ class Trick
 
     /**
      * @var UploadedFile
+     * @Assert\File(
+     *     maxSize = "300k",
+     *     maxSizeMessage = "Le fichier est trop volumineux (0.53 MB). Sa taille ne doit pas dépasser 0.3 MB."
+     * )
      */
     private $uploadedImage;
-
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="trick")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
      */
     private $comments;
-
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    private $media;
+    public $mediaImages;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\VideoMedia", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    public $mediaVideos;
+
 
     /**
      * Trick constructor.
@@ -86,14 +85,8 @@ class Trick
         $this->edition_date = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-       return $this->category;
+        $this->mediaImages = new ArrayCollection();
+        $this->mediaVideos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,7 +102,6 @@ class Trick
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -126,7 +118,6 @@ class Trick
     public function setContent(string $content): self
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -145,7 +136,6 @@ class Trick
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
         return $this;
     }
 
@@ -157,7 +147,6 @@ class Trick
     public function setCreationDate(DateTimeInterface $creation_date): self
     {
         $this->creation_date = $creation_date;
-
         return $this;
     }
 
@@ -174,7 +163,6 @@ class Trick
     public function setEditionDate(?DateTimeInterface $edition_date): self
     {
         $this->edition_date = $edition_date;
-
         return $this;
     }
 
@@ -190,10 +178,9 @@ class Trick
      * @param string $image
      * @return Trick
      */
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -210,11 +197,10 @@ class Trick
      * @return Trick
      * @throws \Exception
      */
-    public function setImageUpload(UploadedFile $uploadedImage): self
+    public function setImageUpload(?UploadedFile $uploadedImage): self
     {
         $this->uploadedImage = $uploadedImage;
         $this->edition_date = new \DateTime('now');
-
         return $this;
     }
 
@@ -226,7 +212,6 @@ class Trick
     public function setAuthor(User $author): self
     {
         $this->author = $author;
-
         return $this;
     }
 
@@ -244,7 +229,6 @@ class Trick
             $this->comments[] = $comment;
             $comment->setTrick($this);
         }
-
         return $this;
     }
 
@@ -257,44 +241,101 @@ class Trick
                 $comment->setTrick(null);
             }
         }
-
         return $this;
     }
 
     /**
-     * @return Collection|Media[]
+     * @return Collection|ImageMedia[]
      */
-    public function getMedia(): Collection
+    public function getMediaImages(): ?Collection
     {
-        return $this->media;
+        return $this->mediaImages;
     }
 
-    public function setMedia(array $medias) {
-        foreach($medias as $media) {
-         $this->addMedium($media);
-        }
-    }
-
-
-    public function addMedium(Media $medium): self
+    /**
+     * @param ImageMedia $imageMedium
+     * @return Trick
+     */
+    public function addImageMedium(ImageMedia $imageMedium): self
     {
-        if (!$this->media->contains($medium)) {
-            $this->media[] = $medium;
-            $medium->setPath($this);
+        if (!$this->mediaImages->contains($imageMedium)) {
+            $this->mediaImages[] = $imageMedium;
+            $imageMedium->setTrick($this);
         }
-
         return $this;
     }
 
-    public function removeMedium(Media $medium): self
+    /**
+     * @param ImageMedia $imageMedium
+     * @return Trick
+     */
+    public function removeImageMedium(ImageMedia $imageMedium): self
     {
-        if ($this->media->contains($medium)) {
-            $this->media->removeElement($medium);
+        if ($this->mediaImages->contains($imageMedium)) {
+            $this->mediaImages->removeElement($imageMedium);
             // set the owning side to null (unless already changed)
-            if ($medium->getPath() === $this) {
-                $medium->setPath(null);
+            if ($imageMedium->getTrick() === $this) {
+                $imageMedium->setTrick(null);
             }
         }
         return $this;
+    }
+
+    /**
+     * @return Collection|VideoMedia[]
+     */
+    public function getMediaVideos(): ?Collection
+    {
+        return $this->mediaVideos;
+    }
+
+
+    /**
+     * @param VideoMedia $videoMedium
+     * @return Trick
+     */
+    public function addVideoMedium(VideoMedia $videoMedium): self
+    {
+        if (!$this->mediaVideos->contains($videoMedium)) {
+            $this->mediaVideos[] = $videoMedium;
+            $videoMedium->setTrick($this);
+        }
+        return $this;
+    }
+
+
+    /**
+     * @param VideoMedia $videoMedium
+     * @return Trick
+     */
+    public function removeVideoMedium(VideoMedia $videoMedium): self
+    {
+        if ($this->mediaVideos->contains($videoMedium)) {
+            $this->mediaVideos->removeElement($videoMedium);
+            // set the owning side to null (unless already changed)
+            if ($videoMedium->getTrick() === $this) {
+                $videoMedium->setTrick(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Constructs the object
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->category,
+            $this->mediaImages,
+            $this->mediaVideos
+            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
