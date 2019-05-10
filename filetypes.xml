@@ -1,0 +1,11 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping pattern="Event" type="PHP" />
+      <mapping ext="template" type="PHP" />
+      <mapping pattern="EventSubscirber/UploadImageSubscriber.php" type="tsconfig" />
+      <removed_mapping pattern="FileUploader" approved="true" type="PLAIN_TEXT" />
+      <removed_mapping pattern="FileUploader.php" approved="true" type="PLAIN_TEXT" />
+    </extensionMap>
+  </component>
+</application>
