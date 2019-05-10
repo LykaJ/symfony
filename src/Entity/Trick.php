@@ -38,11 +38,11 @@ class Trick
     /**
      * @ORM\Column(type="datetime")
      */
-    private $creation_date;
+    private $creationDate;
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $edition_date;
+    private $editionDate;
     /**
      * @ORM\Column(type="string", nullable=true)
      */
@@ -81,8 +81,8 @@ class Trick
      */
     public function __construct()
     {
-        $this->creation_date = new \DateTime;
-        $this->edition_date = new \DateTime();
+        $this->creationDate = new \DateTime;
+        $this->editionDate = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
         $this->mediaImages = new ArrayCollection();
@@ -141,28 +141,28 @@ class Trick
 
     public function getCreationDate(): ?DateTimeInterface
     {
-        return $this->creation_date;
+        return $this->creationDate;
     }
 
-    public function setCreationDate(DateTimeInterface $creation_date): self
+    public function setCreationDate(DateTimeInterface $creationDate): self
     {
-        $this->creation_date = $creation_date;
+        $this->creationDate = $creationDate;
         return $this;
     }
 
     public function getEditionDate(): ?DateTimeInterface
     {
-        return $this->edition_date;
+        return $this->editionDate;
     }
 
     /**
-     * @param DateTimeInterface|null $edition_date
+     * @param DateTimeInterface|null $editionDate
      * @return Trick
      * @throws \Exception
      */
-    public function setEditionDate(?DateTimeInterface $edition_date): self
+    public function setEditionDate(?DateTimeInterface $editionDate): self
     {
-        $this->edition_date = $edition_date;
+        $this->editionDate = $editionDate;
         return $this;
     }
 
@@ -200,7 +200,7 @@ class Trick
     public function setImageUpload(?UploadedFile $uploadedImage): self
     {
         $this->uploadedImage = $uploadedImage;
-        $this->edition_date = new \DateTime('now');
+        $this->editionDate = new \DateTime('now');
         return $this;
     }
 

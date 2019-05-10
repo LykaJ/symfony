@@ -21,7 +21,7 @@ class RegistrationType extends AbstractType
             ->add('confirm_password', PasswordType::class)
             ->add('pictureUpload', FileType::class, [
                 'required' => false,
-                'label' => 'Téléchargez votre photo de profil (200k max).',
+                'label' => 'Téléchargez votre photo de profil (200k max)',
                 'data_class' => null
             ])
         ;
