@@ -18,3 +18,17 @@
 ###< symfony/web-server-bundle ###
 
 /.idea
+/_mac
+/codestyles
+
+baseRefactoring.xml
+colors.scheme.xml
+databaseDrivers.xml
+databaseSettings.xml
+debugger.xml
+diff.xml
+doctrine_migration_20190314124318.sql
+filetypes.xml
+find.xml
+ide.general.xml
+ui.lnf.xml
