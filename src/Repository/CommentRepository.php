@@ -24,7 +24,7 @@ class CommentRepository extends ServiceEntityRepository
     public function findByOrder(): array
     {
         return $this->createQueryBuilder('c')
-        ->orderBy('c.creation_date', 'DESC')
+        ->orderBy('c.creationDate', 'DESC')
         ->getQuery()
         ->getResult()
     ;
@@ -52,7 +52,7 @@ class CommentRepository extends ServiceEntityRepository
             ->setParameter('trick', $trick)
             ->setFirstResult($first_result)
             ->setMaxResults($max_results)
-            ->orderBy('c.creation_date', 'DESC')
+            ->orderBy('c.creationDate', 'DESC')
             ->getQuery()
             ->getResult();
 
