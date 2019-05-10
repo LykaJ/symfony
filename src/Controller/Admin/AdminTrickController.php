@@ -108,6 +108,7 @@ class AdminTrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             if ($trick->getImage() === null)
             {
                 $eventDispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
