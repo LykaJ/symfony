@@ -21,12 +21,12 @@ class AdminTrickController extends AbstractController
      * @var TrickRepository
      */
     private $repository;
-    private $em;
+    private $objectManager;
 
-    public function __construct(TrickRepository $repository, ObjectManager $em)
+    public function __construct(TrickRepository $repository, ObjectManager $objectManager)
     {
         $this->repository = $repository;
-        $this->em = $em;
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -42,11 +42,11 @@ class AdminTrickController extends AbstractController
     /**
      * @Route("/tricks/new", name="admin.tricks.new")
      * @param Request $request
-     * @param EventDispatcherInterface $event_dispatcher
+     * @param EventDispatcherInterface $eventDispatcher
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function create(Request $request, EventDispatcherInterface $event_dispatcher)
+    public function create(Request $request, EventDispatcherInterface $eventDispatcher)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
@@ -60,8 +60,8 @@ class AdminTrickController extends AbstractController
                 $this->addFlash('error', 'Tous les champs ne sont pas remplis');
             }
 
-            $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
-            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
+            $eventDispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+            $eventDispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
             $currentUser = $this->get('security.token_storage')->getToken()->getUser();
             if ($currentUser instanceof User) {
@@ -77,8 +77,8 @@ class AdminTrickController extends AbstractController
                 }
             }
 
-            $this->em->persist($trick);
-            $this->em->flush();
+            $this->objectManager->persist($trick);
+            $this->objectManager->flush();
             $this->addFlash('success', 'Le trick a bien été créé');
             if (!$form->isSubmitted() && !$form->isValid()) {
                 $this->addFlash('error', 'Le trick n\'a pas pu être créé');
@@ -98,7 +98,7 @@ class AdminTrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function edit(Trick $trick, Request $request, EventDispatcherInterface $event_dispatcher)
+    public function edit(Trick $trick, Request $request, EventDispatcherInterface $eventDispatcher)
     {
 
         $form = $this->createForm(TrickType::class, $trick);
@@ -110,12 +110,12 @@ class AdminTrickController extends AbstractController
 
             if ($trick->getImage() === null)
             {
-                $event_dispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
+                $eventDispatcher->dispatch(AdminUploadTrickImageEvent::NAME, new AdminUploadTrickImageEvent($trick));
             } else {
                 $trick->getImage();
             }
 
-            $event_dispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
+            $eventDispatcher->dispatch(MediaImagesUploadEvent::IMAGE_UPLOAD, new MediaImagesUploadEvent($trick));
 
             if ($form->get('mediaVideos') != null) {
                 foreach ($form->get('mediaVideos') as $k => $form_video) {
@@ -125,7 +125,7 @@ class AdminTrickController extends AbstractController
                     $mediaVideo->setTrick($trick);
                 }
             }
-            $this->em->flush();
+            $this->objectManager->flush();
             $this->addFlash('success', 'Le trick a bien été modifié');
             return $this->redirectToRoute('trick.index');
         }
@@ -146,9 +146,9 @@ class AdminTrickController extends AbstractController
         $form = $this->createDeleteForm($trick);
         $form->handleRequest($request);
         if ($trick) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($trick);
-            $em->flush();
+            $objectManager = $this->getDoctrine()->getManager();
+            $objectManager->remove($trick);
+            $objectManager->flush();
             $this->addFlash('success', 'Le trick a bien été supprimé');
         }
         return $this->redirectToRoute('trick.index');
