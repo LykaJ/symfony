@@ -34,6 +34,27 @@ $("#trick_mediaImages").children().each(function(index) {
     $that.append($btn);
 });
 
+var $videoContainer = $('#js-tricks-videos');
+var $videos = $videoContainer.children();
+
+$imagesContainer.remove();
+
+$("#trick_mediaVideos").children().each(function(index) {
+    var $that = $(this); // fieldset
+
+    $that.append($videos[index]);
+
+    $btn = $('<a href="#" class="btn btn-danger"><i class="fas fa-times"></i></a>');
+
+    $btn.click(function(e) {
+        e.preventDefault();
+
+        $that.remove();
+    });
+
+    $that.append($btn);
+});
+
 let ready = $(document).ready(function() {
 
     $collectionHolder = $('#trick_mediaImages');

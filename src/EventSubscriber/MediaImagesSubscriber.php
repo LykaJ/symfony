@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 use App\Event\MediaImagesUploadEvent;
 use App\Service\MediaImagesUploader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MediaImagesSubscriber implements EventSubscriberInterface
 {
@@ -29,10 +30,10 @@ class MediaImagesSubscriber implements EventSubscriberInterface
     {
         $trick = $event->getTrick();
 
-        foreach ($trick->getMediaImages() as $image_media) {
-            if (($image_media->getName() === null)) {
-                $image_media->setName($this->uploader->upload($image_media->getFile()));
-                $image_media->setTrick($trick);
+        foreach ($trick->getMediaImages() as $imageMedia) {
+            if (($imageMedia->getName() === null && $imageMedia->getFile() instanceof UploadedFile)) {
+                $imageMedia->setName($this->uploader->upload($imageMedia->getFile()));
+                $imageMedia->setTrick($trick);
             }
         }
     }
