@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
         $trick->setCategory($category);
         $trick->setCreationDate(new \DateTime('2019-03-11 17:14:36'));
         $trick->setAuthor($user);
-        $trick->setImage('ebe8fa27a57fdec6ee28af71006cc18c.jpeg');
+        $trick->setImage('public/images/trick_fixture.jpeg');
         $manager->persist($trick);
         $manager->flush();
 
