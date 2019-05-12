@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 24, 2019 at 12:20 PM
+-- Generation Time: May 12, 2019 at 08:49 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -19,11 +19,11 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `category`
 --
-/*
+
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;*/
+                          `id` int(11) NOT NULL,
+                          `name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `category`
@@ -36,21 +36,22 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (4, 'offset rotation'),
 (5, 'slide'),
 (6, 'one foot'),
-(7, 'old school');
+(7, 'old school'),
+(8, 'grab');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `comment`
 --
-/*
+
 CREATE TABLE `comment` (
-  `id` int(11) NOT NULL,
-  `trick_id` int(11) NOT NULL,
-  `author_id` int(11) NOT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `creation_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;*/
+                         `id` int(11) NOT NULL,
+                         `trick_id` int(11) NOT NULL,
+                         `author_id` int(11) NOT NULL,
+                         `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+                         `creation_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `comment`
@@ -74,7 +75,8 @@ INSERT INTO `comment` (`id`, `trick_id`, `author_id`, `content`, `creation_date`
 (17, 18, 9, 'Fake comment!', '2019-04-04 17:49:54'),
 (18, 18, 11, 'Comment !!!!', '2019-04-04 17:50:43'),
 (19, 27, 11, 'Love the image !', '2019-04-05 07:14:42'),
-(21, 67, 11, 'Blbla', '2019-04-18 13:46:21');
+(21, 67, 11, 'Blbla', '2019-04-18 13:46:21'),
+(23, 25, 11, 'Commentaire 1', '2019-04-26 13:54:11');
 
 -- --------------------------------------------------------
 
@@ -82,11 +84,11 @@ INSERT INTO `comment` (`id`, `trick_id`, `author_id`, `content`, `creation_date`
 -- Table structure for table `image_media`
 --
 
-/*CREATE TABLE `image_media` (
-  `id` int(11) NOT NULL,
-  `trick_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;*/
+CREATE TABLE `image_media` (
+                             `id` int(11) NOT NULL,
+                             `trick_id` int(11) DEFAULT NULL,
+                             `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `image_media`
@@ -94,7 +96,7 @@ INSERT INTO `comment` (`id`, `trick_id`, `author_id`, `content`, `creation_date`
 
 INSERT INTO `image_media` (`id`, `trick_id`, `name`) VALUES
 (130, 67, '89e2c035360bfff2ec28560288f02772.jpeg'),
-(136, 67, '19088f92d445d8836f25f87eb9d9ed84.jpeg');
+(143, 67, '194a6fbe606ee389d3312c57186317f1.jpeg');
 
 -- --------------------------------------------------------
 
@@ -102,23 +104,23 @@ INSERT INTO `image_media` (`id`, `trick_id`, `name`) VALUES
 -- Table structure for table `migration_versions`
 --
 
-/*CREATE TABLE `migration_versions` (
-  `version` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;*/
+CREATE TABLE `migration_versions` (
+                                    `version` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                    `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `password_reset`
 --
-/*
+
 CREATE TABLE `password_reset` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `expires_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;*/
+                                `id` int(11) NOT NULL,
+                                `user_id` int(11) DEFAULT NULL,
+                                `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                                `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -126,16 +128,16 @@ CREATE TABLE `password_reset` (
 -- Table structure for table `trick`
 --
 
-/*CREATE TABLE `trick` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `creation_date` datetime NOT NULL,
-  `edition_date` datetime DEFAULT NULL,
-  `category_id` int(11) DEFAULT NULL,
-  `author_id` int(11) NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;*/
+CREATE TABLE `trick` (
+                       `id` int(11) NOT NULL,
+                       `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                       `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+                       `creation_date` datetime NOT NULL,
+                       `edition_date` datetime DEFAULT NULL,
+                       `category_id` int(11) DEFAULT NULL,
+                       `author_id` int(11) NOT NULL,
+                       `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `trick`
@@ -151,26 +153,26 @@ INSERT INTO `trick` (`id`, `title`, `content`, `creation_date`, `edition_date`, 
 (26, '180', 'un demi-tour, soit 180 degrés d\'angle', '2019-03-11 17:21:51', '2019-03-20 15:27:57', 2, 4, '814272917c1df5c9f066fe0da5ff571d.jpg'),
 (27, '360', 'trois six pour un tour complet', '2019-03-12 08:13:48', '2019-03-19 14:59:40', 2, 5, 'f0cbfda6d74db6f981f0bc6bd278ce4a.jpg'),
 (50, 'Stalefish', 'Saisie de la carre backside de la planche entre les deux pieds avec la main arrière.', '2019-04-09 08:44:33', '2019-04-09 08:44:34', 1, 11, 'f6887cf5d6b7fa6eee7623d5116bf697.jpeg'),
-(67, 'Test new trick', 'blbla', '2019-04-18 13:45:36', '2019-04-22 14:01:57', 2, 11, '52a5cf47646124dcb302cfe931fb94e6.jpeg');
+(67, 'Test trick', 'Ce trick est un test', '2019-04-18 13:45:36', '2019-04-22 14:01:57', 2, 11, '52a5cf47646124dcb302cfe931fb94e6.jpeg');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
 --
-/*
+
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `real_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `signup_date` datetime NOT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;*/
+                      `id` int(11) NOT NULL,
+                      `username` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+                      `real_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                      `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                      `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                      `signup_date` datetime NOT NULL,
+                      `last_login` datetime DEFAULT NULL,
+                      `picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                      `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                      `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
@@ -181,9 +183,11 @@ INSERT INTO `user` (`id`, `username`, `real_name`, `email`, `password`, `signup_
 (5, 'admin', 'Admin', 'admin@email.com', '$2y$12$fX46bW013gQf/mvkgAXmju14FWQfdV5z3But4FnE4OI2JXp36B2ey', '2019-03-12 08:12:45', '2019-03-12 08:12:45', NULL, 'ROLE_ADMIN', NULL),
 (9, 'Ilian', 'Ilian Jake', 'test@test.com', '$2y$12$Sf18bGJ/IKTH57xGYqaTkOHi8VhQHsWJwEWvd9NZh2Py2dmzc/Edy', '2019-03-12 16:34:24', '2019-03-12 16:34:24', NULL, 'ROLE_ADMIN', NULL),
 (10, 'JaneDoe', 'Jane Doe', 'webdesigner.form@gmail.com', '$2y$12$OVzE7BsyfHhqO9UdmJHRFe5Qw2Yi8OjcybympU2fhw2Fm/AqCwSkS', '2019-03-21 14:47:37', '2019-03-21 14:47:37', NULL, 'ROLE_USER', NULL),
-(11, 'Lyka', 'Lyka Joane', 'raulet.alicia@gmail.com', '$2y$12$/uxmeUYilKVYXkYBOm6aXONUcosCDMrOgLHf6R4jLDDy6RUi9r3..', '2019-03-21 15:59:37', '2019-03-21 15:59:37', 'f733216e7254669dd2b09251498e3e25.png', 'ROLE_USER', NULL),
+(11, 'Lyka', 'Lyka Joane', 'raulet.alicia@gmail.com', '$2y$12$Js5ft.5Yvwt.wED60BbeCu6tzVRSOqbQ7sWeD7Eg0gqMzztQhAamC', '2019-03-21 15:59:37', '2019-03-21 15:59:37', 'f733216e7254669dd2b09251498e3e25.png', 'ROLE_USER', NULL),
 (12, 'Test', 'Test', 'test@email.com', '$2y$12$dEgQjw7vWt8x4QBvQhkF8.4GszI.y7tqjBvQ0b6.XLjWUbLvNpUf2', '2019-04-10 09:35:57', '2019-04-10 09:35:57', NULL, 'ROLE_USER', NULL),
-(13, 'Test2', 'Test', 'test2@email.com', '$2y$12$Ptx8B9HneBbrr4zweZkMv.uBNZq7xxI1RtmI15GlPFAtdwukPU1Ku', '2019-04-10 09:37:54', '2019-04-10 09:37:54', NULL, 'ROLE_USER', NULL);
+(13, 'Test2', 'Test', 'test2@email.com', '$2y$12$Ptx8B9HneBbrr4zweZkMv.uBNZq7xxI1RtmI15GlPFAtdwukPU1Ku', '2019-04-10 09:37:54', '2019-04-10 09:37:54', NULL, 'ROLE_USER', NULL),
+(14, 'admin', 'Admin', 'admin@email.com', '$2y$12$dOrmvolvM7r5lcRDK61pSekVVQd1O8oTDop6j4yBuXagcYgP.rZ2m', '2019-04-24 12:23:00', '2019-04-24 12:23:00', 'snowtricks/public/images/user.png', NULL, NULL),
+(15, 'Gérald', 'Gérald Jones', 'gerald@email.com', '$2y$12$BeKawPHvJkSa4q/S0wADdedcC8bQ1hadkoB8vIaeArEFRhEddNMjC', '2019-05-10 09:57:12', '2019-05-10 09:57:12', NULL, 'ROLE_USER', NULL);
 
 -- --------------------------------------------------------
 
@@ -191,12 +195,12 @@ INSERT INTO `user` (`id`, `username`, `real_name`, `email`, `password`, `signup_
 -- Table structure for table `video_media`
 --
 
-/*CREATE TABLE `video_media` (
-  `id` int(11) NOT NULL,
-  `trick_id` int(11) DEFAULT NULL,
-  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+CREATE TABLE `video_media` (
+                             `id` int(11) NOT NULL,
+                             `trick_id` int(11) DEFAULT NULL,
+                             `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-*/
+
 --
 -- Dumping data for table `video_media`
 --
@@ -274,19 +278,19 @@ ALTER TABLE `video_media`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `image_media`
 --
 ALTER TABLE `image_media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT for table `password_reset`
@@ -298,19 +302,19 @@ ALTER TABLE `password_reset`
 -- AUTO_INCREMENT for table `trick`
 --
 ALTER TABLE `trick`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `video_media`
 --
 ALTER TABLE `video_media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables

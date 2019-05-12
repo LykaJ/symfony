@@ -74,7 +74,7 @@ class UserTest extends TestCase
     public function testUploadedPicture()
     {
         $user = new User();
-        $path = 'public/uploads/media/3fca48f2b09cd4d8290d23842792d3aa.jpeg';
+        $path = 'public/uploads/media/89e2c035360bfff2ec28560288f02772.jpeg';
         $originalName = 'Toto.jpg';
         $file = new UploadedFile($path, $originalName);
         $user->setPictureUpload($file);
@@ -88,7 +88,7 @@ class UserTest extends TestCase
     public function testPicture()
     {
         $user = new User();
-        $file = 'public/uploads/media/3fca48f2b09cd4d8290d23842792d3aa.jpeg';
+        $file = 'public/uploads/media/89e2c035360bfff2ec28560288f02772.jpeg';
         $user->setPicture($file);
 
         $this->assertSame($file, $user->getPicture());
