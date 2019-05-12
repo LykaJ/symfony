@@ -27,7 +27,7 @@ class ImageMediaTest extends TestCase
     public function testFile()
     {
         $imageMedia = new ImageMedia();
-        $path = 'public/uploads/media/3fca48f2b09cd4d8290d23842792d3aa.jpeg';
+        $path = 'public/uploads/media/89e2c035360bfff2ec28560288f02772.jpeg';
         $originalName = 'Toto.jpg';
         $file = new UploadedFile($path, $originalName);
         $imageMedia->setFile($file);
