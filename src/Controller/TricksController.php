@@ -37,15 +37,10 @@ class TricksController extends AbstractController
      */
     public function index(): Response
     {
-
-        $trick = new Trick();
-
-        if (!$trick)
-        {
-            throw $this->createNotFoundException('The trick does not exist');
-        }
+        $tricks = $this->repository->findAll();
 
         return $this->render('tricks/trick.html.twig', [
+            'tricks' => $tricks,
             'current_menu' => 'tricks'
         ]);
 
@@ -81,9 +76,10 @@ class TricksController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function show(Trick $trick, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
-
+    public function show(Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
     {
+        $trick = $this->repository->find($request->attributes->get('id'));
+
         if (!$trick)
         {
             throw $this->createNotFoundException('The trick does not exist');
