@@ -18,6 +18,7 @@
 5. Create the database with the command `php bin/console doctrine:database:create`.
 5. Start the server by typing this line in your terminal `php bin/console server:start`.
 6. Run the following command to add the fixtures: `php bin/console doctrine:fixtures:load`.
+**Note: To test the application with more data, import the `db.sql` file to your database.**
 7. Navigate through the website.
 
  
