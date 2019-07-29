@@ -17,10 +17,31 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
+/public/.DS_Store
+/public/images/.DS_Store
+.DS_Store
 /.idea
 /_mac
 /codestyles
-/public/uploads
+/public/uploads/media
+
+/public/uploads/images/0c4f504a00970bb1a12728fd1df65973.jpeg
+/public/uploads/images/25b8c32e8d732deda7ea6ef705ee4127.png
+/public/uploads/images/52a5cf47646124dcb302cfe931fb94e6.jpeg
+/public/uploads/images/652f9a80eaabda1f6b191ccb3731a143.jpg
+/public/uploads/images/0893148b325d8a96191260038efba8c2.jpeg
+/public/uploads/images/814272917c1df5c9f066fe0da5ff571d.jpg
+/public/uploads/images/a52277e22885fed5d818d6b43c462868.jpg
+/public/uploads/images/b8f43612c3171db5a81e1b3985989fb1.jpg
+/public/uploads/images/b582c55d3d4df66c670521ba3646f8fa.jpg
+/public/uploads/images/d82996021ad75aeb54a92d3209f616e0.png
+/public/uploads/images/e8be236452f964e8e90ab6f971d89dce.jpeg
+/public/uploads/images/ebe8fa27a57fdec6ee28af71006cc18c.jpg
+/public/uploads/images/f0cbfda6d74db6f981f0bc6bd278ce4a.jpg
+/public/uploads/images/f6887cf5d6b7fa6eee7623d5116bf697.jpeg
+/public/uploads/images/f75537bf21f37518ce221e2b5bda01a8.png
+/public/uploads/images/f363387d4d3f42d463faefbda3e3ce1e.jpg
+/public/uploads/images/f733216e7254669dd2b09251498e3e25.png
 
 baseRefactoring.xml
 colors.scheme.xml

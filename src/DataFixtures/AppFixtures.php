@@ -8,6 +8,7 @@ use App\Entity\Trick;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -47,7 +48,7 @@ class AppFixtures extends Fixture
         $trick->setCategory($category);
         $trick->setCreationDate(new \DateTime('2019-03-11 17:14:36'));
         $trick->setAuthor($user);
-        $trick->setImage('public/images/trick_fixture.jpeg');
+        $trick->setImage('trick_fixture.jpeg');
         $manager->persist($trick);
         $manager->flush();
 
