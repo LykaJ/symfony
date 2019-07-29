@@ -73,28 +73,20 @@ class TricksController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}-{id}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST")
+     * @Route("/trick/{id}", name="trick.show", methods="GET|POST")
      * @param Trick $trick
-     * @param string $slug
      * @param Request $request
      * @param ObjectManager $em
      * @param CommentRepository $commentRepository
      * @return Response
      * @throws \Exception
      */
-    public function show(Trick $trick, string $slug, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
+    public function show(Trick $trick, Request $request, ObjectManager $em, CommentRepository $commentRepository): Response
 
     {
         if (!$trick)
         {
             throw $this->createNotFoundException('The trick does not exist');
-        }
-
-        if ($trick->getSlug() !== $slug) {
-            return $this->redirectToRoute('trick.show', [
-                'id' => $trick->getId(),
-                'slug' => $trick->getSlug()
-            ], 301);
         }
 
         $comment = new Comment();
@@ -111,7 +103,6 @@ class TricksController extends AbstractController
 
             return $this->redirectToRoute('trick.show', [
                 'id' => $trick->getId(),
-                'slug' => $trick->getSlug()
             ]);
         }
 
@@ -128,7 +119,7 @@ class TricksController extends AbstractController
 
 
     /**
-     * @Route("api/trick/{slug}-{id}/{page}", name="trick.paginate", requirements={"slug": "[a-z0-9\-]*", "page"="\d+"}, defaults={"page": 1}, methods="GET|POST")
+     * @Route("api/trick/{id}/{page}", name="trick.paginate", requirements={"page"="\d+"}, defaults={"page": 1}, methods="GET|POST")
      * @param Trick $trick
      * @param CommentRepository $commentRepository
      * @param int $page
