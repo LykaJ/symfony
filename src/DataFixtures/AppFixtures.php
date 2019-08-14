@@ -42,18 +42,123 @@ class AppFixtures extends Fixture
         $manager->persist($category);
         $manager->flush();
 
+        $rotateCategory = new Category();
+        $rotateCategory->setName('rotate');
+        $manager->persist($rotateCategory);
+        $manager->flush();
+
+        $commentedTrick = new Trick();
+        $commentedTrick->setTitle('Mute');
+        $commentedTrick->setContent('Saisie de la carre frontside de la planche entre les deux pieds avec la main avant');
+        $commentedTrick->setCategory($category);
+        $commentedTrick->setCreationDate(new \DateTime('2019-03-11 17:14:36'));
+        $commentedTrick->setAuthor($user);
+        $commentedTrick->setImage('trick_fixture.jpeg');
+        $manager->persist($commentedTrick);
+        $manager->flush();
+
         $trick = new Trick();
-        $trick->setTitle('Mute');
-        $trick->setContent('Saisie de la carre frontside de la planche entre les deux pieds avec la main avant');
+        $trick->setTitle('Sad');
+        $trick->setContent('Saisie de la carre backside de la planche, entre les deux pieds, avec la main avant');
         $trick->setCategory($category);
-        $trick->setCreationDate(new \DateTime('2019-03-11 17:14:36'));
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('Indy');
+        $trick->setContent('Saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière');
+        $trick->setCategory($category);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('Stalefish');
+        $trick->setContent('Saisie de la carre backside de la planche entre les deux pieds avec la main arrière');
+        $trick->setCategory($category);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('Tail grab');
+        $trick->setContent('Saisie de la partie arrière de la planche, avec la main arrière');
+        $trick->setCategory($category);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('360');
+        $trick->setContent('Trois six pour un tour complet ;');
+        $trick->setCategory($rotateCategory);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('Nose grab');
+        $trick->setContent('Saisie de la partie avant de la planche, avec la main avant');
+        $trick->setCategory($category);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('Japan');
+        $trick->setContent('Saisie de l\'avant de la planche, avec la main avant, du côté de la carre frontside.');
+        $trick->setCategory($category);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('Seat belt');
+        $trick->setContent('Saisie du carre frontside à l\'arrière avec la main avant ');
+        $trick->setCategory($category);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('Truck driver');
+        $trick->setContent('Saisie du carre avant et carre arrière avec chaque main (comme tenir un volant de voiture)');
+        $trick->setCategory($category);
+        $trick->setCreationDate(new \DateTime('now'));
+        $trick->setAuthor($user);
+        $trick->setImage('trick_fixture.jpeg');
+        $manager->persist($trick);
+        $manager->flush();
+
+        $trick = new Trick();
+        $trick->setTitle('180');
+        $trick->setContent('Désigne un demi-tour, soit 180 degrés d\'angle');
+        $trick->setCategory($rotateCategory);
+        $trick->setCreationDate(new \DateTime('now'));
         $trick->setAuthor($user);
         $trick->setImage('trick_fixture.jpeg');
         $manager->persist($trick);
         $manager->flush();
 
         $comment = new Comment();
-        $comment->setTrick($trick);
+        $comment->setTrick($commentedTrick);
         $comment->setAuthor($user);
         $comment->setContent('I love this website');
         $comment->setCreationDate(new \DateTime('now'));
